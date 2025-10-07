@@ -1,0 +1,18 @@
+import Image from "next/image";
+import HomePage from '@/components/homePage/heroSection';
+import FeaturedStories from "@/components/homePage/featuredStories";
+import FeaturedVieos from "@/components/homePage/featuredVideos";
+import WorkThusFor from "@/components/homePage/workThusFor";
+import TeamSection from "@/components/homePage/teamSection";
+
+export default function Home() {
+  return (
+    <>
+      <HomePage />
+      <FeaturedStories />
+      <FeaturedVieos />
+      <WorkThusFor />
+      <TeamSection />
+    </>
+  );
+}
