@@ -1,0 +1,19 @@
+{
+  "Header": {
+    "scholarships": "Scholarships",
+    "about": "About",
+    "contact": "Contact",
+    "programs": "Programs",
+    "videos": "Videos"
+  },
+  "Common": {
+    "welcome": "Welcome to our platform",
+    "search": "Search...",
+    "seeAll": "See All",
+    "learnMore": "Learn More"
+  },
+  "Home": {
+    "title": "Educational Platform",
+    "description": "Your gateway to knowledge and learning"
+  }
+}

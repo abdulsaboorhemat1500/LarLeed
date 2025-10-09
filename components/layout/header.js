@@ -24,7 +24,7 @@ export default function HeaderSection(){
 
     return (
         <header className="bg-white  dark:bg-gray-800 sticky top-0 z-50 shadow-sm border-b border-gray-200 dark:border-gray-900">
-            <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+            <nav aria-label="Global" className="mx-auto flex container items-center justify-between p-6 lg:px-8">
                 <div className="flex lg:flex-1">
                     <Link href="/" className="-m-1.5 p-1.5 flex lg:gap-x-1">
                         <p className="text-3xl font-bold">
@@ -47,39 +47,29 @@ export default function HeaderSection(){
                 
                 {/* Desktop Navigation */}
                 <div className="hidden lg:flex lg:gap-x-8">
-                    <Link href="/scholarships-programs" className="text-sm font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
-                        Scholarships
+                    <Link href="/scholarships-programs" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                       Scholarships
                     </Link>
-                    <Link href="/scholarships-programs" className="text-sm font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                    <Link href="/scholarships-programs" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
                         Programs
                     </Link>
-                    <Link href="/mentorships" className="text-sm font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                    <Link href="/mentorships" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
                         Mentorship
                     </Link>
-                    <Link href="/roshangari" className="text-sm font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                    <Link href="/roshangari" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
                         Roshangari
                     </Link>
-                    <Link href="/resources" className="text-sm font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
-                        Resources
-                    </Link>
-                    <Link href="/get-involved" className="text-sm font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
-                        Get Involved
-                    </Link>
-                    <Link href="/donate" className="text-sm font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                    <Link href="/donate" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
                         Donate
                     </Link>
+                    <Link href="/contact" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                        Contact Us
+                    </Link>
+                    <Link href="/about" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                        About Us
+                    </Link>
                 </div>
-                
-                {/* Desktop Auth Buttons
-                <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-4">
-                    <Button variant="outline" className="hover:bg-gray-50">
-                        Log in
-                    </Button>
-                    <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                        Sign Up
-                    </Button>
-                </div> */}
-                <div className=" lg:flex lg:flex-1 lg:justify-end lg:gap-4">
+                <div className=" lg:flex lg:flex-1 lg:justify-end lg:gap-4 md:gap-2 sm:gap-4">
                     <SimpleLanguageDropdown />
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
@@ -112,7 +102,7 @@ export default function HeaderSection(){
                     <div className="fixed inset-0 z-50 bg-black bg-opacity-25" />
                     <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
                         <div className="flex items-center justify-between">
-                            <Link href="/" className="-m-1.5 p-1.5">
+                            <Link href="/" onClick={() => setMobileMenuOpen(false)} className="-m-1.5 p-1.5">
                                 <p className="text-2xl font-bold">LarLeed</p>
                             </Link>
                             <button 
@@ -127,36 +117,29 @@ export default function HeaderSection(){
                         <div className="mt-6 flow-root">
                             <div className="-my-6 divide-y divide-gray-500/10">
                                 <div className="space-y-2 py-6">
-                                    <Link href="/scholarships" className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
+                                    <Link href="/scholarships-programs" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 ">
                                         Scholarships
                                     </Link>
-                                    <Link href="/programs" className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
+                                    <Link href="/scholarships-programs" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 ">
                                         Programs
                                     </Link>
-                                    <Link href="/mentorship" className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
+                                    <Link href="/mentorships" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 ">
                                         Mentorship
                                     </Link>
-                                    <Link href="/roshangari" className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
+                                    <Link href="/roshangari" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
                                         Roshangari
                                     </Link>
-                                    <Link href="/resources" className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
-                                        Resources
+                                    <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
+                                        Contact Us
                                     </Link>
-                                    <Link href="/get-involved" className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
-                                        Get Involved
+                                    <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
+                                        About Us
                                     </Link>
-                                    <Link href="/donate" className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
+                                    <Link href="/donate" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
                                         Donate
                                     </Link>
                                 </div>
-                                <div className="py-6">
-                                    <Button variant="outline" className="w-full justify-center mb-3">
-                                        Log in
-                                    </Button>
-                                    <Button className="w-full justify-center bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700">
-                                        Sign Up
-                                    </Button>
-                                </div>
+                               
                             </div>
                         </div>
                     </div>

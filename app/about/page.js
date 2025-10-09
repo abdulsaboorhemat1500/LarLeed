@@ -1,11 +1,14 @@
+import BackButton from "@/components/ui/back-button";
+
 // app/about/page.js
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white dark:bg-gray-700 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+      <div className="container mx-auto">
+      <BackButton />
         
         {/* Main Heading */}
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8">
+        <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-8 pt-10">
           About LarLeed
         </h1>
 

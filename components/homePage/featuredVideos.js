@@ -54,7 +54,7 @@ export default function FeaturedStories() {
 
   return (
     <section className="py-16 bg-gray-100 dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
        
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
           <div className="mb-4 sm:mb-0">
@@ -66,15 +66,15 @@ export default function FeaturedStories() {
             </p>
           </div>
           
-          <a 
-            href="#" 
+          <Link 
+            href="/featured-videos" 
             className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-lg transition-colors duration-200"
           >
             See all
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-          </a>
+          </Link>
         </div>
 
         {/* Video Cards Grid */}
@@ -86,7 +86,7 @@ export default function FeaturedStories() {
             >
               {/* Video Thumbnail */}
               <div className="relative overflow-hidden">
-                <div className="w-full h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
+                <div className="w-full h-60 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
                   <Image
                     src="/hero-section-image.jpg" // Replace with your image path
                     alt="Hero Image"
@@ -108,22 +108,14 @@ export default function FeaturedStories() {
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
                   {limitTitleToFiveWords(story.title)}
                 </h3>
-                
-                {/* Description - Limited to 3 lines */}
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1">
-                  {story.description}
+                <p className="text-blue-600 dark:text-gray-400 text-sm mb-4">
+                  Ed Donner, Ligency
                 </p>
                 
-                {/* Stats Row */}
-                <div className="flex items-center justify-between">
-                  
-                  <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
-                    <Clock className="w-3 h-3" />
-                    <span>{story.duration}</span>
-                  </div>
-                </div>
-                
-                
+                {/* Description - Limited to 3 lines */}
+                <p className="text-gray-600 dark:text-gray-300 text-sm  line-clamp-3 flex-1">
+                  {story.description}
+                </p>
               </div>
               {/* Watch Button - Full width at the bottom */}
                 <a href="https://youtu.be/k5Y1pN7TgZQ?si=sj7yJJJQc-O_OkO4" target='__blank' className="px-5 pb-2">
@@ -134,12 +126,11 @@ export default function FeaturedStories() {
                       Watch Video
                     </Button>
                   </a>
-                  <Link href="#" className="px-5 pb-3">
+                  <Link href={`/featured-videos/${story.id}`} className="px-5 pb-3">
                     <Button 
                       size="sm" 
                       className=" cursor-pointer bg-green-600 hover:bg-green-700 text-white flex items-center gap-2 w-full justify-center py-2.5"
-                    >
-                      
+                    >  
                       Video Details
                     </Button>
                   </Link>

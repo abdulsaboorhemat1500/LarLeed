@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import HeaderSection from "@/components/layout/header";
+import TopBanner from "@/components/layout/tip-banner";
 import FooterSection from "@/components/layout/footer";
 import { ThemeProvider } from "@/components/them-provider";
 
@@ -21,7 +22,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className="bg-gray-300">
         <ThemeProvider
             attribute="class"
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
             enableSystem
             disableTransitionOnChange
               >
+            <TopBanner />
             <HeaderSection />
             {children}
             <FooterSection />

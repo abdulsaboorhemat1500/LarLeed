@@ -1,7 +1,9 @@
+import Link from "next/link";
+
 // components/CourseCardWithImage.js
 export default function SchoolCard() {
   return (
-    <div className="max-w-sm bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl">
+    <div className="max-w-sm bg-white dark:bg-gray-800  shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl">
       {/* Course Image */}
       <div className="h-48 bg-gray-300 dark:bg-gray-600 relative">
         <img 
@@ -26,11 +28,11 @@ export default function SchoolCard() {
             djfadhfdjf dfj dhflsdfj dkjfklsajdf aldjfkdjs fdjf dfj sd
         </p>
         
-
-        <button className="w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200">
-          Watch Video
-        </button>
-
+        <a href="#" target="__blank">
+          <button className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200">
+            Watch Video
+          </button>
+        </a>
         
       </div>
     </div>
