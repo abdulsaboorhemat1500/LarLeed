@@ -47,16 +47,13 @@ export default function AllVideos() {
 
 
   return (
-    <section className="py-4 bg-gray-200 dark:bg-gray-800 transition-colors duration-300">
+    <section className="py-4 bg-gray-200 dark:bg-gray-700 transition-colors duration-300">
       <div className="container mx-auto px-9 py-6">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
           
-         
-          {/* Search Section */}
-          <div className="flex items-center">
             <div className="flex items-center">
               {/* Search Input - Larger Width */}
-              <div className="relative group flex-1 min-w-2xl justify-end">
+              <div className="relative group flex-1 max-w-2xl justify-end">
                 <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                   <svg 
                     className="h-5 w-5 text-gray-500 group-focus-within:text-blue-500 transition-colors" 
@@ -89,7 +86,6 @@ export default function AllVideos() {
                 )}
               </div>
             </div>
-          </div>
         </div>
       </div>
 
@@ -101,9 +97,8 @@ export default function AllVideos() {
               key={program.id} // ✅ Now using unique IDs
               className="bg-white dark:bg-gray-800 hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
             >
-               <div className="max-w-sm bg-white dark:bg-gray-800  shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl">
             {/* Course Image */}
-            <div className="h-60 bg-gray-300 dark:bg-gray-600 relative">
+            <div className="h-60 w-full bg-gray-300 dark:bg-gray-600 relative">
               <img 
                 src="/hero-section-image.jpg" 
                 alt="The Complete Agentic AI Engineering Course"
@@ -134,7 +129,6 @@ export default function AllVideos() {
                   
                 </div>
               </div>
-            </div>
           ))}
         </div>
         

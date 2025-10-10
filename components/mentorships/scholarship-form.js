@@ -7,7 +7,7 @@ export default function ScholarshipFormSection() {
         <h1 className="text-3xl text-center font-bold text-gray-900 dark:text-white mb-6 border-b border-b-gray-300 pb-4">
             Scholarship Submition Form
         </h1>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-20">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-20 p-4">
             <div className="lg:col-span-1">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                     Personal Details
@@ -182,7 +182,7 @@ export default function ScholarshipFormSection() {
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                     Scholarship Applying for
                 </h2>
-                <div>
+                <div className="">
                     <label htmlFor="scholarship" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                         scholarship Name
                     </label>
@@ -264,7 +264,10 @@ export default function ScholarshipFormSection() {
                 </div>
             </div>
         </div>
-        <Button className="mt-4 cursor-pointer px-7" >Submit Form</Button>
+        <div className="p-4">
+            <Button className=" cursor-pointer px-7" >Submit Form</Button>
+
+        </div>
       </div>
     </section>
   );

@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function HeroSection() {
   return (
-    <section className=" min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
+    <section className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center justify-between min-h-screen py-12 lg:py-0">
           
@@ -35,7 +35,7 @@ export default function HeroSection() {
             </div>
 
             
-            <div className="flex flex-wrap justify-between  lg:justify-between gap-6 mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex flex-wrap justify-between hidden  lg:justify-between gap-6 mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
               <div className="text-center lg:text-left">
                 <div className="text-2xl font-bold text-gray-900 dark:text-white text-center">5k+</div>
                 <div className="text-gray-500 dark:text-gray-400">Online Education Resrouces</div>
@@ -52,7 +52,7 @@ export default function HeroSection() {
           </div>
 
           {/* Image Section - Right Side */}
-          <div className="flex-1 flex justify-center lg:justify-end">
+          <div className="flex-1 flex justify-center lg:justify-end sm:mb-0">
             <div className="relative w-full  max-w-lg">
               {/* Main Image Container */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">

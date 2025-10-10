@@ -1,4 +1,3 @@
-import Image from "next/image";
 import HomePage from '@/components/homePage/heroSection';
 import FeaturedStories from "@/components/homePage/featuredStories";
 import FeaturedVieos from "@/components/homePage/featuredVideos";

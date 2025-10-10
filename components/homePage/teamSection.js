@@ -58,9 +58,9 @@ export default function TeamSection() {
         </div>
 
         {/* Team Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-8 ">
           {teamMembers.map((member, index) => (
-            <div key={index} className=" p-6 text-center justify-center-safe">
+            <div key={index} className=" text-center justify-center-safe">
               {/* Circular Image */}
               <div className="mb-5 mx-auto w-45 h-45">
                 <Link href={`/team-section/${index+1}`} className="cursor-pointer hover:shadow-xl w-full h-full rounded-full transform hover:scale-105 transition-transform duration-300  flex items-center justify-center overflow-hidden shadow-md">

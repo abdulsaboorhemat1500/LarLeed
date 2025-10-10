@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 
 const languages = [
   {
@@ -23,10 +24,15 @@ const languages = [
   }
 ];
 
-export default function SimpleLanguageDropdown() {
+export default function LanguageDropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState(languages[0]);
   const dropdownRef = useRef(null);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  // Extract current locale from pathname
+  const currentLocale = pathname.split('/')[1] || 'en';
+  const selectedLanguage = languages.find(lang => lang.code === currentLocale) || languages[0];
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -40,19 +46,22 @@ export default function SimpleLanguageDropdown() {
   }, []);
 
   const handleLanguageSelect = (language) => {
-    setSelectedLanguage(language);
     setIsOpen(false);
-    console.log('Language changed to:', language.name);
+    
+    // Replace the locale in the current pathname
+    const segments = pathname.split('/');
+    segments[1] = language.code; // Replace the locale segment
+    const newPathname = segments.join('/');
+    
+    router.push(newPathname);
   };
 
-  // Globe icon SVG
   const GlobeIcon = () => (
     <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
     </svg>
   );
 
-  // Check icon SVG
   const CheckIcon = () => (
     <svg className="w-4 h-4 text-blue-600 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
