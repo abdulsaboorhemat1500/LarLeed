@@ -44,7 +44,6 @@ export default function TeamSection() {
       position: "Developer",
       image: "/team-members/saboor.png" // Replace with actual image path
     },
-    
   ];
 
   return (
@@ -54,22 +53,24 @@ export default function TeamSection() {
           <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
             Meet Our Team
           </h2>
-          
         </div>
 
-        {/* Team Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-8 ">
+        {/* Team Grid - Centered with auto-fit and justify-items */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-8 justify-items-center">
           {teamMembers.map((member, index) => (
-            <div key={index} className=" text-center justify-center-safe">
+            <div key={index} className="text-center w-full max-w-[180px]">
               {/* Circular Image */}
-              <div className="mb-5 mx-auto w-45 h-45">
-                <Link href={`/team-section/${index+1}`} className="cursor-pointer hover:shadow-xl w-full h-full rounded-full transform hover:scale-105 transition-transform duration-300  flex items-center justify-center overflow-hidden shadow-md">
+              <div className="mb-5 mx-auto w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40">
+                <Link 
+                  href={`/team-section/${index+1}`} 
+                  className="cursor-pointer hover:shadow-xl w-full h-full rounded-full transform hover:scale-105 transition-transform duration-300 flex items-center justify-center overflow-hidden shadow-md"
+                >
                   <Image
                     src="/team-members/saboor.png"
                     alt="saboor hemat"
-                    width={180}
-                    height={180}
-                    className="object-cover rounded-full"
+                    width={160}
+                    height={160}
+                    className="object-cover rounded-full w-full h-full"
                   />
                 </Link>
               </div>

@@ -62,7 +62,7 @@ export default function HeaderSection(){
                     <Link href="/donate" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
                         Donate
                     </Link>
-                    <Link href="/contact" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                    <Link href="/#contact-section" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
                         Contact Us
                     </Link>
                     <Link href="/about" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">

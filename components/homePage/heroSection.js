@@ -35,7 +35,7 @@ export default function HeroSection() {
             </div>
 
             
-            <div className="flex flex-wrap justify-between hidden  lg:justify-between gap-6 mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex flex-wrap justify-between  lg:justify-between gap-6 mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
               <div className="text-center lg:text-left">
                 <div className="text-2xl font-bold text-gray-900 dark:text-white text-center">5k+</div>
                 <div className="text-gray-500 dark:text-gray-400">Online Education Resrouces</div>
