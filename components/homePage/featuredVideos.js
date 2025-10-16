@@ -15,7 +15,7 @@ export default function FeaturedVideos() {
     const fetchVideos = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/api/featured-videos');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/featured-videos`);
         const result = await response.json();
 
         if (result.success) {

@@ -1,4 +1,5 @@
 'use client';
+export const runtime = 'edge';
 import GetInTouchSection from '@/components/get-in-touch';
 import BackButton from '@/components/ui/back-button';
 import { Facebook, Twitter, Instagram, Youtube, Linkedin, Mail } from 'lucide-react';
@@ -20,7 +21,7 @@ export default function TeamMemberDetails({ params }) {
     const fetchMentor = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`/api/mentor-team/${id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/mentor-team/${id}`);
         const result = await response.json();
 
         if (result.success) {

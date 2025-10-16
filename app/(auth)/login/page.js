@@ -58,7 +58,7 @@ export default function LoginPage() {
     setErrors({}); // Clear all previous errors
 
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

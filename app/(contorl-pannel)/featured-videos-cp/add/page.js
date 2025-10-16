@@ -75,7 +75,7 @@ export default function AddFeaturedVideoPage() {
       }
 
       // Call the POST API
-      const response = await fetch('/api/featured-videos', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/featured-videos`, {
         method: 'POST',
         body: submitData,
       });

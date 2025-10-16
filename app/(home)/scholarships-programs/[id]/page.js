@@ -1,4 +1,5 @@
 'use client';
+export const runtime = 'edge';
 import { useState, useEffect } from 'react';
 import GetInTouchSection from "@/components/get-in-touch";
 import BackButton from "@/components/ui/back-button";
@@ -26,7 +27,7 @@ export default function ScholarshipDetailsPage({ params }) {
 
       try {
         setLoading(true);
-        const response = await fetch(`/api/scholarships/${resolvedParams.id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/scholarships/${resolvedParams.id}`);
         const result = await response.json();
 
         if (result.success) {

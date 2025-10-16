@@ -26,7 +26,7 @@ export default function UsersList() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/users');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/users`);
       
       if (!response.ok) {
         throw new Error('Failed to fetch users');
@@ -62,7 +62,7 @@ export default function UsersList() {
     }
 
     try {
-      const response = await fetch(`/api/users/${userId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/users/${userId}`, {
         method: 'DELETE',
       });
 

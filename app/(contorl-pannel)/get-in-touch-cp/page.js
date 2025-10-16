@@ -20,7 +20,7 @@ export default function GetInTouchPage() {
     try {
       setLoading(true);
       setError(null);
-      const resp = await fetch('/api/getInTouch');
+      const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/getInTouch`);
       if (!resp.ok) {
         throw new Error(`HTTP error! status: ${resp.status}`);
       }

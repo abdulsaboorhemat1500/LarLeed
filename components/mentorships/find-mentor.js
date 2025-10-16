@@ -13,7 +13,7 @@ export default function MentorSection() {
     const fetchMentors = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/api/mentor-team');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/mentor-team`);
         const result = await response.json();
 
         if (result.success) {

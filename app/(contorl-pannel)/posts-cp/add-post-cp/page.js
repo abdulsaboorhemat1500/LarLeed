@@ -74,7 +74,7 @@ export default function AddPostPage() {
       }
 
       // Call the POST API
-      const response = await fetch('/api/posts', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/posts`, {
         method: 'POST',
         body: submitData,
         // Don't set Content-Type header when using FormData - browser will set it automatically with boundary

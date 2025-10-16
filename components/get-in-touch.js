@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from './ui/button';
+export const runtime = 'edge';
 
 export default function GetInTouchSection() {
   const [email, setEmail] = useState('');
@@ -20,7 +21,7 @@ export default function GetInTouchSection() {
     setMessage({ type: '', text: '' });
 
     try {
-      const response = await fetch('/api/getInTouch', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/getInTouch`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

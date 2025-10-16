@@ -1,5 +1,6 @@
 // app/featured-stories/[id]/page.js
 'use client';
+export const runtime = 'edge';
 import { useState, useEffect , use } from 'react';
 import GetInTouchSection from '@/components/get-in-touch';
 import BackButton from '@/components/ui/back-button';
@@ -28,7 +29,7 @@ export default function StoryDetailsPage({ params }) {
         setLoading(true);
         setError(null);
         
-        const response = await fetch(`/api/posts/${id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/posts/${id}`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

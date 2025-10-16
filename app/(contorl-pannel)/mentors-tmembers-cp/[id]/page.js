@@ -1,4 +1,5 @@
 'use client';
+export const runtime = 'edge';
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 
@@ -38,7 +39,7 @@ export default function UpdateMentorPage() {
     const fetchMentor = async () => {
       try {
         setFetchLoading(true);
-        const response = await fetch(`/api/mentor-team/${mentorId}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/mentor-team/${mentorId}`);
         const result = await response.json();
 
         if (result.success) {
@@ -252,7 +253,7 @@ export default function UpdateMentorPage() {
     }
 
     // FIXED: Added method and body to the fetch call
-    const response = await fetch(`/api/mentor-team/${mentorId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/mentor-team/${mentorId}`, {
       method: 'PUT', // ← ADD THIS
       body: formDataToSend, // ← ADD THIS
     });

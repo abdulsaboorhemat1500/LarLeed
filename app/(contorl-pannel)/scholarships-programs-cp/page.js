@@ -18,7 +18,7 @@ export default function ScholarshipsPage() {
     try {
       setLoading(true);
       setError(null);
-      const resp = await fetch('/api/scholarships');
+      const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/scholarships`);
       if (!resp.ok) {
         throw new Error(`HTTP error! status: ${resp.status}`);
       }
@@ -46,7 +46,7 @@ export default function ScholarshipsPage() {
   }
 
   try {
-    const response = await fetch(`/api/scholarships?id=${scholarshipId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/scholarships?id=${scholarshipId}`, {
       method: 'DELETE',
     });
 

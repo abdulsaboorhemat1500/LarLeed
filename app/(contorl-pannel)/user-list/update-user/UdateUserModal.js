@@ -72,7 +72,7 @@ export default function UpdateUserModal({ isOpen, onClose, onUserUpdated, user }
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`/api/users/${user.id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/users/${user.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

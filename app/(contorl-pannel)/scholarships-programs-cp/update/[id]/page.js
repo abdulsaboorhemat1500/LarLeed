@@ -1,4 +1,5 @@
 'use client';
+export const runtime = 'edge';
 import { useRouter, useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
@@ -183,7 +184,7 @@ export default function UpdateScholarshipPage() {
         setFetchLoading(true);
         console.log(`🔄 Fetching all scholarships to find ID: ${scholarshipId}`);
         
-        const response = await fetch('/api/scholarships');
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/scholarships`);
         
         // Check if response is OK
         if (!response.ok) {
@@ -335,7 +336,7 @@ export default function UpdateScholarshipPage() {
       }
 
       console.log('🔄 Sending update request...');
-      const response = await fetch('/api/scholarships', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/scholarships`, {
         method: 'PUT',
         body: formDataToSend,
       });
