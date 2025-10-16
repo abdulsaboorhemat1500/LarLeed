@@ -1,37 +1,38 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/database';
+import { sql } from '@/lib/db';
 import path from 'path';
 import fs from 'fs/promises';
 
 // GET all featured videos
 export async function GET() {
-  let client;
   try {
-    client = await pool.connect();
-    
-    // Create table if it doesn't exist
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS featured_videos (
-        id SERIAL PRIMARY KEY,
-        v_title VARCHAR(500) NOT NULL,
-        v_image VARCHAR(500),
-        v_creature VARCHAR(255),
-        v_link VARCHAR(500),
-        v_description TEXT,
-        v_category VARCHAR(100),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
+    // Create table if it doesn't exist (Note: This might not be needed if tables are already created)
+    try {
+      await sql`
+        CREATE TABLE IF NOT EXISTS featured_videos (
+          id SERIAL PRIMARY KEY,
+          v_title VARCHAR(500) NOT NULL,
+          v_image VARCHAR(500),
+          v_creature VARCHAR(255),
+          v_link VARCHAR(500),
+          v_description TEXT,
+          v_category VARCHAR(100),
+          created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+          updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+      `;
+    } catch (createError) {
+      // Table might already exist, continue
+    }
 
-    const result = await client.query(`
+    const result = await sql`
       SELECT * FROM featured_videos 
       ORDER BY created_at DESC
-    `);
+    `;
     
     return NextResponse.json({
       success: true,
-      data: result.rows
+      data: result
     });
   } catch (error) {
     console.error('Error fetching featured videos:', error);
@@ -39,14 +40,11 @@ export async function GET() {
       { success: false, error: 'Failed to fetch featured videos' },
       { status: 500 }
     );
-  } finally {
-    if (client) client.release();
   }
 }
 
 // POST new featured video
 export async function POST(request) {
-  let client;
   try {
     const formData = await request.formData();
     
@@ -100,19 +98,17 @@ export async function POST(request) {
       }
     }
 
-    client = await pool.connect();
-    
     // Insert into database
-    const result = await client.query(
-      `INSERT INTO featured_videos 
-       (v_title, v_image, v_creature, v_link, v_description, v_category) 
-       VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [v_title, imagePath, v_creature, v_link, v_description, v_category]
-    );
+    const result = await sql`
+      INSERT INTO featured_videos 
+      (v_title, v_image, v_creature, v_link, v_description, v_category) 
+      VALUES (${v_title}, ${imagePath}, ${v_creature}, ${v_link}, ${v_description}, ${v_category})
+      RETURNING *
+    `;
 
     return NextResponse.json({
       success: true,
-      data: result.rows[0],
+      data: result[0],
       message: 'Featured video created successfully'
     });
 
@@ -122,7 +118,5 @@ export async function POST(request) {
       { success: false, error: 'Failed to create featured video' },
       { status: 500 }
     );
-  } finally {
-    if (client) client.release();
   }
 }

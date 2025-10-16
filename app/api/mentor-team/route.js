@@ -1,25 +1,27 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/database';
+import { sql } from '@/lib/db';
 import fs from 'fs';
 import path from 'path';
 
 export async function GET() {
   try {
-    const client = await pool.connect();
-    const result = await client.query(
-      "SELECT * FROM mentor_team_member ORDER BY id DESC"
-    );
-    const data = result.rows;
-    client.release();
+    const result = await sql`
+      SELECT * FROM mentor_team_member ORDER BY id DESC
+    `;
     
     return NextResponse.json({
       success: true,
-      data: data,
-      count: data.length
+      data: result,
+      count: result.length
     });
   } catch (error) {
+    console.error('GET Error:', error);
     return NextResponse.json(
-      { success: false, error: error.message },
+      { 
+        success: false, 
+        error: 'Failed to fetch team members',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      },
       { status: 500 }
     );
   }
@@ -102,16 +104,12 @@ export async function POST(request) {
       }
     }
 
-    const client = await pool.connect();
-    
     // Check if email already exists
-    const existingMember = await client.query(
-      "SELECT id FROM mentor_team_member WHERE email = $1",
-      [email]
-    );
+    const existingMember = await sql`
+      SELECT id FROM mentor_team_member WHERE email = ${email}
+    `;
 
-    if (existingMember.rows.length > 0) {
-      client.release();
+    if (existingMember.length > 0) {
       return NextResponse.json(
         { success: false, error: 'A team member with this email already exists' },
         { status: 400 }
@@ -119,35 +117,31 @@ export async function POST(request) {
     }
 
     // Insert into database
-    const result = await client.query(
-      `INSERT INTO mentor_team_member (
+    const result = await sql`
+      INSERT INTO mentor_team_member (
         full_name, email, phone, job_title, summary, 
         facebook_link, linkedin_link, youtube_link, 
         category, experience, profile_image
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) 
-      RETURNING *`,
-      [
-        full_name, 
-        email, 
-        phone || null, 
-        job_title, 
-        summary,
-        facebook_link || null, 
-        linkedin_link || null, 
-        youtube_link || null,
-        category || null,
-        experience || null,
-        imagePath
-      ]
-    );
-
-    client.release();
-    
+      ) VALUES (
+        ${full_name},
+        ${email},
+        ${phone || null},
+        ${job_title},
+        ${summary},
+        ${facebook_link || null},
+        ${linkedin_link || null},
+        ${youtube_link || null},
+        ${category || null},
+        ${experience || null},
+        ${imagePath}
+      )
+      RETURNING *
+    `;
     
     return NextResponse.json({
       success: true,
       message: 'Team member added successfully!',
-      data: result.rows[0]
+      data: result[0]
     });
 
   } catch (error) {

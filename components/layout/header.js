@@ -27,9 +27,11 @@ export default function HeaderSection(){
             <nav aria-label="Global" className="mx-auto flex container items-center justify-between p-6 lg:px-8">
                 <div className="flex lg:flex-1">
                     <Link href="/" className="-m-1.5 p-1.5 flex lg:gap-x-1">
-                        <p className="text-3xl font-bold">
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">LarLeed</span>
-                        </p>
+                        <img 
+                            src="/logo.png"
+                            alt="logo image"
+                            className="h-12"
+                        />
                     </Link>
                 </div>
                 

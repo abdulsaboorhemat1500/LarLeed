@@ -3,17 +3,19 @@ import { Facebook, Twitter, Instagram, Youtube, Linkedin, Mail } from 'lucide-re
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-gray-800 text-white">
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <div className="flex items-center mb-4">
-              <div className="text-2xl font-bold text-white">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600"> LarLeed</span>
-              </div>
+            <div className="flex items-center mb-8">
+              <img 
+                  src="/logo.png"
+                  alt="logo image"
+                  className="h-12"
+              />
             </div>
             <p className="text-gray-300 mb-6 max-w-md">
               Connecting Afghan Youth through Education, Dialogue, and Vision
@@ -22,35 +24,40 @@ export default function Footer() {
             {/* Social Media Links */}
             <div className="flex space-x-4">
               <a 
-                href="#" 
+                href="https://www.facebook.com/ahamid.hatsaandh" 
+                target="__blank"
                 className="p-2 bg-gray-800 hover:bg-blue-600 rounded-lg transition-colors duration-200"
                 aria-label="Facebook"
               >
                 <Facebook className="w-5 h-5" />
               </a>
               <a 
-                href="#" 
+                href="https://x.com/HamidHatsaandh" 
+                target="__blank"
                 className="p-2 bg-gray-800 hover:bg-blue-400 rounded-lg transition-colors duration-200"
                 aria-label="Twitter"
               >
                 <Twitter className="w-5 h-5" />
               </a>
               <a 
-                href="#" 
+                href="https://www.instagram.com/hatsaandh/" 
+                target="__blank"
                 className="p-2 bg-gray-800 hover:bg-pink-600 rounded-lg transition-colors duration-200"
                 aria-label="Instagram"
               >
                 <Instagram className="w-5 h-5" />
               </a>
               <a 
-                href="#" 
+                href="https://www.youtube.com/@lomritob" 
+                target="__blank"
                 className="p-2 bg-gray-800 hover:bg-red-600 rounded-lg transition-colors duration-200"
                 aria-label="YouTube"
               >
                 <Youtube className="w-5 h-5" />
               </a>
               <a 
-                href="#" 
+                href="https://www.linkedin.com/in/hamidhatsaandh" 
+                target="__blank"
                 className="p-2 bg-gray-800 hover:bg-blue-700 rounded-lg transition-colors duration-200"
                 aria-label="LinkedIn"
               >
@@ -64,35 +71,30 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4 text-white">Programs</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/#" className="text-gray-300 hover:text-white transition-colors duration-200">
-                  Program 1
+                <Link href="/scholarships-programs" className="text-gray-300 hover:text-white transition-colors duration-200">
+                  Scholarships
                 </Link>
               </li>
               <li>
-                <Link href="/#" className="text-gray-300 hover:text-white transition-colors duration-200">
-                  Program 1
+                <Link href="/mentorships" className="text-gray-300 hover:text-white transition-colors duration-200">
+                  Mentorship
                 </Link>
               </li>
               <li>
-                <Link href="/#" className="text-gray-300 hover:text-white transition-colors duration-200">
-                  Program 1
+                <Link href="/roshangari" className="text-gray-300 hover:text-white transition-colors duration-200">
+                  Roshangari
                 </Link>
               </li>
               <li>
-                <Link href="/#" className="text-gray-300 hover:text-white transition-colors duration-200">
-                  Program 1
-                </Link>
-              </li>
-              <li>
-                <Link href="/#" className="text-gray-300 hover:text-white transition-colors duration-200">
-                  Program 1
+                <Link href="/featured-videos" className="text-gray-300 hover:text-white transition-colors duration-200">
+                  Featured Videos
                 </Link>
               </li>
             </ul>
           </div>
 
           {/* Resources */}
-          <div>
+          {/* <div>
             <h3 className="text-lg font-semibold mb-4 text-white">Resources</h3>
             <ul className="space-y-3">
               <li>
@@ -121,7 +123,7 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
+          </div> */}
 
          
           {/* Contact */}
@@ -129,12 +131,12 @@ export default function Footer() {
             <h3 className="text-lg font-semibold mb-4 text-white">Contact</h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/#" className="text-gray-300 hover:text-white transition-colors duration-200">
+                <Link href="/about" className="text-gray-300 hover:text-white transition-colors duration-200">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="/#" className="text-gray-300 hover:text-white transition-colors duration-200">
+                <Link href="/#contact-section" className="text-gray-300 hover:text-white transition-colors duration-200">
                   Contact Form
                 </Link>
               </li>

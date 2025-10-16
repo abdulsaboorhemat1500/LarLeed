@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/database';
+import { sql } from '@/lib/db';
 
 export async function GET(request, { params }) {
   try {
@@ -15,13 +15,13 @@ export async function GET(request, { params }) {
       );
     }
 
-    const client = await pool.connect();
-    const result = await client.query(
-      "SELECT * FROM scholarship_submission_form WHERE id = $1",
-      [parseInt(id)]
-    );
-    const data = result.rows[0];
-    client.release();
+    // NEW SYNTAX: Using tagged template literal
+    const result = await sql`
+      SELECT * FROM scholarship_submission_form 
+      WHERE id = ${parseInt(id)}
+    `;
+    
+    const data = result[0]; // Neon returns array directly
 
     if (!data) {
       return NextResponse.json(

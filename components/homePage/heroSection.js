@@ -12,7 +12,7 @@ export default function HeroSection() {
           <div className="flex-1 max-w-2xl lg:pr-12 text-center lg:text-left ">
             {/* Main Heading */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold  mb-6 leading-tight">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600"> LarLeed</span>
+                <span className="text-black"> LarLeed</span>
             </h1>
 
             {/* Subtitle */}
@@ -35,7 +35,7 @@ export default function HeroSection() {
             </div>
 
             
-            <div className="flex flex-wrap justify-between  lg:justify-between gap-6 mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex flex-wrap justify-between lg:justify-between gap-6 mt-12 pt-8 border-t pb-3 border-gray-200 dark:border-gray-700">
               <div className="text-center lg:text-left">
                 <div className="text-2xl font-bold text-gray-900 dark:text-white text-center">5k+</div>
                 <div className="text-gray-500 dark:text-gray-400">Online Education Resrouces</div>

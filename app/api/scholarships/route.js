@@ -1,32 +1,33 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/database';
+import { sql } from '@/lib/db';
 import { writeFile } from 'fs/promises';
 import path from 'path';
+import fs from 'fs/promises';
 
 export async function GET() {
   try {
-    const client = await pool.connect();
-    const result = await client.query("SELECT * FROM scholarships ORDER BY created_at DESC");
-    const data = result.rows;
-    client.release();
+    const result = await sql`SELECT * FROM scholarships ORDER BY created_at DESC`;
     
     return NextResponse.json({
       success: true,
-      data: data,
-      count: data.length
+      data: result,
+      count: result.length
     });
   } catch (error) {
+    console.error('GET Error:', error);
     return NextResponse.json(
-      { success: false, error: error.message },
+      { 
+        success: false, 
+        error: 'Failed to fetch scholarships',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      },
       { status: 500 }
     );
   }
 }
 
-
 export async function POST(request) {
   try {
-    
     const formData = await request.formData();
     
     // Extract all form fields
@@ -59,7 +60,6 @@ export async function POST(request) {
 
     // Handle file upload if a file was provided
     if (file && file.size > 0) {
-      
       // Validate file type
       if (!file.type.startsWith('image/')) {
         console.log('❌ Invalid file type:', file.type);
@@ -94,9 +94,9 @@ export async function POST(request) {
         // Ensure uploads directory exists
         const uploadsDir = path.join(process.cwd(), 'public', 'scholarshipfile');
         try {
-          await require('fs').promises.access(uploadsDir);
+          await fs.access(uploadsDir);
         } catch {
-          await require('fs').promises.mkdir(uploadsDir, { recursive: true });
+          await fs.mkdir(uploadsDir, { recursive: true });
         }
 
         await writeFile(publicPath, buffer);
@@ -114,40 +114,40 @@ export async function POST(request) {
       console.log('📁 No file provided or empty file');
     }
 
-    
-    // Test database connection first
-    try {
-      await pool.query('SELECT 1');
-    } catch (dbError) {
-      return NextResponse.json(
-        { success: false, error: 'Database connection failed' },
-        { status: 500 }
-      );
-    }
-
     // Insert into database
-    const result = await pool.query(
-      `INSERT INTO scholarships (
+    const result = await sql`
+      INSERT INTO scholarships (
         s_name, s_image, s_country, s_university, s_language, s_gender, 
         s_study_level, s_app_deadline, s_duration, s_funding_type, 
         s_overview, s_detailed_info, s_eligibility, s_app_procces, s_benefits
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) 
-      RETURNING *`,
-      [
-        s_name, imageUrl, s_country, s_university, s_language, s_gender,
-        s_study_level, s_app_deadline, s_duration, s_funding_type,
-        s_overview, s_detailed_info, s_eligibility, s_app_procces, s_benefits
-      ]
-    );
+      ) VALUES (
+        ${s_name},
+        ${imageUrl},
+        ${s_country},
+        ${s_university},
+        ${s_language},
+        ${s_gender},
+        ${s_study_level},
+        ${s_app_deadline},
+        ${s_duration},
+        ${s_funding_type},
+        ${s_overview},
+        ${s_detailed_info},
+        ${s_eligibility},
+        ${s_app_procces},
+        ${s_benefits}
+      )
+      RETURNING *
+    `;
 
     return NextResponse.json({
       success: true,
       message: 'Scholarship created successfully',
-      data: result.rows[0]
+      data: result[0]
     });
 
   } catch (error) {
-    
+    console.error('POST Error:', error);
     return NextResponse.json(
       { 
         success: false, 
@@ -158,7 +158,6 @@ export async function POST(request) {
     );
   }
 }
-
 
 // DELETE scholarship by ID
 export async function DELETE(request) {
@@ -174,12 +173,11 @@ export async function DELETE(request) {
     }
 
     // First, get the scholarship to check if it has an image to delete
-    const scholarshipResult = await pool.query(
-      'SELECT s_image FROM scholarships WHERE id = $1',
-      [id]
-    );
+    const scholarshipResult = await sql`
+      SELECT s_image FROM scholarships WHERE id = ${parseInt(id)}
+    `;
 
-    if (scholarshipResult.rows.length === 0) {
+    if (scholarshipResult.length === 0) {
       return NextResponse.json(
         { success: false, error: 'Scholarship not found' },
         { status: 404 }
@@ -187,16 +185,15 @@ export async function DELETE(request) {
     }
 
     // Delete the scholarship
-    const result = await pool.query(
-      'DELETE FROM scholarships WHERE id = $1 RETURNING *',
-      [id]
-    );
+    const result = await sql`
+      DELETE FROM scholarships WHERE id = ${parseInt(id)}
+      RETURNING *
+    `;
 
     // Optional: Delete the associated image file
-    const scholarship = scholarshipResult.rows[0];
+    const scholarship = scholarshipResult[0];
     if (scholarship.s_image && scholarship.s_image.startsWith('/scholarshipfile/')) {
       try {
-        const fs = require('fs').promises;
         const imagePath = path.join(process.cwd(), 'public', scholarship.s_image);
         await fs.unlink(imagePath);
       } catch (fileError) {
@@ -207,7 +204,7 @@ export async function DELETE(request) {
     return NextResponse.json({
       success: true,
       message: 'Scholarship deleted successfully',
-      data: result.rows[0]
+      data: result[0]
     });
 
   } catch (error) {
@@ -259,26 +256,24 @@ export async function PUT(request) {
     }
 
     // First, get the current scholarship data
-    const currentScholarship = await pool.query(
-      'SELECT s_image FROM scholarships WHERE id = $1',
-      [id]
-    );
+    const currentScholarship = await sql`
+      SELECT s_image FROM scholarships WHERE id = ${parseInt(id)}
+    `;
 
-    if (currentScholarship.rows.length === 0) {
+    if (currentScholarship.length === 0) {
       return NextResponse.json(
         { success: false, error: 'Scholarship not found' },
         { status: 404 }
       );
     }
 
-    let imageUrl = currentScholarship.rows[0].s_image;
+    let imageUrl = currentScholarship[0].s_image;
 
     // Handle image removal
     if (remove_image === 'true') {
       // Delete the old image file
       if (imageUrl && imageUrl.startsWith('/scholarshipfile/')) {
         try {
-          const fs = require('fs').promises;
           const imagePath = path.join(process.cwd(), 'public', imageUrl);
           await fs.unlink(imagePath);
           console.log('🗑️ Deleted old image file:', imageUrl);
@@ -310,7 +305,6 @@ export async function PUT(request) {
       // Delete the old image file if it exists
       if (imageUrl && imageUrl.startsWith('/scholarshipfile/')) {
         try {
-          const fs = require('fs').promises;
           const oldImagePath = path.join(process.cwd(), 'public', imageUrl);
           await fs.unlink(oldImagePath);
           console.log('🗑️ Deleted old image file:', imageUrl);
@@ -334,9 +328,9 @@ export async function PUT(request) {
       // Ensure uploads directory exists
       const uploadsDir = path.join(process.cwd(), 'public', 'scholarshipfile');
       try {
-        await require('fs').promises.access(uploadsDir);
+        await fs.access(uploadsDir);
       } catch {
-        await require('fs').promises.mkdir(uploadsDir, { recursive: true });
+        await fs.mkdir(uploadsDir, { recursive: true });
       }
 
       // Write file to public/uploads directory
@@ -347,27 +341,32 @@ export async function PUT(request) {
     }
 
     // Update the scholarship
-    const result = await pool.query(
-      `UPDATE scholarships SET 
-        s_name = $1, s_image = $2, s_country = $3, s_university = $4, 
-        s_language = $5, s_gender = $6, s_study_level = $7, s_app_deadline = $8, 
-        s_duration = $9, s_funding_type = $10, s_overview = $11, s_detailed_info = $12, 
-        s_eligibility = $13, s_app_procces = $14, s_benefits = $15,
+    const result = await sql`
+      UPDATE scholarships SET 
+        s_name = ${s_name},
+        s_image = ${imageUrl},
+        s_country = ${s_country},
+        s_university = ${s_university},
+        s_language = ${s_language},
+        s_gender = ${s_gender},
+        s_study_level = ${s_study_level},
+        s_app_deadline = ${s_app_deadline},
+        s_duration = ${s_duration},
+        s_funding_type = ${s_funding_type},
+        s_overview = ${s_overview},
+        s_detailed_info = ${s_detailed_info},
+        s_eligibility = ${s_eligibility},
+        s_app_procces = ${s_app_procces},
+        s_benefits = ${s_benefits},
         updated_at = NOW()
-      WHERE id = $16 
-      RETURNING *`,
-      [
-        s_name, imageUrl, s_country, s_university, s_language, s_gender,
-        s_study_level, s_app_deadline, s_duration, s_funding_type,
-        s_overview, s_detailed_info, s_eligibility, s_app_procces, s_benefits,
-        id
-      ]
-    );
+      WHERE id = ${parseInt(id)}
+      RETURNING *
+    `;
 
     return NextResponse.json({
       success: true,
       message: 'Scholarship updated successfully',
-      data: result.rows[0]
+      data: result[0]
     });
 
   } catch (error) {

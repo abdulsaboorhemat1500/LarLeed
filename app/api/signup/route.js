@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import pool from '@/lib/database';
+import { sql } from '@/lib/db';
 
 export async function POST(request) {
-  let client;
   try {
     const { fullName, username, email, password } = await request.json();
 
@@ -15,16 +14,14 @@ export async function POST(request) {
       );
     }
 
-    client = await pool.connect();
     // Check if user already exists
-    const existingUser = await client.query(
-      'SELECT * FROM users WHERE email = $1 OR username = $2',
-      [email, username]
-    );
+    const existingUser = await sql`
+      SELECT * FROM users WHERE email = ${email} OR username = ${username}
+    `;
 
-    if (existingUser.rows.length > 0) {
-      const existingEmail = existingUser.rows.find(user => user.email === email);
-      const existingUsername = existingUser.rows.find(user => user.username === username);
+    if (existingUser.length > 0) {
+      const existingEmail = existingUser.find(user => user.email === email);
+      const existingUsername = existingUser.find(user => user.username === username);
       
       if (existingEmail) {
         return NextResponse.json(
@@ -45,13 +42,13 @@ export async function POST(request) {
     const passwordHash = await bcrypt.hash(password, saltRounds);
 
     // Insert new user
-    const result = await client.query(
-      `INSERT INTO users (full_name, username, email, password_hash) 
-       VALUES ($1, $2, $3, $4) RETURNING id, full_name, username, email, role, created_at`,
-      [fullName, username, email, passwordHash]
-    );
+    const result = await sql`
+      INSERT INTO users (full_name, username, email, password_hash) 
+      VALUES (${fullName}, ${username}, ${email}, ${passwordHash})
+      RETURNING id, full_name, username, email, role, created_at
+    `;
 
-    const user = result.rows[0];
+    const user = result[0];
 
     return NextResponse.json({
       success: true,
@@ -76,9 +73,5 @@ export async function POST(request) {
       },
       { status: 500 }
     );
-  } finally {
-    if (client) {
-      client.release();
-    }
   }
 }

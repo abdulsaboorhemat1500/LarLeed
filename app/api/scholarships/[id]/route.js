@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/database';
+import { sql } from '@/lib/db';
 
 export async function GET(request, { params }) {
   try {
@@ -15,9 +15,8 @@ export async function GET(request, { params }) {
       );
     }
 
-    const client = await pool.connect();
-    const result = await client.query(
-      `SELECT 
+    const result = await sql`
+      SELECT 
         id,
         s_name,
         s_image as imageUrl,
@@ -36,12 +35,10 @@ export async function GET(request, { params }) {
         s_benefits,
         created_at
        FROM scholarships 
-       WHERE id = $1`,
-      [parseInt(id)]
-    );
+       WHERE id = ${parseInt(id)}
+    `;
     
-    const data = result.rows[0];
-    client.release();
+    const data = result[0];
 
     if (!data) {
       return NextResponse.json(
@@ -68,4 +65,3 @@ export async function GET(request, { params }) {
     );
   }
 }
-

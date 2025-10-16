@@ -1,10 +1,8 @@
-// app/api/auth/login/route.js
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import pool from '@/lib/database';
+import { sql } from '@/lib/db';
 
 export async function POST(request) {
-  let client;
   try {
     const { email, password } = await request.json();
     console.log('Login attempt for:', email);
@@ -21,16 +19,16 @@ export async function POST(request) {
       );
     }
 
-    client = await pool.connect();
     console.log('Database connected');
 
     // Find user by email
-    const result = await client.query(
-      'SELECT * FROM users WHERE email = $1 AND is_active = true',
-      [email.toLowerCase().trim()]
-    );
+    const result = await sql`
+      SELECT * FROM users 
+      WHERE email = ${email.toLowerCase().trim()} 
+      AND is_active = true
+    `;
 
-    if (result.rows.length === 0) {
+    if (result.length === 0) {
       console.log('No user found with email:', email);
       return NextResponse.json(
         { 
@@ -42,7 +40,7 @@ export async function POST(request) {
       );
     }
 
-    const user = result.rows[0];
+    const user = result[0];
     console.log('User found:', user.email);
 
     // Verify password
@@ -79,14 +77,6 @@ export async function POST(request) {
     // Create response with session data
     const response = NextResponse.json(responseData);
 
-    // Optional: Set HTTP-only cookie for more secure session
-    // response.cookies.set('user_session', user.id.toString(), {
-    //   httpOnly: true,
-    //   secure: process.env.NODE_ENV === 'production',
-    //   sameSite: 'strict',
-    //   maxAge: 60 * 60 * 24 * 7 // 1 week
-    // });
-
     return response;
 
   } catch (error) {
@@ -99,10 +89,5 @@ export async function POST(request) {
       },
       { status: 500 }
     );
-  } finally {
-    if (client) {
-      console.log('Releasing database connection');
-      client.release();
-    }
   }
 }

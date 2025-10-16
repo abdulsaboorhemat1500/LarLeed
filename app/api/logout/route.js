@@ -8,14 +8,6 @@ export async function POST() {
       message: 'Logged out successfully'
     });
 
-    // Clear the session cookie if you're using HTTP-only cookies
-    // response.cookies.set('user_session', '', {
-    //   httpOnly: true,
-    //   secure: process.env.NODE_ENV === 'production',
-    //   sameSite: 'strict',
-    //   maxAge: 0
-    // });
-
     return response;
   } catch (error) {
     console.error('Logout error:', error);

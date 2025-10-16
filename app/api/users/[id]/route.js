@@ -1,19 +1,25 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/database';
+import { sql } from '@/lib/db';
 
 export async function GET(request, { params }) {
-  let client;
   try {
     const { id } = params;
-    client = await pool.connect();
 
-    const result = await client.query(
-      `SELECT id, full_name, username, email, role, is_active, created_at, updated_at 
-       FROM users WHERE id = $1`,
-      [id]
-    );
+    const result = await sql`
+      SELECT 
+        id, 
+        full_name, 
+        username, 
+        email, 
+        role, 
+        is_active, 
+        created_at, 
+        updated_at 
+      FROM users 
+      WHERE id = ${parseInt(id)}
+    `;
 
-    if (result.rows.length === 0) {
+    if (result.length === 0) {
       return NextResponse.json(
         { success: false, error: 'User not found' },
         { status: 404 }
@@ -22,31 +28,30 @@ export async function GET(request, { params }) {
 
     return NextResponse.json({
       success: true,
-      data: result.rows[0]
+      data: result[0]
     });
 
   } catch (error) {
     console.error('Get user error:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to fetch user' },
+      { 
+        success: false, 
+        error: 'Failed to fetch user',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      },
       { status: 500 }
     );
-  } finally {
-    if (client) client.release();
   }
 }
 
 export async function PUT(request, { params }) {
-  let client;
   try {
     const { id } = params;
     const { fullName, username, email, role, is_active } = await request.json();
 
-    client = await pool.connect();
-
     // Check if user exists
-    const userCheck = await client.query('SELECT * FROM users WHERE id = $1', [id]);
-    if (userCheck.rows.length === 0) {
+    const userCheck = await sql`SELECT * FROM users WHERE id = ${parseInt(id)}`;
+    if (userCheck.length === 0) {
       return NextResponse.json(
         { success: false, error: 'User not found' },
         { status: 404 }
@@ -54,14 +59,15 @@ export async function PUT(request, { params }) {
     }
 
     // Check for duplicate email or username
-    const duplicateCheck = await client.query(
-      'SELECT * FROM users WHERE (email = $1 OR username = $2) AND id != $3',
-      [email, username, id]
-    );
+    const duplicateCheck = await sql`
+      SELECT * FROM users 
+      WHERE (email = ${email} OR username = ${username}) 
+      AND id != ${parseInt(id)}
+    `;
 
-    if (duplicateCheck.rows.length > 0) {
-      const existingEmail = duplicateCheck.rows.find(user => user.email === email);
-      const existingUsername = duplicateCheck.rows.find(user => user.username === username);
+    if (duplicateCheck.length > 0) {
+      const existingEmail = duplicateCheck.find(user => user.email === email);
+      const existingUsername = duplicateCheck.find(user => user.username === username);
       
       if (existingEmail) {
         return NextResponse.json(
@@ -78,40 +84,45 @@ export async function PUT(request, { params }) {
     }
 
     // Update user
-    const result = await client.query(
-      `UPDATE users 
-       SET full_name = $1, username = $2, email = $3, role = $4, is_active = $5, updated_at = CURRENT_TIMESTAMP 
-       WHERE id = $6 
-       RETURNING id, full_name, username, email, role, is_active, created_at, updated_at`,
-      [fullName, username, email, role, is_active, id]
-    );
+    const result = await sql`
+      UPDATE users 
+      SET 
+        full_name = ${fullName},
+        username = ${username},
+        email = ${email},
+        role = ${role},
+        is_active = ${is_active},
+        updated_at = CURRENT_TIMESTAMP
+      WHERE id = ${parseInt(id)}
+      RETURNING id, full_name, username, email, role, is_active, created_at, updated_at
+    `;
 
     return NextResponse.json({
       success: true,
-      data: result.rows[0],
+      data: result[0],
       message: 'User updated successfully'
     });
 
   } catch (error) {
     console.error('Update user error:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to update user' },
+      { 
+        success: false, 
+        error: 'Failed to update user',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      },
       { status: 500 }
     );
-  } finally {
-    if (client) client.release();
   }
 }
 
 export async function DELETE(request, { params }) {
-  let client;
   try {
     const { id } = params;
-    client = await pool.connect();
 
     // Check if user exists
-    const userCheck = await client.query('SELECT * FROM users WHERE id = $1', [id]);
-    if (userCheck.rows.length === 0) {
+    const userCheck = await sql`SELECT * FROM users WHERE id = ${parseInt(id)}`;
+    if (userCheck.length === 0) {
       return NextResponse.json(
         { success: false, error: 'User not found' },
         { status: 404 }
@@ -119,7 +130,7 @@ export async function DELETE(request, { params }) {
     }
 
     // Delete user
-    await client.query('DELETE FROM users WHERE id = $1', [id]);
+    await sql`DELETE FROM users WHERE id = ${parseInt(id)}`;
 
     return NextResponse.json({
       success: true,
@@ -129,10 +140,12 @@ export async function DELETE(request, { params }) {
   } catch (error) {
     console.error('Delete user error:', error);
     return NextResponse.json(
-      { success: false, error: 'Failed to delete user' },
+      { 
+        success: false, 
+        error: 'Failed to delete user',
+        details: process.env.NODE_ENV === 'development' ? error.message : undefined
+      },
       { status: 500 }
     );
-  } finally {
-    if (client) client.release();
   }
 }

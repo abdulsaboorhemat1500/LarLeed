@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/database';
+import { sql } from '@/lib/db';
 import path from 'path';
 import fs from 'fs/promises';
 
 // GET single featured video
 export async function GET(request, { params }) {
-  let client;
   try {
     const { id } = params;
     
@@ -16,13 +15,11 @@ export async function GET(request, { params }) {
       );
     }
 
-    client = await pool.connect();
-    const result = await client.query(
-      'SELECT * FROM featured_videos WHERE id = $1',
-      [parseInt(id)]
-    );
+    const result = await sql`
+      SELECT * FROM featured_videos WHERE id = ${parseInt(id)}
+    `;
     
-    if (result.rows.length === 0) {
+    if (result.length === 0) {
       return NextResponse.json(
         { success: false, error: 'Video not found' },
         { status: 404 }
@@ -31,7 +28,7 @@ export async function GET(request, { params }) {
     
     return NextResponse.json({
       success: true,
-      data: result.rows[0]
+      data: result[0]
     });
   } catch (error) {
     console.error('Error fetching video:', error);
@@ -39,15 +36,11 @@ export async function GET(request, { params }) {
       { success: false, error: 'Failed to fetch video' },
       { status: 500 }
     );
-  } finally {
-    if (client) client.release();
   }
 }
 
 export async function PUT(request, { params }) {
-  let client;
   try {
-    
     const { id } = params;
     
     if (!id || isNaN(parseInt(id))) {
@@ -76,22 +69,18 @@ export async function PUT(request, { params }) {
     }
 
     // Get current video data
-    client = await pool.connect();
-    
-    const currentResult = await client.query(
-      'SELECT * FROM featured_videos WHERE id = $1',
-      [parseInt(id)]
-    );
+    const currentResult = await sql`
+      SELECT * FROM featured_videos WHERE id = ${parseInt(id)}
+    `;
 
-    if (currentResult.rows.length === 0) {
+    if (currentResult.length === 0) {
       return NextResponse.json(
         { success: false, error: 'Video not found' },
         { status: 404 }
       );
     }
 
-
-    let imagePath = currentResult.rows[0].v_image;
+    let imagePath = currentResult[0].v_image;
 
     // Handle image removal
     if (remove_image === 'true' && imagePath) {
@@ -146,26 +135,28 @@ export async function PUT(request, { params }) {
       }
     }
 
-
     // Update database
-    const updateResult = await client.query(
-      `UPDATE featured_videos 
-       SET v_title = $1, v_image = $2, v_creature = $3, v_link = $4, 
-           v_description = $5, v_category = $6, updated_at = CURRENT_TIMESTAMP
-       WHERE id = $7 RETURNING *`,
-      [v_title, imagePath, v_creature, v_link, v_description, v_category, parseInt(id)]
-    );
-
+    const updateResult = await sql`
+      UPDATE featured_videos 
+      SET 
+        v_title = ${v_title},
+        v_image = ${imagePath},
+        v_creature = ${v_creature},
+        v_link = ${v_link},
+        v_description = ${v_description},
+        v_category = ${v_category},
+        updated_at = CURRENT_TIMESTAMP
+      WHERE id = ${parseInt(id)}
+      RETURNING *
+    `;
 
     return NextResponse.json({
       success: true,
-      data: updateResult.rows[0],
+      data: updateResult[0],
       message: 'Video updated successfully'
     });
 
   } catch (error) {
-    
-    
     return NextResponse.json(
       { 
         success: false, 
@@ -174,16 +165,11 @@ export async function PUT(request, { params }) {
       },
       { status: 500 }
     );
-  } finally {
-    if (client) {
-      client.release();
-    }
   }
 }
 
 // DELETE featured video
 export async function DELETE(request, { params }) {
-  let client;
   try {
     const { id } = params;
 
@@ -195,13 +181,11 @@ export async function DELETE(request, { params }) {
     }
 
     // Get current video data to delete image
-    client = await pool.connect();
-    const currentResult = await client.query(
-      'SELECT * FROM featured_videos WHERE id = $1',
-      [parseInt(id)]
-    );
+    const currentResult = await sql`
+      SELECT * FROM featured_videos WHERE id = ${parseInt(id)}
+    `;
 
-    if (currentResult.rows.length === 0) {
+    if (currentResult.length === 0) {
       return NextResponse.json(
         { success: false, error: 'Video not found' },
         { status: 404 }
@@ -209,8 +193,8 @@ export async function DELETE(request, { params }) {
     }
 
     // Delete associated image file
-    if (currentResult.rows[0].v_image) {
-      const imagePath = path.join(process.cwd(), 'public', currentResult.rows[0].v_image);
+    if (currentResult[0].v_image) {
+      const imagePath = path.join(process.cwd(), 'public', currentResult[0].v_image);
       try {
         await fs.unlink(imagePath);
       } catch (error) {
@@ -219,7 +203,7 @@ export async function DELETE(request, { params }) {
     }
 
     // Delete from database
-    await client.query('DELETE FROM featured_videos WHERE id = $1', [parseInt(id)]);
+    await sql`DELETE FROM featured_videos WHERE id = ${parseInt(id)}`;
 
     return NextResponse.json({
       success: true,
@@ -231,7 +215,5 @@ export async function DELETE(request, { params }) {
       { success: false, error: 'Failed to delete video' },
       { status: 500 }
     );
-  } finally {
-    if (client) client.release();
   }
 }

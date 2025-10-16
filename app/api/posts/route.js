@@ -1,21 +1,18 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/database';
+import { sql } from '@/lib/db';
 import path from 'path';
 import fs from 'fs/promises';
-import { writeFile } from 'fs/promises';
 
 export async function GET() {
-  let client;
   try {
-    client = await pool.connect();
-    const result = await client.query(`
+    const result = await sql`
       SELECT * FROM post_roshangari 
       ORDER BY created_at DESC
-    `);
+    `;
     
     return NextResponse.json({
       success: true,
-      data: result.rows
+      data: result
     });
   } catch (error) {
     console.error('Error fetching posts:', error);
@@ -23,13 +20,10 @@ export async function GET() {
       { success: false, error: 'Failed to fetch posts' },
       { status: 500 }
     );
-  } finally {
-    if (client) client.release();
   }
 }
 
 export async function POST(request) {
-  let client;
   try {
     console.log("API Route called");
 
@@ -116,17 +110,14 @@ export async function POST(request) {
         // Continue without image if image processing fails
       }
     } else {
-      console.log("No image provided or image is empty");
     }
 
-    console.log("Attempting database insert...");
-    client = await pool.connect();
     
     // Test database connection first
     try {
       console.log("Testing database connection...");
-      const testResult = await client.query('SELECT 1 as test');
-      console.log("Database connection test passed:", testResult.rows);
+      const testResult = await sql`SELECT 1 as test`;
+      console.log("Database connection test passed:", testResult);
     } catch (dbError) {
       console.error("Database connection failed:", dbError);
       return NextResponse.json(
@@ -138,39 +129,27 @@ export async function POST(request) {
       );
     }
 
-    // First, ensure the table exists (PostgreSQL syntax)
-    console.log("Creating table if not exists...");
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS post_roshangari (
-        id SERIAL PRIMARY KEY,
-        post_title VARCHAR(255) NOT NULL,
-        author_name VARCHAR(100) NOT NULL,
-        author_email VARCHAR(100),
-        author_job_title VARCHAR(100),
-        category VARCHAR(50),
-        post_image VARCHAR(500),
-        post_description TEXT NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
-
     // Insert into database - FIXED: Use correct column names that match your table
-    console.log("Inserting into database...");
-    const result = await client.query(
-      `INSERT INTO post_roshangari 
-       (post_title, author_name, author_email, author_job_title, category, post_image, post_description) 
-       VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-      [post_title, auther_name, auther_email, auther_job_title, post_category, imagePath, post_description]
-    );
+    const result = await sql`
+      INSERT INTO post_roshangari 
+      (post_title, author_name, author_email, author_job_title, category, post_image, post_description) 
+      VALUES (
+        ${post_title},
+        ${auther_name},
+        ${auther_email},
+        ${auther_job_title},
+        ${post_category},
+        ${imagePath},
+        ${post_description}
+      )
+      RETURNING *
+    `;
 
-    if (!result.rows || result.rows.length === 0) {
+    if (!result || result.length === 0) {
       throw new Error('Database insert failed - no rows returned');
     }
 
-    // FIX: Return the actual result from the query, not a non-existent variable
-    const createdPost = result.rows[0];
-    console.log("Post created successfully:", createdPost);
+    const createdPost = result[0];
 
     return NextResponse.json({
       success: true,
@@ -190,8 +169,5 @@ export async function POST(request) {
       },
       { status: 500 }
     );
-  } finally {
-    // Always release the client back to the pool
-    if (client) client.release();
   }
 }

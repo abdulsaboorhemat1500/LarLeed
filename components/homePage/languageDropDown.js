@@ -88,7 +88,7 @@ export default function LanguageDropdown() {
                 className={`flex items-center w-full px-4 py-2 text-sm hover:bg-gray-100 transition-colors duration-150 ${
                   selectedLanguage.code === language.code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
                 }`}
-                onClick={() => handleLanguageSelect(language)}
+                // onClick={() => handleLanguageSelect(language)}
               >
                 <span className="text-lg mr-3">{language.flag}</span>
                 <div className="flex flex-col items-start flex-1">

@@ -1,8 +1,7 @@
 import { NextResponse } from 'next/server';
-import pool from '@/lib/database';
+import { sql } from '@/lib/db';
 import fs from 'fs';
 import path from 'path';
-
 
 export async function GET(request, { params }) {
   try {
@@ -15,13 +14,11 @@ export async function GET(request, { params }) {
       );
     }
 
-    const client = await pool.connect();
-    const result = await client.query(
-      "SELECT * FROM mentor_team_member WHERE id = $1",
-      [parseInt(id)]
-    );
-    const data = result.rows[0];
-    client.release();
+    const result = await sql`
+      SELECT * FROM mentor_team_member WHERE id = ${parseInt(id)}
+    `;
+    
+    const data = result[0];
 
     if (!data) {
       return NextResponse.json(
@@ -46,8 +43,6 @@ export async function GET(request, { params }) {
   }
 }
 
-
-
 export async function DELETE(request, { params }) {
   try {
     const { id } = params;
@@ -59,16 +54,12 @@ export async function DELETE(request, { params }) {
       );
     }
 
-    const client = await pool.connect();
-    
     // Check if team member exists
-    const checkResult = await client.query(
-      "SELECT * FROM mentor_team_member WHERE id = $1",
-      [parseInt(id)]
-    );
+    const checkResult = await sql`
+      SELECT * FROM mentor_team_member WHERE id = ${parseInt(id)}
+    `;
 
-    if (checkResult.rows.length === 0) {
-      client.release();
+    if (checkResult.length === 0) {
       return NextResponse.json(
         { success: false, error: 'Team member not found' },
         { status: 404 }
@@ -76,12 +67,7 @@ export async function DELETE(request, { params }) {
     }
 
     // Delete team member
-    await client.query(
-      "DELETE FROM mentor_team_member WHERE id = $1",
-      [parseInt(id)]
-    );
-
-    client.release();
+    await sql`DELETE FROM mentor_team_member WHERE id = ${parseInt(id)}`;
     
     return NextResponse.json({
       success: true,
@@ -136,23 +122,19 @@ export async function PUT(request, { params }) {
       );
     }
 
-    const client = await pool.connect();
-    
     // Check if team member exists
-    const checkResult = await client.query(
-      "SELECT * FROM mentor_team_member WHERE id = $1",
-      [parseInt(id)]
-    );
+    const checkResult = await sql`
+      SELECT * FROM mentor_team_member WHERE id = ${parseInt(id)}
+    `;
 
-    if (checkResult.rows.length === 0) {
-      client.release();
+    if (checkResult.length === 0) {
       return NextResponse.json(
         { success: false, error: 'Team member not found' },
         { status: 404 }
       );
     }
 
-    let imagePath = checkResult.rows[0].image; // Keep current image by default
+    let imagePath = checkResult[0].profile_image; // Keep current image by default
 
     // Handle image upload/removal
     if (remove_image === 'true') {
@@ -170,7 +152,6 @@ export async function PUT(request, { params }) {
       // Validate file type
       const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
       if (!allowedTypes.includes(imageFile.type)) {
-        client.release();
         return NextResponse.json(
           { success: false, error: 'Invalid image file type. Please upload JPEG, PNG, or GIF.' },
           { status: 400 }
@@ -179,7 +160,6 @@ export async function PUT(request, { params }) {
 
       // Validate file size (5MB max)
       if (imageFile.size > 5 * 1024 * 1024) {
-        client.release();
         return NextResponse.json(
           { success: false, error: 'Image size must be less than 5MB' },
           { status: 400 }
@@ -201,7 +181,6 @@ export async function PUT(request, { params }) {
         console.log('✅ New image saved to:', filePath);
       } catch (fileError) {
         console.error('❌ File save error:', fileError);
-        client.release();
         return NextResponse.json(
           { success: false, error: 'Failed to save image file' },
           { status: 500 }
@@ -210,37 +189,30 @@ export async function PUT(request, { params }) {
     }
 
     // Update team member
-    const result = await client.query(
-      `UPDATE mentor_team_member 
-       SET full_name = $1, email = $2, phone = $3, job_title = $4, summary = $5,
-           facebook_link = $6, linkedin_link = $7, youtube_link = $8,
-           category = $9, experience = $10, profile_image = $11
-       WHERE id = $12 
-       RETURNING *`,
-      [
-        full_name, 
-        email, 
-        phone || null, 
-        job_title, 
-        summary,
-        facebook_link || null, 
-        linkedin_link || null, 
-        youtube_link || null,
-        category || null,
-        experience || null,
-        imagePath,
-        parseInt(id)
-      ]
-    );
+    const result = await sql`
+      UPDATE mentor_team_member 
+      SET 
+        full_name = ${full_name},
+        email = ${email},
+        phone = ${phone || null},
+        job_title = ${job_title},
+        summary = ${summary},
+        facebook_link = ${facebook_link || null},
+        linkedin_link = ${linkedin_link || null},
+        youtube_link = ${youtube_link || null},
+        category = ${category || null},
+        experience = ${experience || null},
+        profile_image = ${imagePath}
+      WHERE id = ${parseInt(id)}
+      RETURNING *
+    `;
 
-    client.release();
-    
-    console.log('✅ Team member updated successfully:', result.rows[0].id);
+    console.log('✅ Team member updated successfully:', result[0].id);
     
     return NextResponse.json({
       success: true,
       message: 'Team member updated successfully!',
-      data: result.rows[0]
+      data: result[0]
     });
 
   } catch (error) {
