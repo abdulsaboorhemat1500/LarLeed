@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Empty config for now
-};
+  // Remove output: 'export' since we're using Cloudflare Functions
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

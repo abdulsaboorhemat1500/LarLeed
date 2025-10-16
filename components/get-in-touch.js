@@ -20,7 +20,7 @@ export default function GetInTouchSection() {
     setMessage({ type: '', text: '' });
 
     try {
-      const response = await fetch('/api/getInTouch/add', {
+      const response = await fetch('/api/getInTouch', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
