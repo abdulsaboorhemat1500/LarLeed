@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function ContactMessagesPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -7,56 +7,35 @@ export default function ContactMessagesPage() {
   const [selectedMessage, setSelectedMessage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(2); // Show 2 items per page for demonstration
+  const [itemsPerPage] = useState(20);
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const messages = [
-    {
-      id: 1,
-      name: "John Smith",
-      email: "john.smith@example.com",
-      phone: "+1 (555) 123-4567",
-      subject: "Scholarship Application Inquiry",
-      message: "I would like to know more about the application process for the Fulbright Scholarship. Could you please provide detailed information about the required documents, eligibility criteria, and application deadlines? I'm particularly interested in the engineering programs.",
-      status: "new",
-      date: "2024-01-15",
-      time: "14:30"
-    },
-    {
-      id: 2,
-      name: "Sarah Johnson",
-      email: "sarah.j@example.com",
-      phone: "+1 (555) 987-6543",
-      subject: "Technical Support",
-      message: "I'm having trouble uploading my documents to the application portal. Every time I try to upload my transcript PDF (size: 2.5MB), I get an error message saying 'File upload failed'. I've tried different browsers and file formats but the issue persists.",
-      status: "old",
-      date: "2024-01-14",
-      time: "10:15"
-    },
-    {
-      id: 3,
-      name: "Michael Brown",
-      email: "m.brown@example.com",
-      phone: "+1 (555) 456-7890",
-      subject: "Partnership Opportunity",
-      message: "Our university would like to explore partnership opportunities for student exchanges. We have a strong computer science department and are interested in collaborating on research projects and student mobility programs. Please let me know who I should contact to discuss this further.",
-      status: "old",
-      date: "2024-01-13",
-      time: "16:45"
-    },
-    {
-      id: 4,
-      name: "Emily Davis",
-      email: "emily.davis@example.com",
-      phone: "+1 (555) 234-5678",
-      subject: "Document Verification",
-      message: "Could you please verify if you received my academic transcripts? I submitted them through the portal last week but haven't received any confirmation. My application ID is APP-2024-789. I want to ensure everything is in order before the deadline.",
-      status: "new",
-      date: "2024-01-12",
-      time: "09:20"
-    }
-  ];
 
-  const statuses = ["all", "new", "old"];
+  // Fetch messages from API
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/contact');
+        const result = await response.json();
+
+        if (result.success) {
+          setMessages(result.data);
+        } else {
+          setError(result.error || 'Failed to fetch messages');
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+        setError('Network error. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMessages();
+  }, []);
 
   // Filter messages based on search and status
   const filteredMessages = messages.filter(message => {
@@ -80,13 +59,6 @@ export default function ContactMessagesPage() {
     setCurrentPage(1);
   };
 
-  const getStatusBadge = (status) => {
-    const statusConfig = {
-      'new': { color: 'bg-blue-100 text-blue-800', label: 'New' },
-      'old': { color: 'bg-red-100 text-red-800', label: 'Old' },
-    };
-    return statusConfig[status] || { color: 'bg-gray-100 text-gray-800', label: status };
-  };
 
   const handleViewDetails = (message) => {
     setSelectedMessage(message);
@@ -120,6 +92,56 @@ export default function ContactMessagesPage() {
     pageNumbers.push(i);
   }
 
+  // Format date for display
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  };
+
+  const formatTime = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-8">
+            <h1 className="text-2xl font-bold text-gray-900">Contact Messages</h1>
+          </div>
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">Loading messages...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-8">
+            <h1 className="text-2xl font-bold text-gray-900">Contact Messages</h1>
+          </div>
+          <div className="text-center py-12">
+            <p className="text-red-500 text-lg">Error: {error}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
@@ -130,27 +152,8 @@ export default function ContactMessagesPage() {
 
         {/* Filters Section */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
-            {/* Status Filter */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Status
-              </label>
-              <select
-                value={selectedStatus}
-                onChange={(e) => {
-                  setSelectedStatus(e.target.value);
-                  setCurrentPage(1); // Reset to first page when filtering
-                }}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              >
-                {statuses.map(status => (
-                  <option key={status} value={status}>
-                    {status === 'all' ? 'All Status' : status.charAt(0).toUpperCase() + status.slice(1)}
-                  </option>
-                ))}
-              </select>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+            
 
             {/* Search */}
             <div>
@@ -164,7 +167,7 @@ export default function ContactMessagesPage() {
                   value={searchTerm}
                   onChange={(e) => {
                     setSearchTerm(e.target.value);
-                    setCurrentPage(1); // Reset to first page when searching
+                    setCurrentPage(1);
                   }}
                   className="w-full pl-3 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -205,9 +208,6 @@ export default function ContactMessagesPage() {
                     Message
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Date
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -217,7 +217,6 @@ export default function ContactMessagesPage() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {currentMessages.map((message) => {
-                  const statusBadge = getStatusBadge(message.status);
                   return (
                     <tr key={message.id} className="hover:bg-gray-50 transition-colors duration-150">
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -231,7 +230,7 @@ export default function ContactMessagesPage() {
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        {message.phone}
+                        {message.phone || 'N/A'}
                       </td>
                       <td className="px-6 py-4">
                         <div className="text-sm font-medium text-gray-900 max-w-xs">
@@ -243,14 +242,9 @@ export default function ContactMessagesPage() {
                           {message.message}
                         </div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusBadge.color}`}>
-                          {statusBadge.label}
-                        </span>
-                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                        <div>{new Date(message.date).toLocaleDateString()}</div>
-                        <div className="text-gray-400 text-xs">{message.time}</div>
+                        <div>{formatDate(message.created_at)}</div>
+                        <div className="text-gray-400 text-xs">{formatTime(message.created_at)}</div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <button
@@ -376,7 +370,7 @@ export default function ContactMessagesPage() {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
-                    {selectedMessage.phone}
+                    {selectedMessage.phone || 'N/A'}
                   </div>
                 </div>
 
@@ -401,30 +395,17 @@ export default function ContactMessagesPage() {
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
                     <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
-                      {new Date(selectedMessage.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
+                      {formatDate(selectedMessage.created_at)}
                     </div>
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">Time</label>
                     <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
-                      {selectedMessage.time}
+                      {formatTime(selectedMessage.created_at)}
                     </div>
                   </div>
                 </div>
 
-                {/* Status */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                  <div className="text-sm">
-                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getStatusBadge(selectedMessage.status).color}`}>
-                      {getStatusBadge(selectedMessage.status).label}
-                    </span>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

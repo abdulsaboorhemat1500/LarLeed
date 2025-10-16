@@ -1,75 +1,106 @@
+'use client';
+import { useState, useEffect } from 'react';
 import GetInTouchSection from "@/components/get-in-touch";
 import BackButton from "@/components/ui/back-button";
 
-// app/scholarships/[id]/page.js
 export default function ScholarshipDetailsPage({ params }) {
-  const { id } = params;
-  
-  // Sample scholarship data
-  const scholarship = {
-    id: id,
-    title: "International Undergraduate Scholarship 26",
-    university: "University of Oxford",
-    country: "United Kingdom",
-    level: "Undergraduate",
-    language: "English",
-    gender: "Both Male & Female",
-    deadline: "March 31, 2026",
-    duration: "4 years",
-    funding: "Full tuition + living expenses",
-    eligibleCountries: ["All Countries"],
-    startDate: "September 2024",
-    website: "https://www.ox.ac.uk/scholarships",
-    
-    description: `The International Undergraduate Scholarship at the University of Oxford is a prestigious award designed to support outstanding international students who demonstrate exceptional academic achievement and leadership potential. This scholarship aims to foster global understanding and cultural exchange while providing access to world-class education.`,
-    
-    fullDescription: `
-The International Undergraduate Scholarship represents a commitment to educational excellence and global diversity. This comprehensive scholarship package covers full tuition fees, accommodation, and provides a generous living stipend to ensure students can focus entirely on their academic pursuits without financial constraints.
+  const [scholarship, setScholarship] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-Key features of this scholarship include:
-• Full tuition coverage for the entire duration of the undergraduate program
-• Accommodation in university residences
-• Monthly living allowance for personal expenses
-• Health insurance coverage
-• Travel grants for international students
-• Research and academic development funds
+  // Unwrap the params promise
+  const [resolvedParams, setResolvedParams] = useState(null);
 
-Eligible programs span across all undergraduate disciplines offered by the university, including but not limited to Sciences, Humanities, Engineering, Social Sciences, and Business Studies. The selection process is highly competitive, focusing on academic excellence, leadership qualities, extracurricular achievements, and the potential to contribute to the university community.
+  useEffect(() => {
+    const resolveParams = async () => {
+      const resolved = await params;
+      setResolvedParams(resolved);
+    };
+    resolveParams();
+  }, [params]);
 
-Applicants are expected to demonstrate not only outstanding academic records but also a commitment to community service, leadership experience, and clear career goals. The scholarship committee particularly values candidates who show potential to become future leaders in their respective fields.
-    `,
-    
-    eligibility: `
-• Minimum high school GPA of 3.5/4.0 or equivalent
-• Proof of English language proficiency (IELTS 7.0 or TOEFL 100)
-• Demonstrated leadership experience and community involvement
-• Strong academic references
-• Personal statement outlining career goals and motivations
-• No previous undergraduate degree
-• Age between 17-25 years at time of application
-    `,
-    
-    applicationProcess: `
-1. Complete online application form
-2. Submit academic transcripts and certificates
-3. Provide two academic references
-4. Write a personal statement (500-800 words)
-5. Submit proof of English language proficiency
-6. Complete scholarship-specific essay (if required)
-7. Interview for shortlisted candidates
-    `,
-    
-    benefits: `
-• Full tuition fee coverage
-• Accommodation allowance
-• Living stipend (£12,000 per year)
-• Health insurance
-• Travel allowance
-• Research grant
-• Mentorship program
-• Career development opportunities
-    `
+  // Fetch scholarship data from API
+  useEffect(() => {
+    const fetchScholarship = async () => {
+      if (!resolvedParams?.id) return;
+
+      try {
+        setLoading(true);
+        const response = await fetch(`/api/scholarships/${resolvedParams.id}`);
+        const result = await response.json();
+
+        if (result.success) {
+          setScholarship(result.data);
+        } else {
+          setError(result.error || 'Failed to fetch scholarship data');
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+        setError('Network error. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchScholarship();
+  }, [resolvedParams]);
+
+  // Format date for display
+  const formatDate = (dateString) => {
+    if (!dateString) return 'Not specified';
+    try {
+      return new Date(dateString).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    } catch {
+      return dateString;
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+        <div className="container mx-auto px-4">
+          <BackButton />
+          <div className="flex items-center justify-center py-20">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+              <p className="mt-4 text-gray-600 dark:text-gray-400">Loading scholarship details...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !scholarship) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+        <div className="container mx-auto px-4">
+          <BackButton />
+          <div className="flex items-center justify-center py-20">
+            <div className="text-center">
+              <div className="text-red-600 mb-4">
+                <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">Error Loading Scholarship</h3>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">{error || 'Scholarship not found'}</p>
+              <button
+                onClick={() => window.location.reload()}
+                className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200"
+              >
+                Try Again
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -79,10 +110,10 @@ Applicants are expected to demonstrate not only outstanding academic records but
           {/* Header */}
           <div className="mb-8">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-              {scholarship.title}
+              {scholarship.s_name}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400">
-              {scholarship.university} • {scholarship.country}
+              {scholarship.s_university} • {scholarship.s_country}
             </p>
           </div>
 
@@ -95,7 +126,7 @@ Applicants are expected to demonstrate not only outstanding academic records but
                   Scholarship Overview
                 </h2>
                 <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  {scholarship.description}
+                  {scholarship.s_overview}
                 </p>
               </div>
 
@@ -105,7 +136,7 @@ Applicants are expected to demonstrate not only outstanding academic records but
                   Detailed Information
                 </h2>
                 <div className="text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
-                  {scholarship.fullDescription}
+                  {scholarship.s_detailed_info}
                 </div>
               </div>
 
@@ -115,7 +146,7 @@ Applicants are expected to demonstrate not only outstanding academic records but
                   Eligibility Criteria
                 </h2>
                 <div className="text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
-                  {scholarship.eligibility}
+                  {scholarship.s_eligibility}
                 </div>
               </div>
 
@@ -125,7 +156,7 @@ Applicants are expected to demonstrate not only outstanding academic records but
                   Application Process
                 </h2>
                 <div className="text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
-                  {scholarship.applicationProcess}
+                  {scholarship.s_app_procces}
                 </div>
               </div>
 
@@ -135,7 +166,7 @@ Applicants are expected to demonstrate not only outstanding academic records but
                   Scholarship Benefits
                 </h2>
                 <div className="text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
-                  {scholarship.benefits}
+                  {scholarship.s_benefits}
                 </div>
               </div>
             </div>
@@ -155,7 +186,7 @@ Applicants are expected to demonstrate not only outstanding academic records but
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Scholarship Name</p>
-                      <p className="font-semibold text-gray-900 dark:text-white">{scholarship.title}</p>
+                      <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_name}</p>
                     </div>
                   </div>
 
@@ -166,7 +197,7 @@ Applicants are expected to demonstrate not only outstanding academic records but
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Country</p>
-                      <p className="font-semibold text-gray-900 dark:text-white">{scholarship.country}</p>
+                      <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_country}</p>
                     </div>
                   </div>
 
@@ -177,9 +208,10 @@ Applicants are expected to demonstrate not only outstanding academic records but
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Language</p>
-                      <p className="font-semibold text-gray-900 dark:text-white">{scholarship.language}</p>
+                      <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_language}</p>
                     </div>
                   </div>
+
                   {/* Gender */}
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-pink-100 dark:bg-pink-900 rounded-lg flex items-center justify-center flex-shrink-0">
@@ -187,7 +219,7 @@ Applicants are expected to demonstrate not only outstanding academic records but
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">For Genders</p>
-                      <p className="font-semibold text-gray-900 dark:text-white">{scholarship.gender}</p>
+                      <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_gender || 'Both Male & Female'}</p>
                     </div>
                   </div>
 
@@ -198,7 +230,7 @@ Applicants are expected to demonstrate not only outstanding academic records but
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Study Level</p>
-                      <p className="font-semibold text-gray-900 dark:text-white">{scholarship.level}</p>
+                      <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_study_level}</p>
                     </div>
                   </div>
 
@@ -209,7 +241,7 @@ Applicants are expected to demonstrate not only outstanding academic records but
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Application Deadline</p>
-                      <p className="font-semibold text-gray-900 dark:text-white">{scholarship.deadline}</p>
+                      <p className="font-semibold text-gray-900 dark:text-white">{formatDate(scholarship.s_app_deadline)}</p>
                     </div>
                   </div>
 
@@ -220,7 +252,7 @@ Applicants are expected to demonstrate not only outstanding academic records but
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Program Duration</p>
-                      <p className="font-semibold text-gray-900 dark:text-white">{scholarship.duration}</p>
+                      <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_duration}</p>
                     </div>
                   </div>
 
@@ -231,7 +263,7 @@ Applicants are expected to demonstrate not only outstanding academic records but
                     </div>
                     <div>
                       <p className="text-sm text-gray-500 dark:text-gray-400">Funding Type</p>
-                      <p className="font-semibold text-gray-900 dark:text-white">{scholarship.funding}</p>
+                      <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_funding_type}</p>
                     </div>
                   </div>
                 </div>
@@ -241,8 +273,6 @@ Applicants are expected to demonstrate not only outstanding academic records but
                   <button className="w-full bg-green-600 hover:bg-green-700 text-white py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
                     Apply Now
                   </button>
-                  
-                
                 </div>
               </div>
             </div>

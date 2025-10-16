@@ -8,13 +8,15 @@ export default function AddPostPage() {
   const [formData, setFormData] = useState({
     post_title: '',
     post_category: '',
-    post_image: '',
     post_description: '',
-    post_link: '',
     author_name: '',
     author_job_title: '',
     author_email: ''
   });
+  
+  const [postImage, setPostImage] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const categories = [
     'story',
@@ -32,17 +34,76 @@ export default function AddPostPage() {
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData(prevState => ({
-        ...prevState,
-        post_image: file.name
-      }));
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setError('Please select a valid image file');
+        return;
+      }
+      
+      // Validate file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setError('Image size should be less than 5MB');
+        return;
+      }
+      
+      setPostImage(file);
+      setError('');
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Post submitted:', formData);
-    // Handle form submission here
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      // Create FormData object for file upload
+      const submitData = new FormData();
+      
+      // Append text fields
+      submitData.append('post_title', formData.post_title);
+      submitData.append('auther_name', formData.author_name);
+      submitData.append('auther_email', formData.author_email);
+      submitData.append('auther_job_title', formData.author_job_title);
+      submitData.append('post_category', formData.post_category);
+      submitData.append('post_description', formData.post_description);
+      
+      // Append image file if exists
+      if (postImage) {
+        submitData.append('post_image', postImage);
+      }
+
+      // Call the POST API
+      const response = await fetch('/api/posts', {
+        method: 'POST',
+        body: submitData,
+        // Don't set Content-Type header when using FormData - browser will set it automatically with boundary
+      });
+
+      const result = await response.json();
+      console.log(result)
+      if (result.success) {
+        console.log('Post created successfully:', result.data);
+        // Redirect to posts list or show success message
+        router.push('/posts-cp'); // Change this to your posts list page
+      } else {
+        setError(result.error || 'Failed to create post');
+      }
+    } catch (error) {
+      console.error('Error creating post:', error);
+      setError('Network error. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const removeImage = () => {
+    setPostImage(null);
+    // Reset file input
+    const fileInput = document.querySelector('input[type="file"]');
+    if (fileInput) {
+      fileInput.value = '';
+    }
   };
 
   return (
@@ -51,7 +112,15 @@ export default function AddPostPage() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Add New Post</h1>
+          <p className="text-gray-600 mt-2">Create a new post for Roshangari</p>
         </div>
+
+        {/* Error Message */}
+        {error && (
+          <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6">
           <div className="space-y-6">
@@ -137,7 +206,7 @@ export default function AddPostPage() {
                 <option value="">Select a category</option>
                 {categories.map(category => (
                   <option key={category} value={category}>
-                    {category}
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
                   </option>
                 ))}
               </select>
@@ -151,49 +220,48 @@ export default function AddPostPage() {
               <div className="flex items-center space-x-4">
                 <div className="flex-1">
                   <input
-                    type="text"
-                    name="post_image"
-                    value={formData.post_image}
-                    onChange={handleChange}
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Image URL or upload file"
                   />
-                </div>
-                <div>
-                  <label className="cursor-pointer bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition-colors duration-200">
-                    <span>Upload</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageUpload}
-                      className="hidden"
-                    />
-                  </label>
                 </div>
               </div>
               <p className="text-sm text-gray-500 mt-1">
-                Upload an image or paste the image URL
+                Supported formats: JPG, PNG, WebP. Max size: 5MB
               </p>
-            </div>
-
-            {/* Image Preview */}
-            {formData.post_image && (
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Image Preview
-                </label>
-                <div className="w-32 h-24 border border-gray-300 rounded-lg overflow-hidden bg-gray-100">
-                  <img
-                    src={formData.post_image}
-                    alt="Preview"
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                    }}
-                  />
+              
+              {/* Selected Image Preview */}
+              {postImage && (
+                <div className="mt-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Selected Image:
+                  </label>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-32 h-24 border border-gray-300 rounded-lg overflow-hidden bg-gray-100">
+                      <img
+                        src={URL.createObjectURL(postImage)}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-600">{postImage.name}</p>
+                      <p className="text-sm text-gray-500">
+                        {(postImage.size / (1024 * 1024)).toFixed(2)} MB
+                      </p>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={removeImage}
+                      className="text-red-600 hover:text-red-800 text-sm font-medium"
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
 
             {/* Description */}
             <div>
@@ -210,36 +278,27 @@ export default function AddPostPage() {
                 placeholder="Enter post description or summary..."
               />
             </div>
-
-            {/* Post Link */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Post Link (Optional)
-              </label>
-              <input
-                type="url"
-                name="post_link"
-                value={formData.post_link}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                placeholder="https://example.com/post-url"
-              />
-            </div>
           </div>
 
           {/* Submit Button */}
           <div className="flex justify-between space-x-4 mt-8 pt-6 border-t border-gray-200">
             <button
+              type="button"
               onClick={() => router.back()}
-              className="cursor-pointer bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200"
+              disabled={isSubmitting}
+              className="cursor-pointer bg-purple-500 hover:bg-purple-600 disabled:bg-purple-400 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200"
             >
-              Back To previous page
+              Back To Previous Page
             </button>
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200"
+              disabled={isSubmitting}
+              className="bg-blue-500 hover:bg-blue-600 disabled:bg-blue-400 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center space-x-2"
             >
-              Create Post
+              {isSubmitting && (
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+              )}
+              <span>{isSubmitting ? 'Creating...' : 'Create Post'}</span>
             </button>
           </div>
         </form>

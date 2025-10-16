@@ -1,47 +1,56 @@
 'use client';
 import BackButton from '@/components/ui/back-button';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 export default function FeaturedStoriesList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  const [stories, setStories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const storiesPerPage = 12;
   
-  // Sample video data - Fixed duplicate IDs and added variety
-  const allStories = [
-    { id: 1, title: 'Introduction to Programming', description: 'Learn the basics of programming and start your coding journey', author: 'John Smith' },
-    { id: 2, title: 'Web Development Journey', description: 'From beginner to full-stack developer in one year', author: 'Sarah Johnson' },
-    { id: 3, title: 'Data Science Career Path', description: 'How I transitioned into data science without a degree', author: 'Mike Chen' },
-    { id: 4, title: 'Mobile App Success Story', description: 'Building a successful mobile app from scratch', author: 'Emma Davis' },
-    { id: 5, title: 'Cloud Computing Experience', description: 'My journey learning AWS and cloud technologies', author: 'Alex Rodriguez' },
-    { id: 6, title: 'Cybersecurity Learning Path', description: 'Becoming a cybersecurity expert step by step', author: 'Lisa Wang' },
-    { id: 7, title: 'UI/UX Design Principles', description: 'Mastering user experience design in modern applications', author: 'Tom Wilson' },
-    { id: 8, title: 'Machine Learning Projects', description: 'Real-world machine learning projects for beginners', author: 'Rachel Green' },
-    { id: 9, title: 'Blockchain Development', description: 'Learning blockchain technology and smart contracts', author: 'Kevin Brown' },
-    { id: 10, title: 'DevOps Career Guide', description: 'How to start a career in DevOps engineering', author: 'Maria Garcia' },
-    { id: 11, title: 'Game Development Story', description: 'Creating indie games as a solo developer', author: 'David Lee' },
-    { id: 12, title: 'AI Engineering Path', description: 'Becoming an AI engineer in the modern tech landscape', author: 'Sophia Martinez' },
-    { id: 13, title: 'Software Engineering Interview', description: 'Preparing for technical interviews at top companies', author: 'James Taylor' },
-    { id: 14, title: 'Open Source Contribution', description: 'My experience contributing to open source projects', author: 'Emily Clark' },
-    { id: 15, title: 'Freelancing Success', description: 'Building a successful freelance development business', author: 'Daniel White' },
-    { id: 16, title: 'Startup Founder Journey', description: 'From idea to successful tech startup', author: 'Olivia Harris' },
-  ];
+  // Fetch stories from API
+  useEffect(() => {
+    const fetchStories = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/posts');
+        const result = await response.json();
+
+        if (result.success) {
+          // Filter posts where category is "story"
+          const storyPosts = result.data.filter(post => post.category === 'story');
+          setStories(storyPosts);
+        } else {
+          setError(result.error || 'Failed to fetch stories');
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+        setError('Network error. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchStories();
+  }, []);
 
   // Filter stories based on search query
   const filteredStories = useMemo(() => {
     if (!searchQuery.trim()) {
-      return allStories;
+      return stories;
     }
     
     const query = searchQuery.toLowerCase();
-    return allStories.filter(story => 
-      story.title.toLowerCase().includes(query) ||
-      story.description.toLowerCase().includes(query) ||
-      story.author.toLowerCase().includes(query)
+    return stories.filter(story => 
+      story.post_title?.toLowerCase().includes(query) ||
+      story.post_description?.toLowerCase().includes(query) ||
+      story.auther_name?.toLowerCase().includes(query)
     );
-  }, [allStories, searchQuery]);
+  }, [stories, searchQuery]);
 
   // Calculate pagination based on FILTERED stories
   const totalPages = Math.ceil(filteredStories.length / storiesPerPage);
@@ -55,6 +64,7 @@ export default function FeaturedStoriesList() {
 
   // Function to limit title to 5 words
   const limitTitleToFiveWords = (title) => {
+    if (!title) return '';
     const words = title.split(' ');
     if (words.length > 5) {
       return words.slice(0, 5).join(' ') + '...';
@@ -62,18 +72,48 @@ export default function FeaturedStoriesList() {
     return title;
   };
 
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
+        <div className="container mx-auto px-4">
+          <BackButton />
+          
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">Loading stories...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
+        <div className="container mx-auto px-4">
+          <BackButton />
+          
+          {/* Header */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
+              <span className="block text-blue-600 dark:text-blue-400 mt-2">Learn our Inspiring Stories</span>
+            </h1>
+          </div>
+          <div className="text-center py-12">
+            <p className="text-red-500 text-lg">Error: {error}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
       <div className="container mx-auto px-4">
         <BackButton />
         
-        {/* Header */}
-        <div className="text-center mb-8">
-          {/* Main Heading */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-            <span className="block text-blue-600 dark:text-blue-400 mt-2">Learn our Inspiring Stories</span>
-          </h1>
-        </div>
+        
 
         {/* Search Input */}
         <div className="max-w-2xl mx-auto mb-6">
@@ -129,13 +169,23 @@ export default function FeaturedStoriesList() {
                 {/* Story Thumbnail */}
                 <div className="relative overflow-hidden">
                   <div className="w-full h-60 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
-                    <Image
-                      src="/hero-section-image.jpg"
-                      alt={story.title}
-                      width={500}
-                      height={500}
-                      className='w-full h-full object-cover'
-                    />
+                    {story.post_image ? (
+                      <Image
+                        src={story.post_image}
+                        alt={story.post_title}
+                        width={500}
+                        height={500}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <Image
+                        src="/hero-section-image.jpg"
+                        alt={story.post_title}
+                        width={500}
+                        height={500}
+                        className="w-full h-full object-cover"
+                      />
+                    )}
                   </div>
                 </div>
   
@@ -143,17 +193,17 @@ export default function FeaturedStoriesList() {
                 <div className="p-5 flex flex-col flex-1">
                   {/* Title - Limited to 5 words */}
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
-                    {limitTitleToFiveWords(story.title)}
+                    {limitTitleToFiveWords(story.post_title)}
                   </h3>
                   
                   {/* Author */}
                   <p className="text-blue-600 dark:text-gray-400 text-sm mb-4">
-                    {story.author}
+                    {story.author_name}
                   </p>
                   
                   {/* Description - Limited to 3 lines */}
                   <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1">
-                    {story.description}
+                    {story.post_description}
                   </p>
                   
                   {/* Story Details Button - Full width at the bottom */}
@@ -170,14 +220,16 @@ export default function FeaturedStoriesList() {
           // No results message
           <div className="text-center py-12">
             <div className="text-gray-500 dark:text-gray-400 text-lg mb-4">
-              No stories found matching "{searchQuery}"
+              {stories.length === 0 ? 'No stories found.' : `No stories found matching "${searchQuery}"`}
             </div>
-            <button
-              onClick={() => setSearchQuery('')}
-              className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
-            >
-              Clear Search
-            </button>
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+              >
+                Clear Search
+              </button>
+            )}
           </div>
         )}
 

@@ -1,33 +1,42 @@
 'use client';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function AllVideos() {
   const [currentPage, setCurrentPage] = useState(1);
-  const videosPerpage = 12;
-  
-  // Fixed video data with unique IDs and study levels
-  const allVideos = [
-    { id: 1, title: 'Introduction to Programming', description: 'Learn programming basics', studyLevel: 'Undergraduate' },
-    { id: 2, title: 'Web Development Basics', description: 'Learn the fundamentals of web development including HTML, CSS and JavaScript', studyLevel: 'Undergraduate' },
-    { id: 3, title: 'Data Structures and Algorithms', description: 'Comprehensive guide to data structures and algorithms for beginners', studyLevel: 'Master' },
-    { id: 4, title: 'Machine Learning Fundamentals', description: 'Introduction to machine learning concepts and practical applications', studyLevel: 'PHD' },
-    { id: 5, title: 'Mobile App Development', description: 'Build mobile applications for iOS and Android platforms', studyLevel: 'Undergraduate' },
-    { id: 6, title: 'Cloud Computing Basics', description: 'Understanding cloud services and deployment strategies', studyLevel: 'Master' },
-    { id: 7, title: 'Cybersecurity Essentials', description: 'Learn about cybersecurity threats and protection methods', studyLevel: 'PHD' },
-    { id: 8, title: 'Database Management Systems', description: 'Comprehensive guide to database design and management', studyLevel: 'Undergraduate' },
-    { id: 9, title: 'UI/UX Design Principles', description: 'Master user interface and user experience design concepts', studyLevel: 'School' },
-    { id: 10, title: 'Software Engineering Practices', description: 'Best practices in software development and project management', studyLevel: 'Master' },
-    { id: 11, title: 'Network Fundamentals', description: 'Understanding computer networks and communication protocols', studyLevel: 'Undergraduate' },
-    { id: 12, title: 'Artificial Intelligence', description: 'Explore AI concepts and machine learning algorithms', studyLevel: 'PHD' },
-    { id: 13, title: 'Blockchain Technology', description: 'Introduction to blockchain and cryptocurrency concepts', studyLevel: 'Master' },
-    { id: 14, title: 'Internet of Things', description: 'Learn about IoT devices and their applications', studyLevel: 'Undergraduate' },
-    { id: 15, title: 'DevOps Practices', description: 'Continuous integration and deployment strategies', studyLevel: 'Master' },
-    { id: 16, title: 'Game Development', description: 'Create games using modern development tools and engines', studyLevel: 'School' },
-  ];
-
+  const scholarshipsPerpage = 12;
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
+  const [scholarships, setScholarships] = useState([]); // Changed to array
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const getScholarships = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const resp = await fetch('/api/scholarships');
+      if (!resp.ok) {
+        throw new Error(`HTTP error! status: ${resp.status}`);
+      }
+      const resultedData = await resp.json();
+      if (resultedData.success) {
+        setScholarships(resultedData.data || []); 
+      } else {
+        console.log('❌ API returned error:', resultedData.error);
+      }
+    } catch (error) {
+      setError(error.message);
+      console.log('🚨 Fetch error:', error);
+    } finally {
+      setLoading(false);
+      console.log("🏁 Fetch completed");
+    }
+  };
+
+  useEffect(() => {
+    getScholarships();
+  }, []);
 
   const filters = [
     'All',
@@ -37,38 +46,54 @@ export default function AllVideos() {
     'School',
   ];
 
-  // Filter videos based on search query and active filter
-  const filteredVideos = useMemo(() => {
-    return allVideos.filter(video => {
+  // Filter scholarships based on search query and active filter
+  const filteredScholarships = useMemo(() => {
+    return scholarships.filter(scholarship => {
       // Filter by study level
-      const matchesFilter = activeFilter === 'All' || video.studyLevel === activeFilter;
+      const matchesFilter = activeFilter === 'All' || 
+        scholarship.S_study_level?.toLowerCase().includes(activeFilter.toLowerCase());
       
-      // Filter by search query (search in title and description)
+      // Filter by search query (search in multiple fields)
       const matchesSearch = searchQuery === '' || 
-        video.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        video.description.toLowerCase().includes(searchQuery.toLowerCase());
+        scholarship.s_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        scholarship.s_country?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        scholarship.s_university?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        scholarship.s_language?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        scholarship.s_funding_type?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        scholarship.s_overview?.toLowerCase().includes(searchQuery.toLowerCase());
       
       return matchesFilter && matchesSearch;
     });
-  }, [allVideos, activeFilter, searchQuery]);
+  }, [scholarships, activeFilter, searchQuery]);
 
-  // Calculate pagination based on FILTERED videos
-  const totalPages = Math.ceil(filteredVideos.length / videosPerpage);
-  const startIndex = (currentPage - 1) * videosPerpage;
-  const currentVideos = filteredVideos.slice(startIndex, startIndex + videosPerpage);
+  // Calculate pagination based on FILTERED scholarships
+  const totalPages = Math.ceil(filteredScholarships.length / scholarshipsPerpage);
+  const startIndex = (currentPage - 1) * scholarshipsPerpage;
+  const currentScholarships = filteredScholarships.slice(startIndex, startIndex + scholarshipsPerpage);
 
   // Reset to page 1 when filter or search changes
-  useState(() => {
+  useEffect(() => {
     setCurrentPage(1);
   }, [activeFilter, searchQuery]);
 
   // Function to limit title to 5 words
   const limitTitleToFiveWords = (title) => {
+    if (!title) return 'No Title';
     const words = title.split(' ');
     if (words.length > 5) {
       return words.slice(0, 5).join(' ') + '...';
     }
     return title;
+  };
+
+  // Format date for display
+  const formatDate = (dateString) => {
+    if (!dateString) return 'No deadline';
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
   };
 
   return (
@@ -113,7 +138,7 @@ export default function AllVideos() {
                 </div>
                 <input
                   type="text"
-                  placeholder="Live Search......"
+                  placeholder="Search by name, country, university, language..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-12 pr-12 py-4 border border-gray-300 dark:border-gray-600 rounded-2xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 text-base w-full transition-all duration-300 shadow-lg hover:shadow-xl"
@@ -153,68 +178,110 @@ export default function AllVideos() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Video Grid */}
-        {currentVideos.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-            {currentVideos.map((program) => (
-              <div 
-                key={program.id}
-                className="bg-white dark:bg-gray-800 hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
-              >
-                <div className="max-w-sm bg-white dark:bg-gray-800 shadow-lg overflow-hidden border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-xl">
-                  {/* Course Image */}
-                  <div className="h-60 bg-gray-300 dark:bg-gray-600 relative">
+        {/* Loading State */}
+        {loading && (
+          <div className="text-center py-12">
+            <div className="flex justify-center items-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+              <span className="ml-3 text-gray-600 dark:text-gray-400">Loading scholarships...</span>
+            </div>
+          </div>
+        )}
+
+        {/* Error State */}
+        {error && !loading && (
+          <div className="text-center py-12">
+            <div className="text-red-600 dark:text-red-400 text-lg mb-4">
+              Error: {error}
+            </div>
+            <button
+              onClick={getScholarships}
+              className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+            >
+              Try Again
+            </button>
+          </div>
+        )}
+
+        {/* Scholarship Grid */}
+       {!loading && !error && currentScholarships.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+              {currentScholarships.map((scholarship) => (
+                <div 
+                  key={scholarship.id}
+                  className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300"
+                >
+                  {/* Scholarship Image */}
+                  <div className="h-48 bg-gray-200 relative">
                     <img 
-                      src="/hero-section-image.jpg" 
-                      alt={program.title}
+                      src={scholarship.s_image || "/hero-section-image.jpg"} 
+                      alt={scholarship.s_name}
                       className="w-full h-full object-cover"
                     />
                   </div>
 
-                  {/* Course Content */}
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
-                      {limitTitleToFiveWords(program.title)}
+                  {/* Scholarship Content */}
+                  <div className="p-5">
+                    {/* Scholarship Name */}
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
+                      {scholarship.s_name}
                     </h3>
 
-                    <p className="text-blue-600 dark:text-gray-400 text-sm mb-4">
-                      {program.studyLevel} Level
+                    {/* University and Country */}
+                    <p className="text-gray-600 dark:text-white text-sm mb-3 font-medium">
+                      {scholarship.s_university} - {scholarship.s_country}
                     </p>
-                    
-                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1">
-                      {program.description}
+
+                    {/* Description */}
+                    <p className="text-gray-500 dark:text-white text-sm mb-4 line-clamp-3 leading-relaxed">
+                      {scholarship.s_detailed_info || scholarship.s_overview || 'No description available.'}
                     </p>
-                    
-                    <Link href={`/scholarships-programs/${program.id}`}>
-                      <button className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200">
+
+                    {/* Deadline and Language */}
+                    <div className="flex justify-between items-center text-sm text-gray-700 border-t border-gray-100 pt-3">
+                      <span className="font-medium text-red-600">
+                        Deadline: {formatDate(scholarship.s_app_deadline)}
+                      </span>
+                      <span className="text-blue-600">
+                        {scholarship.s_language}
+                      </span>
+                    </div>
+
+                    {/* Read More Button */}
+                    <Link href={`/scholarships-programs/${scholarship.id}`}>
+                      <button className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition-colors duration-200">
                         Read More
                       </button>
                     </Link>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          // No results message
-          <div className="text-center py-12">
-            <div className="text-gray-500 dark:text-gray-400 text-lg">
-              No videos found matching your criteria.
+              ))}
             </div>
-            <button
-              onClick={() => {
-                setSearchQuery('');
-                setActiveFilter('All');
-              }}
-              className="mt-4 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
-            >
-              Clear Filters
-            </button>
-          </div>
+          ) : (
+          // No results message (only when not loading and no error)
+          !loading && !error && (
+            <div className="text-center py-12">
+              <div className="text-gray-500 dark:text-gray-400 text-lg mb-4">
+                {scholarships.length === 0 
+                  ? 'No scholarships available yet.' 
+                  : 'No scholarships found matching your criteria.'
+                }
+              </div>
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setActiveFilter('All');
+                }}
+                className="mt-4 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+              >
+                Clear Filters
+              </button>
+            </div>
+          )
         )}
         
         {/* Pagination - Only show if there are results */}
-        {totalPages > 1 && (
+        {!loading && !error && totalPages > 1 && (
           <div className="flex justify-center items-center space-x-2 mb-8">
             {/* Previous Button */}
             <button

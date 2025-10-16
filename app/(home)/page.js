@@ -5,7 +5,12 @@ import WorkThusFor from "@/components/homePage/workThusFor";
 import TeamSection from "@/components/homePage/teamSection";
 import ContactUsSection from "@/components/contact-us";
 
+
+
+
 export default function Home() {
+
+  
   return (
     <>
       <HomePage />

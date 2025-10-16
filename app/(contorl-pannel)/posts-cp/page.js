@@ -1,70 +1,84 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function PostsListPage() {
+  const router = useRouter();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(2); // Show 2 items per page for demonstration
+  const [itemsPerPage] = useState(20);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const posts = [
-    {
-      id: 1,
-      post_title: "Blog Post",
-      post_category: "story",
-      post_image: "/team-members/saboor.png",
-      post_description: "This is an excerpt column. You can also include some or all of the main post content.",
-      post_author: {
-        name: "Katie Keith",
-        job_title: "Content Writer",
-        email: "katie@example.com"
-      },
-      post_date: "February 24, 2020",
-      post_link: "#",
-    },
-    {
-      id: 2,
-      post_title: "Document 1",
-      post_category: "story",
-      post_image: "/team-members/saboor.png",
-      post_description: "Posts Table Pro can list WordPress posts or any other post type such as articles or documents.",
-      post_author: {
-        name: "Admin",
-        job_title: "System Administrator",
-        email: "admin@example.com"
-      },
-      post_date: "September 1, 2019",
-      post_link: "#",
-    },
-    {
-      id: 3,
-      post_title: "Scholarship Announcement",
-      post_category: "roshangari",
-      post_image: "/team-members/saboor.png",
-      post_description: "New fully funded scholarship opportunities for international students in 2024.",
-      post_author: {
-        name: "John Doe",
-        job_title: "Education Consultant",
-        email: "john.doe@example.com"
-      },
-      post_date: "January 15, 2024",
-      post_link: "#",
-    }
-  ];
+  const categories = ["all", "story", "roshangari"];
 
-  const categories = ["all","story" , "roshangari"];
+  // Fetch posts from API
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/posts');
+        const result = await response.json();
+
+        if (result.success) {
+          setPosts(result.data);
+        } else {
+          setError(result.error || 'Failed to fetch posts');
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+        setError('Network error. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
 
   // Filter posts based on search and category
   const filteredPosts = posts.filter(post => {
-    const matchesSearch = post.post_title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.post_description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         post.post_author.name.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesCategory = selectedCategory === 'all' || post.post_category === selectedCategory;
+    const matchesSearch = 
+      post.post_title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.post_description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.author_name?.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    const matchesCategory = selectedCategory === 'all' || post.category === selectedCategory;
     
     return matchesSearch && matchesCategory;
   });
 
+ // Updated handleDelete function with debugging
+const handleDelete = async (id, name) => {
+  if (!confirm(`Are you sure you want to delete "${name}"?`)) {
+    return;
+  }
+
+  try {
+    
+    const response = await fetch(`/api/posts/${id}`, {
+      method: 'DELETE',
+    });
+
+    
+    const result = await response.json();
+    console.log('Delete response:', result);
+
+    if (result.success) {
+      // Remove the deleted post from state
+      setPosts(prev => prev.filter(post => post.id !== id));
+      alert('Post deleted successfully!');
+    } else {
+      alert(result.error || 'Failed to delete post');
+    }
+  } catch (error) {
+    console.error('Delete error:', error);
+    alert('Network error. Please try again.');
+  }
+};
   // Calculate pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -99,6 +113,52 @@ export default function PostsListPage() {
     pageNumbers.push(i);
   }
 
+  // Loading state
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center pb-6 mb-8 border-b border-gray-200">
+            <h1 className="text-2xl font-bold text-gray-900">Posts Table</h1>
+            <button className="cursor-pointer bg-blue-500 text-white px-6 py-3 rounded-lg font-medium flex items-center opacity-50">
+              <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              Add New Post
+            </button>
+          </div>
+          <div className="text-center py-12">
+            <p className="text-gray-500 text-lg">Loading posts...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-between items-center pb-6 mb-8 border-b border-gray-200">
+            <h1 className="text-2xl font-bold text-gray-900">Posts Table</h1>
+            <Link href="/posts-cp/add-post-cp">
+              <button className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center">
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+                Add New Post
+              </button>
+            </Link>
+          </div>
+          <div className="text-center py-12">
+            <p className="text-red-500 text-lg">Error: {error}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
@@ -129,7 +189,7 @@ export default function PostsListPage() {
                 value={selectedCategory}
                 onChange={(e) => {
                   setSelectedCategory(e.target.value);
-                  setCurrentPage(1); // Reset to first page when filtering
+                  setCurrentPage(1);
                 }}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
@@ -153,7 +213,7 @@ export default function PostsListPage() {
                   value={searchTerm}
                   onChange={(e) => {
                     setSearchTerm(e.target.value);
-                    setCurrentPage(1); // Reset to first page when searching
+                    setCurrentPage(1);
                   }}
                   className="w-full pl-3 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -194,9 +254,6 @@ export default function PostsListPage() {
                     Author
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Actions
                   </th>
                 </tr>
@@ -207,7 +264,7 @@ export default function PostsListPage() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="w-20 h-15 bg-gray-200 rounded flex items-center justify-center overflow-hidden">
                         <img
-                          src={post.post_image}
+                          src={post.post_image || "/default.png"}
                           alt={post.post_title}
                           className="w-full h-full object-cover"
                           onError={(e) => {
@@ -232,24 +289,26 @@ export default function PostsListPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                        {post.post_category}
+                        {post.category}
                       </span>
                     </td>
                     <td className="px-6 py-4">
                       <div className="text-sm">
-                        <div className="font-medium text-gray-900">{post.post_author.name}</div>
-                        <div className="text-gray-500">{post.post_author.job_title}</div>
-                        <div className="text-gray-400 text-xs">{post.post_author.email}</div>
+                        <div className="font-medium text-gray-900">{post.author_name}</div>
+                        <div className="text-gray-500">{post.author_job_title}</div>
+                        <div className="text-gray-400 text-xs">{post.author_email}</div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                      {post.post_date}
-                    </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                      <button className="text-blue-600 hover:text-blue-900 transition-colors duration-200">
+                      <button 
+                        onClick={() => router.push(`/posts-cp/update/${post.id}`)}
+                        className="text-blue-600 hover:text-blue-900 cursor-pointer transition-colors duration-200"
+                      >
                         Update
                       </button>
-                      <button className="text-red-600 hover:text-red-900 transition-colors duration-200">
+                      <button
+                      onClick={() => handleDelete(post.id, post.name)}
+                       className="text-red-600 cursor-pointer hover:text-red-900 transition-colors duration-200">
                         Delete
                       </button>
                     </td>

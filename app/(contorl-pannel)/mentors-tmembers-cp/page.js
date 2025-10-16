@@ -1,56 +1,87 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function MentorListPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(2); // Show 2 items per page for demonstration
-
-  const mentors = [
-    {
-      id: 1,
-      name: "Kate Keith",
-      image: "/team-members/saboor.png",
-      title: "Senior Education Consultant",
-      category: "team-member",
-      expertise: "Scholarship Guidance, University Admissions",
-      experience: "5+ years",
-      date: "February 24, 2020",
-      status: "Active"
-    },
-    {
-      id: 2,
-      name: "Admin",
-      image: "/team-members/saboor.png",
-      title: "Career Counselor",
-      category: "mentor",
-      expertise: "Career Planning, Resume Building",
-      experience: "3+ years",
-      date: "September 1, 2019",
-      status: "Active"
-    },
-    {
-      id: 3,
-      name: "John Doe",
-      image: "/team-members/saboor.png",
-      title: "Study Abroad Expert",
-      category: "mentor",
-      expertise: "Visa Process, Cultural Adaptation",
-      experience: "7+ years",
-      date: "January 15, 2024",
-      status: "Active"
-    }
-  ];
+  const [itemsPerPage] = useState(20);
+  const [mentors, setMentors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const categories = ["mentor", "team-member"];
 
+  // Fetch mentors from API
+  useEffect(() => {
+    const fetchMentors = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch('/api/mentor-team');
+        const result = await response.json();
+
+        if (result.success) {
+          setMentors(result.data);
+        } else {
+          setError(result.error || 'Failed to fetch mentors');
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+        setError('Network error. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMentors();
+  }, []);
+
+  // Delete mentor function
+  const handleDelete = async (id, name) => {
+    if (!confirm(`Are you sure you want to delete ${name}?`)) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/mentor-team/${id}`, {
+        method: 'DELETE',
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        // Remove the deleted mentor from state
+        setMentors(prev => prev.filter(mentor => mentor.id !== id));
+        alert('Mentor deleted successfully!');
+      } else {
+        alert(result.error || 'Failed to delete mentor');
+      }
+    } catch (error) {
+      console.error('Delete error:', error);
+      alert('Network error. Please try again.');
+    }
+  };
+
+  // Format date function
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A';
+    try {
+      return new Date(dateString).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    } catch {
+      return dateString;
+    }
+  };
+
   // Filter mentors based on search and category
   const filteredMentors = mentors.filter(mentor => {
-    const matchesSearch = mentor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         mentor.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         mentor.expertise.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = mentor.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         mentor.job_title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         mentor.summary?.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || mentor.category === selectedCategory;
     
     return matchesSearch && matchesCategory;
@@ -90,6 +121,39 @@ export default function MentorListPage() {
     pageNumbers.push(i);
   }
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-6 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading mentors...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 p-6 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-red-600 mb-4">
+            <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-2">Error Loading Mentors</h3>
+          <p className="text-gray-600 mb-4">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
@@ -97,6 +161,7 @@ export default function MentorListPage() {
           {/* Header */}
           <div className="">
             <h1 className="text-2xl font-bold text-gray-900">Mentors and Team Members Table</h1>
+            <p className="text-gray-600 mt-1">Total: {mentors.length} members</p>
           </div>
           <Link href="/mentors-tmembers-cp/add-mentor-tmember-cp">
             <button className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center">
@@ -120,7 +185,7 @@ export default function MentorListPage() {
                 value={selectedCategory}
                 onChange={(e) => {
                   setSelectedCategory(e.target.value);
-                  setCurrentPage(1); // Reset to first page when filtering
+                  setCurrentPage(1);
                 }}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
@@ -145,7 +210,7 @@ export default function MentorListPage() {
                   value={searchTerm}
                   onChange={(e) => {
                     setSearchTerm(e.target.value);
-                    setCurrentPage(1); // Reset to first page when searching
+                    setCurrentPage(1);
                   }}
                   className="w-full pl-3 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 />
@@ -201,51 +266,66 @@ export default function MentorListPage() {
                   <tr key={mentor.id} className="hover:bg-gray-50 transition-colors duration-150">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center overflow-hidden">
-                        <img
-                          src={mentor.image}
-                          alt={mentor.name}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.target.style.display = 'none';
-                            e.target.nextSibling.style.display = 'flex';
-                          }}
-                        />
-                        <div className="hidden items-center justify-center text-gray-400 text-xs">
+                        {mentor.profile_image ? (
+                          <img
+                            src={mentor.profile_image }
+                            alt={mentor.full_name}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.nextSibling.style.display = 'flex';
+                            }}
+                          />
+                        ) : null}
+                        <div className={`${mentor.profile_image ? 'hidden' : 'flex'} items-center justify-center text-gray-400 text-xs bg-gray-100 w-full h-full`}>
                           <span>No Image</span>
                         </div>
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="text-sm font-medium text-gray-900">
-                        {mentor.name}
+                        {mentor.full_name}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {mentor.email}
                       </div>
                     </td>
                     <td className="px-6 py-4">
                       <div className="text-sm text-gray-600">
-                        {mentor.title}
+                        {mentor.job_title}
                       </div>
                     </td>
                     <td className="px-6 py-4">
                       <div className="text-sm text-gray-600 max-w-xs">
-                        {mentor.expertise}
+                        {mentor.summary?.substring(0, 50)}...
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                      {mentor.experience}
+                      {mentor.experience || 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                        {mentor.category}
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                        mentor.category === 'mentor' 
+                          ? 'bg-blue-100 text-blue-800' 
+                          : 'bg-green-100 text-green-800'
+                      }`}>
+                        {mentor.category || 'team-member'}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                      {mentor.date}
+                      {formatDate(mentor.created_at)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                      <button className="text-blue-600 hover:text-blue-900 transition-colors duration-200">
+                      <Link 
+                        href={`/mentors-tmembers-cp/${mentor.id}`}
+                        className="text-blue-600 hover:text-blue-900 transition-colors duration-200"
+                      >
                         Update
-                      </button>
-                      <button className="text-red-600 hover:text-red-900 transition-colors duration-200">
+                      </Link>
+                      <button 
+                        onClick={() => handleDelete(mentor.id, mentor.full_name)}
+                        className="cursor-pointer text-red-600 hover:text-red-900 transition-colors duration-200"
+                      >
                         Delete
                       </button>
                     </td>

@@ -34,26 +34,6 @@ export default function WorkThusFor() {
               </p>
             </div>
             
-            {/* Key Focus Areas
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-                <span className="font-medium text-gray-900 dark:text-white">Education Access</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-green-600 rounded-full"></div>
-                <span className="font-medium text-gray-900 dark:text-white">Youth Leadership</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-purple-600 rounded-full"></div>
-                <span className="font-medium text-gray-900 dark:text-white">Community Dialogue</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 bg-orange-600 rounded-full"></div>
-                <span className="font-medium text-gray-900 dark:text-white">Skill Development</span>
-              </div>
-            </div> */}
-            
             {/* Call to Action */}
             <div className="pt-6">
               <Link href="/about">
@@ -67,15 +47,10 @@ export default function WorkThusFor() {
           {/* Image Content - Right Side */}
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              {/* Default Picture Placeholder */}
-              <div className="w-full h-96 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900 dark:to-purple-900 flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="text-6xl mb-4 text-blue-600 dark:text-blue-400">🌟</div>
-                 
-                </div>
-              </div>
-              
-              
+              <img 
+              src="/workthosfor.jpg"
+              alt='work thos for image'
+              />
             </div>
             
             {/* Background decorative elements */}

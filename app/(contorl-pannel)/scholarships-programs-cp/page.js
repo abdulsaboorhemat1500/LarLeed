@@ -6,94 +6,73 @@ export default function ScholarshipsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [openDropdown, setOpenDropdown] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(2); // Show 2 items per page for demonstration
-  const dropdownRef = useRef(null);
+  const [itemsPerPage] = useState(10); // Show 2 items per page for demonstration
+  const [scholarships, setScholarships] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const dropdownButtonRef = useRef(null);
+  const dropdownMenuRef = useRef(null);
 
-  const scholarships = [
-    {
-      id: 1,
-      name: "Name of the scholarship tell here",
-      deadline: "34/34/2034",
-      university: "Name of the university",
-      country: "Country",
-      description: "Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here…….",
-      duration: "4 years",
-      gender: "male/female",
-      funding: "fully funded",
-      language: "English",
-      image: "/hero-section-image.jpg"
-    },
-    {
-      id: 2,
-      name: "DaaD scholarships",
-      deadline: "34/34/2034",
-      university: "Name of the university",
-      country: "Country",
-      description: "Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here…….",
-      duration: "4 years",
-      gender: "male/female",
-      funding: "fully funded",
-      language: "English",
-      image: "/team-members/saboor.png"
-    },
-    {
-      id: 3,
-      name: "Turkey scholarships",
-      deadline: "34/34/2034",
-      university: "Name of the university",
-      country: "Country",
-      description: "Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here…….",
-      duration: "4 years",
-      gender: "male/female",
-      funding: "fully funded",
-      language: "English",
-      image: "/team-members/saboor.png"
-    },
-    {
-      id: 4,
-      name: "DaaD scholarships",
-      deadline: "34/34/2034",
-      university: "Name of the university",
-      country: "Country",
-      description: "Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here…….",
-      duration: "4 years",
-      gender: "male/female",
-      funding: "fully funded",
-      language: "English",
-      image: "/team-members/saboor.png"
-    },
-    {
-      id: 5,
-      name: "China scholarships",
-      deadline: "34/34/2034",
-      university: "Name of the university",
-      country: "Country",
-      description: "Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here…….",
-      duration: "4 years",
-      gender: "male/female",
-      funding: "fully funded",
-      language: "English",
-      image: "/team-members/saboor.png"
-    },
-    {
-      id: 6,
-      name: "DaaD scholarships",
-      deadline: "34/34/2034",
-      university: "Name of the university",
-      country: "Country",
-      description: "Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here Detailed information here…….",
-      duration: "4 years",
-      gender: "male/female",
-      funding: "fully funded",
-      language: "English",
-      image: "/team-members/saboor.png"
-    },
-  ];
+  // Fetch scholarships from database
+  const getScholarships = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const resp = await fetch('/api/scholarships');
+      if (!resp.ok) {
+        throw new Error(`HTTP error! status: ${resp.status}`);
+      }
+      const resultedData = await resp.json();
+      if (resultedData.success) {
+        setScholarships(resultedData.data || []); 
 
-  // Close dropdown when clicking outside
+      } else {
+        console.log('❌ API returned error:', resultedData.error);
+      }
+    } catch (error) {
+      setError(error.message);
+      console.log('🚨 Fetch error:', error);
+    } finally {
+      setLoading(false);
+      console.log("🏁 Fetch completed");
+      
+    }
+  };
+
+  const handleDelete = async (scholarshipId) => {
+    console.log('here i am ')
+  if (!confirm('Are you sure you want to delete this scholarship? This action cannot be undone.')) {
+    return;
+  }
+
+  try {
+    const response = await fetch(`/api/scholarships?id=${scholarshipId}`, {
+      method: 'DELETE',
+    });
+
+    const result = await response.json();
+
+    if (result.success) {
+      // Refresh the list
+      getScholarships();
+      alert('Scholarship deleted successfully!');
+    } else {
+      alert('Error: ' + result.error);
+    }
+  } catch (error) {
+    console.error('Delete error:', error);
+    alert('Failed to delete scholarship');
+  }
+};
+
   useEffect(() => {
+    getScholarships();
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      // Check if click is outside both dropdown button AND dropdown menu
+      const isOutsideButton = dropdownButtonRef.current && !dropdownButtonRef.current.contains(event.target);
+      const isOutsideMenu = dropdownMenuRef.current && !dropdownMenuRef.current.contains(event.target);
+      
+      if (isOutsideButton && isOutsideMenu) {
         setOpenDropdown(null);
       }
     };
@@ -104,18 +83,34 @@ export default function ScholarshipsPage() {
     };
   }, []);
 
-  // Filter scholarships based on search
-  const filteredScholarships = scholarships.filter(scholarship =>
-    scholarship.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    scholarship.university.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    scholarship.country.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // // Close dropdown when clicking outside
+  // useEffect(() => {
+  //   const handleClickOutside = (event) => {
+  //     if (dropdownButtonRef.current && !dropdownRef.current.contains(event.target)) {
+  //       setOpenDropdown(null);
+  //     }
+  //   };
 
-  // Calculate pagination
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentScholarships = filteredScholarships.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(filteredScholarships.length / itemsPerPage);
+  //   document.addEventListener('mousedown', handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleClickOutside);
+  //   };
+  // }, []);
+
+  // Filter scholarships based on search
+const filteredScholarships = scholarships.filter(scholarship => {
+  const matches = 
+    scholarship.s_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    scholarship.s_university?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    scholarship.s_country?.toLowerCase().includes(searchTerm.toLowerCase());
+  return matches;
+});
+// Calculate pagination
+const indexOfLastItem = currentPage * itemsPerPage;
+const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+const currentScholarships = filteredScholarships.slice(indexOfFirstItem, indexOfLastItem);
+const totalPages = Math.ceil(filteredScholarships.length / itemsPerPage);
+
 
   const handleDropdownToggle = (id) => {
     setOpenDropdown(openDropdown === id ? null : id);
@@ -148,6 +143,16 @@ export default function ScholarshipsPage() {
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
+
+  // Format date for display
+  const formatDate = (dateString) => {
+    if (!dateString) return 'No deadline';
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -185,112 +190,145 @@ export default function ScholarshipsPage() {
           </div>
         </div>
 
+        {/* Loading State */}
+        {loading && (
+          <div className="text-center py-12">
+            <div className="flex justify-center items-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+              <span className="ml-3 text-gray-600">Loading scholarships...</span>
+            </div>
+          </div>
+        )}
+
+        {/* Error State */}
+        {error && !loading && (
+          <div className="text-center py-12">
+            <div className="text-red-600 text-lg mb-4">
+              Error: {error}
+            </div>
+            <button
+              onClick={getScholarships}
+              className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+            >
+              Try Again
+            </button>
+          </div>
+        )}
+
         {/* Scholarships List */}
-        <div className="space-y-6 mb-6">
-          {currentScholarships.map((scholarship) => (
-            <div key={scholarship.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
-              <div className="flex flex-col md:flex-row">
-                {/* Image Section */}
-                <div className="md:w-1/3 p-4">
-                  <div className="w-full h-70 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
-                    <img 
-                      src={scholarship.image} 
-                      alt={scholarship.name}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
-                      }}
-                    />
-                    <div className="hidden flex-col items-center justify-center text-gray-500">
-                      <svg className="w-8 h-8 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      <span className="text-xs">No Image</span>
+        {!loading && !error && (
+          
+          <div className="space-y-6 mb-6">
+            {currentScholarships.map((scholarship) => (
+              <div key={scholarship.id} className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+                <div className="flex flex-col md:flex-row">
+                  {/* Image Section */}
+                  <div className="md:w-1/3 p-4">
+                    <div className="w-full h-70 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img 
+                        src={scholarship.s_image || "/hero-section-image.jpg"} 
+                        alt={scholarship.s_name}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextSibling.style.display = 'flex';
+                        }}
+                      />
+                      <div className="hidden flex-col items-center justify-center text-gray-500">
+                        <svg className="w-8 h-8 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <span className="text-xs">No Image</span>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Content Section */}
-                <div className="md:w-2/3 p-6">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="flex-1">
-                      <h2 className="text-xl font-bold text-gray-900 mb-1">
-                        {scholarship.name}
-                      </h2>
-                      <p className="text-red-600 font-medium">
-                        Deadline: {scholarship.deadline}
-                      </p>
-                    </div>
-                    
-                    {/* Three dots dropdown with ref */}
-                    <div className="relative" ref={dropdownRef}>
-                      <button
-                        onClick={() => handleDropdownToggle(scholarship.id)}
-                        className="cursor-pointer p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-                      >
-                        <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                        </svg>
-                      </button>
+                  {/* Content Section */}
+                  <div className="md:w-2/3 p-6">
+                    <div className="flex justify-between items-start mb-4">
+                      <div className="flex-1">
+                        <h2 className="text-xl font-bold text-gray-900 mb-1">
+                          {scholarship.s_name}
+                        </h2>
+                        <p className="text-red-600 font-medium">
+                          Deadline: {formatDate(scholarship.s_app_deadline)}
+                        </p>
+                      </div>
+                      
+                      {/* Three dots dropdown with ref */}
+                      <div className="relative" ref={dropdownButtonRef}>
+                        <button
+                          onClick={() => handleDropdownToggle(scholarship.id)}
+                          className="cursor-pointer p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                        >
+                          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                          </svg>
+                        </button>
 
-                      {/* Dropdown Menu */}
-                      {openDropdown === scholarship.id && (
+                        {/* Dropdown Menu */}
+                       {openDropdown === scholarship.id && (
                         <div className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10">
-                          <button
-                            onClick={() => handleAction('update', scholarship.id)}
-                            className="cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                          <Link 
+                            href={`/scholarships-programs-cp/update/${scholarship.id}`}
+                            onClick={() => setOpenDropdown(null)}
                           >
-                            Update
-                          </button>
+                            <button className="cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
+                              Update
+                            </button>
+                          </Link>
                           <button
-                            onClick={() => handleAction('delete', scholarship.id)}
+                            onClick={() => {
+                              setOpenDropdown(null);
+                              handleDelete(scholarship.id);
+                            }}
                             className="cursor-pointer block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition-colors duration-200"
                           >
                             Delete
                           </button>
                         </div>
-                      )}
+                        )}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* University and Country */}
-                  <div className="mb-4">
-                    <p className="text-lg font-semibold text-gray-800">
-                      {scholarship.university} - {scholarship.country}
-                    </p>
-                  </div>
+                    {/* University and Country */}
+                    <div className="mb-4">
+                      <p className="text-lg font-semibold text-gray-800">
+                        {scholarship.s_university} - {scholarship.s_country}
+                      </p>
+                    </div>
 
-                  {/* Description - Limited to 4 lines */}
-                  <div className="mb-6">
-                    <p className="text-gray-600 leading-relaxed line-clamp-4">
-                      {scholarship.description}
-                    </p>
-                  </div>
+                    {/* Description - Limited to 4 lines */}
+                    <div className="mb-6">
+                      <p className="text-gray-600 leading-relaxed line-clamp-4">
+                        {scholarship.s_overview || scholarship.s_detailed_info || 'No description available.'}
+                      </p>
+                    </div>
 
-                  {/* Scholarship Details */}
-                  <div className="flex flex-wrap gap-3 text-sm text-gray-700">
-                    <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
-                      Duration: {scholarship.duration}
-                    </span>
-                    <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full">
-                      Gender: {scholarship.gender}
-                    </span>
-                    <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full">
-                      Funding: {scholarship.funding}
-                    </span>
-                    <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full">
-                      Language: {scholarship.language}
-                    </span>
+                    {/* Scholarship Details */}
+                    <div className="flex flex-wrap gap-3 text-sm text-gray-700">
+                      <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
+                        Duration: {scholarship.s_duration || 'Not specified'}
+                      </span>
+                      <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full">
+                        Gender: {scholarship.s_gender || 'Any'}
+                      </span>
+                      <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full">
+                        Funding: {scholarship.s_funding_type || 'Not specified'}
+                      </span>
+                      <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full">
+                        Language: {scholarship.s_language || 'Not specified'}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Pagination */}
-        {filteredScholarships.length > 0 && (
+        {!loading && !error && filteredScholarships.length > 0 && (
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
             <div className="flex items-center justify-between">
               {/* Page Info */}
@@ -352,7 +390,7 @@ export default function ScholarshipsPage() {
         )}
 
         {/* No results message */}
-        {filteredScholarships.length === 0 && searchTerm && (
+        {!loading && !error && filteredScholarships.length === 0 && searchTerm && (
           <div className="text-center py-16">
             <div className="max-w-md mx-auto">
               <div className="w-20 h-20 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
@@ -376,6 +414,31 @@ export default function ScholarshipsPage() {
                 </svg>
                 Clear search
               </button>
+            </div>
+          </div>
+        )}
+
+        {/* No scholarships at all */}
+        {!loading && !error && scholarships.length === 0 && !searchTerm && (
+          <div className="text-center py-16">
+            <div className="max-w-md mx-auto">
+              <div className="w-20 h-20 mx-auto mb-4 bg-gray-100 rounded-full flex items-center justify-center">
+                <svg className="w-10 h-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 14l9-5-9-5-9 5 9 5z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-700 mb-2">No scholarships available</h3>
+              <p className="text-gray-500 mb-6">
+                Get started by adding your first scholarship program.
+              </p>
+              <Link href="/scholarships-programs-cp/add-scholarships-program-cp">
+                <button className="cursor-pointer inline-flex items-center px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-200">
+                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  </svg>
+                  Add First Scholarship
+                </button>
+              </Link>
             </div>
           </div>
         )}

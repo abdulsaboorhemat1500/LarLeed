@@ -18,10 +18,111 @@ export default function AddMentorPage() {
     twitter: ''
   });
 
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [imageFile, setImageFile] = useState(null);
+
   const categories = [
     'mentor',
     'team-member'
   ];
+
+  // Validation rules
+  const validateField = (name, value) => {
+    const newErrors = { ...errors };
+    
+    switch (name) {
+      case 'name':
+        if (!value.trim()) {
+          newErrors.name = 'Full name is required';
+        } else if (value.length < 2) {
+          newErrors.name = 'Full name must be at least 2 characters';
+        } else {
+          delete newErrors.name;
+        }
+        break;
+
+      case 'title':
+        if (!value.trim()) {
+          newErrors.title = 'Professional title is required';
+        } else if (value.length < 2) {
+          newErrors.title = 'Title must be at least 2 characters';
+        } else {
+          delete newErrors.title;
+        }
+        break;
+
+      case 'category':
+        if (!value) {
+          newErrors.category = 'Category is required';
+        } else {
+          delete newErrors.category;
+        }
+        break;
+
+      case 'experience':
+        if (!value.trim()) {
+          newErrors.experience = 'Experience is required';
+        } else {
+          delete newErrors.experience;
+        }
+        break;
+
+      case 'email':
+        if (!value.trim()) {
+          newErrors.email = 'Email is required';
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+          newErrors.email = 'Please enter a valid email address';
+        } else {
+          delete newErrors.email;
+        }
+        break;
+
+      case 'phone':
+        if (value && !/^[\+]?[1-9][\d]{0,15}$/.test(value.replace(/[\s\-\(\)]/g, ''))) {
+          newErrors.phone = 'Please enter a valid phone number';
+        } else {
+          delete newErrors.phone;
+        }
+        break;
+
+      case 'facebook':
+      case 'linkedin':
+      case 'twitter':
+        if (value && !/^https?:\/\/.+\..+/.test(value)) {
+          newErrors[name] = 'Please enter a valid URL';
+        } else {
+          delete newErrors[name];
+        }
+        break;
+
+      case 'bio':
+        if (!value.trim()) {
+          newErrors.bio = 'Biography is required';
+        } else if (value.length < 10) {
+          newErrors.bio = 'Biography must be at least 10 characters';
+        } else {
+          delete newErrors.bio;
+        }
+        break;
+
+      default:
+        break;
+    }
+
+    setErrors(newErrors);
+  };
+
+  const validateForm = () => {
+    const requiredFields = ['name', 'title', 'category', 'experience', 'email', 'bio'];
+    
+    requiredFields.forEach(field => {
+      validateField(field, formData[field]);
+    });
+
+    return Object.keys(errors).length === 0;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,22 +130,102 @@ export default function AddMentorPage() {
       ...prevState,
       [name]: value
     }));
+    
+    // Validate field on change
+    validateField(name, value);
   };
 
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setFormData(prevState => ({
-        ...prevState,
-        image: file.name
-      }));
+    if (!file) return;
+
+    // Validate file type
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      setError('Please select a valid image file (JPEG, PNG, etc.)');
+      return;
+    }
+
+    // Validate file size (5MB max)
+    if (file.size > 5 * 1024 * 1024) {
+      setError('Image size must be less than 5MB');
+      return;
+    }
+
+    setImageFile(file);
+    setFormData(prevState => ({
+      ...prevState,
+      image: file.name
+    }));
+    setError(''); // Clear any previous errors
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    // Validate all fields before submission
+    if (!validateForm()) {
+      setError('Please fix the validation errors before submitting');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const formDataToSend = new FormData();
+      
+      // Append all form fields
+      formDataToSend.append('full_name', formData.name);
+      formDataToSend.append('email', formData.email);
+      formDataToSend.append('phone', formData.phone);
+      formDataToSend.append('job_title', formData.title);
+      formDataToSend.append('summary', formData.bio);
+      formDataToSend.append('facebook_link', formData.facebook);
+      formDataToSend.append('linkedin_link', formData.linkedin);
+      formDataToSend.append('youtube_link', formData.twitter); // Using twitter as youtube_link
+      formDataToSend.append('category', formData.category);
+      formDataToSend.append('experience', formData.experience);
+      
+      // Append image file if exists
+      if (imageFile) {
+        formDataToSend.append('image', imageFile);
+      }
+
+      const response = await fetch('/api/mentor-team', {
+        method: 'POST',
+        body: formDataToSend,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        router.push('/mentors-tmembers-cp'); // Adjust the redirect path as needed
+      } else {
+        setError(result.error || 'Failed to add team member');
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
+      setError('Network error. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Mentor submitted:', formData);
-    // Handle form submission here
+  // Check if form is valid for styling
+  const isFormValid = () => {
+    return formData.name && 
+           formData.title && 
+           formData.category && 
+           formData.experience && 
+           formData.email && 
+           formData.bio &&
+           !errors.name && 
+           !errors.title && 
+           !errors.category && 
+           !errors.experience && 
+           !errors.email && 
+           !errors.bio;
   };
 
   return (
@@ -54,6 +235,13 @@ export default function AddMentorPage() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Add New Mentor/Team Member</h1>
         </div>
+
+        {/* Error Message */}
+        {error && (
+          <div className="mb-6 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-md p-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -68,9 +256,14 @@ export default function AddMentorPage() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.name ? 'border-red-500' : 'border-gray-300'
+                }`}
                 placeholder="Enter mentor's full name"
               />
+              {errors.name && (
+                <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+              )}
             </div>
 
             {/* Title */}
@@ -84,9 +277,14 @@ export default function AddMentorPage() {
                 value={formData.title}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.title ? 'border-red-500' : 'border-gray-300'
+                }`}
                 placeholder="e.g., Senior Education Consultant"
               />
+              {errors.title && (
+                <p className="mt-1 text-sm text-red-600">{errors.title}</p>
+              )}
             </div>
 
             {/* Category */}
@@ -99,7 +297,9 @@ export default function AddMentorPage() {
                 value={formData.category}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.category ? 'border-red-500' : 'border-gray-300'
+                }`}
               >
                 <option value="">Select a category</option>
                 {categories.map(category => (
@@ -108,6 +308,9 @@ export default function AddMentorPage() {
                   </option>
                 ))}
               </select>
+              {errors.category && (
+                <p className="mt-1 text-sm text-red-600">{errors.category}</p>
+              )}
             </div>
 
             {/* Experience */}
@@ -121,9 +324,14 @@ export default function AddMentorPage() {
                 value={formData.experience}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.experience ? 'border-red-500' : 'border-gray-300'
+                }`}
                 placeholder="e.g., 5+ years"
               />
+              {errors.experience && (
+                <p className="mt-1 text-sm text-red-600">{errors.experience}</p>
+              )}
             </div>
 
             {/* Email */}
@@ -137,9 +345,14 @@ export default function AddMentorPage() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.email ? 'border-red-500' : 'border-gray-300'
+                }`}
                 placeholder="mentor@example.com"
               />
+              {errors.email && (
+                <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+              )}
             </div>
 
             {/* Phone */}
@@ -152,9 +365,14 @@ export default function AddMentorPage() {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.phone ? 'border-red-500' : 'border-gray-300'
+                }`}
                 placeholder="+1 (555) 123-4567"
               />
+              {errors.phone && (
+                <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
+              )}
             </div>
 
             {/* Social Media Links */}
@@ -175,10 +393,15 @@ export default function AddMentorPage() {
                     name="facebook"
                     value={formData.facebook}
                     onChange={handleChange}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className={`flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      errors.facebook ? 'border-red-500' : 'border-gray-300'
+                    }`}
                     placeholder="https://facebook.com/username"
                   />
                 </div>
+                {errors.facebook && (
+                  <p className="mt-1 text-sm text-red-600 ml-11">{errors.facebook}</p>
+                )}
 
                 {/* LinkedIn */}
                 <div className="flex items-center space-x-3">
@@ -192,10 +415,15 @@ export default function AddMentorPage() {
                     name="linkedin"
                     value={formData.linkedin}
                     onChange={handleChange}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className={`flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      errors.linkedin ? 'border-red-500' : 'border-gray-300'
+                    }`}
                     placeholder="https://linkedin.com/in/username"
                   />
                 </div>
+                {errors.linkedin && (
+                  <p className="mt-1 text-sm text-red-600 ml-11">{errors.linkedin}</p>
+                )}
 
                 {/* Twitter/X */}
                 <div className="flex items-center space-x-3">
@@ -209,10 +437,15 @@ export default function AddMentorPage() {
                     name="twitter"
                     value={formData.twitter}
                     onChange={handleChange}
-                    className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    className={`flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                      errors.twitter ? 'border-red-500' : 'border-gray-300'
+                    }`}
                     placeholder="https://twitter.com/username"
                   />
                 </div>
+                {errors.twitter && (
+                  <p className="mt-1 text-sm text-red-600 ml-11">{errors.twitter}</p>
+                )}
               </div>
             </div>
 
@@ -229,7 +462,8 @@ export default function AddMentorPage() {
                     value={formData.image}
                     onChange={handleChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Image URL or upload file"
+                    placeholder="Image will be set after upload"
+                    readOnly
                   />
                 </div>
                 <div>
@@ -250,6 +484,9 @@ export default function AddMentorPage() {
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Biography *
+                <span className="text-xs text-gray-500 ml-1">
+                  ({formData.bio.length}/10 minimum)
+                </span>
               </label>
               <textarea
                 name="bio"
@@ -257,24 +494,42 @@ export default function AddMentorPage() {
                 onChange={handleChange}
                 required
                 rows="4"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-vertical"
+                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.bio ? 'border-red-500' : 'border-gray-300'
+                }`}
                 placeholder="Write a brief biography about the mentor..."
               />
+              {errors.bio && (
+                <p className="mt-1 text-sm text-red-600">{errors.bio}</p>
+              )}
             </div>
           </div>
 
           <div className="flex justify-between space-x-4 mt-8 pt-6 border-t border-gray-200">
             <button
+              type="button"
               onClick={() => router.back()}
               className="cursor-pointer bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200"
+              disabled={loading}
             >
               Back To previous page
             </button>
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200"
+              disabled={loading || !isFormValid()}
+              className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
             >
-              Create Mentor
+              {loading ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Creating...
+                </>
+              ) : (
+                'Create Mentor'
+              )}
             </button>
           </div>
         </form>

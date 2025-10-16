@@ -1,84 +1,52 @@
 'use client';
-import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function GetInTouchPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5); // Show 5 email addresses per page
+  const [itemsPerPage] = useState(5);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [emailData, setEmailData] = useState({
-    subject: '',
-    message: ''
+  
+  // Separate states for different purposes
+  const [subscribers, setSubscribers] = useState([]); // Array of subscribers
+  const [emailForm, setEmailForm] = useState({ // Object for email form
+    email: '',
+    subscribed_at: ''
   });
+  
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const emailContacts = [
-    {
-      id: 1,
-      email: "john.doe@example.com",
-      created_at: "2024-01-15 14:30:25"
-    },
-    {
-      id: 2,
-      email: "sarah.johnson@example.com",
-      created_at: "2024-01-15 12:15:42"
-    },
-    {
-      id: 3,
-      email: "mike.brown@example.com",
-      created_at: "2024-01-15 10:45:18"
-    },
-    {
-      id: 4,
-      email: "emily.davis@example.com",
-      created_at: "2024-01-14 16:20:33"
-    },
-    {
-      id: 5,
-      email: "alex.wilson@example.com",
-      created_at: "2024-01-14 14:55:07"
-    },
-    {
-      id: 6,
-      email: "jessica.miller@example.com",
-      created_at: "2024-01-14 11:30:51"
-    },
-    {
-      id: 7,
-      email: "david.taylor@example.com",
-      created_at: "2024-01-13 15:40:22"
-    },
-    {
-      id: 8,
-      email: "lisa.anderson@example.com",
-      created_at: "2024-01-13 13:25:14"
-    },
-    {
-      id: 9,
-      email: "kevin.martin@example.com",
-      created_at: "2024-01-12 17:10:38"
-    },
-    {
-      id: 10,
-      email: "amanda.thomas@example.com",
-      created_at: "2024-01-12 09:45:29"
-    },
-    {
-      id: 11,
-      email: "robert.white@example.com",
-      created_at: "2024-01-11 16:35:47"
-    },
-    {
-      id: 12,
-      email: "michelle.lee@example.com",
-      created_at: "2024-01-11 14:20:33"
+  const getEmails = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const resp = await fetch('/api/getInTouch/list');
+      if (!resp.ok) {
+        throw new Error(`HTTP error! status: ${resp.status}`);
+      }
+      const resultedData = await resp.json();
+      if (resultedData.success) {
+        setSubscribers(resultedData.data || []); // Use setSubscribers instead of setEmailData
+      } else {
+        console.log('❌ API returned error:', resultedData.error);
+      }
+    } catch (error) {
+      setError(error);
+      console.log('🚨 Fetch error:', error);
+    } finally {
+      setLoading(false);
+      console.log("🏁 Fetch completed");
     }
-  ];
+  };
 
-  // Calculate pagination
+  useEffect(() => {
+    getEmails();
+  }, []);
+
+  // Calculate pagination using subscribers instead of emailData
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentEmails = emailContacts.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(emailContacts.length / itemsPerPage);
+  const totalPages = Math.ceil(subscribers.length / itemsPerPage);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -121,7 +89,7 @@ export default function GetInTouchPage() {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setEmailData({
+    setEmailForm({
       subject: '',
       message: ''
     });
@@ -129,7 +97,7 @@ export default function GetInTouchPage() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEmailData(prevState => ({
+    setEmailForm(prevState => ({
       ...prevState,
       [name]: value
     }));
@@ -138,18 +106,17 @@ export default function GetInTouchPage() {
   const handleSendEmail = (e) => {
     e.preventDefault();
     
-    // Get all email addresses
-    const allEmails = emailContacts.map(contact => contact.email).join(', ');
+    // Get all email addresses from subscribers array
+    const allEmails = subscribers.map(contact => contact.email).join(', ');
     
     console.log('Sending email to all subscribers:', {
       to: allEmails,
-      subject: emailData.subject,
-      message: emailData.message
+      subject: emailForm.subject,
+      message: emailForm.message
     });
     
     // Here you would typically integrate with your email service
-    // For now, we'll just log and show an alert
-    alert(`Email would be sent to ${emailContacts.length} subscribers:\n\nSubject: ${emailData.subject}\n\nMessage: ${emailData.message}`);
+    alert(`Email would be sent to ${subscribers.length} subscribers:\n\nSubject: ${emailForm.subject}\n\nMessage: ${emailForm.message}`);
     
     closeModal();
   };
@@ -158,7 +125,6 @@ export default function GetInTouchPage() {
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-6xl mx-auto">
         <div className="flex justify-between items-center pb-6 mb-8 border-b border-gray-200">
-          {/* Header */}
           <div className="">
             <h1 className="text-2xl font-bold text-gray-900">Get in Touch Subscriptions</h1>
           </div>
@@ -188,34 +154,57 @@ export default function GetInTouchPage() {
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
-                {currentEmails.map((contact) => (
-                  <tr key={contact.id} className="hover:bg-gray-50 transition-colors duration-150">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm font-medium text-gray-900">
-                        {contact.email}
+                {loading ? (
+                  <tr>
+                    <td colSpan="2" className="px-6 py-4 text-center">
+                      <div className="flex justify-center items-center">
+                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+                        <span className="ml-2">Loading...</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                      {formatDate(contact.created_at)}
+                  </tr>
+                ) : error ? (
+                  <tr>
+                    <td colSpan="2" className="px-6 py-4 text-center text-red-600">
+                      Error: {error.message}
                     </td>
                   </tr>
-                ))}
+                ) : subscribers.length === 0 ? (
+                  <tr>
+                    <td colSpan="2" className="px-6 py-4 text-center text-gray-500">
+                      No email subscribers found
+                    </td>
+                  </tr>
+                ) : (
+                  subscribers.slice(indexOfFirstItem, indexOfLastItem).map((contact) => (
+                    <tr key={contact.id} className="hover:bg-gray-50 transition-colors duration-150">
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm font-medium text-gray-900">
+                          {contact.email}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                        {formatDate(contact.subscribed_at)}
+                      </td>
+                    </tr>
+                  ))
+                )}
               </tbody>
             </table>
           </div>
         </div>
 
         {/* Pagination */}
-        {emailContacts.length > 0 && (
+        {subscribers.length > 0 && (
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
             <div className="flex items-center justify-between">
               {/* Page Info */}
               <div className="text-sm text-gray-700">
                 Showing <span className="font-medium">{indexOfFirstItem + 1}</span> to{' '}
                 <span className="font-medium">
-                  {Math.min(indexOfLastItem, emailContacts.length)}
+                  {Math.min(indexOfLastItem, subscribers.length)}
                 </span> of{' '}
-                <span className="font-medium">{emailContacts.length}</span> email addresses
+                <span className="font-medium">{subscribers.length}</span> email addresses
               </div>
 
               {/* Pagination Controls */}
@@ -284,7 +273,7 @@ export default function GetInTouchPage() {
                   </button>
                 </div>
                 <p className="text-sm text-gray-600 mt-1">
-                  This email will be sent to all {emailContacts.length} subscribers
+                  This email will be sent to all {subscribers.length} subscribers
                 </p>
               </div>
 
@@ -296,7 +285,7 @@ export default function GetInTouchPage() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                     </svg>
                     <span className="text-sm font-medium text-blue-800">
-                      Sending to {emailContacts.length} subscribers
+                      Sending to {subscribers.length} subscribers
                     </span>
                   </div>
                 </div>
@@ -309,7 +298,7 @@ export default function GetInTouchPage() {
                   <input
                     type="text"
                     name="subject"
-                    value={emailData.subject}
+                    value={emailForm.subject}
                     onChange={handleInputChange}
                     required
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -324,7 +313,7 @@ export default function GetInTouchPage() {
                   </label>
                   <textarea
                     name="message"
-                    value={emailData.message}
+                    value={emailForm.message}
                     onChange={handleInputChange}
                     required
                     rows="8"
