@@ -1,15 +1,23 @@
 // next.config.js
 module.exports = {
-  // Skip API routes during build
-  experimental: {
-    esmExternals: true,
-  },
-  
-  // Or use this for newer Next.js versions
+  output: 'standalone',
   typescript: {
     ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
+  experimental: {
+    esmExternals: true,
+  },
+  
+  // This prevents API routes from being built
+  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    if (isServer) {
+      config.externals.push({
+        './pages/api': 'commonjs ./pages/api',
+      });
+    }
+    return config;
+  }
 }
