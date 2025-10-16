@@ -1,23 +1,15 @@
 // next.config.js
-module.exports = {
-  output: 'standalone',
-  typescript: {
-    ignoreBuildErrors: true,
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  experimental: {
-    esmExternals: true,
-  },
-  
-  // This prevents API routes from being built
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    if (isServer) {
-      config.externals.push({
-        './pages/api': 'commonjs ./pages/api',
-      });
-    }
-    return config;
+  // Remove API routes since they're now separate
+  async rewrites() {
+    return []
   }
 }
+
+module.exports = nextConfig
