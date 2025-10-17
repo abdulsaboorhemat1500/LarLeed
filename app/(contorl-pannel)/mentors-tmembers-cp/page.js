@@ -18,7 +18,7 @@ export default function MentorListPage() {
     const fetchMentors = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/mentor-team`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mentor-team`);
         const result = await response.json();
 
         if (result.success) {
@@ -44,7 +44,7 @@ export default function MentorListPage() {
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/mentor-team/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mentor-team/${id}`, {
         method: 'DELETE',
       });
 

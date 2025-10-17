@@ -18,7 +18,7 @@ export default function ContactMessagesPage() {
     const fetchMessages = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/contact`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact`);
         const result = await response.json();
 
         if (result.success) {

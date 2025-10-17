@@ -75,7 +75,7 @@ export default function AddUserModal({ isOpen, onClose, onUserAdded }) {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/users`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

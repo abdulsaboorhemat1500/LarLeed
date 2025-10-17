@@ -38,7 +38,7 @@ export default function ScholarshipFormSection() {
 
   try {
     
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/aplyingScholarships`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/aplyingScholarships`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json', // ← ADD THIS LINE

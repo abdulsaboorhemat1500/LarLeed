@@ -32,7 +32,7 @@ export default function ContactUsSection() {
         throw new Error('Please fill in all required fields');
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/contact`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

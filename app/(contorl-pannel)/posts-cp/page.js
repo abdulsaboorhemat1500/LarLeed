@@ -20,7 +20,7 @@ export default function PostsListPage() {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/posts`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`);
         const result = await response.json();
 
         if (result.success) {
@@ -59,7 +59,7 @@ const handleDelete = async (id, name) => {
 
   try {
     
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/posts/${id}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${id}`, {
       method: 'DELETE',
     });
 

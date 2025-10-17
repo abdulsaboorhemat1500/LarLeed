@@ -20,7 +20,7 @@ export default function FeaturedVideosListPage() {
     const fetchVideos = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/featured-videos`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/featured-videos`);
         const result = await response.json();
 
         if (result.success) {
@@ -70,7 +70,7 @@ export default function FeaturedVideosListPage() {
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/featured-videos/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/featured-videos/${id}`, {
         method: 'DELETE',
       });
 

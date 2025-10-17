@@ -20,7 +20,7 @@ export default function VideoDetailsPage({ params }) {
     const fetchVideo = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/featured-videos/${id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/featured-videos/${id}`);
         
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);

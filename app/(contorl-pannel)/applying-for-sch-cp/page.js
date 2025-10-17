@@ -15,7 +15,7 @@ export default function ApplicationsListPage() {
     try {
       setLoading(true);
       setError(null);
-      const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/aplyingScholarships`);
+      const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/aplyingScholarships`);
       if (!resp.ok) {
         throw new Error(`HTTP error! status: ${resp.status}`);
       }

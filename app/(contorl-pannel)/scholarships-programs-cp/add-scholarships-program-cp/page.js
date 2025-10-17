@@ -250,7 +250,7 @@ export default function AddScholarshipPage() {
         formDataToSend.append('s_image', formData.s_image);
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/scholarships`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/scholarships`, {
         method: 'POST',
         body: formDataToSend,
       });

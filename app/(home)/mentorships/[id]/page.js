@@ -22,7 +22,7 @@ export default function TeamMemberDetails({ params }) {
     const fetchMentor = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/mentor-team/${id}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mentor-team/${id}`);
         const result = await response.json();
 
         if (result.success) {

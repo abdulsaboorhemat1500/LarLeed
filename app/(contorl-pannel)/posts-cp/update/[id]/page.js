@@ -35,7 +35,7 @@ export default function UpdatePostPage() {
     const fetchPost = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/posts/${postId}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${postId}`);
         const result = await response.json();
 
         if (result.success) {
@@ -123,7 +123,7 @@ export default function UpdatePostPage() {
       }
 
       // Call the PUT API
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/posts/${postId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${postId}`, {
         method: 'PUT',
         body: submitData,
       });

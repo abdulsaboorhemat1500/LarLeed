@@ -38,7 +38,7 @@ export default function UpdateFeaturedVideoPage({params}) {
     const fetchVideo = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/featured-videos/${videoId}`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/featured-videos/${videoId}`);
         const result = await response.json();
 
         if (result.success) {
@@ -118,7 +118,7 @@ export default function UpdateFeaturedVideoPage({params}) {
         submitData.append('v_image', videoImage);
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/featured-videos/${videoId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/featured-videos/${videoId}`, {
         method: 'PUT',
         body: submitData,
       });

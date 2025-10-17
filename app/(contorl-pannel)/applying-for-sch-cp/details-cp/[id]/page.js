@@ -24,7 +24,7 @@ export default function ApplicationDetailsPage() {
       setLoading(true);
       setError(null);
       
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/aplyingScholarships/${id}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/aplyingScholarships/${id}`);
       const result = await response.json();
       
       console.log('📦 API Response:', result);

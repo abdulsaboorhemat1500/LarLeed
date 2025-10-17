@@ -21,7 +21,7 @@ export default function GetInTouchSection() {
     setMessage({ type: '', text: '' });
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/getInTouch`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/getInTouch`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

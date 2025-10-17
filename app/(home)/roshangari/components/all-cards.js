@@ -17,7 +17,7 @@ export default function FeaturedStoriesList() {
     const fetchStories = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/posts`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`);
         const result = await response.json();
 
         if (result.success) {

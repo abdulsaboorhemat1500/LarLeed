@@ -192,7 +192,7 @@ export default function AddMentorPage() {
         formDataToSend.append('image', imageFile);
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/mentor-team`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mentor-team`, {
         method: 'POST',
         body: formDataToSend,
       });

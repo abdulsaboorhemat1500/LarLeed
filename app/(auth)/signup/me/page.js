@@ -89,7 +89,7 @@ export default function SignUpPage() {
   setErrors({});
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/signup`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/signup`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

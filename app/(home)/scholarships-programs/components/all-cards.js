@@ -24,7 +24,7 @@ export default function AllVideos() {
     const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://larleed-api.hamidhatsaandh.workers.dev';
     console.log('Using API URL:', API_URL);
     
-    const resp = await fetch(`${API_URL}/apis/scholarships`);
+    const resp = await fetch(`${API_URL}/api/scholarships`);
     if (!resp.ok) {
       throw new Error(`HTTP error! status: ${resp.status}`);
     }

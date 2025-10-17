@@ -185,7 +185,7 @@ export default function UpdateScholarshipPage() {
         setFetchLoading(true);
         console.log(`🔄 Fetching all scholarships to find ID: ${scholarshipId}`);
         
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/scholarships`);
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/scholarships`);
         
         // Check if response is OK
         if (!response.ok) {
@@ -337,7 +337,7 @@ export default function UpdateScholarshipPage() {
       }
 
       console.log('🔄 Sending update request...');
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/scholarships`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/scholarships`, {
         method: 'PUT',
         body: formDataToSend,
       });
