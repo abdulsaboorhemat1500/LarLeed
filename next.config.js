@@ -1,15 +1,12 @@
-// next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // Remove this line to disable static export
+  // output: 'export',
+  
   trailingSlash: true,
   images: {
     unoptimized: true
   },
-  // Remove API routes since they're now separate
-  async rewrites() {
-    return []
-  }
 }
 
 module.exports = nextConfig
