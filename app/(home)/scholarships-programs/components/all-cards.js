@@ -11,29 +11,37 @@ export default function AllVideos() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const getScholarships = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/apis/scholarships`);
-      if (!resp.ok) {
-        throw new Error(`HTTP error! status: ${resp.status}`);
-      }
-      const resultedData = await resp.json();
-      if (resultedData.success) {
-        setScholarships(resultedData.data || []); 
-      } else {
-        console.log('❌ API returned error:', resultedData.error);
-      }
-    } catch (error) {
-      setError(error.message);
-      console.log('🚨 Fetch error:', error);
-    } finally {
-      setLoading(false);
-      console.log("🏁 Fetch completed");
+ const getScholarships = async () => {
+  try {
+    setLoading(true);
+    setError(null);
+    
+    // Debug: Check the environment variable
+    console.log('API URL:', process.env.NEXT_PUBLIC_API_URL);
+    console.log('All env vars:', process.env);
+    
+    // Use a fallback
+    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://larleed-api.hamidhatsaandh.workers.dev';
+    console.log('Using API URL:', API_URL);
+    
+    const resp = await fetch(`${API_URL}/apis/scholarships`);
+    if (!resp.ok) {
+      throw new Error(`HTTP error! status: ${resp.status}`);
     }
-  };
-
+    const resultedData = await resp.json();
+    if (resultedData.success) {
+      setScholarships(resultedData.data || []); 
+    } else {
+      console.log('❌ API returned error:', resultedData.error);
+    }
+  } catch (error) {
+    setError(error.message);
+    console.log('🚨 Fetch error:', error);
+  } finally {
+    setLoading(false);
+    console.log("🏁 Fetch completed");
+  }
+};
   useEffect(() => {
     getScholarships();
   }, []);
