@@ -2,10 +2,10 @@
   "name": "larleed",
   "version": "0.1.0",
   "private": true,
-  "scripts": {
-    "build": "next build && npx @cloudflare/next-on-pages",
-    "preview": "npx wrangler pages dev .vercel/output/static",
-    "deploy": "npx wrangler pages deploy .vercel/output/static"
+ "scripts": {
+    "build": "next build",
+    "preview": "npx @cloudflare/next-on-pages --experimental-minify",
+    "deploy": "npx @cloudflare/next-on-pages --experimental-minify"
   },
   "dependencies": {
     "@cloudflare/next-on-pages": "^1.13.16",
