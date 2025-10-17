@@ -12,7 +12,7 @@ export default function HeroSection() {
           <div className="flex-1 max-w-2xl lg:pr-12 text-center lg:text-left ">
             {/* Main Heading */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold  mb-6 leading-tight">
-                <span className="text-black"> LarLeed</span>
+                <span className="text-black dark:text-white"> LarLeed</span>
             </h1>
 
             {/* Subtitle */}
@@ -64,20 +64,6 @@ export default function HeroSection() {
                     className='w-full'
                 />
               </div>
-
-              {/* <div className="relative">
-                <Image
-                    src="/heroSectionImagePNG.png" // Replace with your image path
-                    alt="Hero Image"
-                    width={500}
-                    height={500}
-                    className='w-full transform hover:scale-105 transition-transform duration-300'
-                />
-              </div> */}
-
-              {/* Background decorative elements */}
-              {/* <div className="absolute -z-10 top-10 -right-10 w-32 h-32 bg-purple-200 dark:bg-purple-900 rounded-full blur-3xl opacity-60"></div>
-              <div className="absolute -z-10 bottom-10 -left-10 w-40 h-40 bg-blue-200 dark:bg-blue-900 rounded-full blur-3xl opacity-40"></div> */}
             </div>
           </div>
         </div>
