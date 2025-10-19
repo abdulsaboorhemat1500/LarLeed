@@ -50,7 +50,7 @@ export default function HeaderSection(){
                 {/* Desktop Navigation */}
                 <div className="hidden lg:flex lg:gap-x-8">
                     <Link href="/scholarships-programs" className="text-md text-center font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
-                       Scholarships <br /> Programs
+                       Scholarships <br />& Programs
                     </Link>
                     <Link href="/mentorships" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
                         Mentorship

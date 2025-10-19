@@ -83,7 +83,7 @@ export default function TeamSection() {
 
         {/* Team Grid - Centered with auto-fit and justify-items */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-8 justify-items-center">
-          {teamMembers.map((member, index) => (
+          {teamMembers.map((member) => (
             <div key={member.id} className="text-center w-full max-w-[180px]">
               {/* Circular Image */}
               <div className="mb-5 mx-auto w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40">

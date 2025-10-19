@@ -17,7 +17,7 @@ export default function ApplicationsListPage() {
     try {
       setLoading(true);
       setError(null);
-      const resultedData = await get('/api/aplyingScholarships');
+      const resultedData = await get('/api/applyingScholarships');
       if (resultedData.success) {
         setApplications(resultedData.data || []); 
       } else {

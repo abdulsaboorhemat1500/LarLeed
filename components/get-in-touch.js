@@ -3,8 +3,10 @@
 import { useState } from 'react';
 import { Button } from './ui/button';
 export const runtime = 'edge';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function GetInTouchSection() {
+  const { post } = useApi();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
@@ -21,21 +23,13 @@ export default function GetInTouchSection() {
     setMessage({ type: '', text: '' });
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/getInTouch`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
+      const result = await post('/api/getInTouch', { email });
 
-      const data = await response.json();
-
-      if (data.success) {
+      if (result.success) {
         setMessage({ type: 'success', text: 'Successfully subscribed!' });
         setEmail('');
       } else {
-        setMessage({ type: 'error', text: data.error || 'Subscription failed' });
+        setMessage({ type: 'error', text: result.error || 'Subscription failed' });
       }
     } catch (error) {
       setMessage({ type: 'error', text: 'Network error. Please try again.' });
@@ -49,16 +43,71 @@ export default function GetInTouchSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-20">
           <div className="lg:col-span-2">
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-              Get In Touch
-            </h2>
-            <div>
-              <p className="text-lg text-gray-500 dark:text-white font-medium">
-                Hello guys my name is abdul saboor hemat, I am a web Developer working with next.js and Laravel.
-              </p>
+          <div className="lg:col-span-2">
+            <div className="flex items-center mb-8">
+              <img 
+                  src="/logo.png"
+                  alt="logo image"
+                  className="h-20"
+              />
+            </div>
+            <p className="text-gray-300 mb-6 max-w-md">
+              Connecting Afghan Youth through Education, Dialogue, and Vision
+            </p>
+            
+            {/* Social Media Links */}
+            <div className="flex space-x-4">
+              <a 
+                href="https://www.facebook.com/ahamid.hatsaandh" 
+                target="__blank"
+                className="p-2 bg-gray-800 hover:bg-blue-600 rounded-lg transition-colors duration-200"
+                aria-label="Facebook"
+              >
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://x.com/HamidHatsaandh" 
+                target="__blank"
+                className="p-2 bg-gray-800 hover:bg-blue-400 rounded-lg transition-colors duration-200"
+                aria-label="Twitter"
+              >
+                <Twitter className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://www.instagram.com/hatsaandh/" 
+                target="__blank"
+                className="p-2 bg-gray-800 hover:bg-pink-600 rounded-lg transition-colors duration-200"
+                aria-label="Instagram"
+              >
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://www.youtube.com/@lomritob" 
+                target="__blank"
+                className="p-2 bg-gray-800 hover:bg-red-600 rounded-lg transition-colors duration-200"
+                aria-label="YouTube"
+              >
+                <Youtube className="w-5 h-5" />
+              </a>
+              <a 
+                href="https://www.linkedin.com/in/hamidhatsaandh" 
+                target="__blank"
+                className="p-2 bg-gray-800 hover:bg-blue-700 rounded-lg transition-colors duration-200"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-5 h-5" />
+              </a>
             </div>
           </div>
+          </div>
           <div className="lg:col-span-2">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+              Subscribe to our newsletter
+            </h2>
+            
+            <p className="text-lg text-gray-500 dark:text-white font-medium">
+            Get the latest news, updates, and special offers delivered right to your inbox.
+            </p>
             <form onSubmit={handleSubmit}>
               <div className="pt-5">
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">

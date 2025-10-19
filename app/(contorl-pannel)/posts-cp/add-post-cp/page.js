@@ -8,7 +8,7 @@ export default function AddPostPage() {
   
   const [formData, setFormData] = useState({
     post_title: '',
-    post_category: '',
+    category: '',
     post_description: '',
     author_name: '',
     author_job_title: '',
@@ -64,10 +64,10 @@ export default function AddPostPage() {
       
       // Append text fields
       submitData.append('post_title', formData.post_title);
-      submitData.append('auther_name', formData.author_name);
-      submitData.append('auther_email', formData.author_email);
-      submitData.append('auther_job_title', formData.author_job_title);
-      submitData.append('post_category', formData.post_category);
+      submitData.append('author_name', formData.author_name);
+      submitData.append('author_email', formData.author_email);
+      submitData.append('author_job_title', formData.author_job_title);
+      submitData.append('category', formData.category);
       submitData.append('post_description', formData.post_description);
       
       // Append image file if exists
@@ -193,8 +193,8 @@ export default function AddPostPage() {
                 Category *
               </label>
               <select
-                name="post_category"
-                value={formData.post_category}
+                name="category"
+                value={formData.category}
                 onChange={handleChange}
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"

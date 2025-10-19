@@ -40,7 +40,7 @@ export default function ScholarshipFormSection() {
 
   try {
     
-    const result = await post('/api/aplyingScholarships', formData);
+    const result = await post('/api/applyingScholarships', formData);
 
     if (result.success) {
       setMessage({ 

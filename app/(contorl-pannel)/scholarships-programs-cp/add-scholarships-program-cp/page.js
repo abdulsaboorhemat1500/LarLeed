@@ -105,9 +105,7 @@ export default function AddScholarshipPage() {
       case 's_overview':
         if (!value.trim()) {
           newErrors.s_overview = 'Overview is required';
-        } else if (value.length < 300) {
-          newErrors.s_overview = 'Overview must be at least 50 characters';
-        } else {
+        }else {
           delete newErrors.s_overview;
         }
         break;
@@ -115,8 +113,6 @@ export default function AddScholarshipPage() {
       case 's_detailed_info':
         if (!value.trim()) {
           newErrors.s_detailed_info = 'Detailed information is required';
-        } else if (value.length < 300) {
-          newErrors.s_detailed_info = 'Detailed information must be at least 100 characters';
         } else {
           delete newErrors.s_detailed_info;
         }
@@ -125,9 +121,7 @@ export default function AddScholarshipPage() {
       case 's_eligibility':
         if (!value.trim()) {
           newErrors.s_eligibility = 'Eligibility criteria is required';
-        } else if (value.length < 300) {
-          newErrors.s_eligibility = 'Eligibility criteria must be at least 50 characters';
-        } else {
+        }  else {
           delete newErrors.s_eligibility;
         }
         break;
@@ -135,9 +129,7 @@ export default function AddScholarshipPage() {
       case 's_app_procces':
         if (!value.trim()) {
           newErrors.s_app_procces = 'Application process is required';
-        } else if (value.length < 300) {
-          newErrors.s_app_procces = 'Application process must be at least 50 characters';
-        } else {
+        }  else {
           delete newErrors.s_app_procces;
         }
         break;
@@ -145,8 +137,6 @@ export default function AddScholarshipPage() {
       case 's_benefits':
         if (!value.trim()) {
           newErrors.s_benefits = 'Benefits are required';
-        } else if (value.length < 300) {
-          newErrors.s_benefits = 'Benefits must be at least 30 characters';
         } else {
           delete newErrors.s_benefits;
         }
