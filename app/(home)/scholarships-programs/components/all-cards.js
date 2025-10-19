@@ -19,11 +19,8 @@ export default function AllVideos() {
     setError(null);
 
     
-    const resp = await get('/api/scholarships');
-    if (!resp.ok) {
-      throw new Error(`HTTP error! status: ${resp.status}`);
-    }
-    const resultedData = await resp.json();
+    const resultedData = await get('/api/scholarships');
+   
     if (resultedData.success) {
       setScholarships(resultedData.data || []); 
     } else {

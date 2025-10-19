@@ -34,52 +34,56 @@ export default function ScholarshipFormSection() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  setMessage({ type: '', text: '' });
-
-  try {
-    
-    const result = await post('/api/applyingScholarships', formData);
-
-    if (result.success) {
-      setMessage({ 
-        type: 'success', 
-        text: result.message || 'Application submitted successfully!' 
-      });
-      // Reset form
-      setFormData({
-        full_name: '',
-        email: '',
-        address: '',
-        phone: '',
-        date_of_birth: '',
-        uni_name: '',
-        level_of_study: '',
-        graduation_year: '',
-        major: '',
-        gpa: '',
-        sch_name: '',
-        sch_country: '',
-        sch_university: '',
-        sch_level: '',
-        sch_deadline: ''
-      });
-    } else {
+    e.preventDefault();
+    setLoading(true);
+    setMessage({ type: '', text: '' });
+  
+    try {
+      console.log('Submitting form data:', formData);
+      
+      const result = await post('/api/applyingScholarships', formData);
+  
+      if (result.success) {
+        setMessage({ 
+          type: 'success', 
+          text: result.message || 'Application submitted successfully!' 
+        });
+        // Reset form
+        setFormData({
+          full_name: '',
+          email: '',
+          address: '',
+          phone: '',
+          date_of_birth: '',
+          uni_name: '',
+          level_of_study: '',
+          graduation_year: '',
+          major: '',
+          gpa: '',
+          sch_name: '',
+          sch_country: '',
+          sch_university: '',
+          sch_level: '',
+          sch_deadline: ''
+        });
+      } else {
+        setMessage({ 
+          type: 'error', 
+          text: result.error || result.details || 'Failed to submit application' 
+        });
+      }
+    } catch (error) {
+      console.error('Full error details:', error);
+      // Show more specific error message
+      const errorMessage = error.details || error.message || 'Network error. Please try again.';
       setMessage({ 
         type: 'error', 
-        text: result.error || 'Failed to submit application' 
+        text: `Error: ${errorMessage}` 
       });
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    setMessage({ 
-      type: 'error', 
-      text: 'Network error. Please try again.' 
-    });
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   return (
     <section className="py-10 bg-gray-200 dark:bg-gray-800">
