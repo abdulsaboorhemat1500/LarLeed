@@ -2,19 +2,20 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useApi } from '@/app/hooks/useApi';
 
 export default function MentorSection() {
   const [mentors, setMentors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const { get } = useApi();
 
   // Fetch mentors from API
   useEffect(() => {
     const fetchMentors = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mentor-team`);
-        const result = await response.json();
+        const result = await get('/api/mentor-team');
 
         if (result.success) {
           // Filter members where category is 'mentor'

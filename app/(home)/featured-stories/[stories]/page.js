@@ -6,6 +6,7 @@ import { useState, useEffect , use } from 'react';
 import GetInTouchSection from '@/components/get-in-touch';
 import BackButton from '@/components/ui/back-button';
 import Image from 'next/image';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function StoryDetailsPage({ params }) {
 
@@ -17,6 +18,7 @@ export default function StoryDetailsPage({ params }) {
   const [story, setStory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { get } = useApi();
 
   // Fetch story data from API
   useEffect(() => {
@@ -29,23 +31,15 @@ export default function StoryDetailsPage({ params }) {
 
         setLoading(true);
         setError(null);
-        
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${id}`);
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
+
+        const result = await get(`/api/posts/${id}`);
 
         if (result.success) {
           setStory(result.data);
         } else {
-          console.log('❌ API returned error:', result.error);
           setError(result.error || 'Failed to fetch story');
         }
       } catch (error) {
-        console.error('💥 Error fetching story:', error);
         setError(error.message || 'Network error. Please try again.');
       } finally {
         setLoading(false);

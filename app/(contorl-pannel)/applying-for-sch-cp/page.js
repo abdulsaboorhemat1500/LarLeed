@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function ApplicationsListPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -9,17 +10,14 @@ export default function ApplicationsListPage() {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { get } = useApi();
 
   // Fetch applications from database
   const getApplications = async () => {
     try {
       setLoading(true);
       setError(null);
-      const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/aplyingScholarships`);
-      if (!resp.ok) {
-        throw new Error(`HTTP error! status: ${resp.status}`);
-      }
-      const resultedData = await resp.json();
+      const resultedData = await get('/api/aplyingScholarships');
       if (resultedData.success) {
         setApplications(resultedData.data || []); 
       } else {

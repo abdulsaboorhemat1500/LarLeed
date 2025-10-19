@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 import { useRouter } from 'next/navigation';
 
 export default function AddMentorPage() {
@@ -21,6 +22,7 @@ export default function AddMentorPage() {
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const { post } = useApi();
   const [imageFile, setImageFile] = useState(null);
 
   const categories = [
@@ -192,12 +194,7 @@ export default function AddMentorPage() {
         formDataToSend.append('image', imageFile);
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mentor-team`, {
-        method: 'POST',
-        body: formDataToSend,
-      });
-
-      const result = await response.json();
+      const result = await post('/api/mentor-team', formDataToSend);
 
       if (result.success) {
         router.push('/mentors-tmembers-cp'); // Adjust the redirect path as needed

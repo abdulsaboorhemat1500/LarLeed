@@ -3,12 +3,14 @@ export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect , use} from 'react';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function UpdateFeaturedVideoPage({params}) {
   console.log(params , "here i am")
   const router = useRouter();
   const unrappedId = use(params);
   const videoId = unrappedId.id;
+  const { get, put } = useApi();
   
   const [formData, setFormData] = useState({
     v_title: '',
@@ -38,8 +40,7 @@ export default function UpdateFeaturedVideoPage({params}) {
     const fetchVideo = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/featured-videos/${videoId}`);
-        const result = await response.json();
+        const result = await get(`/api/featured-videos/${videoId}`);
 
         if (result.success) {
           const video = result.data;
@@ -118,12 +119,7 @@ export default function UpdateFeaturedVideoPage({params}) {
         submitData.append('v_image', videoImage);
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/featured-videos/${videoId}`, {
-        method: 'PUT',
-        body: submitData,
-      });
-
-      const result = await response.json();
+      const result = await put(`/api/featured-videos/${videoId}`, submitData);
 
       if (result.success) {
         router.push('/featured-videos-cp');

@@ -7,6 +7,7 @@ import GetInTouchSection from '@/components/get-in-touch';
 import BackButton from '@/components/ui/back-button';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function VideoDetailsPage({ params }) {
   const unrraped = use(params);
@@ -14,19 +15,14 @@ export default function VideoDetailsPage({ params }) {
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { get } = useApi();
 
   // Fetch video data from API
   useEffect(() => {
     const fetchVideo = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/featured-videos/${id}`);
-        
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
+        const result = await get(`/api/featured-videos/${id}`);
 
         if (result.success) {
           setVideo(result.data);

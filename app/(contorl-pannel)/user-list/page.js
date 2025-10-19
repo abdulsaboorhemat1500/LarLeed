@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 import { Edit, Trash2, Plus, Users } from 'lucide-react';
 import AddUserModal from './add-user/AddUserModal';
 import UpdateUserModal from './update-user/UdateUserModal';
@@ -13,6 +14,7 @@ export default function UsersList() {
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [currentUserId, setCurrentUserId] = useState(null);
+  const { get, delete: del } = useApi();
 
   useEffect(() => {
     fetchUsers();
@@ -26,13 +28,7 @@ export default function UsersList() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`);
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch users');
-      }
-
-      const result = await response.json();
+      const result = await get('/api/users');
       
       if (result.success) {
         setUsers(result.data);
@@ -62,11 +58,7 @@ export default function UsersList() {
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${userId}`, {
-        method: 'DELETE',
-      });
-
-      const result = await response.json();
+      const result = await del(`/api/users/${userId}`);
 
       if (result.success) {
         setUsers(users.filter(user => user.id !== userId));

@@ -3,6 +3,7 @@ export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 import { useRouter, useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function UpdatePostPage() {
   const router = useRouter();
@@ -24,6 +25,7 @@ export default function UpdatePostPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const { get, put } = useApi();
 
   const categories = [
     'story',
@@ -35,8 +37,7 @@ export default function UpdatePostPage() {
     const fetchPost = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${postId}`);
-        const result = await response.json();
+        const result = await get(`/api/posts/${postId}`);
 
         if (result.success) {
           const post = result.data;
@@ -123,12 +124,7 @@ export default function UpdatePostPage() {
       }
 
       // Call the PUT API
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${postId}`, {
-        method: 'PUT',
-        body: submitData,
-      });
-
-      const result = await response.json();
+      const result = await put(`/api/posts/${postId}`, submitData);
       console.log('Update result:', result);
 
       if (result.success) {

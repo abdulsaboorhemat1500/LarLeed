@@ -1,6 +1,7 @@
 'use client';
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
+import { apiService } from '@/services/apiService';
 
 export default function AllVideos() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,16 +16,9 @@ export default function AllVideos() {
   try {
     setLoading(true);
     setError(null);
+
     
-    // Debug: Check the environment variable
-    console.log('API URL:', process.env.NEXT_PUBLIC_API_URL);
-    console.log('All env vars:', process.env);
-    
-    // Use a fallback
-    const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://larleed-api.hamidhatsaandh.workers.dev';
-    console.log('Using API URL:', API_URL);
-    
-    const resp = await fetch(`${API_URL}/api/scholarships`);
+    const resp = await apiService.get('/api/scholarships');
     if (!resp.ok) {
       throw new Error(`HTTP error! status: ${resp.status}`);
     }

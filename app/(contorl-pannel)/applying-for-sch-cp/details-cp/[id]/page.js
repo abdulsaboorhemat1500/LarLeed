@@ -3,6 +3,7 @@ export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 import { useRouter, useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function ApplicationDetailsPage() {
   const router = useRouter();
@@ -12,6 +13,7 @@ export default function ApplicationDetailsPage() {
   const [application, setApplication] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { get } = useApi();
 
   useEffect(() => {
     if (id) {
@@ -23,9 +25,7 @@ export default function ApplicationDetailsPage() {
     try {
       setLoading(true);
       setError(null);
-      
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/aplyingScholarships/${id}`);
-      const result = await response.json();
+      const result = await get(`/api/aplyingScholarships/${id}`);
       
       console.log('📦 API Response:', result);
 

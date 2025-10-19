@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 import { X } from 'lucide-react';
 
 export default function AddUserModal({ isOpen, onClose, onUserAdded }) {
@@ -14,6 +15,7 @@ export default function AddUserModal({ isOpen, onClose, onUserAdded }) {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { post } = useApi();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -75,21 +77,13 @@ export default function AddUserModal({ isOpen, onClose, onUserAdded }) {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fullName: formData.fullName.trim(),
-          username: formData.username.trim(),
-          email: formData.email.trim(),
-          password: formData.password,
-          role: formData.role
-        }),
+      const result = await post('/api/users', {
+        fullName: formData.fullName.trim(),
+        username: formData.username.trim(),
+        email: formData.email.trim(),
+        password: formData.password,
+        role: formData.role
       });
-
-      const result = await response.json();
 
       if (result.success) {
         onUserAdded(result.data);

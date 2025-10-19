@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function ScholarshipsPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -10,6 +11,7 @@ export default function ScholarshipsPage() {
   const [scholarships, setScholarships] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { get, delete: del } = useApi();
   const dropdownButtonRef = useRef(null);
   const dropdownMenuRef = useRef(null);
 
@@ -18,11 +20,7 @@ export default function ScholarshipsPage() {
     try {
       setLoading(true);
       setError(null);
-      const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/scholarships`);
-      if (!resp.ok) {
-        throw new Error(`HTTP error! status: ${resp.status}`);
-      }
-      const resultedData = await resp.json();
+      const resultedData = await get('/api/scholarships');
       if (resultedData.success) {
         setScholarships(resultedData.data || []); 
 
@@ -46,11 +44,7 @@ export default function ScholarshipsPage() {
   }
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/scholarships?id=${scholarshipId}`, {
-      method: 'DELETE',
-    });
-
-    const result = await response.json();
+    const result = await del(`/api/scholarships?id=${scholarshipId}`);
 
     if (result.success) {
       // Refresh the list

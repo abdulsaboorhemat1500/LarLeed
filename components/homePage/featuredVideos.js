@@ -4,19 +4,20 @@ import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function FeaturedVideos() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { get } = useApi();
 
   // Fetch videos from API
   useEffect(() => {
     const fetchVideos = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/featured-videos`);
-        const result = await response.json();
+        const result = await get('/api/featured-videos');
 
         if (result.success) {
           // Get only the latest first 4 videos (sorted by created_at descending)

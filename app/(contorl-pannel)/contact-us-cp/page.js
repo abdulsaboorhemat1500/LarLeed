@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function ContactMessagesPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -11,6 +12,7 @@ export default function ContactMessagesPage() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { get } = useApi();
 
 
   // Fetch messages from API
@@ -18,8 +20,7 @@ export default function ContactMessagesPage() {
     const fetchMessages = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact`);
-        const result = await response.json();
+        const result = await get('/api/contact');
 
         if (result.success) {
           setMessages(result.data);

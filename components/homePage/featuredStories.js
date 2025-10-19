@@ -3,21 +3,21 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function FeaturedStories() {
   const router = useRouter();
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { get } = useApi();
 
   // Fetch posts from API
   useEffect(() => {
     const fetchStories = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`);
-        console.log("here i am")
-        const result = await response.json();
+        const result = await get('/api/posts');
 
         if (result.success) {
           // Filter posts where category is "story" - FIXED: use post_category instead of category

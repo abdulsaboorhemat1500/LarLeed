@@ -3,6 +3,7 @@ import BackButton from '@/components/ui/back-button';
 import { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function FeaturedStoriesList() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -11,14 +12,14 @@ export default function FeaturedStoriesList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const storiesPerPage = 12;
+  const { get } = useApi();
   
   // Fetch stories from API
   useEffect(() => {
     const fetchStories = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`);
-        const result = await response.json();
+        const result = await get('/api/posts');
 
         if (result.success) {
           // Filter posts where category is "story"

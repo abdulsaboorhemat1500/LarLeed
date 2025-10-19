@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function MentorListPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -10,6 +11,7 @@ export default function MentorListPage() {
   const [mentors, setMentors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const { get, delete: del } = useApi();
 
   const categories = ["mentor", "team-member"];
 
@@ -18,8 +20,7 @@ export default function MentorListPage() {
     const fetchMentors = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mentor-team`);
-        const result = await response.json();
+        const result = await get('/api/mentor-team');
 
         if (result.success) {
           setMentors(result.data);
@@ -44,11 +45,7 @@ export default function MentorListPage() {
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mentor-team/${id}`, {
-        method: 'DELETE',
-      });
-
-      const result = await response.json();
+      const result = await del(`/api/mentor-team/${id}`);
 
       if (result.success) {
         // Remove the deleted mentor from state

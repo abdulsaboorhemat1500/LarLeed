@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function AddScholarshipPage() {
   const router = useRouter();
@@ -26,6 +27,7 @@ export default function AddScholarshipPage() {
   const [imagePreview, setImagePreview] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const { post } = useApi();
 
   // Validation rules (same as update component)
   const validateField = (name, value) => {
@@ -250,12 +252,7 @@ export default function AddScholarshipPage() {
         formDataToSend.append('s_image', formData.s_image);
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/scholarships`, {
-        method: 'POST',
-        body: formDataToSend,
-      });
-
-      const result = await response.json();
+      const result = await post('/api/scholarships', formDataToSend);
 
       if (result.success) {
         router.push('/scholarships-programs-cp');

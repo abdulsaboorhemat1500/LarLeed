@@ -1,9 +1,11 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function AddFeaturedVideoPage() {
   const router = useRouter();
+  const { post } = useApi();
   
   const [formData, setFormData] = useState({
     v_title: '',
@@ -75,12 +77,7 @@ export default function AddFeaturedVideoPage() {
       }
 
       // Call the POST API
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/featured-videos`, {
-        method: 'POST',
-        body: submitData,
-      });
-
-      const result = await response.json();
+      const result = await post('/api/featured-videos', submitData);
 
       if (result.success) {
         // Redirect to videos list or show success message

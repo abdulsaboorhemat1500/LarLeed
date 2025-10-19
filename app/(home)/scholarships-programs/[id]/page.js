@@ -4,11 +4,13 @@ export const dynamic = 'force-dynamic';
 import { useState, useEffect } from 'react';
 import GetInTouchSection from "@/components/get-in-touch";
 import BackButton from "@/components/ui/back-button";
+import { useApi } from '@/app/hooks/useApi';
 
 export default function ScholarshipDetailsPage({ params }) {
   const [scholarship, setScholarship] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const { get } = useApi();
 
   // Unwrap the params promise
   const [resolvedParams, setResolvedParams] = useState(null);
@@ -28,8 +30,7 @@ export default function ScholarshipDetailsPage({ params }) {
 
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/scholarships/${resolvedParams.id}`);
-        const result = await response.json();
+        const result = await get(`/api/scholarships/${resolvedParams.id}`);
 
         if (result.success) {
           setScholarship(result.data);

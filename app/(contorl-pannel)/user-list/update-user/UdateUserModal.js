@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 import { X } from 'lucide-react';
 
 export default function UpdateUserModal({ isOpen, onClose, onUserUpdated, user }) {
@@ -13,6 +14,7 @@ export default function UpdateUserModal({ isOpen, onClose, onUserUpdated, user }
   });
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { put } = useApi();
 
   useEffect(() => {
     if (user) {
@@ -72,21 +74,13 @@ export default function UpdateUserModal({ isOpen, onClose, onUserUpdated, user }
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${user.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          fullName: formData.fullName.trim(),
-          username: formData.username.trim(),
-          email: formData.email.trim(),
-          role: formData.role,
-          is_active: formData.is_active
-        }),
+      const result = await put(`/api/users/${user.id}`, {
+        fullName: formData.fullName.trim(),
+        username: formData.username.trim(),
+        email: formData.email.trim(),
+        role: formData.role,
+        is_active: formData.is_active
       });
-
-      const result = await response.json();
 
       if (result.success) {
         onUserUpdated(result.data);

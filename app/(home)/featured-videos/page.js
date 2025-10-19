@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function FeaturedVideosList() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -13,14 +14,14 @@ export default function FeaturedVideosList() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const videosPerpage = 12;
+  const { get } = useApi();
 
   // Fetch videos from API
   useEffect(() => {
     const fetchVideos = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/featured-videos`);
-        const result = await response.json();
+        const result = await get('/api/featured-videos');
 
         if (result.success) {
           setVideos(result.data);

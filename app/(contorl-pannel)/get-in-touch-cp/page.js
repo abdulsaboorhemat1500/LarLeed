@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function GetInTouchPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,16 +16,13 @@ export default function GetInTouchPage() {
   
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { get } = useApi();
 
   const getEmails = async () => {
     try {
       setLoading(true);
       setError(null);
-      const resp = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/getInTouch`);
-      if (!resp.ok) {
-        throw new Error(`HTTP error! status: ${resp.status}`);
-      }
-      const resultedData = await resp.json();
+      const resultedData = await get('/api/getInTouch');
       if (resultedData.success) {
         setSubscribers(resultedData.data || []); // Use setSubscribers instead of setEmailData
       } else {

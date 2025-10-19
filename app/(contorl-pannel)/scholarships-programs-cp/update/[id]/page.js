@@ -1,12 +1,14 @@
 'use client';
 export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
+import { useApi } from '@/app/hooks/useApi';
 import { useRouter, useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
 export default function UpdateScholarshipPage() {
   const router = useRouter();
   const params = useParams();
+  const { get } = useApi();
   const scholarshipId = params.id;
 
   const [formData, setFormData] = useState({
@@ -183,18 +185,10 @@ export default function UpdateScholarshipPage() {
     const fetchScholarship = async () => {
       try {
         setFetchLoading(true);
-        console.log(`🔄 Fetching all scholarships to find ID: ${scholarshipId}`);
         
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/scholarships`);
+        const result = await get('/api/scholarships');
         
-        // Check if response is OK
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        
-        const result = await response.json();
-        console.log('📦 All scholarships API Response:', result);
-
+      
         if (result.success && result.data) {
           // Find the scholarship by ID
           const scholarship = result.data.find(s => s.id == scholarshipId);

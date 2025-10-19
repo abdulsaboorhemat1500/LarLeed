@@ -2,6 +2,7 @@
 export const runtime = 'edge';
 // export const dynamic = 'force-dynamic';
 import { useState, useEffect } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 import { useRouter, useParams } from 'next/navigation';
 
 export default function UpdateMentorPage() {
@@ -29,6 +30,7 @@ export default function UpdateMentorPage() {
   const [error, setError] = useState('');
   const [imageFile, setImageFile] = useState(null);
   const [currentImage, setCurrentImage] = useState('');
+  const { get, put } = useApi();
 
   const categories = [
     'mentor',
@@ -40,8 +42,7 @@ export default function UpdateMentorPage() {
     const fetchMentor = async () => {
       try {
         setFetchLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mentor-team/${mentorId}`);
-        const result = await response.json();
+        const result = await get(`/api/mentor-team/${mentorId}`);
 
         if (result.success) {
           const mentor = result.data;
@@ -254,12 +255,7 @@ export default function UpdateMentorPage() {
     }
 
     // FIXED: Added method and body to the fetch call
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mentor-team/${mentorId}`, {
-      method: 'PUT', // ← ADD THIS
-      body: formDataToSend, // ← ADD THIS
-    });
-
-    const result = await response.json();
+    const result = await put(`/api/mentor-team/${mentorId}`, formDataToSend);
     console.log(result);
     
     if (result.success) {

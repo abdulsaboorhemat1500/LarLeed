@@ -5,8 +5,8 @@ import GetInTouchSection from '@/components/get-in-touch';
 import BackButton from '@/components/ui/back-button';
 import { Facebook, Twitter, Instagram, Youtube, Linkedin, Mail } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useState, useEffect, use } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function TeamMemberDetails({ params }) {
   // Unwrap the params promise using React.use()
@@ -16,14 +16,14 @@ export default function TeamMemberDetails({ params }) {
   const [mentor, setMentor] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const { get } = useApi();
 
   // Fetch specific mentor data from API
   useEffect(() => {
     const fetchMentor = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mentor-team/${id}`);
-        const result = await response.json();
+        const result = await get(`/api/mentor-team/${id}`);
 
         if (result.success) {
           setMentor(result.data);

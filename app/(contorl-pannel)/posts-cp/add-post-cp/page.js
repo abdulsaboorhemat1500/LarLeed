@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function AddPostPage() {
   const router = useRouter();
@@ -17,6 +18,7 @@ export default function AddPostPage() {
   const [postImage, setPostImage] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const { post } = useApi();
 
   const categories = [
     'story',
@@ -74,13 +76,7 @@ export default function AddPostPage() {
       }
 
       // Call the POST API
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`, {
-        method: 'POST',
-        body: submitData,
-        // Don't set Content-Type header when using FormData - browser will set it automatically with boundary
-      });
-
-      const result = await response.json();
+      const result = await post('/api/posts', submitData);
       console.log(result)
       if (result.success) {
         console.log('Post created successfully:', result.data);

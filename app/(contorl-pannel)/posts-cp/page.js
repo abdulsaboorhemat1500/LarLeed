@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 import { useRouter } from 'next/navigation';
 
 export default function PostsListPage() {
@@ -12,6 +13,7 @@ export default function PostsListPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { get, delete: del } = useApi();
 
   const categories = ["all", "story", "roshangari"];
 
@@ -20,8 +22,7 @@ export default function PostsListPage() {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts`);
-        const result = await response.json();
+        const result = await get('/api/posts');
 
         if (result.success) {
           setPosts(result.data);
@@ -58,13 +59,7 @@ const handleDelete = async (id, name) => {
   }
 
   try {
-    
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${id}`, {
-      method: 'DELETE',
-    });
-
-    
-    const result = await response.json();
+    const result = await del(`/api/posts/${id}`);
     console.log('Delete response:', result);
 
     if (result.success) {

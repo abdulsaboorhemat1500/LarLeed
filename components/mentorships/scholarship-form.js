@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { Button } from "../ui/button";
+import { useApi } from '@/app/hooks/useApi';
 
 export default function ScholarshipFormSection() {
   const [formData, setFormData] = useState({
@@ -22,6 +23,7 @@ export default function ScholarshipFormSection() {
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
+  const { post } = useApi();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -38,16 +40,7 @@ export default function ScholarshipFormSection() {
 
   try {
     
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/aplyingScholarships`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json', // ← ADD THIS LINE
-      },
-      body: JSON.stringify(formData), // ← Make sure to stringify
-    });
-
-    
-    const result = await response.json();
+    const result = await post('/api/aplyingScholarships', formData);
 
     if (result.success) {
       setMessage({ 

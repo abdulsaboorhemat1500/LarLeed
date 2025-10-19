@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { Button } from './ui/button';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function ContactUsSection() {
   const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ export default function ContactUsSection() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // null, 'success', 'error'
+  const { post } = useApi();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,15 +34,7 @@ export default function ContactUsSection() {
         throw new Error('Please fill in all required fields');
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      const result = await response.json();
+      const result = await post('/api/contact', formData);
 
       if (result.success) {
         setSubmitStatus('success');

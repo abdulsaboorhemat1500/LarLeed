@@ -2,20 +2,21 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useApi } from '@/app/hooks/useApi';
 
 // components/TeamSection.jsx
 export default function TeamSection() {
   const [teamMembers, setTeamMembers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const { get } = useApi();
 
   // Fetch team members from API
   useEffect(() => {
     const fetchTeamMembers = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/mentor-team`);
-        const result = await response.json();
+        const result = await get('/api/mentor-team');
 
         if (result.success) {
           // Filter members where category is 'team-member'

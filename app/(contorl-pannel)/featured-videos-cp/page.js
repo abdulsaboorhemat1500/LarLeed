@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 import { useRouter } from 'next/navigation';
 
 export default function FeaturedVideosListPage() {
@@ -12,6 +13,7 @@ export default function FeaturedVideosListPage() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { get, delete: del } = useApi();
 
   const categories = ["all", "educational", "entertainment", "tutorial", "documentary", "inspirational"];
 
@@ -20,8 +22,7 @@ export default function FeaturedVideosListPage() {
     const fetchVideos = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/featured-videos`);
-        const result = await response.json();
+        const result = await get('/api/featured-videos');
 
         if (result.success) {
           setVideos(result.data);
@@ -70,11 +71,7 @@ export default function FeaturedVideosListPage() {
     }
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/featured-videos/${id}`, {
-        method: 'DELETE',
-      });
-
-      const result = await response.json();
+      const result = await del(`/api/featured-videos/${id}`);
 
       if (result.success) {
         // Remove the deleted video from state
