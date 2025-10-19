@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { useApi } from '@/app/hooks/useApi';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
+  const { post } = useApi();
   const router = useRouter();
   const [formData, setFormData] = useState({
     email: '',
@@ -58,20 +60,12 @@ export default function LoginPage() {
     setErrors({}); // Clear all previous errors
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email.trim(),
-          password: formData.password
-        }),
+      const result = await post('/api/login', {
+        email: formData.email.trim(),
+        password: formData.password
       });
 
-      const result = await response.json();
-
-      if (!response.ok) {
+      if (!result.success) {
         // Handle field-specific errors from API
         if (result.field) {
           setErrors({ [result.field]: result.error });

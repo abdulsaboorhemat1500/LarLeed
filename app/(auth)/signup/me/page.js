@@ -1,9 +1,11 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import { useApi } from '@/app/hooks/useApi';
 import { useRouter } from 'next/navigation';
 
 export default function SignUpPage() {
+  const { post } = useApi();
   const router = useRouter();
   const [formData, setFormData] = useState({
     fullName: '',
@@ -89,22 +91,14 @@ export default function SignUpPage() {
   setErrors({});
 
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        fullName: formData.fullName.trim(),
-        username: formData.username.trim(),
-        email: formData.email.trim(),
-        password: formData.password
-      }),
+    const result = await post('/api/signup', {
+      fullName: formData.fullName.trim(),
+      username: formData.username.trim(),
+      email: formData.email.trim(),
+      password: formData.password
     });
 
-    const result = await response.json();
-
-    if (!response.ok) {
+    if (!result.success) {
       // Handle different error types
       const errorMapping = {
         'Email already exists': { email: 'Email already exists' },
