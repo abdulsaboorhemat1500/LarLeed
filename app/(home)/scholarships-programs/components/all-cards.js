@@ -1,7 +1,7 @@
 'use client';
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
-import { apiService } from '@/services/apiService';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function AllVideos() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -11,6 +11,7 @@ export default function AllVideos() {
   const [scholarships, setScholarships] = useState([]); // Changed to array
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const { get } = useApi();
 
  const getScholarships = async () => {
   try {
@@ -18,7 +19,7 @@ export default function AllVideos() {
     setError(null);
 
     
-    const resp = await apiService.get('/api/scholarships');
+    const resp = await get('/api/scholarships');
     if (!resp.ok) {
       throw new Error(`HTTP error! status: ${resp.status}`);
     }

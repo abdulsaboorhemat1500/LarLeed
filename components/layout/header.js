@@ -50,10 +50,7 @@ export default function HeaderSection(){
                 {/* Desktop Navigation */}
                 <div className="hidden lg:flex lg:gap-x-8">
                     <Link href="/scholarships-programs" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
-                       Scholarships
-                    </Link>
-                    <Link href="/scholarships-programs" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
-                        Programs
+                       Scholarships <br /> Programs
                     </Link>
                     <Link href="/mentorships" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
                         Mentorship
@@ -120,10 +117,7 @@ export default function HeaderSection(){
                             <div className="-my-6 divide-y divide-gray-500/10">
                                 <div className="space-y-2 py-6">
                                     <Link href="/scholarships-programs" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 ">
-                                        Scholarships
-                                    </Link>
-                                    <Link href="/scholarships-programs" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 ">
-                                        Programs
+                                        Scholarships <br /> Programs
                                     </Link>
                                     <Link href="/mentorships" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 ">
                                         Mentorship
