@@ -17,13 +17,20 @@ export default function ApplicationsListPage() {
     try {
       setLoading(true);
       setError(null);
+      console.log('Starting to fetch applications...');
+      
       const resultedData = await get('/api/applyingScholarships');
+      console.log('API response:', resultedData);
+      
       if (resultedData.success) {
         setApplications(resultedData.data || []); 
+        console.log('Applications set successfully');
       } else {
         setError(resultedData.error || 'Failed to fetch applications');
+        console.log('API returned error:', resultedData.error);
       }
     } catch (error) {
+      console.error('Error in getApplications:', error);
       setError(error.message);
     } finally {
       setLoading(false);

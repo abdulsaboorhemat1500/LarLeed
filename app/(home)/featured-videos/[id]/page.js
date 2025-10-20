@@ -104,8 +104,6 @@ export default function VideoDetailsPage({ params }) {
     );
   }
 
-  const displayImage = video.v_image || getYouTubeThumbnail(video.v_link) || "/hero-section-image.jpg";
-
   return (
     <>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
@@ -169,24 +167,6 @@ export default function VideoDetailsPage({ params }) {
                       className="w-full h-full object-cover"
                     />
                     
-                    {/* Play Button Overlay */}
-                    {video.v_link && (
-                      <div className="  bg-black bg-opacity-40 flex items-center justify-center">
-                        <div className="bg-white bg-opacity-90 rounded-2xl">
-                          {video.v_image ? (
-                        <img
-                          src={video.v_image}
-                          alt={video.v_creature}
-                          className="object-cover w-full h-full "
-                        />
-                      ) : (
-                        <span className="text-white font-bold text-sm">
-                          {(video.v_creature || 'VV').split(' ').map(n => n[0]).join('')}
-                        </span>
-                      )}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </div>
                 

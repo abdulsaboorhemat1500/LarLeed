@@ -12,7 +12,7 @@ export default function UpdatePostPage() {
   
   const [formData, setFormData] = useState({
     post_title: '',
-    post_category: '',
+    category: '',
     post_description: '',
     author_name: '',
     author_job_title: '',
@@ -254,7 +254,7 @@ export default function UpdatePostPage() {
                 Category *
               </label>
               <select
-                name="post_category"
+                name="category"
                 value={formData.category}
                 onChange={handleChange}
                 required
