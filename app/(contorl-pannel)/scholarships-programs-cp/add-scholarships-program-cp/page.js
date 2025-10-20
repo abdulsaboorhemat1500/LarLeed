@@ -360,7 +360,7 @@ export default function AddScholarshipPage() {
             </button>
             <button
               type="submit"
-              disabled={loading || !isFormValid()} {/* FIXED: Use isFormValid() */}
+              disabled={loading || !isFormValid()}
               className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
             >
               {loading ? (
