@@ -5,16 +5,8 @@ import { useState, useEffect } from 'react';
 import { useApi } from '@/app/hooks/useApi';
 import Link from 'next/link';
 
-interface HeroSectionText {
-  id: number;
-  seven_line_text: string;
-  full_text: string;
-  created_at: string;
-  updated_at: string;
-}
-
 export default function HeroTextPage() {
-  const [textData, setTextData] = useState<HeroSectionText | null>(null);
+  const [textData, setTextData] = useState(null);
   const [loading, setLoading] = useState(true);
   const { get } = useApi();
 
@@ -52,14 +44,14 @@ export default function HeroTextPage() {
           <h1 className="text-2xl font-bold text-gray-800">Hero Section Text</h1>
           <div className="flex gap-4">
             <Link 
-              href="/hero-text/add"
+              href="/hero-section-text/add"
               className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
             >
               Add Text
             </Link>
             {textData && (
               <Link 
-                href={`/hero-text/update/${textData.id}`}
+                href={`/hero-section-text/update/${textData.id}`}
                 className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
               >
                 Update Text
