@@ -3,20 +3,15 @@
 
 import { useState, useRef, useEffect } from 'react';
 
-interface RichTextEditorProps {
-  value: string;
-  onChange: (value: string) => void;
-  placeholder?: string;
-  rows?: number;
-}
+
 
 export default function RichTextEditor({ 
   value, 
   onChange, 
   placeholder = "Enter your text here...",
   rows = 10 
-}: RichTextEditorProps) {
-  const editorRef = useRef<HTMLDivElement>(null);
+}) {
+  const editorRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
@@ -31,13 +26,13 @@ export default function RichTextEditor({
     }
   };
 
-  const execCommand = (command: string, value: string = '') => {
+  const execCommand = (command, value = '') => {
     document.execCommand(command, false, value);
     handleInput();
     editorRef.current?.focus();
   };
 
-  const handlePaste = (e: React.ClipboardEvent) => {
+  const handlePaste = (e) => {
     e.preventDefault();
     const text = e.clipboardData.getData('text/plain');
     document.execCommand('insertText', false, text);
@@ -48,10 +43,6 @@ export default function RichTextEditor({
     onClick, 
     children, 
     title 
-  }: { 
-    onClick: () => void; 
-    children: React.ReactNode;
-    title: string;
   }) => (
     <button
       type="button"
