@@ -81,7 +81,7 @@ export default function HeroTextPage() {
             <h2 className="text-xl font-semibold text-gray-700 mb-4">All Text</h2>
             <div className="bg-white p-4 rounded border min-h-[200px]">
               {textData ? (
-                <div className="whitespace-pre-line text-gray-600">
+                <div className="text-gray-600 rich-text-content" dangerouslySetInnerHTML={{ __html: textData.full_text }}>
                   {textData.full_text}
                 </div>
               ) : (

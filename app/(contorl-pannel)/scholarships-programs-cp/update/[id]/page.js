@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 export default function UpdateScholarshipPage() {
   const router = useRouter();
   const params = useParams();
-  const { get , post } = useApi();
+  const { get, put } = useApi(); // Changed from post to put for update
   const scholarshipId = params.id;
 
   const [formData, setFormData] = useState({
@@ -35,6 +35,7 @@ export default function UpdateScholarshipPage() {
   const [loading, setLoading] = useState(false);
   const [fetchLoading, setFetchLoading] = useState(true);
   const [error, setError] = useState('');
+  const [isValid, setIsValid] = useState(false);
 
   // Validation rules
   const validateField = (name, value) => {
@@ -164,60 +165,83 @@ export default function UpdateScholarshipPage() {
     }
 
     setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  const validateForm = () => {
+  // Check form validity whenever formData or errors change
+  useEffect(() => {
+    checkFormValidity();
+  }, [formData, errors]);
+
+  const checkFormValidity = () => {
     const requiredFields = [
       's_name', 's_country', 's_university', 's_language', 's_study_level',
       's_app_deadline', 's_duration', 's_funding_type', 's_overview',
       's_detailed_info', 's_eligibility', 's_app_procces', 's_benefits'
     ];
 
-    requiredFields.forEach(field => {
-      validateField(field, formData[field]);
-    });
+    // Check if all required fields are filled
+    const hasAllRequiredFields = requiredFields.every(field => 
+      formData[field] && formData[field].toString().trim() !== ''
+    );
 
-    return Object.keys(errors).length === 0;
+    // Check length requirements
+    const meetsLengthRequirements = 
+      formData.s_overview.length >= 50 &&
+      formData.s_detailed_info.length >= 100 &&
+      formData.s_eligibility.length >= 50 &&
+      formData.s_app_procces.length >= 50 &&
+      formData.s_benefits.length >= 30;
+
+    // Check if deadline is in the future
+    const isFutureDate = formData.s_app_deadline && new Date(formData.s_app_deadline) > new Date();
+
+    // Check if there are no validation errors
+    const hasNoErrors = Object.keys(errors).length === 0;
+
+    setIsValid(hasAllRequiredFields && meetsLengthRequirements && isFutureDate && hasNoErrors);
   };
 
-  // Fetch all scholarships and find the specific one
+  // Fetch specific scholarship by ID
   useEffect(() => {
     const fetchScholarship = async () => {
       try {
         setFetchLoading(true);
         
-        const result = await get('/api/scholarships');
+        // Fetch the specific scholarship by ID
+        const result = await get(`/api/scholarships/${scholarshipId}`);
         
-      
+        console.log('🔍 API Response:', result);
+        
         if (result.success && result.data) {
-          // Find the scholarship by ID
-          const scholarship = result.data.find(s => s.id == scholarshipId);
-          console.log('🔍 Found scholarship:', scholarship);
+          const scholarship = result.data;
+          console.log('🎯 Scholarship data:', scholarship);
           
-          if (scholarship) {
-            setFormData({
-              s_name: scholarship.s_name || '',
-              s_image: null,
-              s_country: scholarship.s_country || '',
-              s_university: scholarship.s_university || '',
-              s_language: scholarship.s_language || '',
-              s_gender: scholarship.s_gender || '',
-              s_study_level: scholarship.s_study_level || '',
-              s_app_deadline: scholarship.s_app_deadline ? scholarship.s_app_deadline.split('T')[0] : '',
-              s_duration: scholarship.s_duration || '',
-              s_funding_type: scholarship.s_funding_type || '',
-              s_overview: scholarship.s_overview || '',
-              s_detailed_info: scholarship.s_detailed_info || '',
-              s_eligibility: scholarship.s_eligibility || '',
-              s_app_procces: scholarship.s_app_procces || '',
-              s_benefits: scholarship.s_benefits || ''
-            });
-            setCurrentImage(scholarship.s_image || '');
-          } else {
-            setError(`Scholarship with ID ${scholarshipId} not found`);
+          setFormData({
+            s_name: scholarship.s_name || '',
+            s_image: null,
+            s_country: scholarship.s_country || '',
+            s_university: scholarship.s_university || '',
+            s_language: scholarship.s_language || '',
+            s_gender: scholarship.s_gender || '',
+            s_study_level: scholarship.s_study_level || '',
+            s_app_deadline: scholarship.s_app_deadline ? scholarship.s_app_deadline.split('T')[0] : '',
+            s_duration: scholarship.s_duration || '',
+            s_funding_type: scholarship.s_funding_type || '',
+            s_overview: scholarship.s_overview || '',
+            s_detailed_info: scholarship.s_detailed_info || '',
+            s_eligibility: scholarship.s_eligibility || '',
+            s_app_procces: scholarship.s_app_procces || '',
+            s_benefits: scholarship.s_benefits || ''
+          });
+          
+          // Set current image if exists
+          if (scholarship.s_image) {
+            setCurrentImage(scholarship.s_image);
+            console.log('🖼️ Current image URL:', scholarship.s_image);
           }
         } else {
-          setError(result.error || 'Failed to fetch scholarships data');
+          setError(result.error || 'Failed to fetch scholarship data');
         }
       } catch (error) {
         console.error('🚨 Fetch error:', error);
@@ -244,37 +268,37 @@ export default function UpdateScholarshipPage() {
   };
 
   const handleImageChange = (e) => {
-  const file = e.target.files[0];
-  if (!file) return;
+    const file = e.target.files[0];
+    if (!file) return;
 
-  // Validate file type - FIXED: use individual image types instead of image/*
-  const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
-  if (!allowedTypes.includes(file.type)) {
-    setError('Please select a valid image file (JPEG, PNG, etc.)');
-    return;
-  }
+    // Validate file type
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+      setError('Please select a valid image file (JPEG, PNG, etc.)');
+      return;
+    }
 
-  // Validate file size (5MB max)
-  if (file.size > 5 * 1024 * 1024) {
-    setError('Image size must be less than 5MB');
-    return;
-  }
+    // Validate file size (5MB max)
+    if (file.size > 5 * 1024 * 1024) {
+      setError('Image size must be less than 5MB');
+      return;
+    }
 
-  setFormData(prevState => ({
-    ...prevState,
-    s_image: file
-  }));
+    setFormData(prevState => ({
+      ...prevState,
+      s_image: file
+    }));
 
-  // Clear any previous errors
-  setError('');
+    // Clear any previous errors
+    setError('');
 
-  // Create preview
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    setImagePreview(e.target.result);
+    // Create preview
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setImagePreview(e.target.result);
+    };
+    reader.readAsDataURL(file);
   };
-  reader.readAsDataURL(file);
-};
 
   const removeImage = () => {
     setFormData(prevState => ({
@@ -283,6 +307,40 @@ export default function UpdateScholarshipPage() {
     }));
     setImagePreview('');
     setCurrentImage('');
+  };
+
+  const validateForm = () => {
+    const requiredFields = [
+      's_name', 's_country', 's_university', 's_language', 's_study_level',
+      's_app_deadline', 's_duration', 's_funding_type', 's_overview',
+      's_detailed_info', 's_eligibility', 's_app_procces', 's_benefits'
+    ];
+
+    let formErrors = {};
+
+    requiredFields.forEach(field => {
+      validateField(field, formData[field]);
+    });
+
+    // Additional length validations
+    if (formData.s_overview.length < 50) {
+      formErrors.s_overview = 'Overview must be at least 50 characters';
+    }
+    if (formData.s_detailed_info.length < 100) {
+      formErrors.s_detailed_info = 'Detailed information must be at least 100 characters';
+    }
+    if (formData.s_eligibility.length < 50) {
+      formErrors.s_eligibility = 'Eligibility criteria must be at least 50 characters';
+    }
+    if (formData.s_app_procces.length < 50) {
+      formErrors.s_app_procces = 'Application process must be at least 50 characters';
+    }
+    if (formData.s_benefits.length < 30) {
+      formErrors.s_benefits = 'Benefits must be at least 30 characters';
+    }
+
+    setErrors(formErrors);
+    return Object.keys(formErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
@@ -300,9 +358,6 @@ export default function UpdateScholarshipPage() {
     try {
       const formDataToSend = new FormData();
       
-      // Append the scholarship ID
-      formDataToSend.append('id', scholarshipId);
-      
       // Append all form fields
       formDataToSend.append('s_name', formData.s_name);
       formDataToSend.append('s_country', formData.s_country);
@@ -319,21 +374,26 @@ export default function UpdateScholarshipPage() {
       formDataToSend.append('s_app_procces', formData.s_app_procces);
       formDataToSend.append('s_benefits', formData.s_benefits);
       
-      // Handle image removal/update
-      if (!currentImage && !formData.s_image) {
-        formDataToSend.append('remove_image', 'true');
-      }
-      
-      // Append new image file if exists
+      // Handle image - only append if there's a new image
       if (formData.s_image) {
         formDataToSend.append('s_image', formData.s_image);
       }
+      
+      // If image was removed, send a flag
+      if (!currentImage && !formData.s_image) {
+        formDataToSend.append('remove_image', 'true');
+      }
 
-      const result = await post('/api/scholarships', formDataToSend);
+      console.log('🔄 Updating scholarship with ID:', scholarshipId);
+      
+      // Use PUT method for update - this is the key change
+      const result = await put(`/api/scholarships/${scholarshipId}`, formDataToSend);
 
       if (result.success) {
+        console.log('✅ Update successful');
         router.push('/scholarships-programs-cp');
       } else {
+        console.error('❌ Update failed:', result.error);
         setError(result.error || 'Failed to update scholarship');
       }
     } catch (error) {
@@ -426,6 +486,10 @@ export default function UpdateScholarshipPage() {
                       src={imagePreview || currentImage}
                       alt="Preview"
                       className="w-32 h-32 object-cover rounded-lg border border-gray-300"
+                      onError={(e) => {
+                        console.log('❌ Image failed to load:', e.target.src);
+                        e.target.style.display = 'none';
+                      }}
                     />
                     <button
                       type="button"
@@ -446,7 +510,7 @@ export default function UpdateScholarshipPage() {
                 <div className="flex-1">
                   <input
                     type="file"
-                    accept="image/*"
+                    accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
                     onChange={handleImageChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
@@ -763,9 +827,20 @@ export default function UpdateScholarshipPage() {
             </button>
             <button
               type="submit"
+              disabled={loading || !isValid}
               className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
             >
-              Update Scholarship
+              {loading ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Updating...
+                </>
+              ) : (
+                'Update Scholarship'
+              )}
             </button>
           </div>
         </form>

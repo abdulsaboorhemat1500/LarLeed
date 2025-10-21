@@ -4,7 +4,7 @@ import * as React from "react"
 import "../globals.css";
 
 import { useState, useEffect } from 'react';
-import { X, Menu, LogOut, User, ChevronDown, Settings } from 'lucide-react';
+import { X, Menu, LogOut, User, ChevronDown, Settings, MoreVertical } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Users } from "lucide-react";
@@ -14,6 +14,7 @@ export default function ContorlPannelLayout({ children }) {
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false); // New state for more dropdown
     const router = useRouter();
 
     // Check if user is logged in on component mount
@@ -21,11 +22,14 @@ export default function ContorlPannelLayout({ children }) {
         checkAuth();
     }, []);
 
-    // Close dropdown when clicking outside
+    // Close dropdowns when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (isDropdownOpen && !event.target.closest('.user-dropdown')) {
                 setIsDropdownOpen(false);
+            }
+            if (isMoreDropdownOpen && !event.target.closest('.more-dropdown')) {
+                setIsMoreDropdownOpen(false);
             }
         };
 
@@ -33,7 +37,7 @@ export default function ContorlPannelLayout({ children }) {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [isDropdownOpen]);
+    }, [isDropdownOpen, isMoreDropdownOpen]);
 
     const checkAuth = () => {
         if (typeof window !== 'undefined') {
@@ -45,27 +49,31 @@ export default function ContorlPannelLayout({ children }) {
         }
     };
 
-   // In your logout function
-const handleLogout = () => {
-  // Clear all session data
-  if (typeof window !== 'undefined') {
-    localStorage.removeItem('user');
-    localStorage.removeItem('rememberMe');
-    sessionStorage.removeItem('user');
-    
-    // Clear the auth cookie
-    document.cookie = 'auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-  }
-  
-  // Clear user state and close dropdown
-  setUser(null);
-  setIsDropdownOpen(false);
-  
-  // Redirect to login page
-  router.push('/login');
-};
+    const handleLogout = () => {
+        // Clear all session data
+        if (typeof window !== 'undefined') {
+            localStorage.removeItem('user');
+            localStorage.removeItem('rememberMe');
+            sessionStorage.removeItem('user');
+            
+            // Clear the auth cookie
+            document.cookie = 'auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        }
+        
+        // Clear user state and close dropdown
+        setUser(null);
+        setIsDropdownOpen(false);
+        
+        // Redirect to login page
+        router.push('/login');
+    };
+
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
+    };
+
+    const toggleMoreDropdown = () => {
+        setIsMoreDropdownOpen(!isMoreDropdownOpen);
     };
 
     // Redirect to login if not authenticated
@@ -103,36 +111,69 @@ const handleLogout = () => {
                     </div>
                     
                     {/* Desktop Navigation */}
-                    <div className="hidden lg:flex lg:gap-x-8">
-                        <Link href="/scholarships-programs-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
-                        Scholarships
+                    <div className="hidden lg:flex lg:gap-x-8 items-center">
+                        <Link href="/scholarships-programs-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105">
+                            Scholarships
                         </Link>
-                        <Link href="/applying-for-sch-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                        <Link href="/applying-for-sch-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105">
                             Applying for Scholarships
                         </Link>
-                        <Link href="/mentors-tmembers-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                        <Link href="/mentors-tmembers-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105">
                             Mentors/Team Member
                         </Link>
-                        <Link href="/posts-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                        <Link href="/posts-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105">
                             Posts/Roshangari
                         </Link>
-                        <Link href="/featured-videos-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                        <Link href="/featured-videos-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105">
                             Featured Videos
                         </Link>
-                        <Link href="/contact-us-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
-                            Contact Us
-                        </Link>
-                        <Link href="/get-in-touch-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
-                            Get In Touch
-                        </Link>
+                        
+                        {/* More Options Dropdown */}
+                        <div className="relative more-dropdown">
+                            <button
+                                onClick={toggleMoreDropdown}
+                                className="cursor-pointer flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                            >
+                                <MoreVertical className="size-5 text-gray-600 dark:text-gray-400" />
+                            </button>
+
+                            {/* More Dropdown Menu */}
+                            {isMoreDropdownOpen && (
+                                <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-lg bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                                    <div className="p-2">
+                                        <Link 
+                                            href="/get-in-touch-cp" 
+                                            className="flex items-center gap-x-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
+                                            onClick={() => setIsMoreDropdownOpen(false)}
+                                        >
+                                            Get In Touch
+                                        </Link>
+                                        <Link 
+                                            href="/contact-us-cp" 
+                                            className="flex items-center gap-x-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
+                                            onClick={() => setIsMoreDropdownOpen(false)}
+                                        >
+                                            Contact Us
+                                        </Link>
+                                        <Link 
+                                            href="/hero-section-text" 
+                                            className="flex items-center gap-x-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
+                                            onClick={() => setIsMoreDropdownOpen(false)}
+                                        >
+                                            Hero Section Text
+                                        </Link>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
                     </div>
 
                     {/* User Dropdown - Desktop */}
-                    <div className="hidden lg:flex lg:flex-1 lg:justify-end ">
-                        <div className="relative user-dropdown ">
+                    <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+                        <div className="relative user-dropdown">
                             <button
                                 onClick={toggleDropdown}
-                                className="cursor-pointer flex items-center gap-x-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 "
+                                className="cursor-pointer flex items-center gap-x-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
                             >
                                 <div className="flex items-center gap-x-2">
                                     <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
@@ -156,7 +197,7 @@ const handleLogout = () => {
 
                             {/* Dropdown Menu */}
                             {isDropdownOpen && (
-                                <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-lg bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none ">
+                                <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-lg bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                                     <div className="p-2">
                                         {/* User Info */}
                                         <div className="px-3 py-2 border-b border-gray-100 dark:border-gray-700">
@@ -246,7 +287,7 @@ const handleLogout = () => {
                             <div className="mt-6 flow-root">
                                 <div className="-my-6 divide-y divide-gray-500/10 dark:divide-gray-700">
                                     <div className="space-y-2 py-6">
-                                        <Link href="/scholarships-programs" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        <Link href="/scholarships-programs-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
                                             Scholarships
                                         </Link>
                                         <Link href="/applying-for-sch-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
@@ -261,11 +302,16 @@ const handleLogout = () => {
                                         <Link href="/featured-videos-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
                                             Featured Videos
                                         </Link>
+                                        
+                                        {/* Additional links in mobile menu (no dropdown) */}
+                                        <Link href="/get-in-touch-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                            Get In Touch
+                                        </Link>
                                         <Link href="/contact-us-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
                                             Contact Us
                                         </Link>
-                                        <Link href="/get-in-touch-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
-                                            Get In Touch
+                                        <Link href="/hero-section-text" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                            Hero Section Text
                                         </Link>
 
                                         {/* Mobile User Links - Only show Users Management for admin */}

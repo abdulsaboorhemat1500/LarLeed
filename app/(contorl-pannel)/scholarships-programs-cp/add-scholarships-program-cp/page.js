@@ -1,6 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useApi } from '@/app/hooks/useApi';
 
 export default function AddScholarshipPage() {
@@ -27,6 +27,7 @@ export default function AddScholarshipPage() {
   const [imagePreview, setImagePreview] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [isValid, setIsValid] = useState(false);
   const { post } = useApi();
 
   // Validation rules
@@ -157,41 +158,41 @@ export default function AddScholarshipPage() {
     }
 
     setErrors(newErrors);
-    return newErrors;
+    return Object.keys(newErrors).length === 0;
   };
 
-  const validateForm = () => {
+  // Check form validity whenever formData or errors change
+  useEffect(() => {
+    checkFormValidity();
+  }, [formData, errors]);
+
+  const checkFormValidity = () => {
     const requiredFields = [
       's_name', 's_country', 's_university', 's_language', 's_study_level',
       's_app_deadline', 's_duration', 's_funding_type', 's_overview',
       's_detailed_info', 's_eligibility', 's_app_procces', 's_benefits'
     ];
 
-    let formErrors = { ...errors };
+    // Check if all required fields are filled
+    const hasAllRequiredFields = requiredFields.every(field => 
+      formData[field] && formData[field].toString().trim() !== ''
+    );
 
-    requiredFields.forEach(field => {
-      const fieldErrors = validateField(field, formData[field]);
-      formErrors = { ...formErrors, ...fieldErrors };
-    });
+    // Check length requirements
+    const meetsLengthRequirements = 
+      formData.s_overview.length >= 50 &&
+      formData.s_detailed_info.length >= 100 &&
+      formData.s_eligibility.length >= 50 &&
+      formData.s_app_procces.length >= 50 &&
+      formData.s_benefits.length >= 30;
 
-    if (formData.s_overview.length < 50) {
-      formErrors.s_overview = 'Overview must be at least 50 characters';
-    }
-    if (formData.s_detailed_info.length < 100) {
-      formErrors.s_detailed_info = 'Detailed information must be at least 100 characters';
-    }
-    if (formData.s_eligibility.length < 50) {
-      formErrors.s_eligibility = 'Eligibility criteria must be at least 50 characters';
-    }
-    if (formData.s_app_procces.length < 50) {
-      formErrors.s_app_procces = 'Application process must be at least 50 characters';
-    }
-    if (formData.s_benefits.length < 30) {
-      formErrors.s_benefits = 'Benefits must be at least 30 characters';
-    }
+    // Check if deadline is in the future
+    const isFutureDate = formData.s_app_deadline && new Date(formData.s_app_deadline) > new Date();
 
-    setErrors(formErrors);
-    return Object.keys(formErrors).length === 0;
+    // Check if there are no validation errors
+    const hasNoErrors = Object.keys(errors).length === 0;
+
+    setIsValid(hasAllRequiredFields && meetsLengthRequirements && isFutureDate && hasNoErrors);
   };
 
   const handleChange = (e) => {
@@ -231,6 +232,40 @@ export default function AddScholarshipPage() {
       setImagePreview(e.target.result);
     };
     reader.readAsDataURL(file);
+  };
+
+  const validateForm = () => {
+    const requiredFields = [
+      's_name', 's_country', 's_university', 's_language', 's_study_level',
+      's_app_deadline', 's_duration', 's_funding_type', 's_overview',
+      's_detailed_info', 's_eligibility', 's_app_procces', 's_benefits'
+    ];
+
+    let formErrors = {};
+
+    requiredFields.forEach(field => {
+      validateField(field, formData[field]);
+    });
+
+    // Additional length validations
+    if (formData.s_overview.length < 50) {
+      formErrors.s_overview = 'Overview must be at least 50 characters';
+    }
+    if (formData.s_detailed_info.length < 100) {
+      formErrors.s_detailed_info = 'Detailed information must be at least 100 characters';
+    }
+    if (formData.s_eligibility.length < 50) {
+      formErrors.s_eligibility = 'Eligibility criteria must be at least 50 characters';
+    }
+    if (formData.s_app_procces.length < 50) {
+      formErrors.s_app_procces = 'Application process must be at least 50 characters';
+    }
+    if (formData.s_benefits.length < 30) {
+      formErrors.s_benefits = 'Benefits must be at least 30 characters';
+    }
+
+    setErrors(formErrors);
+    return Object.keys(formErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
@@ -288,29 +323,6 @@ export default function AddScholarshipPage() {
       s_image: null
     }));
     setImagePreview('');
-  };
-
-  const isFormValid = () => {
-    const requiredFields = [
-      's_name', 's_country', 's_university', 's_language', 's_study_level',
-      's_app_deadline', 's_duration', 's_funding_type', 's_overview',
-      's_detailed_info', 's_eligibility', 's_app_procces', 's_benefits'
-    ];
-
-    const hasAllRequiredFields = requiredFields.every(field => 
-      formData[field] && formData[field].toString().trim() !== ''
-    );
-
-    const meetsLengthRequirements = 
-      formData.s_overview.length >= 50 &&
-      formData.s_detailed_info.length >= 100 &&
-      formData.s_eligibility.length >= 50 &&
-      formData.s_app_procces.length >= 50 &&
-      formData.s_benefits.length >= 30;
-
-    const isFutureDate = formData.s_app_deadline && new Date(formData.s_app_deadline) > new Date();
-
-    return hasAllRequiredFields && meetsLengthRequirements && isFutureDate && Object.keys(errors).length === 0;
   };
 
   return (
@@ -581,6 +593,9 @@ export default function AddScholarshipPage() {
               {errors.s_overview && (
                 <p className="mt-1 text-sm text-red-600">{errors.s_overview}</p>
               )}
+              <p className="text-sm text-gray-500 mt-1">
+                {formData.s_overview.length}/50 characters (minimum 50 required)
+              </p>
             </div>
 
             {/* Detailed Information */}
@@ -602,6 +617,9 @@ export default function AddScholarshipPage() {
               {errors.s_detailed_info && (
                 <p className="mt-1 text-sm text-red-600">{errors.s_detailed_info}</p>
               )}
+              <p className="text-sm text-gray-500 mt-1">
+                {formData.s_detailed_info.length}/100 characters (minimum 100 required)
+              </p>
             </div>
 
             {/* Eligibility Criteria */}
@@ -623,6 +641,9 @@ export default function AddScholarshipPage() {
               {errors.s_eligibility && (
                 <p className="mt-1 text-sm text-red-600">{errors.s_eligibility}</p>
               )}
+              <p className="text-sm text-gray-500 mt-1">
+                {formData.s_eligibility.length}/50 characters (minimum 50 required)
+              </p>
             </div>
 
             {/* Application Process */}
@@ -644,6 +665,9 @@ export default function AddScholarshipPage() {
               {errors.s_app_procces && (
                 <p className="mt-1 text-sm text-red-600">{errors.s_app_procces}</p>
               )}
+              <p className="text-sm text-gray-500 mt-1">
+                {formData.s_app_procces.length}/50 characters (minimum 50 required)
+              </p>
             </div>
 
             {/* Benefits */}
@@ -665,6 +689,9 @@ export default function AddScholarshipPage() {
               {errors.s_benefits && (
                 <p className="mt-1 text-sm text-red-600">{errors.s_benefits}</p>
               )}
+              <p className="text-sm text-gray-500 mt-1">
+                {formData.s_benefits.length}/30 characters (minimum 30 required)
+              </p>
             </div>
           </div>
 
@@ -680,7 +707,7 @@ export default function AddScholarshipPage() {
             </button>
             <button
               type="submit"
-              disabled={loading || !isFormValid()}
+              disabled={loading || !isValid}
               className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
             >
               {loading ? (
