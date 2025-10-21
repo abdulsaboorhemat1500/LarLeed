@@ -82,17 +82,6 @@ export default function AddHeroText() {
               placeholder="Enter the complete text with formatting..."
               rows={12}
             />
-            <div className="text-sm text-gray-600 mt-3 p-3 bg-gray-50 rounded-lg">
-              <p className="font-semibold mb-2">Formatting Guide:</p>
-              <ul className="list-disc list-inside space-y-1">
-                <li><strong>Headings:</strong> Use H1, H2, H3 for different heading levels</li>
-                <li><strong>Bold:</strong> Highlight text and click <strong>B</strong></li>
-                <li><strong>Italic:</strong> Highlight text and click <em>I</em></li>
-                <li><strong>Underline:</strong> Highlight text and click <u>U</u></li>
-                <li><strong>Lists:</strong> Create bullet points or numbered lists</li>
-                <li><strong>Alignment:</strong> Left, center, or right align your text</li>
-              </ul>
-            </div>
           </div>
 
           <div className="flex gap-4 pt-4">

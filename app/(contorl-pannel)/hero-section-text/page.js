@@ -61,7 +61,7 @@ export default function HeroTextPage() {
         </div>
 
         {/* Text Display Sections */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-1 gap-8">
           {/* Seven Line Text Section */}
           <div className="bg-gray-50 p-6 rounded-lg border border-gray-200">
             <h2 className="text-xl font-semibold text-gray-700 mb-4">Small Text (7 Lines)</h2>
@@ -81,9 +81,7 @@ export default function HeroTextPage() {
             <h2 className="text-xl font-semibold text-gray-700 mb-4">All Text</h2>
             <div className="bg-white p-4 rounded border min-h-[200px]">
               {textData ? (
-                <div className="text-gray-600 rich-text-content" dangerouslySetInnerHTML={{ __html: textData.full_text }}>
-                  {textData.full_text}
-                </div>
+                <div className="text-gray-600 rich-text-content" dangerouslySetInnerHTML={{ __html: textData.full_text }} />
               ) : (
                 <div className="text-gray-400 italic">No text available. Click "Add Text" to create.</div>
               )}

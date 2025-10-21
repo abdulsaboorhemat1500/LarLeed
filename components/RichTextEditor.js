@@ -12,6 +12,7 @@ export default function RichTextEditor({
 }) {
   const editorRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
+  const [lastSelection, setLastSelection] = useState(null);
 
   useEffect(() => {
     if (editorRef.current && value !== editorRef.current.innerHTML) {
@@ -19,47 +20,92 @@ export default function RichTextEditor({
     }
   }, [value]);
 
+  // Save selection when editor loses focus
+  const saveSelection = () => {
+    const selection = window.getSelection();
+    if (selection && selection.rangeCount > 0) {
+      setLastSelection(selection.getRangeAt(0));
+    }
+  };
+
+  // Restore selection when editor gains focus
+  const restoreSelection = () => {
+    if (lastSelection && editorRef.current) {
+      const selection = window.getSelection();
+      if (selection) {
+        selection.removeAllRanges();
+        selection.addRange(lastSelection);
+      }
+    }
+  };
+
   const handleInput = () => {
     if (editorRef.current) {
       onChange(editorRef.current.innerHTML);
     }
   };
 
+  const handleFocus = () => {
+    setIsFocused(true);
+    restoreSelection();
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    saveSelection();
+  };
+
   const execCommand = (command, value = '') => {
+    // Ensure editor is focused
+    editorRef.current?.focus();
+    
+    // Save current selection
+    saveSelection();
+    
+    // Execute command
     document.execCommand('styleWithCSS', false, 'true');
     document.execCommand(command, false, value);
+    
+    // Update content
+    handleInput();
+    
+    // Restore focus to editor
+    editorRef.current?.focus();
+  };
+
+  const formatHeading = (level) => {
+    editorRef.current?.focus();
+    saveSelection();
+    document.execCommand('formatBlock', false, `h${level}`);
     handleInput();
     editorRef.current?.focus();
   };
 
-    const handlePaste = (e) => {
+  const handlePaste = (e) => {
     e.preventDefault();
     const text = e.clipboardData.getData('text/plain');
     document.execCommand('insertText', false, text);
     handleInput();
   };
 
-  const formatHeading = (level) => {
-    document.execCommand('formatBlock', false, `h${level}`);
-    handleInput();
-    editorRef.current?.focus();
+  const handleMouseUp = () => {
+    saveSelection();
+  };
+
+  const handleKeyUp = () => {
+    saveSelection();
   };
 
   const ToolbarButton = ({ 
     onClick, 
     children, 
-    title,
-    active = false
+    title
   }) => (
     <button
       type="button"
       onClick={onClick}
       title={title}
-      className={`p-2 rounded transition-colors min-w-[40px] flex items-center justify-center text-sm font-medium ${
-        active 
-          ? 'bg-blue-500 text-white' 
-          : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-300'
-      }`}
+      className="p-2 rounded transition-colors min-w-[40px] flex items-center justify-center text-sm font-medium bg-white text-gray-700 hover:bg-gray-100 border border-gray-300"
     >
       {children}
     </button>
@@ -159,6 +205,16 @@ export default function RichTextEditor({
             ➡
           </ToolbarButton>
         </div>
+
+        {/* Clear Formatting */}
+        <div className="w-px h-8 bg-gray-300"></div>
+        
+        <ToolbarButton 
+          onClick={() => execCommand('removeFormat')} 
+          title="Clear Formatting"
+        >
+          Clear
+        </ToolbarButton>
       </div>
 
       {/* Editor Area */}
@@ -167,8 +223,10 @@ export default function RichTextEditor({
         contentEditable
         onInput={handleInput}
         onPaste={handlePaste}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onMouseUp={handleMouseUp}
+        onKeyUp={handleKeyUp}
         className={`p-4 min-h-[200px] outline-none bg-white rounded-b-lg rich-text-editor ${
           isFocused ? 'ring-0' : ''
         }`}
@@ -179,6 +237,11 @@ export default function RichTextEditor({
         data-placeholder={placeholder}
         suppressContentEditableWarning={true}
       />
+      
+      {/* Instructions */}
+      <div className="px-4 py-2 bg-gray-50 border-t border-gray-200 text-sm text-gray-600">
+        💡 <strong>Tip:</strong> Select text first, then click formatting buttons. Or click buttons first to apply to new text.
+      </div>
     </div>
   );
-}
+} 
