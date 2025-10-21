@@ -25,7 +25,7 @@ export default function ApplicationDetailsPage() {
     try {
       setLoading(true);
       setError(null);
-      const result = await get(`/api/aplyingScholarships/${id}`);
+      const result = await get(`/api/applyingScholarships/${id}`);
       
       console.log('📦 API Response:', result);
 

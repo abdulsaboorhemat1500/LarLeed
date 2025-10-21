@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 export default function UpdateScholarshipPage() {
   const router = useRouter();
   const params = useParams();
-  const { get } = useApi();
+  const { get , post } = useApi();
   const scholarshipId = params.id;
 
   const [formData, setFormData] = useState({
@@ -213,7 +213,6 @@ export default function UpdateScholarshipPage() {
               s_benefits: scholarship.s_benefits || ''
             });
             setCurrentImage(scholarship.s_image || '');
-            console.log('✅ Scholarship data loaded successfully');
           } else {
             setError(`Scholarship with ID ${scholarshipId} not found`);
           }
@@ -330,17 +329,9 @@ export default function UpdateScholarshipPage() {
         formDataToSend.append('s_image', formData.s_image);
       }
 
-      console.log('🔄 Sending update request...');
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/scholarships`, {
-        method: 'PUT',
-        body: formDataToSend,
-      });
-
-      const result = await response.json();
-      console.log('📦 Update response:', result);
+      const result = await post('/api/scholarships', formDataToSend);
 
       if (result.success) {
-        console.log('✅ Scholarship updated successfully');
         router.push('/scholarships-programs-cp');
       } else {
         setError(result.error || 'Failed to update scholarship');

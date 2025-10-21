@@ -38,7 +38,6 @@ export default function ScholarshipsPage() {
   };
 
   const handleDelete = async (scholarshipId) => {
-    console.log('here i am ')
   if (!confirm('Are you sure you want to delete this scholarship? This action cannot be undone.')) {
     return;
   }
