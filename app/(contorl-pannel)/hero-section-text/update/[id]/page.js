@@ -1,6 +1,8 @@
 // app/hero-text/update/[id]/page.tsx
 'use client';
 
+export const runtime = 'edge';
+export const dynamic = 'force-dynamic';
 import { useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useApi } from '@/app/hooks/useApi';
