@@ -293,9 +293,7 @@ const totalPages = Math.ceil(filteredScholarships.length / itemsPerPage);
 
                     {/* Description - Limited to 4 lines */}
                     <div className="mb-6">
-                      <p className="text-gray-600 leading-relaxed line-clamp-4">
-                        {scholarship.s_overview || scholarship.s_detailed_info || 'No description available.'}
-                      </p>
+                      <div className="text-gray-600 leading-relaxed line-clamp-4 rich-text-content" dangerouslySetInnerHTML={{ __html: scholarship.s_overview || scholarship.s_detailed_info || 'No description available.' }} />
                     </div>
 
                     {/* Scholarship Details */}

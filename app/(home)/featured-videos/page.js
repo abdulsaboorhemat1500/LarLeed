@@ -228,9 +228,7 @@ export default function FeaturedVideosList() {
                     </p>
                     
                     {/* Description - Limited to 3 lines */}
-                    <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 flex-1">
-                      {video.v_description || 'No description available'}
-                    </p>
+                    <div className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 flex-1 rich-text-content" dangerouslySetInnerHTML={{ __html: video.v_description || 'No description available' }} />
                   </div>
 
                   {/* Buttons - Full width at the bottom */}

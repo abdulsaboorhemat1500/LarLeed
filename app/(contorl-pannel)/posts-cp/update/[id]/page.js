@@ -4,6 +4,7 @@ export const dynamic = 'force-dynamic';
 import { useRouter, useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { useApi } from '@/app/hooks/useApi';
+import RichTextEditor from '@/components/RichTextEditor';
 
 export default function UpdatePostPage() {
   const router = useRouter();
@@ -355,14 +356,14 @@ export default function UpdatePostPage() {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Post Description *
               </label>
-              <textarea
-                name="post_description"
+              <RichTextEditor
                 value={formData.post_description}
-                onChange={handleChange}
-                required
-                rows="6"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-vertical"
+                onChange={(value) => setFormData(prevState => ({
+                  ...prevState,
+                  post_description: value
+                }))}
                 placeholder="Enter post description or summary..."
+                rows={6}
               />
             </div>
           </div>

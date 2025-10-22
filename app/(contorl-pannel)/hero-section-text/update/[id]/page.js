@@ -117,9 +117,6 @@ export default function UpdateHeroText() {
               placeholder="Enter the complete text with formatting..."
               rows={10}
             />
-            <p className="text-sm text-gray-500 mt-2">
-              Use the toolbar to format your text with <strong>bold</strong>, <em>italic</em>, <u>underline</u>, and lists.
-            </p>
           </div>
 
           <div className="flex gap-4">

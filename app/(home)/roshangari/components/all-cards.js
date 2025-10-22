@@ -204,9 +204,7 @@ export default function FeaturedStoriesList() {
                   </p>
                   
                   {/* Description - Limited to 3 lines */}
-                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1">
-                    {story.post_description}
-                  </p>
+                  <div className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1 rich-text-content" dangerouslySetInnerHTML={{ __html: story.post_description }} />
                   
                   {/* Story Details Button - Full width at the bottom */}
                   <Link href={`/featured-stories/${story.id}`}>

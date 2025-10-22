@@ -4,6 +4,7 @@ export const dynamic = 'force-dynamic';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect , use} from 'react';
 import { useApi } from '@/app/hooks/useApi';
+import RichTextEditor from '@/components/RichTextEditor';
 
 export default function UpdateFeaturedVideoPage({params}) {
   console.log(params , "here i am")
@@ -323,13 +324,14 @@ export default function UpdateFeaturedVideoPage({params}) {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Video Description
               </label>
-              <textarea
-                name="v_description"
+              <RichTextEditor
                 value={formData.v_description}
-                onChange={handleChange}
-                rows="4"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-vertical"
+                onChange={(value) => setFormData(prevState => ({
+                  ...prevState,
+                  v_description: value
+                }))}
                 placeholder="Enter video description..."
+                rows={4}
               />
             </div>
           </div>

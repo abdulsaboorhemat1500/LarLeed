@@ -233,9 +233,7 @@ export default function AllVideos() {
                     </p>
 
                     {/* Description */}
-                    <p className="text-gray-500 dark:text-white text-sm mb-4 line-clamp-3 leading-relaxed">
-                      {scholarship.s_detailed_info || scholarship.s_overview || 'No description available.'}
-                    </p>
+                    <div className="text-gray-500 dark:text-white text-sm mb-4 line-clamp-3 leading-relaxed rich-text-content" dangerouslySetInnerHTML={{ __html: scholarship.s_detailed_info || scholarship.s_overview || 'No description available.' }} />
 
                     {/* Deadline and Language */}
                     <div className="flex justify-between items-center text-sm text-gray-700 border-t border-gray-100 pt-3">

@@ -2,6 +2,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useApi } from '@/app/hooks/useApi';
+import RichTextEditor from '@/components/RichTextEditor';
 
 export default function AddPostPage() {
   const router = useRouter();
@@ -264,7 +265,7 @@ export default function AddPostPage() {
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Post Description *
               </label>
-              <textarea
+              <RichTextEditor
                 name="post_description"
                 value={formData.post_description}
                 onChange={handleChange}

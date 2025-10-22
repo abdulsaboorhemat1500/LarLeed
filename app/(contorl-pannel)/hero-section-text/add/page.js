@@ -74,7 +74,7 @@ export default function AddHeroText() {
           {/* Full Text Input with Rich Text Editor */}
           <div>
             <label className="block text-lg font-semibold text-gray-700 mb-2">
-              All Text (Rich Text Editor)
+              All Text
             </label>
             <RichTextEditor
               value={fullText}

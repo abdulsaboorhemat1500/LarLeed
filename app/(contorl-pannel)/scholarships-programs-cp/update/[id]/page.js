@@ -2,6 +2,7 @@
 export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
 import { useApi } from '@/app/hooks/useApi';
+import RichTextEditor from '@/components/RichTextEditor';
 import { useRouter, useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
@@ -702,16 +703,14 @@ export default function UpdateScholarshipPage() {
                   ({formData.s_overview.length}/50 minimum)
                 </span>
               </label>
-              <textarea
-                name="s_overview"
+              <RichTextEditor
                 value={formData.s_overview}
-                onChange={handleChange}
-                required
-                rows="4"
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.s_overview ? 'border-red-500' : 'border-gray-300'
-                }`}
+                onChange={(value) => setFormData(prevState => ({
+                  ...prevState,
+                  s_overview: value
+                }))}
                 placeholder="Provide a brief overview of the scholarship"
+                rows={4}
               />
               {errors.s_overview && (
                 <p className="mt-1 text-sm text-red-600">{errors.s_overview}</p>
@@ -726,16 +725,14 @@ export default function UpdateScholarshipPage() {
                   ({formData.s_detailed_info.length}/100 minimum)
                 </span>
               </label>
-              <textarea
-                name="s_detailed_info"
+              <RichTextEditor
                 value={formData.s_detailed_info}
-                onChange={handleChange}
-                required
-                rows="6"
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.s_detailed_info ? 'border-red-500' : 'border-gray-300'
-                }`}
+                onChange={(value) => setFormData(prevState => ({
+                  ...prevState,
+                  s_detailed_info: value
+                }))}
                 placeholder="Provide detailed information about the scholarship"
+                rows={6}
               />
               {errors.s_detailed_info && (
                 <p className="mt-1 text-sm text-red-600">{errors.s_detailed_info}</p>
@@ -750,16 +747,14 @@ export default function UpdateScholarshipPage() {
                   ({formData.s_eligibility.length}/50 minimum)
                 </span>
               </label>
-              <textarea
-                name="s_eligibility"
+              <RichTextEditor
                 value={formData.s_eligibility}
-                onChange={handleChange}
-                required
-                rows="5"
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.s_eligibility ? 'border-red-500' : 'border-gray-300'
-                }`}
+                onChange={(value) => setFormData(prevState => ({
+                  ...prevState,
+                  s_eligibility: value
+                }))}
                 placeholder="List the eligibility requirements"
+                rows={5}
               />
               {errors.s_eligibility && (
                 <p className="mt-1 text-sm text-red-600">{errors.s_eligibility}</p>
@@ -774,16 +769,14 @@ export default function UpdateScholarshipPage() {
                   ({formData.s_app_procces.length}/50 minimum)
                 </span>
               </label>
-              <textarea
-                name="s_app_procces"
+              <RichTextEditor
                 value={formData.s_app_procces}
-                onChange={handleChange}
-                required
-                rows="5"
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.s_app_procces ? 'border-red-500' : 'border-gray-300'
-                }`}
+                onChange={(value) => setFormData(prevState => ({
+                  ...prevState,
+                  s_app_procces: value
+                }))}
                 placeholder="Describe the application process step by step"
+                rows={5}
               />
               {errors.s_app_procces && (
                 <p className="mt-1 text-sm text-red-600">{errors.s_app_procces}</p>
@@ -798,16 +791,14 @@ export default function UpdateScholarshipPage() {
                   ({formData.s_benefits.length}/30 minimum)
                 </span>
               </label>
-              <textarea
-                name="s_benefits"
+              <RichTextEditor
                 value={formData.s_benefits}
-                onChange={handleChange}
-                required
-                rows="4"
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.s_benefits ? 'border-red-500' : 'border-gray-300'
-                }`}
+                onChange={(value) => setFormData(prevState => ({
+                  ...prevState,
+                  s_benefits: value
+                }))}
                 placeholder="List the benefits offered by this scholarship"
+                rows={4}
               />
               {errors.s_benefits && (
                 <p className="mt-1 text-sm text-red-600">{errors.s_benefits}</p>

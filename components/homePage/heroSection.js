@@ -1,18 +1,48 @@
 'use client';
 import Image from 'next/image';
-import { useState } from 'react';
-import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import { useApi } from '@/app/hooks/useApi';
 
 export default function HeroSection() {
   const [showModal, setShowModal] = useState(false);
+  const [textData, setTextData] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const { get } = useApi();
 
-  const fullText = `In a nation brimming with untapped potential, we are building bridges that connect Afghanistan's vibrant youth to a future of possibilities. Through comprehensive educational initiatives, we provide the tools and knowledge necessary for young Afghans to not only dream but to achieve. Our programs focus on developing critical thinking, technical skills, and academic excellence, creating a generation equipped to navigate the complexities of the modern world while remaining rooted in their rich cultural heritage. We believe that education is the most powerful catalyst for change, transforming passive observers into active architects of their own destiny.
+  const fetchTextData = async () => {
+    try {
+      setLoading(true);
+      const result = await get('/api/heroSectionText');
+      if (result.success && result.data.length > 0) {
+        setTextData(result.data[0]);
+      }
+    } catch (error) {
+      console.error('Error fetching text data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-We foster meaningful dialogue that transcends geographical and ideological boundaries, creating safe spaces where young voices can be heard, valued, and amplified. Our platforms bring together students, professionals, and thought leaders to engage in constructive conversations about Afghanistan's future. Through workshops, mentorship programs, and collaborative projects, we encourage the exchange of diverse perspectives that challenge conventional thinking and inspire innovative solutions to local and global challenges. This culture of open communication builds understanding, breaks down barriers, and cultivates the leadership qualities essential for national progress.
+  useEffect(() => {
+    fetchTextData();
+  }, []);
 
-Guided by a clear vision of empowerment, we are committed to nurturing the next generation of Afghan leaders, innovators, and change-makers. Our initiatives are designed to help youth develop not just academic proficiency but also the character, resilience, and vision required to drive positive transformation in their communities. We support them in mapping out their personal and professional journeys, connecting aspirations with actionable pathways toward meaningful careers and civic engagement. Together, we are building a network of empowered young individuals who will shape Afghanistan's future with wisdom, compassion, and unwavering determination.`;
+  // Use fallback text while loading or if API fails
+  const fullText = textData?.full_text || `No text data found`;
 
-  const shortText = `In a nation brimming with untapped potential, we are building bridges that connect Afghanistan's vibrant youth to a future of possibilities. Through comprehensive educational initiatives, we provide the tools and knowledge necessary for young Afghans to not only dream but to achieve. Our programs focus on developing critical thinking, technical skills, and academic excellence...`;
+  const shortText = textData?.seven_line_text || `No text data found`;
+
+  // Show loading state if needed
+  if (loading) {
+    return (
+      <section className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600 dark:text-gray-300">Loading...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <>
@@ -97,13 +127,14 @@ Guided by a clear vision of empowerment, we are committed to nurturing the next 
               </div>
               
               {/* Modal Content */}
-              <div className="prose dark:prose-invert max-w-none">
+              {/* <div className="prose dark:prose-invert max-w-none">
                 {fullText.split('\n\n').map((paragraph, index) => (
                   <p key={index} className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
                     {paragraph}
                   </p>
                 ))}
-              </div>
+              </div> */}
+              <div className="text-gray-600 rich-text-content" dangerouslySetInnerHTML={{ __html: textData.full_text }} />
               
               {/* Modal Footer */}
               <div className="flex justify-end pt-6 mt-6 border-t border-gray-200 dark:border-gray-700">
