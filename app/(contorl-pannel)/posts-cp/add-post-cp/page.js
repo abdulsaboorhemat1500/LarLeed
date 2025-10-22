@@ -266,13 +266,13 @@ export default function AddPostPage() {
                 Post Description *
               </label>
               <RichTextEditor
-                name="post_description"
                 value={formData.post_description}
-                onChange={handleChange}
-                required
-                rows="6"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-vertical"
+                onChange={(value) => setFormData(prevState => ({
+                  ...prevState,
+                  post_description: value
+                }))}
                 placeholder="Enter post description or summary..."
+                rows={6}
               />
             </div>
           </div>
