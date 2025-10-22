@@ -128,9 +128,7 @@ export default function ScholarshipDetailsPage({ params }) {
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                   Scholarship Overview
                 </h2>
-                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                  {scholarship.s_overview}
-                </p>
+                <div className="text-gray-700 dark:text-gray-300 leading-relaxed rich-text-content" dangerouslySetInnerHTML={{ __html: scholarship.s_overview }} />
               </div>
 
               {/* Full Description */}
@@ -138,9 +136,7 @@ export default function ScholarshipDetailsPage({ params }) {
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                   Detailed Information
                 </h2>
-                <div className="text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
-                  {scholarship.s_detailed_info}
-                </div>
+                <div className="text-gray-700 dark:text-gray-300 leading-relaxed rich-text-content" dangerouslySetInnerHTML={{ __html: scholarship.s_detailed_info }} />
               </div>
 
               {/* Eligibility Criteria */}
@@ -148,9 +144,7 @@ export default function ScholarshipDetailsPage({ params }) {
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                   Eligibility Criteria
                 </h2>
-                <div className="text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
-                  {scholarship.s_eligibility}
-                </div>
+                <div className="text-gray-700 dark:text-gray-300 leading-relaxed rich-text-content" dangerouslySetInnerHTML={{ __html: scholarship.s_eligibility }} />
               </div>
 
               {/* Application Process */}
@@ -158,9 +152,7 @@ export default function ScholarshipDetailsPage({ params }) {
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                   Application Process
                 </h2>
-                <div className="text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
-                  {scholarship.s_app_procces}
-                </div>
+                <div className="text-gray-700 dark:text-gray-300 leading-relaxed rich-text-content" dangerouslySetInnerHTML={{ __html: scholarship.s_app_procces }} />
               </div>
 
               {/* Benefits */}
@@ -168,9 +160,7 @@ export default function ScholarshipDetailsPage({ params }) {
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                   Scholarship Benefits
                 </h2>
-                <div className="text-gray-700 dark:text-gray-300 whitespace-pre-line leading-relaxed">
-                  {scholarship.s_benefits}
-                </div>
+                <div className="text-gray-700 dark:text-gray-300 leading-relaxed rich-text-content" dangerouslySetInnerHTML={{ __html: scholarship.s_benefits }} />
               </div>
             </div>
 

@@ -121,9 +121,7 @@ export default function VideoDetailsPage({ params }) {
                 
                 {/* Video Description */}
                 <div className="prose prose-lg dark:prose-invert max-w-none">
-                  <div className="whitespace-pre-line text-gray-700 dark:text-gray-300 leading-relaxed">
-                    {video.v_description || 'No description available for this video.'}
-                  </div>
+                  <div className="text-gray-700 dark:text-gray-300 leading-relaxed rich-text-content" dangerouslySetInnerHTML={{ __html: video.v_description || 'No description available for this video.' }} />
                 </div>
 
                 {/* Additional Video Information */}

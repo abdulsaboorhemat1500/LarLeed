@@ -152,9 +152,9 @@ export default function StoryDetailsPage({ params }) {
                 
                 {/* Text Area */}
                 <div className="prose prose-lg dark:prose-invert max-w-none">
-                  <div className="whitespace-pre-line text-gray-700 dark:text-gray-300 leading-relaxed">
-                    {story.post_description}
-                  </div>
+                  
+                  <div className="text-gray-600 rich-text-content" dangerouslySetInnerHTML={{ __html: story.post_description }} />
+
                 </div>
 
                 {/* Additional Story Sections */}
