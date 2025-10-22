@@ -5,7 +5,7 @@ import { useApi } from '@/app/hooks/useApi';
 
 export default function HeroSection() {
   const [showModal, setShowModal] = useState(false);
-  const [textData, setTextData] = useState<any>(null);
+  const [textData, setTextData] = useState(null);
   const [loading, setLoading] = useState(true);
   const { get } = useApi();
 
