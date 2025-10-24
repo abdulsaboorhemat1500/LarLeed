@@ -2,7 +2,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { useApi } from '@/app/hooks/useApi';
-export const runtime = 'edge';
 export default function AllVideos() {
   const [currentPage, setCurrentPage] = useState(1);
   const scholarshipsPerpage = 12;

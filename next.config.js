@@ -1,20 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Remove output: 'export' for Cloudflare compatibility
+  output: 'export', // Keep this for static export
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
-  // Disable TypeScript and ESLint during build
+  // Disable type checking during build
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Disable ESLint during build
   eslint: {
     ignoreDuringBuilds: true,
-  },
-  // Enable experimental features for better compatibility
-  experimental: {
-    esmExternals: false,
   }
 };
 

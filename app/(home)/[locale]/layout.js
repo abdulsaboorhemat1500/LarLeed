@@ -5,7 +5,6 @@ export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
 
-export const runtime = 'edge'; // Add this line
 
 export default function HomeLocaleLayout({ children, params }) {
   const { locale } = params;

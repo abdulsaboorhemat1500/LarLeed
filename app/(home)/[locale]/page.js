@@ -6,7 +6,6 @@ import WorkThusFor from "@/components/homePage/workThusFor";
 import TeamSection from "@/components/homePage/teamSection";
 import ContactUsSection from "@/components/contact-us";
 
-export const runtime = 'edge'; // Add this line
 
 export async function generateStaticParams() {
   return [
