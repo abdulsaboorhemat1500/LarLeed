@@ -1,4 +1,5 @@
 'use client';
+export const runtime = 'edge';
 import BackButton from '@/components/ui/back-button';
 import { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';

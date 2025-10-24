@@ -1,4 +1,5 @@
 'use client';
+export const runtime = 'edge';
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { useApi } from '@/app/hooks/useApi';
