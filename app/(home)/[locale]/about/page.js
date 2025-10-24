@@ -1,5 +1,5 @@
 import BackButton from "@/components/ui/back-button";
-
+export const runtime = 'edge';
 // app/about/page.js
 export default function AboutPage() {
   return (

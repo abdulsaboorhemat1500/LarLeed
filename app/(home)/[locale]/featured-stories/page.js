@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useApi } from '@/app/hooks/useApi';
-
+export const runtime = 'edge';
 export default function FeaturedStoriesList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');

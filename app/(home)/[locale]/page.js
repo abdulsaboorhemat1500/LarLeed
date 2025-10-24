@@ -6,7 +6,8 @@ import WorkThusFor from "@/components/homePage/workThusFor";
 import TeamSection from "@/components/homePage/teamSection";
 import ContactUsSection from "@/components/contact-us";
 
-// Generate static params for SSG
+export const runtime = 'edge'; // Add this line
+
 export async function generateStaticParams() {
   return [
     { locale: 'en' },
@@ -15,11 +16,9 @@ export async function generateStaticParams() {
   ];
 }
 
-// Generate metadata for SEO with translations
 export async function generateMetadata({ params }) {
   const { locale } = params;
   
-  // Default metadata - you can enhance this with your translation system
   const metadata = {
     en: {
       title: "LarLeed - Online Learning Platform",
@@ -42,16 +41,14 @@ export async function generateMetadata({ params }) {
 }
 
 export default function LocalizedHomePage({ params }) {
-  const { locale } = params;
-
   return (
     <>
-      <HomePage locale={locale} />
-      <FeaturedStories locale={locale} />
-      <FeaturedVieos locale={locale} />
-      <WorkThusFor locale={locale} />
-      <TeamSection locale={locale} />
-      <ContactUsSection locale={locale} />
+      <HomePage />
+      <FeaturedStories />
+      <FeaturedVieos />
+      <WorkThusFor />
+      <TeamSection />
+      <ContactUsSection />
     </>
   );
 }

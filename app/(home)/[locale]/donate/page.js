@@ -1,3 +1,4 @@
+export const runtime = 'edge';
 export default function Donate(){
     return (
     <div className="min-h-screen bg-gray-50 py-8 flex items-center justify-center">

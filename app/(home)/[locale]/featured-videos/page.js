@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useApi } from '@/app/hooks/useApi';
-
+export const runtime = 'edge';
 export default function FeaturedVideosList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
