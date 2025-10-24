@@ -1,21 +1,20 @@
-// next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // Remove output: 'export' for Cloudflare compatibility
   trailingSlash: true,
   images: {
     unoptimized: true,
   },
-  // Add these for better Cloudflare compatibility
-  experimental: {
-    esmExternals: 'loose'
-  },
-  // Ensure all pages are static
+  // Disable TypeScript and ESLint during build
   typescript: {
     ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
+  },
+  // Enable experimental features for better compatibility
+  experimental: {
+    esmExternals: false,
   }
 };
 
