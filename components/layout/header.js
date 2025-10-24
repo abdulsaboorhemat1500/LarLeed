@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import SimpleLanguageDropdown from "../homePage/languageDropDown";
+import { useTranslations } from '../../hooks/useTranslations';
 
   
 import { useState } from 'react';
@@ -20,7 +21,8 @@ import { Button } from '../ui/button';
 
 export default function HeaderSection(){
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const { setTheme } = useTheme()
+    const { setTheme } = useTheme();
+    const { t } = useTranslations();
 
     return (
         <header className="bg-white  dark:bg-gray-800 sticky top-0 z-50 shadow-sm border-b border-gray-200 dark:border-gray-900">
@@ -50,22 +52,22 @@ export default function HeaderSection(){
                 {/* Desktop Navigation */}
                 <div className="hidden lg:flex lg:gap-x-8">
                     <Link href="/scholarships-programs" className="text-md text-center font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
-                       Scholarships & Programs
+                       {t('Header.scholarshipsPrograms')}
                     </Link>
                     <Link href="/mentorships" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
-                        Mentorship
+                        {t('Header.mentorships')}
                     </Link>
                     <Link href="/roshangari" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
-                        Roshangari
+                        {t('Header.roshangari')}
                     </Link>
                     <Link href="/donate" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
-                        Donate
+                        {t('Header.donate')}
                     </Link>
                     <Link href="/#contact-section" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
-                        Contact Us
+                        {t('Header.contactUs')}
                     </Link>
                     <Link href="/about" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
-                        About Us
+                        {t('Header.aboutUs')}
                     </Link>
                 </div>
                 <div className=" lg:flex lg:flex-1 lg:justify-end lg:gap-4 md:gap-2 sm:gap-4">
@@ -117,22 +119,22 @@ export default function HeaderSection(){
                             <div className="-my-6 divide-y divide-gray-500/10">
                                 <div className="space-y-2 py-6">
                                     <Link href="/scholarships-programs" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 ">
-                                        Scholarships <br /> Programs
+                                        {t('Header.scholarshipsPrograms')}
                                     </Link>
                                     <Link href="/mentorships" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 ">
-                                        Mentorship
+                                        {t('Header.mentorships')}
                                     </Link>
                                     <Link href="/roshangari" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
-                                        Roshangari
+                                        {t('Header.roshangari')}
                                     </Link>
                                     <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
-                                        Contact Us
+                                        {t('Header.contactUs')}
                                     </Link>
                                     <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
-                                        About Us
+                                        {t('Header.aboutUs')}
                                     </Link>
                                     <Link href="/donate" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
-                                        Donate
+                                        {t('Header.donate')}
                                     </Link>
                                 </div>
                                

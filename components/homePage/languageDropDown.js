@@ -2,25 +2,26 @@
 
 import { useState, useRef, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { EnglishFlag, PashtoFlag, DariFlag } from '../ui/flags';
 
 const languages = [
-  {
-    code: 'en',
-    name: 'English',
-    nativeName: 'English',
-    flag: '🇺🇸'
-  },
   {
     code: 'ps',
     name: 'Pashto',
     nativeName: 'پښتو',
-    flag: '🇦🇫'
+    flag: PashtoFlag
+  },
+  {
+    code: 'en',
+    name: 'English',
+    nativeName: 'English',
+    flag: EnglishFlag
   },
   {
     code: 'fa',
     name: 'Dari',
     nativeName: 'دری',
-    flag: '🇦🇫'
+    flag: DariFlag
   }
 ];
 
@@ -30,8 +31,8 @@ export default function LanguageDropdown() {
   const router = useRouter();
   const pathname = usePathname();
 
-  // Extract current locale from pathname
-  const currentLocale = pathname.split('/')[1] || 'en';
+  // Extract current locale from pathname, default to 'ps' (Pashto)
+  const currentLocale = pathname.split('/')[1] || 'ps';
   const selectedLanguage = languages.find(lang => lang.code === currentLocale) || languages[0];
 
   useEffect(() => {
@@ -50,23 +51,23 @@ export default function LanguageDropdown() {
     
     // Replace the locale in the current pathname
     const segments = pathname.split('/');
-    segments[1] = language.code; // Replace the locale segment
+    if (segments.length > 1) {
+      segments[1] = language.code; // Replace the locale segment
+    } else {
+      segments.unshift(language.code); // Add locale if not present
+    }
     const newPathname = segments.join('/');
     
     router.push(newPathname);
   };
-
-  const GlobeIcon = () => (
-    <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-    </svg>
-  );
 
   const CheckIcon = () => (
     <svg className="w-4 h-4 text-blue-600 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
     </svg>
   );
+
+  const SelectedFlag = selectedLanguage.flag;
 
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
@@ -76,28 +77,31 @@ export default function LanguageDropdown() {
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Select language"
       >
-        <GlobeIcon />
+        <SelectedFlag className="w-5 h-5" />
       </button>
 
       {isOpen && (
         <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
           <div className="py-1">
-            {languages.map((language) => (
-              <button
-                key={language.code}
-                className={`flex items-center w-full px-4 py-2 text-sm hover:bg-gray-100 transition-colors duration-150 ${
-                  selectedLanguage.code === language.code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
-                }`}
-                // onClick={() => handleLanguageSelect(language)}
-              >
-                <span className="text-lg mr-3">{language.flag}</span>
-                <div className="flex flex-col items-start flex-1">
-                  <span className="font-medium">{language.name}</span>
-                  <span className="text-xs text-gray-500">{language.nativeName}</span>
-                </div>
-                {selectedLanguage.code === language.code && <CheckIcon />}
-              </button>
-            ))}
+            {languages.map((language) => {
+              const FlagComponent = language.flag;
+              return (
+                <button
+                  key={language.code}
+                  className={`flex items-center w-full px-4 py-2 text-sm hover:bg-gray-100 transition-colors duration-150 ${
+                    selectedLanguage.code === language.code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
+                  }`}
+                  onClick={() => handleLanguageSelect(language)}
+                >
+                  <FlagComponent className="w-5 h-5 mr-3" />
+                  <div className="flex flex-col items-start flex-1">
+                    <span className="font-medium">{language.name}</span>
+                    <span className="text-xs text-gray-500">{language.nativeName}</span>
+                  </div>
+                  {selectedLanguage.code === language.code && <CheckIcon />}
+                </button>
+              );
+            })}
           </div>
         </div>
       )}

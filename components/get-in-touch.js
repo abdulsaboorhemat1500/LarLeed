@@ -91,7 +91,7 @@ export default function GetInTouchSection() {
                   className="h-20"
               />
             </div>
-            <p className="text-gray-300 mb-6 max-w-md">
+            <p className="text-black dark:text-white mb-6 max-w-md">
               Connecting Afghan Youth through Education, Dialogue, and Vision
             </p>
             
@@ -100,7 +100,7 @@ export default function GetInTouchSection() {
               <a 
                 href="https://www.facebook.com/ahamid.hatsaandh" 
                 target="__blank"
-                className="p-2 bg-white hover:bg-blue-600 rounded-lg transition-colors duration-200"
+                className="p-2 bg-white dark:bg-gray-800 hover:bg-blue-600 rounded-lg transition-colors duration-200"
                 aria-label="Facebook"
               >
                 <FacebookIcon className="w-5 h-5" />
@@ -108,7 +108,7 @@ export default function GetInTouchSection() {
               <a 
                 href="https://x.com/HamidHatsaandh" 
                 target="__blank"
-                className="p-2 bg-white hover:bg-blue-400 rounded-lg transition-colors duration-200"
+                className="p-2 bg-white dark:bg-gray-800 hover:bg-blue-400 rounded-lg transition-colors duration-200"
                 aria-label="Twitter"
               >
                 <TwitterIcon className="w-5 h-5" />
@@ -116,7 +116,7 @@ export default function GetInTouchSection() {
               <a 
                 href="https://www.instagram.com/hatsaandh/" 
                 target="__blank"
-                className="p-2 bg-white hover:bg-pink-600 rounded-lg transition-colors duration-200"
+                className="p-2 bg-white dark:bg-gray-800 hover:bg-pink-600 rounded-lg transition-colors duration-200"
                 aria-label="Instagram"
               >
                 <InstagramIcon className="w-5 h-5" />
@@ -124,7 +124,7 @@ export default function GetInTouchSection() {
               <a 
                 href="https://www.youtube.com/@lomritob" 
                 target="__blank"
-                className="p-2 bg-white hover:bg-red-600 rounded-lg transition-colors duration-200"
+                className="p-2 bg-white dark:bg-gray-800 hover:bg-red-600 rounded-lg transition-colors duration-200"
                 aria-label="YouTube"
               >
                 <YoutubeIcon className="w-5 h-5" />
@@ -132,7 +132,7 @@ export default function GetInTouchSection() {
               <a 
                 href="https://www.linkedin.com/in/hamidhatsaandh" 
                 target="__blank"
-                className="p-2 bg-white hover:bg-blue-700 rounded-lg transition-colors duration-200"
+                className="p-2 bg-white dark:bg-gray-800 hover:bg-blue-700 rounded-lg transition-colors duration-200"
                 aria-label="LinkedIn"
               >
                 <LinkedinIcon className="w-5 h-5" />
