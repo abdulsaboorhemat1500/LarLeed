@@ -6,23 +6,35 @@ import { EnglishFlag, PashtoFlag, DariFlag } from '../ui/flags';
 
 const languages = [
   {
-    code: 'ps',
-    name: 'Pashto',
-    nativeName: 'پښتو',
-    flag: PashtoFlag
-  },
-  {
     code: 'en',
     name: 'English',
     nativeName: 'English',
-    flag: EnglishFlag
+    flag: EnglishFlag,
+    direction: 'ltr'
+  },
+  {
+    code: 'ps',
+    name: 'Pashto',
+    nativeName: 'پښتو',
+    flag: PashtoFlag,
+    direction: 'rtl'
   },
   {
     code: 'fa',
     name: 'Dari',
     nativeName: 'دری',
-    flag: DariFlag
+    flag: DariFlag,
+    direction: 'rtl'
   }
+];
+
+// List of non-localized routes (control panel routes)
+const nonLocalizedRoutes = [
+  '/control-panel',
+  '/control-panel/dashboard',
+  '/control-panel/settings',
+  '/control-panel/users',
+  '/control-panel/admin'
 ];
 
 export default function LanguageDropdown() {
@@ -31,9 +43,22 @@ export default function LanguageDropdown() {
   const router = useRouter();
   const pathname = usePathname();
 
-  // Extract current locale from pathname, default to 'ps' (Pashto)
-  const currentLocale = pathname.split('/')[1] || 'ps';
-  const selectedLanguage = languages.find(lang => lang.code === currentLocale) || languages[0];
+  // Check if current route is non-localized (control panel)
+  const isNonLocalizedRoute = nonLocalizedRoutes.some(route => 
+    pathname === route || pathname.startsWith(route + '/')
+  );
+
+  // Extract current locale from pathname (only for localized routes)
+  let currentLocale = 'ps'; // Default to Pashto
+  
+  if (!isNonLocalizedRoute) {
+    const pathSegments = pathname.split('/').filter(segment => segment);
+    currentLocale = pathSegments[0] && languages.some(lang => lang.code === pathSegments[0]) 
+      ? pathSegments[0] 
+      : 'ps';
+  }
+
+  const selectedLanguage = languages.find(lang => lang.code === currentLocale) || languages[1];
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -49,16 +74,25 @@ export default function LanguageDropdown() {
   const handleLanguageSelect = (language) => {
     setIsOpen(false);
     
-    // Replace the locale in the current pathname
-    const segments = pathname.split('/');
-    if (segments.length > 1) {
-      segments[1] = language.code; // Replace the locale segment
-    } else {
-      segments.unshift(language.code); // Add locale if not present
+    // If we're on a non-localized route (control panel), redirect to home with selected language
+    if (isNonLocalizedRoute) {
+      router.push(`/${language.code}`);
+      return;
     }
-    const newPathname = segments.join('/');
     
-    router.push(newPathname);
+    // For localized routes, replace the locale in the current path
+    const segments = pathname.split('/').filter(segment => segment);
+    
+    // Remove existing locale if present
+    if (segments.length > 0 && languages.some(lang => lang.code === segments[0])) {
+      segments.shift(); // Remove the locale
+    }
+    
+    // Build new path with selected locale
+    const newPath = `/${language.code}${segments.length > 0 ? '/' + segments.join('/') : ''}`;
+    
+    // Navigate to new path
+    router.push(newPath);
   };
 
   const CheckIcon = () => (
@@ -73,14 +107,23 @@ export default function LanguageDropdown() {
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <button
         type="button"
-        className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-        onClick={() => setIsOpen(!isOpen)}
+        className={`flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+          isNonLocalizedRoute 
+            ? 'bg-gray-300 cursor-not-allowed opacity-50' 
+            : 'bg-gray-100 hover:bg-gray-200'
+        }`}
+        onClick={() => !isNonLocalizedRoute && setIsOpen(!isOpen)}
         aria-label="Select language"
+        disabled={isNonLocalizedRoute}
+        title={isNonLocalizedRoute ? "Language switching not available in control panel" : "Select language"}
       >
         <SelectedFlag className="w-5 h-5" />
+        {isNonLocalizedRoute && (
+          <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></div>
+        )}
       </button>
 
-      {isOpen && (
+      {isOpen && !isNonLocalizedRoute && (
         <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
           <div className="py-1">
             {languages.map((language) => {

@@ -18,12 +18,13 @@ import { useState } from 'react';
 import {X, Menu } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import { useParams } from 'next/navigation';
 
 export default function HeaderSection(){
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { setTheme } = useTheme();
     const { t } = useTranslations();
-
+    const { locale } = useParams();
     return (
         <header className="bg-white  dark:bg-gray-800 sticky top-0 z-50 shadow-sm border-b border-gray-200 dark:border-gray-900">
             <nav aria-label="Global" className="mx-auto flex container items-center justify-between p-6 lg:px-8">
@@ -51,22 +52,22 @@ export default function HeaderSection(){
                 
                 {/* Desktop Navigation */}
                 <div className="hidden lg:flex lg:gap-x-8">
-                    <Link href="/scholarships-programs" className="text-md text-center font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                    <Link href={`/${locale}/scholarships-programs`} className="text-md text-center font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
                        {t('Header.scholarshipsPrograms')}
                     </Link>
-                    <Link href="/mentorships" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                    <Link href={`/${locale}/mentorships`} className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
                         {t('Header.mentorships')}
                     </Link>
-                    <Link href="/roshangari" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                    <Link href={`/${locale}/roshangari`} className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
                         {t('Header.roshangari')}
                     </Link>
-                    <Link href="/donate" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                    <Link href={`/${locale}/donate`} className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
                         {t('Header.donate')}
                     </Link>
-                    <Link href="/#contact-section" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                    <Link href={`/${locale}/#contact-section`} className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
                         {t('Header.contactUs')}
                     </Link>
-                    <Link href="/about" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
+                    <Link href={`/${locale}/about`} className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105 ">
                         {t('Header.aboutUs')}
                     </Link>
                 </div>
@@ -118,22 +119,22 @@ export default function HeaderSection(){
                         <div className="mt-6 flow-root">
                             <div className="-my-6 divide-y divide-gray-500/10">
                                 <div className="space-y-2 py-6">
-                                    <Link href="/scholarships-programs" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 ">
+                                    <Link href={`/${locale}/scholarships-programs`} onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 ">
                                         {t('Header.scholarshipsPrograms')}
                                     </Link>
-                                    <Link href="/mentorships" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 ">
+                                    <Link href={`/${locale}/mentorships`} onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50 ">
                                         {t('Header.mentorships')}
                                     </Link>
-                                    <Link href="/roshangari" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
+                                    <Link href={`/${locale}/roshangari`} onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
                                         {t('Header.roshangari')}
                                     </Link>
-                                    <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
+                                    <Link href={`/${locale}/contact`} onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
                                         {t('Header.contactUs')}
                                     </Link>
-                                    <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
+                                    <Link href={`/${locale}/about`} onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
                                         {t('Header.aboutUs')}
                                     </Link>
-                                    <Link href="/donate" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
+                                            <Link href={`/${locale}/donate`} onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 hover:bg-gray-50">
                                         {t('Header.donate')}
                                     </Link>
                                 </div>

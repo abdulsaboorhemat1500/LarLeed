@@ -14,14 +14,14 @@ const translations = {
 
 export function useTranslations() {
   const pathname = usePathname();
-  const [currentLocale, setCurrentLocale] = useState('ps'); // Default to Pashto
+  const [currentLocale, setCurrentLocale] = useState('ps');
 
   useEffect(() => {
     // Extract locale from pathname
-    const segments = pathname.split('/');
-    const locale = segments[1];
+    const segments = pathname.split('/').filter(segment => segment);
+    const locale = segments[0];
     
-    // Check if locale is valid, otherwise default to 'ps'
+    // Check if locale is valid
     if (locale && ['en', 'ps', 'fa'].includes(locale)) {
       setCurrentLocale(locale);
     } else {

@@ -1,3 +1,4 @@
+// components/ui/flags.js
 // SVG Flag Components
 export const EnglishFlag = ({ className = "w-6 h-6" }) => (
   <svg className={className} viewBox="0 0 24 16" fill="none">
@@ -12,24 +13,18 @@ export const EnglishFlag = ({ className = "w-6 h-6" }) => (
   </svg>
 );
 
-export const PashtoFlag = ({ className = "w-6 h-6" }) => (
+// Afghanistan Flag for both Pashto and Dari
+export const AfghanistanFlag = ({ className = "w-6 h-6" }) => (
   <svg className={className} viewBox="0 0 24 16" fill="none">
-    <rect width="24" height="5.33" fill="#CE1126"/>
-    <rect y="5.33" width="24" height="5.33" fill="#000000"/>
-    <rect y="10.67" width="24" height="5.33" fill="#009639"/>
-    <circle cx="12" cy="8" r="2.5" fill="white"/>
-    <path d="M12 5.5L13.5 7L12 8.5L10.5 7L12 5.5z" fill="#009639"/>
-    <path d="M12 7.5L13.5 9L12 10.5L10.5 9L12 7.5z" fill="#CE1126"/>
+    <rect width="24" height="16" fill="#000000"/>
+    <rect width="24" height="5.33" fill="#D32011"/>
+    <rect y="10.67" width="24" height="5.33" fill="#007A36"/>
+    <path d="M12 8C12 9.10457 11.1046 10 10 10C8.89543 10 8 9.10457 8 8C8 6.89543 8.89543 6 10 6C11.1046 6 12 6.89543 12 8Z" fill="white"/>
+    <path d="M10 7L11 8L10 9L9 8L10 7Z" fill="#007A36"/>
+    <path d="M10 8L11 9L10 10L9 9L10 8Z" fill="#D32011"/>
   </svg>
 );
 
-export const DariFlag = ({ className = "w-6 h-6" }) => (
-  <svg className={className} viewBox="0 0 24 16" fill="none">
-    <rect width="24" height="5.33" fill="#CE1126"/>
-    <rect y="5.33" width="24" height="5.33" fill="#000000"/>
-    <rect y="10.67" width="24" height="5.33" fill="#009639"/>
-    <circle cx="12" cy="8" r="2.5" fill="white"/>
-    <path d="M12 5.5L13.5 7L12 8.5L10.5 7L12 5.5z" fill="#009639"/>
-    <path d="M12 7.5L13.5 9L12 10.5L10.5 9L12 7.5z" fill="#CE1126"/>
-  </svg>
-);
+// Export both with different names for consistency
+export const PashtoFlag = AfghanistanFlag;
+export const DariFlag = AfghanistanFlag;

@@ -17,23 +17,23 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "LarLeed",
-  description: "Online Learning Platforme",
+  description: "Online Learning Platform",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-gray-300">
+      <body className="bg-gray-300" suppressHydrationWarning>
         <ThemeProvider
-            attribute="class"
-            defaultTheme="light"
-            enableSystem
-            disableTransitionOnChange
-              >
-            <TopBanner />
-            <HeaderSection />
-            {children}
-            <FooterSection />
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TopBanner />
+          <HeaderSection />
+          {children}
+          <FooterSection />
         </ThemeProvider>
       </body>
     </html>
