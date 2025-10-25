@@ -1,4 +1,5 @@
 // components/TopBanner.jsx
+'use client';
 import { useTranslations } from '@/hooks/useTranslations';  
 export default function TopBanner() {
   const { t } = useTranslations();

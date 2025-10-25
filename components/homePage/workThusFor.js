@@ -1,9 +1,10 @@
+'use client';
 import Link from 'next/link';
 import { useTranslations } from '@/hooks/useTranslations';
 import { useParams } from 'next/navigation';
 export default function WorkThusFor() {
-  const { t } = useTranslations();
   const { locale } = useParams();
+  const { t } = useTranslations();
   return (
     <section className="py-16 bg-white dark:bg-gray-800">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">

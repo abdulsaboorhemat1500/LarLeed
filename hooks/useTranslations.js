@@ -1,3 +1,5 @@
+"use client";
+
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
@@ -17,26 +19,31 @@ export function useTranslations() {
   const [currentLocale, setCurrentLocale] = useState('ps');
 
   useEffect(() => {
-    // Extract locale from pathname
-    const segments = pathname.split('/').filter(segment => segment);
-    const locale = segments[0];
+    if (!pathname) return;
+    
+    // Extract locale from pathname more efficiently
+    const locale = pathname.split('/')[1];
     
     // Check if locale is valid
-    if (locale && ['en', 'ps', 'fa'].includes(locale)) {
+    if (locale && translations[locale]) {
       setCurrentLocale(locale);
     } else {
-      setCurrentLocale('ps');
+      setCurrentLocale('ps'); // Default fallback
     }
   }, [pathname]);
 
   const t = (key, fallback = '') => {
+    if (!key || typeof key !== 'string') return fallback || '';
+    
     const keys = key.split('.');
     let value = translations[currentLocale];
     
+    // Safely navigate through nested keys
     for (const k of keys) {
       if (value && typeof value === 'object' && k in value) {
         value = value[k];
       } else {
+        console.warn(`Translation key not found: ${key} for locale: ${currentLocale}`);
         return fallback || key;
       }
     }
