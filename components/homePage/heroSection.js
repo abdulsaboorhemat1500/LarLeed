@@ -55,7 +55,6 @@ export default function HeroSection() {
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
                 <span className="text-black dark:text-white">{t('Banner.title')}</span>
               </h1>
-
               {/* Subtitle - Limited to ~7 lines */}
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed line-clamp-6 max-h-48 overflow-hidden">
                 {shortText}

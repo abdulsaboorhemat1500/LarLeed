@@ -8,8 +8,8 @@
     "aboutUs": "درباره ما"
   },
   "Banner": {
-    "title": "LarLeed",
-    "description": "Connecting Afghan Youth through Education, Dialogue, and Vision"
+    "title": "لرلید",
+    "description": "وصل نمودن نو جوانان افغان به طریقه آموزش، گفتگو و چشم انداز"
   },
   "HomePage": {
     "We'd love to hear from you! Whether you have questions about courses, need technical support, or want to share your learning journey, our team is ready to assist you.": "ما خوشحالیم که از شما در مورد درس ها یا مشکلات تکنیکی یا به اشتراک گذاری سفر یادگیری خود گویید. تیم ما آماده است تا به شما کمک رسانید.",
@@ -57,7 +57,8 @@
     "country": "کشور",
     "address": "آدرس",
     "contact via email": "تماس با ما از طریق ایمیل",
-    "all rights reserved": "تمامی حقوق محفوظ است"
+    "all rights reserved": "تمامی حقوق محفوظ است",
+    "meet our team": "ملاقات با تیم ما"
   },
   "ScholarshipsPage": {
     "all": "همه",

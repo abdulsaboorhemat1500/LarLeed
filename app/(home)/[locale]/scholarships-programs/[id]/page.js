@@ -64,7 +64,7 @@ export default function ScholarshipDetailsPage({ params }) {
       return dateString;
     }
   };
-
+  
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
@@ -73,7 +73,7 @@ export default function ScholarshipDetailsPage({ params }) {
           <div className="flex items-center justify-center py-20">
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-              <p className="mt-4 text-gray-600 dark:text-gray-400">{t('HomePage.Loading scholarship details...')}</p>
+              <p className="mt-4 text-gray-600 dark:text-gray-400">{t('scholarshipDetailsPage.loading scholarship details...')}</p>
             </div>
           </div>
         </div>
@@ -93,13 +93,13 @@ export default function ScholarshipDetailsPage({ params }) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{t('HomePage.Error Loading Scholarship')}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">{t('scholarshipDetailsPage.error loading scholarship')}</h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">{error || 'Scholarship not found'}</p>
               <button
                 onClick={() => window.location.reload()}
                 className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200"
               >
-                {t('HomePage.Try Again')}
+                {t('scholarshipDetailsPage.try again')}
               </button>
             </div>
           </div>
@@ -129,7 +129,7 @@ export default function ScholarshipDetailsPage({ params }) {
               {/* Overview */}
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  {t('HomePage.Scholarship Overview')}
+                    {t('scholarshipDetailsPage.scholarship overview')}
                 </h2>
                 <div className="text-gray-700 dark:text-gray-300 leading-relaxed rich-text-content" dangerouslySetInnerHTML={{ __html: scholarship.s_overview }} />
               </div>
@@ -137,7 +137,7 @@ export default function ScholarshipDetailsPage({ params }) {
               {/* Full Description */}
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  {t('HomePage.Detailed Information')}
+                    {t('scholarshipDetailsPage.detailed information')}
                 </h2>
                 <div className="text-gray-700 dark:text-gray-300 leading-relaxed rich-text-content" dangerouslySetInnerHTML={{ __html: scholarship.s_detailed_info }} />
               </div>
@@ -145,7 +145,7 @@ export default function ScholarshipDetailsPage({ params }) {
               {/* Eligibility Criteria */}
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  {t('HomePage.Eligibility Criteria')}
+                    {t('scholarshipDetailsPage.eligibility criteria')}
                 </h2>
                 <div className="text-gray-700 dark:text-gray-300 leading-relaxed rich-text-content" dangerouslySetInnerHTML={{ __html: scholarship.s_eligibility }} />
               </div>
@@ -153,7 +153,7 @@ export default function ScholarshipDetailsPage({ params }) {
               {/* Application Process */}
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  {t('HomePage.Application Process')}
+                  {t('scholarshipDetailsPage.application process')}
                 </h2>
                 <div className="text-gray-700 dark:text-gray-300 leading-relaxed rich-text-content" dangerouslySetInnerHTML={{ __html: scholarship.s_app_procces }} />
               </div>
@@ -161,7 +161,7 @@ export default function ScholarshipDetailsPage({ params }) {
               {/* Benefits */}
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                  {t('HomePage.Scholarship Benefits')}
+                  {t('scholarshipDetailsPage.scholarship benefits')}
                 </h2>
                 <div className="text-gray-700 dark:text-gray-300 leading-relaxed rich-text-content" dangerouslySetInnerHTML={{ __html: scholarship.s_benefits }} />
               </div>
@@ -171,7 +171,7 @@ export default function ScholarshipDetailsPage({ params }) {
             <div className="lg:col-span-1">
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg sticky top-22">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-                  {t('HomePage.Scholarship Summary')}
+                  {t('scholarshipDetailsPage.scholarship summary')}
                 </h3>
                 
                 <div className="space-y-4">
@@ -181,7 +181,7 @@ export default function ScholarshipDetailsPage({ params }) {
                       <span className="text-blue-600 dark:text-blue-400">🎓</span>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Scholarship Name')}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('scholarshipDetailsPage.name')}</p>
                       <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_name}</p>
                     </div>
                   </div>
@@ -192,7 +192,7 @@ export default function ScholarshipDetailsPage({ params }) {
                       <span className="text-green-600 dark:text-green-400">🌍</span>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Country')}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('scholarshipDetailsPage.country')}</p>
                       <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_country}</p>
                     </div>
                   </div>
@@ -203,7 +203,7 @@ export default function ScholarshipDetailsPage({ params }) {
                       <span className="text-purple-600 dark:text-purple-400">💬</span>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Language')}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('scholarshipDetailsPage.language')}</p>
                       <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_language}</p>
                     </div>
                   </div>
@@ -214,7 +214,7 @@ export default function ScholarshipDetailsPage({ params }) {
                       <span className="text-pink-600 dark:text-pink-400">👥</span>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.For Genders')}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('scholarshipDetailsPage.for genders')}</p>
                       <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_gender || 'Both Male & Female'}</p>
                     </div>
                   </div>
@@ -225,7 +225,7 @@ export default function ScholarshipDetailsPage({ params }) {
                       <span className="text-indigo-600 dark:text-indigo-400">📊</span>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Study Level')}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('scholarshipDetailsPage.study level')}</p>
                       <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_study_level}</p>
                     </div>
                   </div>
@@ -236,7 +236,7 @@ export default function ScholarshipDetailsPage({ params }) {
                       <span className="text-red-600 dark:text-red-400">⏰</span>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Application Deadline')}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('scholarshipDetailsPage.application deadline')}</p>
                       <p className="font-semibold text-gray-900 dark:text-white">{formatDate(scholarship.s_app_deadline)}</p>
                     </div>
                   </div>
@@ -247,7 +247,7 @@ export default function ScholarshipDetailsPage({ params }) {
                       <span className="text-teal-600 dark:text-teal-400">📅</span>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Program Duration')}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('scholarshipDetailsPage.program duration')}</p>
                       <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_duration}</p>
                     </div>
                   </div>
@@ -258,7 +258,7 @@ export default function ScholarshipDetailsPage({ params }) {
                       <span className="text-emerald-600 dark:text-emerald-400">💰</span>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Funding Type')}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('scholarshipDetailsPage.funding type')}</p>
                       <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_funding_type}</p>
                     </div>
                   </div>
@@ -267,7 +267,7 @@ export default function ScholarshipDetailsPage({ params }) {
                 {/* Apply Now Button */}
                 <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
                   <button className="cursor-pointer w-full bg-green-600 hover:bg-green-700 text-white py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                    {t('HomePage.Apply Now')} 
+                    {t('scholarshipDetailsPage.apply now')} 
                   </button>
                 </div>
               </div>

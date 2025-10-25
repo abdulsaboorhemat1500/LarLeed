@@ -77,8 +77,8 @@ export default function ContactUsSection() {
                   <span className="text-purple-600 dark:text-purple-400">🌍</span>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Country')}</p>
-                  <p className="font-medium text-gray-900 dark:text-white">{t('HomePage.Afghanistan')}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.country')}</p>
+                  <p className="font-medium text-gray-900 dark:text-white">Afghanistan</p>
                 </div>
               </div>
 
@@ -86,8 +86,8 @@ export default function ContactUsSection() {
                 <div className="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
                   <span className="text-red-600 dark:text-red-400">✉️</span>
                 </div>
-                <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Email')}</p>
+                <div> 
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.email')}</p>
                   <a 
                     href="mailto:saboorhemat4600@gmail.com"
                     className="font-medium text-blue-600 dark:text-blue-400 hover:underline"
@@ -102,7 +102,7 @@ export default function ContactUsSection() {
                   <span className="text-orange-600 dark:text-orange-400">📞</span>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Phone')}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.phone')}</p>
                   <a 
                     href="tel:+93790161600"
                     className="font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
@@ -114,7 +114,7 @@ export default function ContactUsSection() {
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                 <a href="mailto:saboorhemat4600@gmail.com">
                   <button className="cursor-pointer w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors">
-                    {t('HomePage.Contact Via Email')}
+                    {t('HomePage.contact via email')}
                   </button>
                 </a>
               </div>
@@ -138,7 +138,7 @@ export default function ContactUsSection() {
 
               <div className="pt-5">
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Full Name *')}
+                  {t('HomePage.full name *')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -150,14 +150,14 @@ export default function ContactUsSection() {
                     value={formData.name}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.Enter Your Full Name...')}
+                    placeholder={t('HomePage.enter your full name...')}
                   />
                 </div>
               </div>
               
               <div className="pt-5">
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Email *')}
+                  {t('HomePage.email *')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -169,14 +169,14 @@ export default function ContactUsSection() {
                     value={formData.email}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.Enter Your Email...')}
+                    placeholder={t('HomePage.enter your email...')}
                   />
                 </div>
               </div>
               
               <div className="pt-5">
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Phone Number')}
+                    {t('HomePage.phone number...')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -187,14 +187,14 @@ export default function ContactUsSection() {
                     value={formData.phone}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.Enter Your Phone Number...')}
+                    placeholder={t('HomePage.enter your phone number...')}
                   />
                 </div>
               </div>
               
               <div className="pt-5">
                 <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Subject *')}
+                  {t('HomePage.subject *')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -206,14 +206,14 @@ export default function ContactUsSection() {
                     value={formData.subject}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                      placeholder={t('HomePage.Enter message subject...')}
+                      placeholder={t('HomePage.enter message subject...')}
                   />
                 </div>
               </div>
               
               <div className="pt-5">
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Message *')}
+                  {t('HomePage.message *')}
                 </label>
                 <div className="mt-1">
                   <textarea
@@ -224,7 +224,7 @@ export default function ContactUsSection() {
                     value={formData.message}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm resize-vertical"
-                    placeholder={t('HomePage.Enter your message...')}
+                    placeholder={t('HomePage.enter your message...')}
                   />
                 </div>
               </div>
@@ -234,7 +234,7 @@ export default function ContactUsSection() {
                 className="mt-4 cursor-pointer px-7"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? t('HomePage.Submitting...') : t('HomePage.Submit Form')}
+                {isSubmitting ? t('HomePage.submitting...') : t('HomePage.submit form')}
               </Button>
             </form>
           </div>

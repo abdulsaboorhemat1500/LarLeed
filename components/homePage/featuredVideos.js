@@ -204,7 +204,7 @@ export default function FeaturedVideos() {
                           className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2 w-full justify-center py-2.5"
                         >
                           <Play className="w-4 h-4" />
-                          {t('HomePage.Watch Video')}
+                          {t('HomePage.watch video')}
                         </Button>
                       </a>
                     ) : (
@@ -214,7 +214,7 @@ export default function FeaturedVideos() {
                         className="cursor-not-allowed bg-gray-400 text-white flex items-center gap-2 w-full justify-center py-2.5"
                       >
                         <Play className="w-4 h-4" />
-                        {t('HomePage.No Video Link')}
+                        {t('HomePage.No videos found.')}
                       </Button>
                     )}
                     
@@ -224,7 +224,7 @@ export default function FeaturedVideos() {
                         size="sm" 
                         className="cursor-pointer bg-green-600 hover:bg-green-700 text-white flex items-center gap-2 w-full justify-center py-2.5"
                       >  
-                        {t('HomePage.Video Details')}
+                        {t('HomePage.video details')}
                       </Button>
                     </Link>
                   </div>
@@ -234,7 +234,7 @@ export default function FeaturedVideos() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">{t('HomePage.No featured videos found.')}</p>
+            <p className="text-gray-500 text-lg">{t('HomePage.No videos found.')}</p>
           </div>
         )}
       </div>

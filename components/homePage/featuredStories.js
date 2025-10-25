@@ -183,7 +183,7 @@ export default function FeaturedStories() {
                     onClick={() => handleStoryDetails(story.id)} 
                     className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
                   >
-                    {t('HomePage.Story Details')}
+                    {t('HomePage.story details')}
                   </button>
                 </div>
               </div>
