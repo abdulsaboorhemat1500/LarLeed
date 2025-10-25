@@ -66,7 +66,7 @@ export default function HeroSection() {
                   onClick={() => setShowModal(true)}
                   className="cursor-pointer px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
                 >
-                  {t('HomePage.Read More')}
+                  {t('HomePage.read more')}
                 </button>
               </div>
 
@@ -74,15 +74,15 @@ export default function HeroSection() {
               <div className="flex flex-wrap justify-between lg:justify-between gap-6 mt-12 pt-8 border-t pb-3 border-gray-200 dark:border-gray-700">
                 <div className="text-center lg:text-left">
                   <div className="text-2xl font-bold text-gray-900 dark:text-white text-center">5k+</div>
-                  <div className="text-gray-500 dark:text-gray-400">{t('HomePage.Online Education Resources')}</div>
+                  <div className="text-gray-500 dark:text-gray-400">{t('HomePage.online education resources')}</div>
                 </div>
                 <div className="text-center lg:text-left">
                   <div className="text-2xl font-bold text-gray-900 dark:text-white text-center">100+</div>
-                  <div className="text-gray-500 dark:text-gray-400">{t('HomePage.Detailed Scholarships Guides')}</div>
+                  <div className="text-gray-500 dark:text-gray-400">{t('HomePage.detailed scholarships guides')}</div>
                 </div>
                 <div className="text-center lg:text-left">
                   <div className="text-2xl font-bold text-gray-900 dark:text-white text-center">1k+</div>
-                  <div className="text-gray-500 dark:text-gray-400">{t('HomePage.Mentors')}</div>
+                  <div className="text-gray-500 dark:text-gray-400">{t('HomePage.mentors')}</div>
                 </div>
               </div>
             </div>
@@ -140,7 +140,7 @@ export default function HeroSection() {
                   onClick={() => setShowModal(false)}
                   className="cursor-pointer px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200"
                 >
-                  {t('HomePage.Close')}
+                  {t('HomePage.close')}
                 </button>
               </div>
             </div>

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 export const runtime = 'edge';
 import { useApi } from '@/app/hooks/useApi';
+import { useTranslations } from '@/hooks/useTranslations';
 
 // Safe icon component
 const FacebookIcon = () => (
@@ -35,6 +36,7 @@ const InstagramIcon = () => (
 );
 
 export default function GetInTouchSection() {
+  const { t } = useTranslations();
   const { post } = useApi();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
@@ -52,13 +54,7 @@ export default function GetInTouchSection() {
     setMessage({ type: '', text: '' });
   
     try {
-      const response = await fetch('/api/getInTouch', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
+      const response = await post('/api/getInTouch', email);
   
       const result = await response.json();
   
@@ -92,7 +88,7 @@ export default function GetInTouchSection() {
               />
             </div>
             <p className="text-black dark:text-white mb-6 max-w-md">
-              Connecting Afghan Youth through Education, Dialogue, and Vision
+              {t('getInTouchPage.connecting afghan youth through education, dialogue, and vision')}
             </p>
             
             {/* Social Media Links */}
@@ -142,16 +138,16 @@ export default function GetInTouchSection() {
           </div>
           <div className="lg:col-span-2">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-              Subscribe to our newsletter
+              {t('subscribe to our newsletter')}
             </h2>
             
             <p className="text-lg text-gray-500 dark:text-white font-medium">
-            Get the latest news, updates, and special offers delivered right to your inbox.
+            {t('get the latest news, updates, and special offers delivered right to your inbox.')}
             </p>
             <form onSubmit={handleSubmit}>
               <div className="pt-5">
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Email
+                  {t('email')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -163,7 +159,7 @@ export default function GetInTouchSection() {
                     autoComplete="email"
                     required
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder="Enter Your Email..."
+                    placeholder="{t('enter your email...')}"
                     disabled={loading}
                   />
                 </div>
@@ -174,7 +170,7 @@ export default function GetInTouchSection() {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    Subscribing...
+                    {t('subscribing...')}
                   </div>
                 )}
 

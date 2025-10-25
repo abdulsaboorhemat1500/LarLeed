@@ -14,7 +14,7 @@ export default function WorkThusFor() {
           <div className="space-y-6">
             {/* Section Title */}
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
-              {t('HomePage.Work Thus For')}
+              {t('HomePage.work thus for')}
             </h2>
             
             {/* Description */}
@@ -41,7 +41,7 @@ export default function WorkThusFor() {
             <div className="pt-6">
               <Link href={`/${locale}/about`}>
               <button className="cursor-pointer px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200">
-                {t('HomePage.Learn More About Our Work')}
+                {t('HomePage.learn more about our work')}
               </button>
               </Link>
             </div>

@@ -408,3 +408,18 @@
 .rich-text-editor p {
   margin: 1rem 0;
 }
+
+/* In your globals.css */
+:root {
+  --font-pashto-dari: "Segoe UI", Tahoma, "Noto Sans Arabic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/* Apply different font families based on language */
+[lang="ps"],
+[lang="fa"] {
+  font-family: "Segoe UI", Tahoma, "Noto Sans Arabic", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+[lang="en"] {
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}

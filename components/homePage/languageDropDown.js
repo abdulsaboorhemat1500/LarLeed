@@ -59,6 +59,9 @@ export default function LanguageDropdown() {
   }
 
   const selectedLanguage = languages.find(lang => lang.code === currentLocale) || languages[1];
+  
+  // Determine dropdown position based on language direction
+  const dropdownPosition = selectedLanguage.direction === 'rtl' ? 'left-0' : 'right-0';
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -96,7 +99,7 @@ export default function LanguageDropdown() {
   };
 
   const CheckIcon = () => (
-    <svg className="w-4 h-4 text-blue-600 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-4 h-4 text-blue-600 ms-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
     </svg>
   );
@@ -124,7 +127,7 @@ export default function LanguageDropdown() {
       </button>
 
       {isOpen && !isNonLocalizedRoute && (
-        <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+        <div className={`absolute ${dropdownPosition} mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50`}>
           <div className="py-1">
             {languages.map((language) => {
               const FlagComponent = language.flag;
@@ -136,7 +139,7 @@ export default function LanguageDropdown() {
                   }`}
                   onClick={() => handleLanguageSelect(language)}
                 >
-                  <FlagComponent className="w-5 h-5 mr-3" />
+                  <FlagComponent className="w-5 h-5 me-3" />
                   <div className="flex flex-col items-start flex-1">
                     <span className="font-medium">{language.name}</span>
                     <span className="text-xs text-gray-500">{language.nativeName}</span>

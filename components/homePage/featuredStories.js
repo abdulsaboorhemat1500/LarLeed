@@ -62,15 +62,15 @@ export default function FeaturedStories() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
             <div className="mb-4 sm:mb-0">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                {t('HomePage.Featured Stories')}
+                {t('HomePage.featured stories')}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-                {t('HomePage.Inspiring Stories of hope, resilience, and transformation from our community')}
+                {t('HomePage.inspiring stories of hope, resilience, and transformation from our community')}
               </p>
             </div>
           </div>
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">{t('HomePage.Loading stories...')}</p>
+            <p className="text-gray-500 text-lg">{t('HomePage.loading stories...')}</p>
           </div>
         </div>
       </section>
@@ -85,15 +85,15 @@ export default function FeaturedStories() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
             <div className="mb-4 sm:mb-0">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                {t('HomePage.Featured Stories')}
+                {t('HomePage.featured stories')}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-                {t('HomePage.Inspiring Stories of hope, resilience, and transformation from our community')}
+                {t('HomePage.inspiring stories of hope, resilience, and transformation from our community')}
               </p>
             </div>
           </div>
           <div className="text-center py-12">
-            <p className="text-red-500 text-lg">{t('HomePage.Error:')}: {error}</p>
+            <p className="text-red-500 text-lg">{t('RoshangariPage.error:')}: {error}</p>
           </div>
         </div>
       </section>
@@ -106,10 +106,10 @@ export default function FeaturedStories() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
           <div className="mb-4 sm:mb-0">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-              {t('HomePage.Featured Stories')}
+              {t('HomePage.featured stories')}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-              {t('HomePage.Inspiring Stories of hope, resilience, and transformation from our community')}
+              {t('HomePage.inspiring stories of hope, resilience, and transformation from our community')}
             </p>
           </div>
           
@@ -117,9 +117,9 @@ export default function FeaturedStories() {
             href={`/${locale}/featured-stories`} 
             className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-lg transition-colors duration-200"
           >
-            {t('HomePage.See all')}
+            {t('HomePage.see all')}
             <svg 
-              className="w-5 h-5 ms-2" 
+              className="w-5 h-5 ms-2 rtl:rotate-180" 
               fill="none" 
               stroke="currentColor" 
               viewBox="0 0 24 24"
@@ -191,7 +191,7 @@ export default function FeaturedStories() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">{t('HomePage.No featured stories found.')}</p>
+            <p className="text-gray-500 text-lg">{t('HomePage.no featured stories found.')}</p>
           </div>
         )}
       </div>

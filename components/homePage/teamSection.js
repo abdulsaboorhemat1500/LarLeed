@@ -63,7 +63,7 @@ export default function TeamSection() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              {t('HomePage.Meet Our Team')}
+              {t('HomePage.team')}
             </h2>
           </div>
           <div className="text-center text-red-600">
@@ -79,7 +79,7 @@ export default function TeamSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            {t('HomePage.Meet Our Team')}
+            {t('HomePage.team')}
           </h2>
         </div>
 
@@ -107,7 +107,7 @@ export default function TeamSection() {
                     />
                   ) : null}
                   <div className={`${member.profile_image ? 'hidden' : 'flex'} items-center justify-center bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400 rounded-full w-full h-full`}>
-                    <span className="text-sm">{t('HomePage.No Image')}</span>
+                    <span className="text-sm">{t('HomePage.no image')}</span>
                   </div>
                 </Link>
               </div>
@@ -129,7 +129,7 @@ export default function TeamSection() {
         {teamMembers.length === 0 && !loading && (
           <div className="text-center py-12">
             <p className="text-gray-500 dark:text-gray-400 text-lg">
-              {t('HomePage.No team members found. Please add some team members in the admin panel.')} 
+              {t('HomePage.no team members found')} 
             </p>
           </div>
         )}

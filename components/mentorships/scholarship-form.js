@@ -47,7 +47,7 @@ export default function ScholarshipFormSection() {
       if (result.success) {
         setMessage({ 
           type: 'success', 
-          text: result.message || t('HomePage.Application submitted successfully!') 
+          text: result.message || t('MentorshipsPage.application submitted successfully!') 
         });
         // Reset form
         setFormData({
@@ -70,16 +70,16 @@ export default function ScholarshipFormSection() {
       } else {
         setMessage({ 
           type: 'error', 
-          text: result.error || result.details || t('HomePage.Failed to submit application') 
+          text: result.error || result.details || t('MentorshipsPage.failed to submit application') 
         });
       }
     } catch (error) {
       console.error('Full error details:', error);
       // Show more specific error message
-      const errorMessage = error.details || error.message || t('HomePage.Network error. Please try again.');
+      const errorMessage = error.details || error.message || t('MentorshipsPage.network error. Please try again.');
       setMessage({ 
         type: 'error', 
-        text: `${t('HomePage.Error:')}: ${errorMessage}` 
+        text: `${t('RoshangariPage.error:')}: ${errorMessage}` 
       });
     } finally {
       setLoading(false);
@@ -90,7 +90,7 @@ export default function ScholarshipFormSection() {
     <section className="py-10 bg-gray-200 dark:bg-gray-800">
       <div className="container mx-auto">
         <h1 className="text-3xl text-center font-bold text-gray-900 dark:text-white mb-6 border-b border-b-gray-300 pb-4">
-          {t('HomePage.Scholarship Submission Form')}
+          {t('MentorshipsPage.scholarship submission form')}
         </h1>
 
         {message.text && (
@@ -107,12 +107,12 @@ export default function ScholarshipFormSection() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-20 p-4">
             <div className="lg:col-span-1">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                {t('HomePage.Personal Details')}
+                {t('MentorshipsPage.personal details')}
               </h2>
               
               <div>
                 <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Full Name *')}
+                  {t('MentorshipsPage.full name *')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -123,14 +123,14 @@ export default function ScholarshipFormSection() {
                     onChange={handleChange}
                     required
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.Enter your Full Name')}
+                    placeholder={t('MentorshipsPage.enter your full Name')}
                   />
                 </div>
               </div>
 
               <div className="pt-5">
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Email Address *')}
+                  {t('MentorshipsPage.email address *')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -141,14 +141,14 @@ export default function ScholarshipFormSection() {
                     onChange={handleChange}
                     required
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.Enter your Email Address')}
+                    placeholder={t('MentorshipsPage.enter your email address')}
                   />
                 </div>
               </div>
 
               <div className="pt-5">
                 <label htmlFor="address" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Current Address')}
+                  {t('MentorshipsPage.current address')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -158,14 +158,14 @@ export default function ScholarshipFormSection() {
                     value={formData.address}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                      placeholder={t('HomePage.Enter your Current Address')}
+                      placeholder={t('MentorshipsPage.enter your current address')}
                   />
                 </div>
               </div>
 
               <div className="pt-5">
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Phone Number')}
+                  {t('MentorshipsPage.phone number')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -175,14 +175,14 @@ export default function ScholarshipFormSection() {
                     value={formData.phone}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.Enter your Phone Number')}
+                    placeholder={t('MentorshipsPage.enter your phone number')}
                   />
                 </div>
               </div>
 
               <div className="pt-5">
                 <label htmlFor="date_of_birth" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Date of Birth')}
+                  {t('MentorshipsPage.date of birth')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -199,12 +199,12 @@ export default function ScholarshipFormSection() {
 
             <div className="lg:col-span-1">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                {t('HomePage.Academic Details')}
+                {t('MentorshipsPage.academic details')}
               </h2>
               
               <div>
                 <label htmlFor="uni_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.University/School name *')}
+                  {t('MentorshipsPage.university/school name *')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -215,14 +215,14 @@ export default function ScholarshipFormSection() {
                     onChange={handleChange}
                     required
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.Enter University/School name')}
+                    placeholder={t('MentorshipsPage.enter university/school name')}
                   />
                 </div>
               </div>
 
               <div className="pt-5">
                 <label htmlFor="level_of_study" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Level of Study')}
+                  {t('MentorshipsPage.level of study')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -232,14 +232,14 @@ export default function ScholarshipFormSection() {
                     value={formData.level_of_study}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.Enter Level of Study')}
+                    placeholder={t('MentorshipsPage.enter level of study')}
                   />
                 </div>
               </div>
 
               <div className="pt-5">
                 <label htmlFor="graduation_year" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Year of Graduation')}
+                  {t('MentorshipsPage.year of graduation')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -249,14 +249,14 @@ export default function ScholarshipFormSection() {
                     value={formData.graduation_year}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.Enter Year of Graduation')}
+                    placeholder={t('MentorshipsPage.enter year of graduation')}
                   />
                 </div>
               </div>
 
               <div className="pt-5">
                 <label htmlFor="major" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Your Major')}  
+                  {t('MentorshipsPage.your major')}  
                 </label>
                 <div className="mt-1">
                   <input
@@ -266,14 +266,14 @@ export default function ScholarshipFormSection() {
                     value={formData.major}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.Enter Your Major')}
+                    placeholder={t('MentorshipsPage.enter your major')}
                   />
                 </div>
               </div>
 
               <div className="pt-5">
                 <label htmlFor="gpa" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Your GPA/Score')}
+                  {t('MentorshipsPage.your GPA/score')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -283,7 +283,7 @@ export default function ScholarshipFormSection() {
                     value={formData.gpa}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.Enter Your GPA/Score')}
+                    placeholder={t('MentorshipsPage.enter your GPA/score')}
                   />
                 </div>
               </div>
@@ -291,12 +291,12 @@ export default function ScholarshipFormSection() {
 
             <div className="lg:col-span-1">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                {t('HomePage.Scholarship Applying for')}
+                {t('MentorshipsPage.scholarship applying for')}
               </h2>
               
               <div>
                 <label htmlFor="sch_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Scholarship Name *')}
+                  {t('MentorshipsPage.scholarship name *')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -307,14 +307,14 @@ export default function ScholarshipFormSection() {
                     onChange={handleChange}
                     required
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.Enter Scholarship Name')}
+                    placeholder={t('MentorshipsPage.enter scholarship name')}
                   />
                 </div>
               </div>
 
               <div className="pt-5">
                 <label htmlFor="sch_country" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Scholarship Country')}
+                  {t('MentorshipsPage.scholarship country')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -324,14 +324,14 @@ export default function ScholarshipFormSection() {
                     value={formData.sch_country}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.Enter Scholarship Country')}
+                    placeholder={t('MentorshipsPage.enter scholarship country')}
                   />
                 </div>
               </div>
 
               <div className="pt-5">
                 <label htmlFor="sch_university" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Scholarship University')}
+                  {t('MentorshipsPage.scholarship university')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -341,14 +341,14 @@ export default function ScholarshipFormSection() {
                     value={formData.sch_university}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.Enter Scholarship University')}
+                    placeholder={t('MentorshipsPage.enter scholarship university')}
                   />
                 </div>
               </div>
 
               <div className="pt-5">
                 <label htmlFor="sch_level" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Scholarship Level')} 
+                  {t('MentorshipsPage.scholarship level')} 
                 </label>
                 <div className="mt-1">
                   <input
@@ -358,14 +358,14 @@ export default function ScholarshipFormSection() {
                     value={formData.sch_level}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.Enter Scholarship Level')}
+                    placeholder={t('MentorshipsPage.enter scholarship level')}
                   />
                 </div>
               </div>
 
               <div className="pt-5">
                 <label htmlFor="sch_deadline" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('HomePage.Scholarship Deadline')}
+                  {t('MentorshipsPage.scholarship deadline')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -387,7 +387,7 @@ export default function ScholarshipFormSection() {
               disabled={loading}
               className="cursor-pointer px-7 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? t('HomePage.Submitting...') : t('HomePage.Submit Form')}
+              {loading ? t('HomePage.submitting...') : t('HomePage.submit form')}
             </Button>
           </div>
         </form>

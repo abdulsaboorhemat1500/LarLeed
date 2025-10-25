@@ -77,15 +77,15 @@ export default function FeaturedVideos() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
             <div className="mb-4 sm:mb-0">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                {t('HomePage.Featured Videos')}
+                {t('HomePage.featured videos')}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-                {t('HomePage.Inspiring Videos of hope, resilience, and transformation from our community')}
+                {t('HomePage.inspiring videos of hope, resilience, and transformation from our community')}
               </p>
             </div>
           </div>
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">{t('HomePage.Loading videos...')}</p>
+            <p className="text-gray-500 text-lg">{t('HomePage.loading videos...')}</p>
           </div>
         </div>
       </section>
@@ -100,15 +100,15 @@ export default function FeaturedVideos() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
             <div className="mb-4 sm:mb-0">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                {t('HomePage.Featured Videos')}
+                {t('HomePage.featured videos')}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-                {t('HomePage.Inspiring Videos of hope, resilience, and transformation from our community')}
+                {t('HomePage.inspiring videos of hope, resilience, and transformation from our community')}
               </p>
             </div>
           </div>
           <div className="text-center py-12">
-            <p className="text-red-500 text-lg">{t('HomePage.Error:')}: {error}</p>
+            <p className="text-red-500 text-lg">{t('RoshangariPage.error:')}: {error}</p>
           </div>
         </div>
       </section>
@@ -121,10 +121,10 @@ export default function FeaturedVideos() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
           <div className="mb-4 sm:mb-0">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-              {t('HomePage.Featured Videos')}
+              {t('HomePage.featured videos')}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-              {t('HomePage.Inspiring Videos of hope, resilience, and transformation from our community')}
+              {t('HomePage.inspiring videos of hope, resilience, and transformation from our community')}
             </p>
           </div>
           
@@ -133,7 +133,7 @@ export default function FeaturedVideos() {
               href={`/${locale}/featured-videos`} 
               className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-lg transition-colors duration-200"
             >
-              {t('HomePage.See all')}
+              {t('HomePage.see all')}
               <svg 
                 className="w-5 h-5 ms-2 rtl:rotate-180" 
                 fill="none" 
@@ -234,7 +234,7 @@ export default function FeaturedVideos() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">{t('HomePage.No videos found.')}</p>
+            <p className="text-gray-500 text-lg">{t('HomePage.no videos found.')}</p>
           </div>
         )}
       </div>

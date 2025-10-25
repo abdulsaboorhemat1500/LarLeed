@@ -31,7 +31,7 @@ export default function ContactUsSection() {
     try {
       // Validate required fields
       if (!formData.name || !formData.email || !formData.subject || !formData.message) {
-        throw new Error(t('HomePage.Please fill in all required fields'));
+        throw new Error(t('HomePage.please fill in all required fields'));
       }
 
       const result = await post('/api/contact', formData);
@@ -47,7 +47,7 @@ export default function ContactUsSection() {
           message: ''
         });
       } else {
-        throw new Error(result.error || t('HomePage.Failed to submit form'));
+        throw new Error(result.error || t('HomePage.failed to submit form'));
       }
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -63,12 +63,12 @@ export default function ContactUsSection() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-20">
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-              {t('HomePage.Contact Us')}
+              {t('HomePage.contact us')}
             </h2>
             
             <div>
               <p className="text-lg text-gray-500 dark:text-white font-medium">
-                {t("HomePage.We'd love to hear from you! Whether you have questions about courses, need technical support, or want to share your learning journey, our team is ready to assist you.")}
+                {t('HomePage.we would love to hear from you! Whether you have questions about courses, need technical support, or want to share your learning journey, our team is ready to assist you.')}
               </p>
             </div>
             <div className="space-y-4 justify-center mt-10">
@@ -126,13 +126,13 @@ export default function ContactUsSection() {
               {/* Status Messages */}
               {submitStatus === 'success' && (
                 <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <p className="text-green-700 font-medium">{t('HomePage.Thank you! Your message has been sent successfully.')}</p>
+                  <p className="text-green-700 font-medium">{t('HomePage.thank you! Your message has been sent successfully.')}</p>
                 </div>
               )}
               
               {submitStatus === 'error' && (
                 <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                  <p className="text-red-700 font-medium">{t('HomePage.Failed to send message. Please try again.')}</p>
+                  <p className="text-red-700 font-medium">{t('HomePage.failed to send message. Please try again.')}</p>
                 </div>
               )}
 

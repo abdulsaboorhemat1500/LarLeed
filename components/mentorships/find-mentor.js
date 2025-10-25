@@ -26,11 +26,11 @@ export default function MentorSection() {
           );
           setMentors(filteredMentors);
         } else {
-          setError(result.error || t('HomePage.Failed to fetch mentors'));
+          setError(result.error || t('HomePage.failed to fetch mentors'));
         }
       } catch (error) {
         console.error('Fetch error:', error);
-        setError(t('HomePage.Network error. Please try again.'));
+        setError(t('HomePage.network error. please try again.'));
       } finally {
         setLoading(false);
       }
@@ -45,7 +45,7 @@ export default function MentorSection() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              {t('HomePage.Meet Our Mentors')}
+              {t('HomePage.meet our mentors')}
             </h2>
           </div>
           <div className="flex justify-center">
@@ -62,11 +62,11 @@ export default function MentorSection() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              {t('HomePage.Meet Our Mentors')}
+              {t('HomePage.meet our mentors')}
             </h2>
           </div>
           <div className="text-center text-red-600">
-            <p>{t('HomePage.Error:')}: {error}</p>
+            <p>{t('RoshangariPage.error:')}: {error}</p>
           </div>
         </div>
       </section>
@@ -78,7 +78,7 @@ export default function MentorSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            {t('HomePage.Meet Our Mentors')}
+            {t('HomePage.meet our mentors')}
           </h2>
         </div>
 
@@ -104,7 +104,7 @@ export default function MentorSection() {
                     />
                   ) : null}
                   <div className={`${mentor.profile_image ? 'hidden' : 'flex'} items-center justify-center bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400 rounded-full w-full h-full`}>
-                    <span className="text-sm">{t('HomePage.No Image')}</span>
+                    <span className="text-sm">{t('HomePage.no image')}</span>
                   </div>
                 </Link>
               </div>
@@ -124,7 +124,7 @@ export default function MentorSection() {
         {mentors.length === 0 && !loading && (
           <div className="text-center py-12">
             <p className="text-gray-500 dark:text-gray-400 text-lg">
-              {t('HomePage.No mentors found. Please add some mentors in the admin panel.')}
+              {t('HomePage.no mentors found')}
             </p>
           </div>
         )}

@@ -98,7 +98,7 @@ export default function TeamMemberDetails({ params }) {
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
             <BackButton />
             <div className="text-center py-12">
-              <p className="text-gray-500 dark:text-gray-400">{t('HomePage.Mentor not found.')}</p>
+              <p className="text-gray-500 dark:text-gray-400">{t('MentorDetailsPage.mentor not found.')}</p>
             </div>
           </div>
         </section>
@@ -174,9 +174,6 @@ export default function TeamMemberDetails({ params }) {
                     </div>
                     <div className="lg:col-span-2">
                         <div className="">
-                            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                                {t(`HomePage.${mentor.category} Details`)}
-                            </h2>
                             {/* Details List */}
                             <div className="space-y-4 justify-center">
                                 <div className="flex items-center space-x-3">
@@ -184,7 +181,7 @@ export default function TeamMemberDetails({ params }) {
                                     <span className="text-blue-600 dark:text-blue-400">📅</span>
                                 </div>
                                 <div>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Experience')}</p>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('MentorDetailsPage.experience')}</p>
                                     <p className="font-medium text-gray-900 dark:text-white">
                                         {mentor.experience || "No Experience"}
                                     </p>
@@ -196,7 +193,7 @@ export default function TeamMemberDetails({ params }) {
                                     <span className="text-green-600 dark:text-green-400">📍</span>
                                 </div>
                                 <div>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Address')}</p>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('MentorDetailsPage.address')}</p>
                                     <p className="font-medium text-gray-900 dark:text-white">
                                         {mentor.address || "No Address"}
                                     </p>
@@ -208,7 +205,7 @@ export default function TeamMemberDetails({ params }) {
                                     <span className="text-purple-600 dark:text-purple-400">🌍</span>
                                 </div>
                                 <div>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Country')}</p>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('MentorDetailsPage.country')}</p>
                                     <p className="font-medium text-gray-900 dark:text-white">
                                         {mentor.country || "No Country"}
                                     </p>
@@ -220,7 +217,7 @@ export default function TeamMemberDetails({ params }) {
                                     <span className="text-red-600 dark:text-red-400">✉️</span>
                                 </div>
                                 <div>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Email')}</p>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('MentorDetailsPage.email')}</p>
                                     <a 
                                     href={`mailto:${mentor.email || "No Email"}`}
                                     className="font-medium text-blue-600 dark:text-blue-400 hover:underline"
@@ -235,7 +232,7 @@ export default function TeamMemberDetails({ params }) {
                                     <span className="text-orange-600 dark:text-orange-400">📞</span>
                                 </div>
                                 <div>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Phone')}</p>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">{t('MentorDetailsPage.phone')}</p>
                                     <a 
                                     href={`tel:${mentor.phone || "NO number"}`}
                                     className="font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
@@ -246,7 +243,7 @@ export default function TeamMemberDetails({ params }) {
                                 </div>
                                 <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                                     <button className="cursor-pointer w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors">
-                                        {t('HomePage.Contact Mentor')}
+                                        {t('MentorDetailsPage.contact')}
                                     </button>
                                 </div>
                             </div>
