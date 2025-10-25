@@ -5,6 +5,8 @@ import { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useApi } from '@/app/hooks/useApi';
+import { useTranslations } from '@/hooks/useTranslations';
+import { useParams } from 'next/navigation';
 export default function FeaturedStoriesList() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
@@ -13,7 +15,8 @@ export default function FeaturedStoriesList() {
   const [error, setError] = useState(null);
   const storiesPerPage = 12;
   const { get } = useApi();
-  
+  const { t } = useTranslations();
+  const { locale } = useParams();
   // Fetch stories from API
   useEffect(() => {
     const fetchStories = async () => {
@@ -82,7 +85,7 @@ export default function FeaturedStoriesList() {
           
           {/* Header */}
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">Loading stories...</p>
+            <p className="text-gray-500 text-lg">{t('HomePage.Loading stories...')}</p>
           </div>
         </div>
       </div>
@@ -99,11 +102,11 @@ export default function FeaturedStoriesList() {
           {/* Header */}
           <div className="text-center mb-8">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              <span className="block text-blue-600 dark:text-blue-400 mt-2">Learn our Inspiring Stories</span>
+              <span className="block text-blue-600 dark:text-blue-400 mt-2">{t('HomePage.Learn our Inspiring Stories')}</span>
             </h1>
           </div>
           <div className="text-center py-12">
-            <p className="text-red-500 text-lg">Error: {error}</p>
+            <p className="text-red-500 text-lg">{t('HomePage.Error:')}: {error}</p>
           </div>
         </div>
       </div>
@@ -140,7 +143,7 @@ export default function FeaturedStoriesList() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-12 py-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-              placeholder="Search stories by title, description, or author..."
+              placeholder={t('HomePage.Search stories by title, description, or author...')}
             />
             
             {/* Clear Search Button */}
@@ -148,7 +151,7 @@ export default function FeaturedStoriesList() {
               <button
                 onClick={() => setSearchQuery('')}
                 className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-red-500 transition-colors"
-                title="Clear search"
+                title={t('HomePage.Clear search')}
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
@@ -207,9 +210,9 @@ export default function FeaturedStoriesList() {
                   <div className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1 rich-text-content" dangerouslySetInnerHTML={{ __html: story.post_description }} />
                   
                   {/* Story Details Button - Full width at the bottom */}
-                  <Link href={`/featured-stories/${story.id}`}>
+                  <Link href={`/${locale}/featured-stories/${story.id}`}>
                     <button className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
-                      Story Details
+                      {t('HomePage.Story Details')}
                     </button>
                   </Link>
                 </div>
@@ -220,14 +223,14 @@ export default function FeaturedStoriesList() {
           // No results message
           <div className="text-center py-12">
             <div className="text-gray-500 dark:text-gray-400 text-lg mb-4">
-              {stories.length === 0 ? 'No stories found.' : `No stories found matching "${searchQuery}"`}
+              {stories.length === 0 ? t('HomePage.No stories found.') : t(`HomePage.No stories found matching "${searchQuery}"`)}
             </div>
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
                 className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
               >
-                Clear Search
+                {t('HomePage.Clear Search')}
               </button>
             )}
           </div>
@@ -246,7 +249,7 @@ export default function FeaturedStoriesList() {
                   : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600'
               }`}
             >
-              Previous
+              {t('HomePage.Previous')}
             </button>
 
             {/* Page Numbers */}
@@ -260,7 +263,7 @@ export default function FeaturedStoriesList() {
                     : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600'
                 }`}
               >
-                {page}
+                {t(`HomePage.Page ${page}`)}
               </button>
             ))}
 
@@ -274,7 +277,7 @@ export default function FeaturedStoriesList() {
                   : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600'
               }`}
             >
-              Next
+              {t('HomePage.Next')}  
             </button>
           </div>
         )}

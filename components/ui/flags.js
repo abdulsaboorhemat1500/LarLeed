@@ -13,18 +13,14 @@ export const EnglishFlag = ({ className = "w-6 h-6" }) => (
   </svg>
 );
 
-// Afghanistan Flag for both Pashto and Dari
+// Afghanistan Flag - Three Vertical Stripes
 export const AfghanistanFlag = ({ className = "w-6 h-6" }) => (
   <svg className={className} viewBox="0 0 24 16" fill="none">
-    <rect width="24" height="16" fill="#000000"/>
-    <rect width="24" height="5.33" fill="#D32011"/>
-    <rect y="10.67" width="24" height="5.33" fill="#007A36"/>
-    <path d="M12 8C12 9.10457 11.1046 10 10 10C8.89543 10 8 9.10457 8 8C8 6.89543 8.89543 6 10 6C11.1046 6 12 6.89543 12 8Z" fill="white"/>
-    <path d="M10 7L11 8L10 9L9 8L10 7Z" fill="#007A36"/>
-    <path d="M10 8L11 9L10 10L9 9L10 8Z" fill="#D32011"/>
+    <rect width="8" height="16" fill="#000000"/>
+    <rect x="8" width="8" height="16" fill="#D32011"/>
+    <rect x="16" width="8" height="16" fill="#007A36"/>
   </svg>
 );
-
 // Export both with different names for consistency
 export const PashtoFlag = AfghanistanFlag;
 export const DariFlag = AfghanistanFlag;

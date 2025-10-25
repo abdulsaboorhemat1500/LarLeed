@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Button } from './ui/button';
 import { useApi } from '@/app/hooks/useApi';
-
+import { useTranslations } from '@/hooks/useTranslations';
 export default function ContactUsSection() {
   const [formData, setFormData] = useState({
     name: '',
@@ -14,7 +14,7 @@ export default function ContactUsSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // null, 'success', 'error'
   const { post } = useApi();
-
+  const { t } = useTranslations();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -31,7 +31,7 @@ export default function ContactUsSection() {
     try {
       // Validate required fields
       if (!formData.name || !formData.email || !formData.subject || !formData.message) {
-        throw new Error('Please fill in all required fields');
+        throw new Error(t('HomePage.Please fill in all required fields'));
       }
 
       const result = await post('/api/contact', formData);
@@ -47,7 +47,7 @@ export default function ContactUsSection() {
           message: ''
         });
       } else {
-        throw new Error(result.error || 'Failed to submit form');
+        throw new Error(result.error || t('HomePage.Failed to submit form'));
       }
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -63,12 +63,12 @@ export default function ContactUsSection() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-20">
           <div className="lg:col-span-2">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-              Contact Us
+              {t('HomePage.Contact Us')}
             </h2>
             
             <div>
               <p className="text-lg text-gray-500 dark:text-white font-medium">
-                Hello guys my name is abdul saboor hemat, I am a web Developer working with next.js and Laravel.
+                {t("HomePage.We'd love to hear from you! Whether you have questions about courses, need technical support, or want to share your learning journey, our team is ready to assist you.")}
               </p>
             </div>
             <div className="space-y-4 justify-center mt-10">
@@ -77,8 +77,8 @@ export default function ContactUsSection() {
                   <span className="text-purple-600 dark:text-purple-400">🌍</span>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Country</p>
-                  <p className="font-medium text-gray-900 dark:text-white">Afghanistan</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Country')}</p>
+                  <p className="font-medium text-gray-900 dark:text-white">{t('HomePage.Afghanistan')}</p>
                 </div>
               </div>
 
@@ -87,7 +87,7 @@ export default function ContactUsSection() {
                   <span className="text-red-600 dark:text-red-400">✉️</span>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Email</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Email')}</p>
                   <a 
                     href="mailto:saboorhemat4600@gmail.com"
                     className="font-medium text-blue-600 dark:text-blue-400 hover:underline"
@@ -102,7 +102,7 @@ export default function ContactUsSection() {
                   <span className="text-orange-600 dark:text-orange-400">📞</span>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Phone</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Phone')}</p>
                   <a 
                     href="tel:+93790161600"
                     className="font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
@@ -114,7 +114,7 @@ export default function ContactUsSection() {
               <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                 <a href="mailto:saboorhemat4600@gmail.com">
                   <button className="cursor-pointer w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors">
-                    Contact Via Email
+                    {t('HomePage.Contact Via Email')}
                   </button>
                 </a>
               </div>
@@ -126,19 +126,19 @@ export default function ContactUsSection() {
               {/* Status Messages */}
               {submitStatus === 'success' && (
                 <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-                  <p className="text-green-700 font-medium">Thank you! Your message has been sent successfully.</p>
+                  <p className="text-green-700 font-medium">{t('HomePage.Thank you! Your message has been sent successfully.')}</p>
                 </div>
               )}
               
               {submitStatus === 'error' && (
                 <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                  <p className="text-red-700 font-medium">Failed to send message. Please try again.</p>
+                  <p className="text-red-700 font-medium">{t('HomePage.Failed to send message. Please try again.')}</p>
                 </div>
               )}
 
               <div className="pt-5">
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Full Name *
+                  {t('HomePage.Full Name *')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -150,14 +150,14 @@ export default function ContactUsSection() {
                     value={formData.name}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder="Enter Your Full Name..."
+                    placeholder={t('HomePage.Enter Your Full Name...')}
                   />
                 </div>
               </div>
               
               <div className="pt-5">
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Email *
+                  {t('HomePage.Email *')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -169,14 +169,14 @@ export default function ContactUsSection() {
                     value={formData.email}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder="Enter Your Email..."
+                    placeholder={t('HomePage.Enter Your Email...')}
                   />
                 </div>
               </div>
               
               <div className="pt-5">
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Phone Number
+                  {t('HomePage.Phone Number')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -187,14 +187,14 @@ export default function ContactUsSection() {
                     value={formData.phone}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder="Enter Your Phone Number..."
+                    placeholder={t('HomePage.Enter Your Phone Number...')}
                   />
                 </div>
               </div>
               
               <div className="pt-5">
                 <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Subject *
+                  {t('HomePage.Subject *')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -206,14 +206,14 @@ export default function ContactUsSection() {
                     value={formData.subject}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder="Enter message subject..."
+                      placeholder={t('HomePage.Enter message subject...')}
                   />
                 </div>
               </div>
               
               <div className="pt-5">
                 <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Message *
+                  {t('HomePage.Message *')}
                 </label>
                 <div className="mt-1">
                   <textarea
@@ -224,7 +224,7 @@ export default function ContactUsSection() {
                     value={formData.message}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm resize-vertical"
-                    placeholder="Enter your message..."
+                    placeholder={t('HomePage.Enter your message...')}
                   />
                 </div>
               </div>
@@ -234,7 +234,7 @@ export default function ContactUsSection() {
                 className="mt-4 cursor-pointer px-7"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? 'Submitting...' : 'Submit Form'}
+                {isSubmitting ? t('HomePage.Submitting...') : t('HomePage.Submit Form')}
               </Button>
             </form>
           </div>

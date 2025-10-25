@@ -1,16 +1,22 @@
 'use client';
-import { Play, Clock, Eye } from 'lucide-react';
+import { Play} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useApi } from '@/app/hooks/useApi';
+import { useTranslations } from '@/hooks/useTranslations';
+import { useParams } from 'next/navigation';
+
 
 export default function FeaturedVideos() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { get } = useApi();
+  const { t } = useTranslations();
+  const { locale } = useParams();
+
 
   // Fetch videos from API
   useEffect(() => {
@@ -71,15 +77,15 @@ export default function FeaturedVideos() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
             <div className="mb-4 sm:mb-0">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                Featured Videos
+                {t('HomePage.Featured Videos')}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-                Inspiring Videos of hope, resilience, and transformation from our community
+                {t('HomePage.Inspiring Videos of hope, resilience, and transformation from our community')}
               </p>
             </div>
           </div>
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">Loading videos...</p>
+            <p className="text-gray-500 text-lg">{t('HomePage.Loading videos...')}</p>
           </div>
         </div>
       </section>
@@ -94,15 +100,15 @@ export default function FeaturedVideos() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
             <div className="mb-4 sm:mb-0">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                Featured Videos
+                {t('HomePage.Featured Videos')}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-                Inspiring Videos of hope, resilience, and transformation from our community
+                {t('HomePage.Inspiring Videos of hope, resilience, and transformation from our community')}
               </p>
             </div>
           </div>
           <div className="text-center py-12">
-            <p className="text-red-500 text-lg">Error: {error}</p>
+            <p className="text-red-500 text-lg">{t('HomePage.Error:')}: {error}</p>
           </div>
         </div>
       </section>
@@ -115,20 +121,25 @@ export default function FeaturedVideos() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
           <div className="mb-4 sm:mb-0">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-              Featured Videos
+              {t('HomePage.Featured Videos')}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-              Inspiring Videos of hope, resilience, and transformation from our community
+              {t('HomePage.Inspiring Videos of hope, resilience, and transformation from our community')}
             </p>
           </div>
           
           {videos.length > 0 && (
             <Link 
-              href="/featured-videos" 
+              href={`/${locale}/featured-videos`} 
               className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-lg transition-colors duration-200"
             >
-              See all
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {t('HomePage.See all')}
+              <svg 
+                className="w-5 h-5 ms-2 rtl:rotate-180" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </Link>
@@ -157,15 +168,6 @@ export default function FeaturedVideos() {
                         height={500}
                         className="w-full h-full object-cover"
                       />
-                      
-                      {/* Play Button Overlay */}
-                      {video.v_link && (
-                        <div className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                          <div className="bg-white bg-opacity-90 rounded-full p-3 transform scale-75 group-hover:scale-100 transition-transform duration-300">
-                            <Play className="w-6 h-6 text-gray-900" fill="currentColor" />
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </div>
 
@@ -202,7 +204,7 @@ export default function FeaturedVideos() {
                           className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2 w-full justify-center py-2.5"
                         >
                           <Play className="w-4 h-4" />
-                          Watch Video
+                          {t('HomePage.Watch Video')}
                         </Button>
                       </a>
                     ) : (
@@ -212,17 +214,17 @@ export default function FeaturedVideos() {
                         className="cursor-not-allowed bg-gray-400 text-white flex items-center gap-2 w-full justify-center py-2.5"
                       >
                         <Play className="w-4 h-4" />
-                        No Video Link
+                        {t('HomePage.No Video Link')}
                       </Button>
                     )}
                     
                     {/* Video Details Button */}
-                    <Link href={`/featured-videos/${video.id}`} className="block">
+                    <Link href={`/${locale}/featured-videos/${video.id}`} className="block">
                       <Button 
                         size="sm" 
                         className="cursor-pointer bg-green-600 hover:bg-green-700 text-white flex items-center gap-2 w-full justify-center py-2.5"
                       >  
-                        Video Details
+                        {t('HomePage.Video Details')}
                       </Button>
                     </Link>
                   </div>
@@ -232,7 +234,7 @@ export default function FeaturedVideos() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No featured videos found.</p>
+            <p className="text-gray-500 text-lg">{t('HomePage.No featured videos found.')}</p>
           </div>
         )}
       </div>

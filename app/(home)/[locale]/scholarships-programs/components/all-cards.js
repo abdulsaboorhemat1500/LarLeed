@@ -3,6 +3,8 @@ export const runtime = 'edge';
 import { useState, useMemo, useEffect } from 'react';
 import Link from 'next/link';
 import { useApi } from '@/app/hooks/useApi';
+import { useTranslations } from '@/hooks/useTranslations';
+import { useParams } from 'next/navigation';
 export default function AllVideos() {
   const [currentPage, setCurrentPage] = useState(1);
   const scholarshipsPerpage = 12;
@@ -12,7 +14,8 @@ export default function AllVideos() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { get } = useApi();
-
+  const { t } = useTranslations();
+  const { locale } = useParams();
  const getScholarships = async () => {
   try {
     setLoading(true);
@@ -39,11 +42,11 @@ export default function AllVideos() {
   }, []);
 
   const filters = [
-    'All',
-    'Undergraduate',
-    'Master',
-    'PHD', 
-    'School',
+    t('HomePage.All'),
+    t('HomePage.Undergraduate'),
+    t('HomePage.Master'),
+    t('HomePage.PHD'), 
+    t('HomePage.School'),
   ];
 
   // Filter scholarships based on search query and active filter
@@ -115,7 +118,7 @@ export default function AllVideos() {
                       : 'bg-white/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 border-gray-100 dark:border-gray-700 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 hover:border-blue-200 dark:hover:border-blue-800 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg'
                   }`}
                 >
-                  {filter}
+                  {t(filter)}
                 </button>
               ))}
             </div>
@@ -138,7 +141,7 @@ export default function AllVideos() {
                 </div>
                 <input
                   type="text"
-                  placeholder="Search by name, country, university, language..."
+                  placeholder={t('HomePage.Search by name, country, university, language...')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-12 pr-12 py-4 border border-gray-300 dark:border-gray-600 rounded-2xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 text-base w-full transition-all duration-300 shadow-lg hover:shadow-xl"
@@ -170,7 +173,7 @@ export default function AllVideos() {
                 <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                 </svg>
-                Reset
+                {t('HomePage.Reset')}
               </button>
             </div>
           </div>
@@ -183,7 +186,7 @@ export default function AllVideos() {
           <div className="text-center py-12">
             <div className="flex justify-center items-center">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-              <span className="ml-3 text-gray-600 dark:text-gray-400">Loading scholarships...</span>
+              <span className="ml-3 text-gray-600 dark:text-gray-400">{t('HomePage.Loading scholarships...')}</span>
             </div>
           </div>
         )}
@@ -192,13 +195,13 @@ export default function AllVideos() {
         {error && !loading && (
           <div className="text-center py-12">
             <div className="text-red-600 dark:text-red-400 text-lg mb-4">
-              Error: {error}
+              {t('HomePage.Error:')}: {error}
             </div>
             <button
               onClick={getScholarships}
               className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
             >
-              Try Again
+              {t('HomePage.Try Again')}
             </button>
           </div>
         )}
@@ -246,9 +249,9 @@ export default function AllVideos() {
                     </div>
 
                     {/* Read More Button */}
-                    <Link href={`/scholarships-programs/${scholarship.id}`}>
+                    <Link href={`/${locale}/scholarships-programs/${scholarship.id}`}>
                       <button className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition-colors duration-200">
-                        Read More
+                        {t('HomePage.Read More')}
                       </button>
                     </Link>
                   </div>
@@ -261,8 +264,8 @@ export default function AllVideos() {
             <div className="text-center py-12">
               <div className="text-gray-500 dark:text-gray-400 text-lg mb-4">
                 {scholarships.length === 0 
-                  ? 'No scholarships available yet.' 
-                  : 'No scholarships found matching your criteria.'
+                  ? t('HomePage.No scholarships available yet.') 
+                  : t('HomePage.No scholarships found matching your criteria.') 
                 }
               </div>
               <button
@@ -272,7 +275,7 @@ export default function AllVideos() {
                 }}
                 className="mt-4 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
               >
-                Clear Filters
+                {t('HomePage.Clear Filters')}
               </button>
             </div>
           )
@@ -291,7 +294,7 @@ export default function AllVideos() {
                   : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 hover:border-gray-400'
               }`}
             >
-              Previous
+              {t('HomePage.Previous')}  
             </button>
 
             {/* Page Numbers */}
@@ -305,7 +308,7 @@ export default function AllVideos() {
                     : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 hover:border-gray-400'
                 }`}
               >
-                {page}
+                {t(`HomePage.Page ${page}`)}
               </button>
             ))}
 
@@ -319,7 +322,7 @@ export default function AllVideos() {
                   : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 hover:border-gray-400'
               }`}
             >
-              Next
+              {t('HomePage.Next')}
             </button>
           </div>
         )}

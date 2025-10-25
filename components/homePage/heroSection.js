@@ -2,13 +2,13 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useApi } from '@/app/hooks/useApi';
-
+import { useTranslations } from '@/hooks/useTranslations';
 export default function HeroSection() {
   const [showModal, setShowModal] = useState(false);
   const [textData, setTextData] = useState(null);
   const [loading, setLoading] = useState(true);
   const { get } = useApi();
-
+  const { t } = useTranslations();
   const fetchTextData = async () => {
     try {
       setLoading(true);
@@ -28,7 +28,6 @@ export default function HeroSection() {
   }, []);
 
   // Use fallback text while loading or if API fails
-  const fullText = textData?.full_text || `No text data found`;
 
   const shortText = textData?.seven_line_text || `No text data found`;
 
@@ -54,7 +53,7 @@ export default function HeroSection() {
             <div className="flex-1 max-w-2xl lg:pr-12 text-center lg:text-left">
               {/* Main Heading */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                <span className="text-black dark:text-white">LarLeed</span>
+                <span className="text-black dark:text-white">{t('Banner.title')}</span>
               </h1>
 
               {/* Subtitle - Limited to ~7 lines */}
@@ -68,7 +67,7 @@ export default function HeroSection() {
                   onClick={() => setShowModal(true)}
                   className="cursor-pointer px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
                 >
-                  Read More
+                  {t('HomePage.Read More')}
                 </button>
               </div>
 
@@ -76,15 +75,15 @@ export default function HeroSection() {
               <div className="flex flex-wrap justify-between lg:justify-between gap-6 mt-12 pt-8 border-t pb-3 border-gray-200 dark:border-gray-700">
                 <div className="text-center lg:text-left">
                   <div className="text-2xl font-bold text-gray-900 dark:text-white text-center">5k+</div>
-                  <div className="text-gray-500 dark:text-gray-400">Online Education Resources</div>
+                  <div className="text-gray-500 dark:text-gray-400">{t('HomePage.Online Education Resources')}</div>
                 </div>
                 <div className="text-center lg:text-left">
                   <div className="text-2xl font-bold text-gray-900 dark:text-white text-center">100+</div>
-                  <div className="text-gray-500 dark:text-gray-400">Detailed Scholarships Guides</div>
+                  <div className="text-gray-500 dark:text-gray-400">{t('HomePage.Detailed Scholarships Guides')}</div>
                 </div>
                 <div className="text-center lg:text-left">
                   <div className="text-2xl font-bold text-gray-900 dark:text-white text-center">1k+</div>
-                  <div className="text-gray-500 dark:text-gray-400">Mentors</div>
+                  <div className="text-gray-500 dark:text-gray-400">{t('HomePage.Mentors')}</div>
                 </div>
               </div>
             </div>
@@ -116,7 +115,7 @@ export default function HeroSection() {
               {/* Modal Header */}
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                  About LarLeed
+                  {t('HomePage.About LarLeed')}
                 </h2>
                 <button
                   onClick={() => setShowModal(false)}
@@ -142,7 +141,7 @@ export default function HeroSection() {
                   onClick={() => setShowModal(false)}
                   className="cursor-pointer px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200"
                 >
-                  Close
+                  {t('HomePage.Close')}
                 </button>
               </div>
             </div>

@@ -1,7 +1,9 @@
-import Image from 'next/image';
 import Link from 'next/link';
-
+import { useTranslations } from '@/hooks/useTranslations';
+import { useParams } from 'next/navigation';
 export default function WorkThusFor() {
+  const { t } = useTranslations();
+  const { locale } = useParams();
   return (
     <section className="py-16 bg-white dark:bg-gray-800">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,7 +13,7 @@ export default function WorkThusFor() {
           <div className="space-y-6">
             {/* Section Title */}
             <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white">
-              Work Thus For
+              {t('HomePage.Work Thus For')}
             </h2>
             
             {/* Description */}
@@ -20,7 +22,7 @@ export default function WorkThusFor() {
                 At LarLeed, we are dedicated to creating lasting impact through our comprehensive 
                 initiatives focused on education, dialogue, and youth empowerment.
               </p>
-              
+                
               <p>
                 Our work spans across multiple domains, each designed to address the unique 
                 challenges faced by Afghan youth while harnessing their incredible potential 
@@ -36,9 +38,9 @@ export default function WorkThusFor() {
             
             {/* Call to Action */}
             <div className="pt-6">
-              <Link href="/about">
+              <Link href={`/${locale}/about`}>
               <button className="cursor-pointer px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-colors duration-200">
-                Learn More About Our Work
+                {t('HomePage.Learn More About Our Work')}
               </button>
               </Link>
             </div>

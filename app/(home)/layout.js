@@ -20,9 +20,13 @@ export const metadata = {
   description: "Online Learning Platform",
 };
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children, params }) {
+  // Get locale from params or default to 'en'
+  const locale = params?.locale || 'en';
+  const direction = locale === 'en' ? 'ltr' : 'rtl';
+  
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} dir={direction} suppressHydrationWarning>
       <body className="bg-gray-300" suppressHydrationWarning>
         <ThemeProvider
           attribute="class"

@@ -4,14 +4,16 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useApi } from '@/app/hooks/useApi';
-
+import { useTranslations } from '@/hooks/useTranslations';
+import { useParams } from 'next/navigation';
 export default function FeaturedStories() {
+  const { locale } = useParams();
   const router = useRouter();
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { get } = useApi();
-
+  const { t } = useTranslations();
   // Fetch posts from API
   useEffect(() => {
     const fetchStories = async () => {
@@ -39,7 +41,7 @@ export default function FeaturedStories() {
 
   // Function to handle navigation to story details
   const handleStoryDetails = (storyId) => {
-    router.push(`/featured-stories/${storyId}`);
+    router.push(`/${locale}/featured-stories/${storyId}`);
   };
 
   // Function to limit title to 5 words
@@ -60,15 +62,15 @@ export default function FeaturedStories() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
             <div className="mb-4 sm:mb-0">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                Featured Stories
+                {t('HomePage.Featured Stories')}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-                Inspiring Stories of hope, resilience, and transformation from our community
+                {t('HomePage.Inspiring Stories of hope, resilience, and transformation from our community')}
               </p>
             </div>
           </div>
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">Loading stories...</p>
+            <p className="text-gray-500 text-lg">{t('HomePage.Loading stories...')}</p>
           </div>
         </div>
       </section>
@@ -83,15 +85,15 @@ export default function FeaturedStories() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
             <div className="mb-4 sm:mb-0">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                Featured Stories
+                {t('HomePage.Featured Stories')}
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-                Inspiring Stories of hope, resilience, and transformation from our community
+                {t('HomePage.Inspiring Stories of hope, resilience, and transformation from our community')}
               </p>
             </div>
           </div>
           <div className="text-center py-12">
-            <p className="text-red-500 text-lg">Error: {error}</p>
+            <p className="text-red-500 text-lg">{t('HomePage.Error:')}: {error}</p>
           </div>
         </div>
       </section>
@@ -104,19 +106,24 @@ export default function FeaturedStories() {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
           <div className="mb-4 sm:mb-0">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-              Featured Stories
+              {t('HomePage.Featured Stories')}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-              Inspiring Stories of hope, resilience, and transformation from our community
+              {t('HomePage.Inspiring Stories of hope, resilience, and transformation from our community')}
             </p>
           </div>
           
           <Link
-            href="/featured-stories" 
+            href={`/${locale}/featured-stories`} 
             className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-lg transition-colors duration-200"
           >
-            See all
-            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {t('HomePage.See all')}
+            <svg 
+              className="w-5 h-5 ms-2" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </Link>
@@ -176,7 +183,7 @@ export default function FeaturedStories() {
                     onClick={() => handleStoryDetails(story.id)} 
                     className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
                   >
-                    Story Details
+                    {t('HomePage.Story Details')}
                   </button>
                 </div>
               </div>
@@ -184,7 +191,7 @@ export default function FeaturedStories() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No featured stories found.</p>
+            <p className="text-gray-500 text-lg">{t('HomePage.No featured stories found.')}</p>
           </div>
         )}
       </div>
