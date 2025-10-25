@@ -1,8 +1,8 @@
-import { Geist, Geist_Mono, Noto_Sans_Arabic } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { ThemeProvider } from "@/components/them-provider";
 
-// English font
+// English font (only for English content)
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -13,13 +13,6 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Arabic script font for Pashto and Dari
-const notoSansArabic = Noto_Sans_Arabic({
-  variable: "--font-noto-sans",
-  subsets: ["arabic"],
-  weight: ['300', '400', '500', '600', '700'],
-});
-
 export const metadata = {
   title: "LarLeed",
   description: "Online Learning Platform",
@@ -27,8 +20,8 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${notoSansArabic.variable}`}>
-      <body className="bg-gray-300" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className="bg-gray-300 font-sans" suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

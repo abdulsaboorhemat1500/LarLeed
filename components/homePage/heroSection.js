@@ -3,12 +3,14 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useApi } from '@/app/hooks/useApi';
 import { useTranslations } from '@/hooks/useTranslations';
+
 export default function HeroSection() {
   const [showModal, setShowModal] = useState(false);
   const [textData, setTextData] = useState(null);
   const [loading, setLoading] = useState(true);
   const { get } = useApi();
-  const { t } = useTranslations();
+  const { t, currentLocale } = useTranslations();
+
   const fetchTextData = async () => {
     try {
       setLoading(true);
@@ -27,11 +29,12 @@ export default function HeroSection() {
     fetchTextData();
   }, []);
 
-  // Use fallback text while loading or if API fails
-
   const shortText = textData?.seven_line_text || `No text data found`;
 
-  // Show loading state if needed
+  // Determine text alignment based on locale
+  const textAlignment = currentLocale === 'en' ? 'lg:text-start' : 'lg:text-end';
+  const justifyAlignment = currentLocale === 'en' ? 'lg:justify-start' : 'lg:justify-end';
+
   if (loading) {
     return (
       <section className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
@@ -50,18 +53,21 @@ export default function HeroSection() {
           <div className="flex flex-col lg:flex-row items-center justify-between min-h-screen py-12 lg:py-0">
             
             {/* Introduction Section - Left Side */}
-            <div className="flex-1 max-w-2xl lg:pr-12 text-center lg:text-left">
+            <div className={`flex-1 max-w-2xl lg:pe-12 text-center ${textAlignment}`}>
               {/* Main Heading */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
                 <span className="text-black dark:text-white">{t('Banner.title')}</span>
               </h1>
+              
               {/* Subtitle - Limited to ~7 lines */}
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed line-clamp-6 max-h-48 overflow-hidden">
-                {shortText}
-              </p>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  {t('Banner.description')}
+                </span>
+              </h1>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col pt-6 sm:flex-row gap-4 justify-center lg:justify-start">
+              <div className={`flex flex-col pt-6 sm:flex-row gap-4 justify-center ${justifyAlignment}`}>
                 <button 
                   onClick={() => setShowModal(true)}
                   className="cursor-pointer px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
@@ -72,15 +78,15 @@ export default function HeroSection() {
 
               
               <div className="flex flex-wrap justify-between lg:justify-between gap-6 mt-12 pt-8 border-t pb-3 border-gray-200 dark:border-gray-700">
-                <div className="text-center lg:text-left">
+                <div className="text-center">
                   <div className="text-2xl font-bold text-gray-900 dark:text-white text-center">5k+</div>
                   <div className="text-gray-500 dark:text-gray-400">{t('HomePage.online education resources')}</div>
                 </div>
-                <div className="text-center lg:text-left">
+                <div className="text-center">
                   <div className="text-2xl font-bold text-gray-900 dark:text-white text-center">100+</div>
                   <div className="text-gray-500 dark:text-gray-400">{t('HomePage.detailed scholarships guides')}</div>
                 </div>
-                <div className="text-center lg:text-left">
+                <div className="text-center">
                   <div className="text-2xl font-bold text-gray-900 dark:text-white text-center">1k+</div>
                   <div className="text-gray-500 dark:text-gray-400">{t('HomePage.mentors')}</div>
                 </div>
@@ -123,15 +129,6 @@ export default function HeroSection() {
                   ×
                 </button>
               </div>
-              
-              {/* Modal Content */}
-              {/* <div className="prose dark:prose-invert max-w-none">
-                {fullText.split('\n\n').map((paragraph, index) => (
-                  <p key={index} className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed">
-                    {paragraph}
-                  </p>
-                ))}
-              </div> */}
               <div className="text-gray-600 rich-text-content" dangerouslySetInnerHTML={{ __html: textData.full_text }} />
               
               {/* Modal Footer */}

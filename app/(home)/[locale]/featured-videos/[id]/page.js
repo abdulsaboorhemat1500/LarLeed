@@ -27,11 +27,11 @@ export default function VideoDetailsPage({ params }) {
         if (result.success) {
           setVideo(result.data);
         } else {
-          setError(result.error || t('HomePage.Failed to fetch video'));
+          setError(result.error || t('videoDetailsPage.failed to fetch video'));
         }
       } catch (error) {
         console.error('Error fetching video:', error);
-        setError(t('HomePage.Network error. Please try again.'));
+        setError(t('videoDetailsPage.network error. Please try again.'));
       } finally {
         setLoading(false);
       }
@@ -62,7 +62,7 @@ export default function VideoDetailsPage({ params }) {
         <div className="container mx-auto">
           <BackButton />
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">{t('HomePage.Loading video...')}</p>
+            <p className="text-gray-500 text-lg">{t('videoDetailsPage.loading video...')}</p>
           </div>
         </div>
       </div>
@@ -80,7 +80,7 @@ export default function VideoDetailsPage({ params }) {
               onClick={() => window.location.reload()} 
               className="mt-4 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg"
             >
-              {t('HomePage.Try Again')}
+              {t('videoDetailsPage.try again')}
             </button>
           </div>
         </div>
@@ -94,7 +94,7 @@ export default function VideoDetailsPage({ params }) {
         <div className="container mx-auto">
           <BackButton />
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">{t('HomePage.Video not found.')}</p>
+            <p className="text-gray-500 text-lg">{t('videoDetailsPage.video not found.')}</p>
           </div>
         </div>
       </div>
@@ -120,17 +120,17 @@ export default function VideoDetailsPage({ params }) {
 
                 <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
                   <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                    {t('HomePage.Video Information')}
+                    {t('videoDetailsPage.video information')}
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Category')}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('videoDetailsPage.category')}</p>
                       <p className="font-medium text-gray-900 dark:text-white capitalize">
                         {video.v_category}
                       </p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Created')}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('videoDetailsPage.created')}</p>
                       <p className="font-medium text-gray-900 dark:text-white">
                         {new Date(video.created_at).toLocaleDateString('en-US', {
                           year: 'numeric',
@@ -167,7 +167,7 @@ export default function VideoDetailsPage({ params }) {
                     <div>
                       
                       <p className="text-gray-500 dark:text-gray-400 text-sm">
-                        {t('HomePage.Video Creator')}
+                        {t('videoDetailsPage.video creator')}
                       </p>
                       <p className="font-medium text-gray-900 dark:text-white">
                         {video.v_creature || 'Unknown Creator'}
@@ -181,7 +181,7 @@ export default function VideoDetailsPage({ params }) {
                         <span className="text-blue-600 dark:text-blue-400">📅</span>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Published')}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{t('videoDetailsPage.published')}</p>
                         <p className="font-medium text-gray-900 dark:text-white">
                           {new Date(video.created_at).toLocaleDateString()}
                         </p>
@@ -193,7 +193,7 @@ export default function VideoDetailsPage({ params }) {
                         <span className="text-green-600 dark:text-green-400">📺</span>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Category')}</p>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{t('videoDetailsPage.category')}</p>
                         <p className="font-medium text-gray-900 dark:text-white capitalize">
                           {video.v_category}
                         </p>
@@ -206,7 +206,7 @@ export default function VideoDetailsPage({ params }) {
                           <span className="text-purple-600 dark:text-purple-400">👤</span>
                         </div>
                         <div>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.Creator')}</p>
+                          <p className="text-sm text-gray-500 dark:text-gray-400">{t('videoDetailsPage.creator')}</p>
                           <p className="font-medium text-gray-900 dark:text-white">{video.v_creature}</p>
                         </div>
                       </div>
@@ -225,7 +225,7 @@ export default function VideoDetailsPage({ params }) {
                           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z"/>
                           </svg>
-                          {t('HomePage.Watch Video')}
+                          {t('videoDetailsPage.watch video')}
                         </button>
                       </a>
                     ) : (
@@ -236,12 +236,12 @@ export default function VideoDetailsPage({ params }) {
                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                           <path d="M8 5v14l11-7z"/>
                         </svg>
-                        {t('HomePage.No Video Link')}
+                        {t('videoDetailsPage.no video link')}
                       </button>
                     )}
                     
                     <button className="cursor-pointer w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors">
-                      {t('HomePage.Share Video')}
+                      {t('videoDetailsPage.share video')}
                     </button>
                   </div>
                 </div>

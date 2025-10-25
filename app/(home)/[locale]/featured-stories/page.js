@@ -29,11 +29,11 @@ export default function FeaturedStoriesList() {
           const storyPosts = result.data.filter(post => post.category === 'story');
           setStories(storyPosts);
         } else {
-          setError(result.error || t('HomePage.Failed to fetch stories'));
+          setError(result.error || t('HomePage.failed to fetch stories'));
         }
       } catch (error) {
         console.error('Fetch error:', error);
-        setError(t('HomePage.Network error. Please try again.'));
+        setError(t('HomePage.network error. please try again.'));
       } finally {
         setLoading(false);
       }
@@ -79,7 +79,7 @@ export default function FeaturedStoriesList() {
           <BackButton />
           
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">{t('HomePage.Loading stories...')}</p>
+            <p className="text-gray-500 text-lg">{t('HomePage.loading stories...')}</p>
           </div>
         </div>
       </div>
@@ -91,14 +91,8 @@ export default function FeaturedStoriesList() {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
         <div className="container mx-auto px-4">
           <BackButton />
-
-          <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              <span className="block text-blue-600 dark:text-blue-400 mt-2">{t('HomePage.Learn our Inspiring Stories')}</span>
-            </h1>
-          </div>
           <div className="text-center py-12">
-            <p className="text-red-500 text-lg">{t('HomePage.Error:')}: {error}</p>
+            <p className="text-red-500 text-lg"> error: {error}</p>
           </div>
         </div>
       </div>
@@ -131,14 +125,14 @@ export default function FeaturedStoriesList() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-12 py-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-              placeholder={t('HomePage.Search stories by title, description, or author...')}
+              placeholder={t('HomePage.search stories by title, description, or author...')}
             />
             
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
                 className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-red-500 transition-colors"
-                title={t('HomePage.Clear search')}
+                title={t('HomePage.clear search')}
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
@@ -192,7 +186,7 @@ export default function FeaturedStoriesList() {
                   
                   <Link href={`/${locale}/featured-stories/${story.id}`}>
                     <button className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
-                      {t('HomePage.Story Details')}
+                      {t('HomePage.story details')}
                     </button>
                   </Link>
                 </div>
@@ -202,14 +196,14 @@ export default function FeaturedStoriesList() {
         ) : (
           <div className="text-center py-12">
             <div className="text-gray-500 dark:text-gray-400 text-lg mb-4">
-              {stories.length === 0 ? t('HomePage.No stories found.') : t(`HomePage.No stories found matching "${searchQuery}"`)}
+              {stories.length === 0 ? t('HomePage.no stories found.') : t(`HomePage.no stories found matching "${searchQuery}"`)}
             </div>
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
                 className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
               >
-                {t('HomePage.Clear Search')}
+                {t('HomePage.clear search')}
               </button>
             )}
           </div>
@@ -226,7 +220,7 @@ export default function FeaturedStoriesList() {
                   : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600'
               }`}
             >
-              {t('HomePage.Previous')}
+              {t('HomePage.previous')}
             </button>
 
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -252,7 +246,7 @@ export default function FeaturedStoriesList() {
                   : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600'
               }`}
             >
-              {t('HomePage.Next')}  
+              {t('HomePage.next')}  
             </button>
           </div>
         )}

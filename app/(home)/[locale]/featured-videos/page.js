@@ -29,11 +29,11 @@ export default function FeaturedVideosList() {
         if (result.success) {
           setVideos(result.data);
         } else {
-          setError(result.error || t('HomePage.Failed to fetch videos'));
+          setError(result.error || t('HomePage.failed to fetch videos'));
         }
       } catch (error) {
         console.error('Fetch error:', error);
-        setError(t('HomePage.Network error. Please try again.'));
+        setError(t('HomePage.network error. Please try again.'));
       } finally {
         setLoading(false);
       }
@@ -90,15 +90,8 @@ export default function FeaturedVideosList() {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
         <div className="container mx-auto px-4">
-          <BackButton />
-
-          <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              <span className="block text-blue-600 dark:text-blue-400 mt-2">{t('HomePage.Featured Videos')}</span>
-            </h1>
-          </div>
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">{t('HomePage.Loading videos...')}</p>
+            <p className="text-gray-500 text-lg">{t('HomePage.loading videos...')}</p>
           </div>
         </div>
       </div>
@@ -109,15 +102,8 @@ export default function FeaturedVideosList() {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
         <div className="container mx-auto px-4">
-          <BackButton />
-          
-          <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              <span className="block text-blue-600 dark:text-blue-400 mt-2">{t('HomePage.Featured Videos')}</span>
-            </h1>
-          </div>
           <div className="text-center py-12">
-            <p className="text-red-500 text-lg">{t('HomePage.Error:')}: {error}</p>
+            <p className="text-red-500 text-lg">Error: {error}</p>
           </div>
         </div>
       </div>
@@ -128,12 +114,6 @@ export default function FeaturedVideosList() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
       <div className="container mx-auto px-4">
         <BackButton />
-        
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-            <span className="block text-blue-600 dark:text-blue-400 mt-2">{t('HomePage.Featured Videos')}</span>
-          </h1>
-        </div>
 
         <div className="max-w-2xl mx-auto mb-6">
           <div className="relative">
@@ -157,14 +137,14 @@ export default function FeaturedVideosList() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-12 py-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-              placeholder={t('HomePage.Search videos by title, description, or creator...')}
+              placeholder={t('HomePage.search videos by title, description, or creator...')}
             />
             
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
                 className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-red-500 transition-colors"
-                title={t('HomePage.Clear search')}
+                title={t('HomePage.clear search')}
               >
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
@@ -219,7 +199,7 @@ export default function FeaturedVideosList() {
                           size="sm" 
                           className="cursor-pointer mb-2 bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2 w-full justify-center py-2.5"
                         >
-                          {t('HomePage.Watch Video')}
+                          {t('HomePage.watch video')}
                         </Button>
                       </a>
                     ) : (
@@ -228,7 +208,7 @@ export default function FeaturedVideosList() {
                         disabled
                         className="cursor-not-allowed mb-2 bg-gray-400 text-white flex items-center gap-2 w-full justify-center py-2.5"
                       >
-                        {t('HomePage.No Video Link')}
+                        {t('HomePage.no Video Link')}
                       </Button>
                     )}
                     
@@ -237,7 +217,7 @@ export default function FeaturedVideosList() {
                         size="sm" 
                         className="cursor-pointer bg-green-600 hover:bg-green-700 text-white flex items-center gap-2 w-full justify-center py-2.5"
                       >  
-                        {t('HomePage.Video Details')}
+                        {t('HomePage.video details')}
                       </Button>
                     </Link>
                   </div>
@@ -248,14 +228,14 @@ export default function FeaturedVideosList() {
         ) : (
           <div className="text-center py-12">
             <div className="text-gray-500 dark:text-gray-400 text-lg mb-4">
-              {videos.length === 0 ? t('HomePage.No videos found.') : t(`HomePage.No videos found matching "${searchQuery}"`)}
+              {videos.length === 0 ? t('HomePage.no videos found.') : t(`HomePage.no videos found matching "${searchQuery}"`)}
             </div>
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
                 className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
               >
-                {t('HomePage.Clear Search')}
+                {t('HomePage.clear search')}
               </button>
             )}
           </div>
@@ -272,7 +252,7 @@ export default function FeaturedVideosList() {
                   : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600'
               }`}
             >
-              {t('HomePage.Previous')}
+              {t('HomePage.previous')}
             </button>
 
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -298,7 +278,7 @@ export default function FeaturedVideosList() {
                   : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600'
               }`}
             >
-              {t('HomePage.Next')}    
+              {t('HomePage.next')}    
             </button>
           </div>
         )}

@@ -87,7 +87,7 @@ export default function ContactUsSection() {
                   <span className="text-red-600 dark:text-red-400">✉️</span>
                 </div>
                 <div> 
-                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.email')}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('getInTouchPage.email')}</p>
                   <a 
                     href="mailto:saboorhemat4600@gmail.com"
                     className="font-medium text-blue-600 dark:text-blue-400 hover:underline"
@@ -150,7 +150,7 @@ export default function ContactUsSection() {
                     value={formData.name}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.enter your full name...')}
+                    placeholder={t('HomePage.enter your full name')}
                   />
                 </div>
               </div>
@@ -169,14 +169,14 @@ export default function ContactUsSection() {
                     value={formData.email}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.enter your email...')}
+                    placeholder={t('HomePage.enter your email')}
                   />
                 </div>
               </div>
               
               <div className="pt-5">
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                    {t('HomePage.phone number...')}
+                    {t('HomePage.phone number')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -187,7 +187,7 @@ export default function ContactUsSection() {
                     value={formData.phone}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder={t('HomePage.enter your phone number...')}
+                    placeholder={t('HomePage.enter your phone number')}
                   />
                 </div>
               </div>
@@ -206,7 +206,7 @@ export default function ContactUsSection() {
                     value={formData.subject}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                      placeholder={t('HomePage.enter message subject...')}
+                      placeholder={t('HomePage.enter message subject')}
                   />
                 </div>
               </div>
@@ -224,7 +224,7 @@ export default function ContactUsSection() {
                     value={formData.message}
                     onChange={handleChange}
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm resize-vertical"
-                    placeholder={t('HomePage.enter your message...')}
+                    placeholder={t('HomePage.enter your message')}
                   />
                 </div>
               </div>
