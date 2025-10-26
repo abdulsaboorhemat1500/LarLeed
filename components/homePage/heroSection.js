@@ -34,10 +34,6 @@ export default function HeroSection() {
 
   const shortText = textData?.seven_line_text || `No text data found`;
 
-  // Determine text alignment based on locale
-  const textAlignment = currentLocale === 'en' ? 'lg:text-start' : 'lg:text-end';
-  const justifyAlignment = currentLocale === 'en' ? 'lg:justify-start' : 'lg:justify-end';
-
   if (loading) {
     return (
       <section className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 flex items-center justify-center">
@@ -55,9 +51,9 @@ export default function HeroSection() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`flex flex-col lg:flex-row items-center justify-between min-h-screen py-12 lg:py-0 ${isRTL ? 'lg:flex-row-reverse' : ''}`}>
             
-            {/* Image Section - Always show first in DOM for RTL languages */}
-            <div className={`flex-1 flex justify-center ${isRTL ? 'lg:justify-start' : 'lg:justify-end'} mt-8 lg:mt-0 ${isRTL ? 'lg:order-1' : 'lg:order-2'}`}>
-              <div className="relative w-full max-w-md lg:max-w-lg">
+            {/* Image Section - Left side for RTL languages */}
+            <div className={`flex-1 flex ${isRTL ? 'lg:justify-start' : 'lg:justify-end'} mt-8 lg:mt-0 ${isRTL ? 'lg:order-1' : 'lg:order-2'}`}>
+              <div className={`relative w-full max-w-md lg:max-w-lg ${isRTL ? 'lg:me-12' : 'lg:ms-12'}`}>
                 {/* Main Image Container */}
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
                   <Image
@@ -71,8 +67,8 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Introduction Section - Show second in DOM for RTL languages */}
-            <div className={`flex-1 max-w-2xl ${isRTL ? 'lg:text-right lg:ps-12' : 'lg:text-left lg:pe-12'} text-center ${isRTL ? 'lg:order-2' : 'lg:order-1'}`}>
+            {/* Introduction Section - Right side for RTL languages */}
+            <div className={`flex-1 max-w-2xl ${isRTL ? 'lg:text-right lg:ps-12' : 'lg:text-left lg:pe-12'} text-center lg:text-start ${isRTL ? 'lg:order-2' : 'lg:order-1'}`}>
               {/* Main Heading */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
                 <span className="text-black dark:text-white">{t('Banner.title')}</span>
@@ -86,7 +82,7 @@ export default function HeroSection() {
               </h1>
 
               {/* CTA Buttons */}
-              <div className={`flex flex-col pt-6 sm:flex-row gap-4 ${isRTL ? 'justify-end' : 'justify-start'} lg:justify-start`}>
+              <div className={`flex flex-col pt-6 sm:flex-row gap-4 ${isRTL ? 'justify-end' : 'justify-start'}`}>
                 <button 
                   onClick={() => setShowModal(true)}
                   className="cursor-pointer px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
