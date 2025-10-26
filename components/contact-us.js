@@ -105,6 +105,7 @@ export default function ContactUsSection() {
                   <p className="text-sm text-gray-500 dark:text-gray-400">{t('HomePage.phone')}</p>
                   <a 
                     href="tel:+93790161600"
+                    dir="ltr"
                     className="font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
                   >
                     +93 790 161 600

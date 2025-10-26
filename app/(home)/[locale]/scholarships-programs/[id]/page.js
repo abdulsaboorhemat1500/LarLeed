@@ -73,7 +73,7 @@ export default function ScholarshipDetailsPage({ params }) {
           <div className="flex items-center justify-center py-20">
             <div className="text-center">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-              <p className="mt-4 text-gray-600 dark:text-gray-400">{t('scholarshipDetailsPage.loading scholarship details...')}</p>
+              <p className="mt-4 text-gray-600 dark:text-gray-400">{t('scholarshipDetailsPage.loading scholarship details')}</p>
             </div>
           </div>
         </div>
@@ -214,7 +214,7 @@ export default function ScholarshipDetailsPage({ params }) {
                       <span className="text-pink-600 dark:text-pink-400">👥</span>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('scholarshipDetailsPage.for genders')}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('scholarshipDetailsPage.genders')}</p>
                       <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_gender || 'Both Male & Female'}</p>
                     </div>
                   </div>
@@ -247,7 +247,7 @@ export default function ScholarshipDetailsPage({ params }) {
                       <span className="text-teal-600 dark:text-teal-400">📅</span>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('scholarshipDetailsPage.program duration')}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{t('scholarshipDetailsPage.duration')}</p>
                       <p className="font-semibold text-gray-900 dark:text-white">{scholarship.s_duration}</p>
                     </div>
                   </div>

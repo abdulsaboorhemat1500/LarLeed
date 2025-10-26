@@ -85,7 +85,7 @@ export default function FeaturedStoriesList() {
           
           {/* Header */}
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">{t('RoshangariPage.Loading stories...')}</p>
+            <p className="text-gray-500 text-lg">{t('RoshangariPage.loading stories')}</p>
           </div>
         </div>
       </div>
@@ -97,14 +97,6 @@ export default function FeaturedStoriesList() {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
         <div className="container mx-auto px-4">
-          <BackButton />
-          
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
-              <span className="block text-blue-600 dark:text-blue-400 mt-2">{t('RoshangariPage.learn our inspiring stories')}</span>
-            </h1>
-          </div>
           <div className="text-center py-12">
             <p className="text-red-500 text-lg">{t('RoshangariPage.error:')}: {error}</p>
           </div>
@@ -143,7 +135,7 @@ export default function FeaturedStoriesList() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-12 py-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-              placeholder={t('RoshangariPage.search stories by title, description, or author...')}
+              placeholder={t('RoshangariPage.search roshangari stories')}
             />
             
             {/* Clear Search Button */}
@@ -212,7 +204,7 @@ export default function FeaturedStoriesList() {
                   {/* Story Details Button - Full width at the bottom */}
                   <Link href={`/${locale}/featured-stories/${story.id}`}>
                     <button className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
-                      {t('RoshangariPage.story details')}
+                      {t('RoshangariPage.story detail')}
                     </button>
                   </Link>
                 </div>
@@ -223,7 +215,7 @@ export default function FeaturedStoriesList() {
           // No results message
           <div className="text-center py-12">
             <div className="text-gray-500 dark:text-gray-400 text-lg mb-4">
-              {stories.length === 0 ? t('RoshangariPage.no stories found.') : t(`RoshangariPage.no stories found matching "${searchQuery}"`)}
+              {stories.length === 0 ? t('RoshangariPage.no stories found') : t(`RoshangariPage.no stories found "${searchQuery}"`)}
             </div>
             {searchQuery && (
               <button
@@ -263,7 +255,7 @@ export default function FeaturedStoriesList() {
                     : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600'
                 }`}
               >
-                {t(`RoshangariPage.page ${page}`)}
+                {page}
               </button>
             ))}
 

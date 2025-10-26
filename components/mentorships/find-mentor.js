@@ -30,7 +30,7 @@ export default function MentorSection() {
         }
       } catch (error) {
         console.error('Fetch error:', error);
-        setError(t('HomePage.network error. please try again.'));
+        setError(t('HomePage.network error please try again'));
       } finally {
         setLoading(false);
       }
@@ -45,7 +45,7 @@ export default function MentorSection() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              {t('HomePage.meet our mentors')}
+              {t('MentorshipsPage.meet our mentors')}
             </h2>
           </div>
           <div className="flex justify-center">
@@ -62,11 +62,11 @@ export default function MentorSection() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              {t('HomePage.meet our mentors')}
+              {t('MentorshipsPage.meet our mentors')}
             </h2>
           </div>
           <div className="text-center text-red-600">
-            <p>{t('RoshangariPage.error:')}: {error}</p>
+            <p>{t('RoshangariPage.error')}: {error}</p>
           </div>
         </div>
       </section>
@@ -78,7 +78,7 @@ export default function MentorSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            {t('HomePage.meet our mentors')}
+            {t('MentorshipsPage.meet our mentors')}
           </h2>
         </div>
 
@@ -124,7 +124,7 @@ export default function MentorSection() {
         {mentors.length === 0 && !loading && (
           <div className="text-center py-12">
             <p className="text-gray-500 dark:text-gray-400 text-lg">
-              {t('HomePage.no mentors found')}
+              {t('MentorshipsPage.no mentors found')}
             </p>
           </div>
         )}

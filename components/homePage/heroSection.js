@@ -49,68 +49,68 @@ export default function HeroSection() {
   return (
     <>
       <section className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center justify-between min-h-screen py-12 lg:py-0">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className={`flex flex-col lg:flex-row items-center justify-between min-h-screen py-12 lg:py-0 ${isRTL ? 'lg:flex-row-reverse' : ''}`}>
+          
+          {/* Introduction Section */}
+          <div className={`flex-1 max-w-2xl ${isRTL ? 'lg:ps-12 text-right' : 'lg:pe-12 text-left'} text-center lg:text-start`}>
+            {/* Main Heading */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              <span className="text-black dark:text-white">{t('Banner.title')}</span>
+            </h1>
             
-            {/* Introduction Section - Left Side */}
-            <div className={`flex-1 max-w-2xl lg:pe-12 text-center ${textAlignment}`}>
-              {/* Main Heading */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                <span className="text-black dark:text-white">{t('Banner.title')}</span>
-              </h1>
-              
-              {/* Subtitle - Limited to ~7 lines */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-                <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  {t('Banner.description')}
-                </span>
-              </h1>
+            {/* Subtitle */}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                {t('HomePage.connecting afghan youth')}
+              </span>
+            </h1>
 
-              {/* CTA Buttons */}
-              <div className={`flex flex-col pt-6 sm:flex-row gap-4 justify-center ${justifyAlignment}`}>
-                <button 
-                  onClick={() => setShowModal(true)}
-                  className="cursor-pointer px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
-                >
-                  {t('HomePage.read more')}
-                </button>
-              </div>
-
-              
-              <div className="flex flex-wrap justify-between lg:justify-between gap-6 mt-12 pt-8 border-t pb-3 border-gray-200 dark:border-gray-700">
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-900 dark:text-white text-center">5k+</div>
-                  <div className="text-gray-500 dark:text-gray-400">{t('HomePage.online education resources')}</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-900 dark:text-white text-center">100+</div>
-                  <div className="text-gray-500 dark:text-gray-400">{t('HomePage.detailed scholarships guides')}</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-2xl font-bold text-gray-900 dark:text-white text-center">1k+</div>
-                  <div className="text-gray-500 dark:text-gray-400">{t('HomePage.mentors')}</div>
-                </div>
-              </div>
+            {/* CTA Buttons */}
+            <div className={`flex flex-col pt-6 sm:flex-row gap-4 ${isRTL ? 'justify-end' : 'justify-start'} lg:justify-start`}>
+              <button 
+                onClick={() => setShowModal(true)}
+                className="cursor-pointer px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                {t('HomePage.read more')}
+              </button>
             </div>
 
-            {/* Image Section - Right Side */}
-            <div className="flex-1 flex justify-center lg:justify-end mt-8 lg:mt-0">
-              <div className="relative w-full max-w-md lg:max-w-lg">
-                {/* Main Image Container */}
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
-                  <Image
-                    src="/hero-section-image.jpg" // Replace with your image path
-                    alt="Hero Image"
-                    width={400}
-                    height={400}
-                    className="w-full h-auto md:max-h-[400px] object-cover"
-                  />
-                </div>
+            
+            <div className={`flex flex-wrap justify-between lg:justify-between gap-6 mt-12 pt-8 border-t pb-3 border-gray-200 dark:border-gray-700 ${isRTL ? 'flex-row-reverse' : ''}`}>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">5k+</div>
+                <div className="text-gray-500 dark:text-gray-400">{t('HomePage.online education resources')}</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">100+</div>
+                <div className="text-gray-500 dark:text-gray-400">{t('HomePage.detailed scholarships guides')}</div>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-gray-900 dark:text-white">1k+</div>
+                <div className="text-gray-500 dark:text-gray-400">{t('HomePage.mentors')}</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Image Section */}
+          <div className="flex-1 flex justify-center lg:justify-end mt-8 lg:mt-0">
+            <div className="relative w-full max-w-md lg:max-w-lg">
+              {/* Main Image Container */}
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                <Image
+                  src="/hero-section-image.jpg"
+                  alt="Hero Image"
+                  width={400}
+                  height={400}
+                  className="w-full h-auto md:max-h-[400px] object-cover"
+                />
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Modal */}
       {showModal && (

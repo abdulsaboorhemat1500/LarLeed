@@ -1,22 +1,23 @@
 {
   "Header": {
     "scholarshipsPrograms": "بورسونه",
-    "mentorships": "مرستندویان",
-    "roshangari": "روښانتیا",
-    "donate": "مرسته",
+    "mentorships": "مینټورشیپ",
+    "roshangari": "روښنګري",
+    "donate": "ډونیټ",
     "contactUs": "موږ سره اړیکه",
     "aboutUs": "زموږ په اړه"
   },
   "Banner": {
     "title": "لرلید",
-    "description": "د افغان ځوانانو د زده کړو، خبرو اترو او لید له لارې سره نښلول"
+    "description": "د افغان ځوانانو وصل کول د زدکړي، خبرو او لید له لاري."
   },
   "HomePage": {
-    
+    "close":"تړل",
+    "connecting afghan youth":"د افغان ځوانانو وصل کول",
     "failed to submit form":"ستاستو فورم اضافه نه کړلای شو",
     "please fill in all required fields": "هیله ده ټول فیلډونه ډک کړئ",
     "meet our team": "زموږ ټیم سره وکتل",
-    "we'd love to hear from you! Whether you have questions about courses, need technical support, or want to share your learning journey, our team is ready to assist you.": "موږ به خوښ شو چې له تاسو څخه یې واورو! که تاسو د کورسونو په اړه پوښتني لرئ، تخنیکي ملاتړ ته اړتیا لرئ، یا غواړئ خپل د زده کړې سفر شریک کړئ، زموږ ټیم چمتو دی چې ستاسو سره مرسته وکړي.",
+    "we would love to hear from you! Whether you have questions about courses, need technical support, or want to share your learning journey, our team is ready to assist you.": "موږ به خوښ شو چې له تاسو څخه یې واورو! که تاسو د کورسونو په اړه پوښتني لرئ، تخنیکي ملاتړ ته اړتیا لرئ، یا غواړئ خپل د زده کړې سفر شریک کړئ، زموږ ټیم چمتو دی چې ستاسو سره مرسته وکړي.",
     "online education resources": "آنلاین زده کړې سرچینې",
     "featured stories": "ځانګړې کیسې",
     "featured videos": "ځانګړي ویډیوګانې",
@@ -72,9 +73,24 @@
     "previous": "پخوانی",
     "of": "څخه",
     "results": "پایلې",
-    "show": "ښکاره کړئ"
+    "show": "ښکاره کړئ",
+    "error":"مشکل",
+    "try again":"بیا ځلي کوښښ وکړئ",
+    "loading scholarships":"د بورسونو پيدا کول",
+    "read more":"اضافه ولولۍ",
+    "no scholarships available yet":"هیڅ ډول بورسونه پیدا نشوو",
+    "no scholarships found matching your criteria":"ستاسو د خوښي بورسونه پیدا نشوو",
+    "clear filters":"فلټر لري کړۍ"
   },
   "MentorshipsPage": {
+    "enter your full Name":"خپل نوم ولیکئ",
+    "enter your email address":"خپل ایمیل ادرس ولیکئ",
+    "enter your current address":"خپل ادرس مو ولیکئ",
+    "enter your phone number":"مبایل نمبر مو ولیکئ",
+    "year of graduation":"د فراغت کال",
+    "enter year of graduation":"د فراغت کال مو ولیکئ",
+    "your major":"د تحصیل رشته",
+    "failed to fetch mentors":"د مینټور په پیدا کولو کي مشکل",
     "meet our mentors": "زموږ د مرستندویانو سره وکتل",
     "no mentors found": "هیڅ مرستندویان ونه موندل شول.",
     "scholarship submission form": "د بورس د سپارلو فورمه",
@@ -84,11 +100,11 @@
     "scholarship university": "د بورس پوهنتون",
     "scholarship level": "د بورس کچه",
     "scholarship deadline": "د بورس وخت",
-    "submit form": "فورمه وسپارئ",
-    "submitting...": "په سپارلو کې...",
+    "submit form": "فورمه ولیږئ",
+    "submitting": "په لیږلو کې...",
     "application submitted successfully!": "غوښتنلیک په بریالیتوب سره واستول شو!",
     "failed to submit application": "د غوښتنلیک سپارل ناکام شو",
-    "network error. please try again.": "د شبکې تیروتنه. مهرباني وکړئ بیا هڅه وکړئ.",
+    "network error please try again": "د شبکې تیروتنه. مهرباني وکړئ بیا هڅه وکړئ.",
     "full name *": "بشپړ نوم *",
     "email address *": "د بریښنالیک پته *",
     "current address": "اوسنۍ پته",
@@ -113,12 +129,14 @@
     "enter your GPA/score": "ستاسو gpa اضافه کړئ"
   },
   "RoshangariPage": {
-    "back to previous page": "پخوانۍ پاڼې ته بیرته",
+    "clear search":"د لټون پاک کول",
+    "no stories found":"هیڅ کیسه پیدا نشوه",
+    "back to previous": "پخوانۍ پاڼې ته بیرته",
     "search roshangari stories": "د روښانتیا کیسې لټون",
     "searching...": "په لټون کې...",
     "error": "تیروتنه",
     "no roshangari stories found": "هیڅ د روښانتیا کیسې ونه موندل شوې.",
-    "loading stories...": "د کیسو په پورته کولو کې...",
+    "loading stories": "د کیسو په پورته کولو کې...",
     "next": "راتلونکی",
     "previous": "پخوانی",
     "of": "څخه",
@@ -130,11 +148,11 @@
     "subscribe to our newsletter": "زموږ د خبرونو پاڼې ته ګډون وکړئ",
     "enter your email": "خپل بریښنالیک ولیکئ",
     "email": "بریښنالیک",
-    "get the latest news, updates, and special offers delivered right to your inbox.": "وروستي خبرونه، تازه معلومات او ځانګړي وړاندیزونه په خپل انباکس کې ترلاسه کړئ.",
+    "get the latest news, updates, and special offers delivered right to your inbox": "وروستي خبرونه، تازه معلومات او ځانګړي وړاندیزونه په خپل انباکس کې ترلاسه کړئ.",
     "submit form": "فورمه وسپارئ",
-    "submitting...": "په سپارلو کې...",
-    "thank you! your message has been sent successfully.": "ډېر مننه! ستاسو پیغام په بریالیتوب سره واستول شو.",
-    "failed to send message. please try again.": "د پیغام لیږل ناکام شو. مهرباني وکړئ بیا هڅه وکړئ.",
+    "submitting": "په سپارلو کې...",
+    "thank you! your message has been sent successfully": "ډېر مننه! ستاسو پیغام په بریالیتوب سره واستول شو.",
+    "failed to send message please try again": "د پیغام لیږل ناکام شو. مهرباني وکړئ بیا هڅه وکړئ.",
     "connecting afghan youth through education, dialogue, and vision": "د افغان ځوانانو سره د زده کړو، خبرو اترو او لید له لارې اړیکه"
   },
   "storyDetailsPage": {
@@ -181,7 +199,7 @@
     "detailed information": "تفصيلي معلومات",
     "eligibility criteria": "د وړتیا معیارونه",
     "application process": "د غوښتنلیک پروسه",
-    "benefits": "د بورس ګټې",
+    "scholarship benefits": "د بورس ګټې",
     "scholarship summary": "د بورس لنډیز",
     "name": "نوم",
     "country": "هیواد",
@@ -191,7 +209,7 @@
     "application deadline": "د غوښتنلیک وخت",
     "duration": "موده",
     "funding type": "د مالي ملاتړ ډول",
-    "gender": "جنس",
+    "genders": "جنس",
     "apply now": "اوس غوښتنلیک وکړئ"
   },
   "MentorDetailsPage":{

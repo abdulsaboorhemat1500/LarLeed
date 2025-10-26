@@ -76,7 +76,7 @@ export default function ScholarshipFormSection() {
     } catch (error) {
       console.error('Full error details:', error);
       // Show more specific error message
-      const errorMessage = error.details || error.message || t('MentorshipsPage.network error. Please try again.');
+      const errorMessage = error.details || error.message || t('MentorshipsPage.network error Please try again');
       setMessage({ 
         type: 'error', 
         text: `${t('RoshangariPage.error:')}: ${errorMessage}` 
@@ -291,7 +291,7 @@ export default function ScholarshipFormSection() {
 
             <div className="lg:col-span-1">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-                {t('MentorshipsPage.scholarship applying for')}
+                {t('MentorshipsPage.scholarship details')}
               </h2>
               
               <div>
@@ -314,7 +314,7 @@ export default function ScholarshipFormSection() {
 
               <div className="pt-5">
                 <label htmlFor="sch_country" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                  {t('MentorshipsPage.scholarship country')}
+                  {t('MentorshipsPage.scholarship country *')}
                 </label>
                 <div className="mt-1">
                   <input
@@ -387,7 +387,7 @@ export default function ScholarshipFormSection() {
               disabled={loading}
               className="cursor-pointer px-7 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {loading ? t('HomePage.submitting...') : t('HomePage.submit form')}
+              {loading ? t('HomePage.submitting') : t('HomePage.submit form')}
             </Button>
           </div>
         </form>
