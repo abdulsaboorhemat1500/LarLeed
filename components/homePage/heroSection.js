@@ -82,7 +82,7 @@ export default function HeroSection() {
               </h1>
 
               {/* CTA Buttons */}
-              <div className={`flex flex-col pt-6 sm:flex-row gap-4 ${isRTL ? 'justify-end' : 'justify-end'}`}>
+              <div className={`flex flex-col pt-6 sm:flex-row gap-4 ${isRTL ? 'justify-start' : 'justify-start'}`}>
                 <button 
                   onClick={() => setShowModal(true)}
                   className="cursor-pointer px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
