@@ -52,7 +52,7 @@ export default function HeroSection() {
           <div className={`flex flex-col lg:flex-row items-center justify-between min-h-screen py-12 lg:py-0 ${isRTL ? 'lg:flex-row-reverse' : ''}`}>
             
             {/* Image Section - Left side for RTL languages */}
-            <div className={`flex-1 flex ${isRTL ? 'lg:justify-start' : 'lg:justify-end'} mt-8 lg:mt-0 ${isRTL ? 'lg:order-1' : 'lg:order-2'}`}>
+            <div className={`flex-1 flex ${isRTL ? 'lg:justify-end' : 'lg:justify-end'} mt-8 lg:mt-0 ${isRTL ? 'lg:order-1' : 'lg:order-2'}`}>
               <div className={`relative w-full max-w-md lg:max-w-lg ${isRTL ? 'lg:me-12' : 'lg:ms-12'}`}>
                 {/* Main Image Container */}
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
@@ -82,7 +82,7 @@ export default function HeroSection() {
               </h1>
 
               {/* CTA Buttons */}
-              <div className={`flex flex-col pt-6 sm:flex-row gap-4 ${isRTL ? 'justify-end' : 'justify-start'}`}>
+              <div className={`flex flex-col pt-6 sm:flex-row gap-4 ${isRTL ? 'justify-end' : 'justify-end'}`}>
                 <button 
                   onClick={() => setShowModal(true)}
                   className="cursor-pointer px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
