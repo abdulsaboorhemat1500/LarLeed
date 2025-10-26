@@ -55,8 +55,24 @@ export default function HeroSection() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`flex flex-col lg:flex-row items-center justify-between min-h-screen py-12 lg:py-0 ${isRTL ? 'lg:flex-row-reverse' : ''}`}>
             
-            {/* Introduction Section */}
-            <div className={`flex-1 max-w-2xl ${isRTL ? 'lg:ps-12 text-right' : 'lg:pe-12 text-left'} text-center lg:text-start`}>
+            {/* Image Section - Always show first in DOM for RTL languages */}
+            <div className={`flex-1 flex justify-center ${isRTL ? 'lg:justify-start' : 'lg:justify-end'} mt-8 lg:mt-0 ${isRTL ? 'lg:order-1' : 'lg:order-2'}`}>
+              <div className="relative w-full max-w-md lg:max-w-lg">
+                {/* Main Image Container */}
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
+                  <Image
+                    src="/hero-section-image.jpg"
+                    alt="Hero Image"
+                    width={400}
+                    height={400}
+                    className="w-full h-auto md:max-h-[400px] object-cover"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Introduction Section - Show second in DOM for RTL languages */}
+            <div className={`flex-1 max-w-2xl ${isRTL ? 'lg:text-right lg:ps-12' : 'lg:text-left lg:pe-12'} text-center ${isRTL ? 'lg:order-2' : 'lg:order-1'}`}>
               {/* Main Heading */}
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
                 <span className="text-black dark:text-white">{t('Banner.title')}</span>
@@ -92,22 +108,6 @@ export default function HeroSection() {
                 <div className="text-center">
                   <div className="text-2xl font-bold text-gray-900 dark:text-white">1k+</div>
                   <div className="text-gray-500 dark:text-gray-400">{t('HomePage.mentors')}</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Image Section */}
-            <div className="flex-1 flex justify-center lg:justify-end mt-8 lg:mt-0">
-              <div className="relative w-full max-w-md lg:max-w-lg">
-                {/* Main Image Container */}
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
-                  <Image
-                    src="/hero-section-image.jpg"
-                    alt="Hero Image"
-                    width={400}
-                    height={400}
-                    className="w-full h-auto md:max-h-[400px] object-cover"
-                  />
                 </div>
               </div>
             </div>
