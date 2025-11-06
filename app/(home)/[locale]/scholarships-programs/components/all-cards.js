@@ -18,6 +18,25 @@ export default function AllVideos() {
   const { t } = useTranslations();
   const { locale } = useParams();
 
+  // Normalize locale to match database field suffixes
+  const normalizedLocale = useMemo(() => {
+    const localeMap = {
+      'en': 'eng',
+      'eng': 'eng',
+      'ps': 'pash', 
+      'pash': 'pash',
+      'fa': 'dari',
+      'dari': 'dari',
+    };
+    return localeMap[locale] || 'eng';
+  }, [locale]);
+
+  // Debug: Log the current locale
+  useEffect(() => {
+    console.log('🌐 Current locale:', locale);
+    console.log('🔧 Normalized locale:', normalizedLocale);
+  }, [locale, normalizedLocale]);
+
   const getScholarships = async () => {
     try {
       setLoading(true);
@@ -25,6 +44,15 @@ export default function AllVideos() {
       const resultedData = await get('/api/scholarships');
       if (resultedData.success) {
         setScholarships(resultedData.data || []); 
+        // Debug: Log first scholarship to see available fields
+        if (resultedData.data && resultedData.data.length > 0) {
+          console.log('📋 First scholarship fields:', Object.keys(resultedData.data[0]));
+          console.log('🔍 Available name fields:', {
+            eng: resultedData.data[0].s_name_eng,
+            pash: resultedData.data[0].s_name_pash,
+            dari: resultedData.data[0].s_name_dari
+          });
+        }
       } else {
         console.log('❌ API returned error:', resultedData.error);
       }
@@ -51,8 +79,19 @@ export default function AllVideos() {
 
   // Helper function to get the appropriate language field based on locale
   const getLocalizedField = (scholarship, fieldBase) => {
-    const fieldName = `${fieldBase}_${locale}`;
-    return scholarship[fieldName] || scholarship[`${fieldBase}_eng`] || '';
+    // Remove any existing locale suffix from fieldBase to avoid duplication
+    const cleanFieldBase = fieldBase.replace(/_(eng|pash|dari)$/, '');
+    const fieldName = `${cleanFieldBase}_${normalizedLocale}`;
+    
+    // Try the localized field first, then fallback to English
+    const result = scholarship[fieldName] || scholarship[`${cleanFieldBase}_eng`] || '';
+    
+    // Debug: Log what field is being accessed (only for first item to avoid spam)
+    if (scholarships[0] && scholarship.id === scholarships[0].id && fieldBase === 's_name') {
+      console.log(`🔄 Field access: ${cleanFieldBase}_${normalizedLocale} =`, result.substring(0, 50) + '...');
+    }
+    
+    return result;
   };
 
   // Filter scholarships based on search query and active filter
@@ -62,7 +101,7 @@ export default function AllVideos() {
       const matchesFilter = activeFilter === 'All' || 
         getLocalizedField(scholarship, 's_study_level')?.toLowerCase().includes(activeFilter.toLowerCase());
       
-      // Filter by search query (search in multiple fields)
+      // Filter by search query (search in localized fields)
       const matchesSearch = searchQuery === '' || 
         getLocalizedField(scholarship, 's_name')?.toLowerCase().includes(searchQuery.toLowerCase()) ||
         getLocalizedField(scholarship, 's_country')?.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -73,7 +112,7 @@ export default function AllVideos() {
       
       return matchesFilter && matchesSearch;
     });
-  }, [scholarships, activeFilter, searchQuery, locale]);
+  }, [scholarships, activeFilter, searchQuery, normalizedLocale]);
 
   // Calculate pagination based on FILTERED scholarships
   const totalPages = Math.ceil(filteredScholarships.length / scholarshipsPerpage);
@@ -124,7 +163,7 @@ export default function AllVideos() {
                       : 'bg-white/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 border-gray-100 dark:border-gray-700 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 hover:border-blue-200 dark:hover:border-blue-800 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg'
                   }`}
                 >
-                  {t(filter)}
+                  {filter}
                 </button>
               ))}
             </div>
@@ -238,15 +277,14 @@ export default function AllVideos() {
 
                   {/* University and Country */}
                   <p className="text-gray-600 dark:text-white text-sm mb-3 font-medium">
-                    {getLocalizedField(scholarship, 's_university')} - {getLocalizedField(scholarship, 's_country')}
+                    {t('ScholarshipsPage.university')} : {getLocalizedField(scholarship, 's_university')} - {t('ScholarshipsPage.country')} : {getLocalizedField(scholarship, 's_country')}
                   </p>
 
                   {/* Description */}
                   <div 
                     className="text-gray-500 dark:text-white text-sm mb-4 line-clamp-3 leading-relaxed rich-text-content" 
                     dangerouslySetInnerHTML={{ 
-                      __html: getLocalizedField(scholarship, 's_detailed_info') || 
-                              getLocalizedField(scholarship, 's_overview') || 
+                      __html: getLocalizedField(scholarship, 's_overview') || 
                               'No description available.' 
                     }} 
                   />

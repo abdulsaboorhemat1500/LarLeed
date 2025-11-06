@@ -8,39 +8,52 @@ import { useApi } from '@/app/hooks/useApi';
 import { useTranslations } from '@/hooks/useTranslations';
 import { useParams } from 'next/navigation';
 
-export default function ScholarshipDetailsPage({ params }) {
+export default function ScholarshipDetailsPage() {
   const [scholarship, setScholarship] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const { get } = useApi();
   const { t } = useTranslations();
-  const { locale } = useParams();
-  // Unwrap the params promise
-  const [resolvedParams, setResolvedParams] = useState(null);
-
-  useEffect(() => {
-    const resolveParams = async () => {
-      const resolved = await params;
-      setResolvedParams(resolved);
-    };
-    resolveParams();
-  }, [params]);
+  const params = useParams();
+  
+  // Get locale from params and normalize it to match your database field suffixes
+  const locale = params?.locale || 'eng';
 
   // Helper function to get the appropriate language field based on locale
   const getLocalizedField = (scholarship, fieldBase) => {
     if (!scholarship) return '';
-    const fieldName = `${fieldBase}_${locale}`;
+    
+    // Normalize locale to match your database field suffixes
+    const normalizedLocale = normalizeLocale(locale);
+    const fieldName = `${fieldBase}_${normalizedLocale}`;
+    
+    // Return the localized field or fallback to English
     return scholarship[fieldName] || scholarship[`${fieldBase}_eng`] || '';
+  };
+
+  // Normalize locale to match database field suffixes
+  const normalizeLocale = (locale) => {
+    const localeMap = {
+      'en': 'eng',
+      'eng': 'eng',
+      'ps': 'pash', 
+      'pash': 'pash',
+      'fa': 'dari',
+      'dari': 'dari',
+      // Add any other mappings you need
+    };
+    
+    return localeMap[locale] || 'eng';
   };
 
   // Fetch scholarship data from API
   useEffect(() => {
     const fetchScholarship = async () => {
-      if (!resolvedParams?.id) return;
+      if (!params?.id) return;
 
       try {
         setLoading(true);
-        const result = await get(`/api/scholarships/${resolvedParams.id}`);
+        const result = await get(`/api/scholarships/${params.id}`);
 
         if (result.success) {
           setScholarship(result.data);
@@ -56,7 +69,7 @@ export default function ScholarshipDetailsPage({ params }) {
     };
 
     fetchScholarship();
-  }, [resolvedParams]);
+  }, [params?.id]); // Only depend on params.id
 
   // Format date for display
   const formatDate = (dateString) => {
@@ -81,6 +94,15 @@ export default function ScholarshipDetailsPage({ params }) {
       alert(t('scholarshipDetailsPage.no application link available'));
     }
   };
+
+  // Debug: Log the current locale and scholarship data
+  useEffect(() => {
+    if (scholarship) {
+      console.log('Current locale:', locale);
+      console.log('Normalized locale:', normalizeLocale(locale));
+      console.log('Scholarship data:', scholarship);
+    }
+  }, [scholarship, locale]);
 
   if (loading) {
     return (
@@ -280,7 +302,7 @@ export default function ScholarshipDetailsPage({ params }) {
                     </div>
                   </div>
 
-                  {/* NEW: Fields of Study */}
+                  {/* Fields of Study */}
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-amber-100 dark:bg-amber-900 rounded-lg flex items-center justify-center flex-shrink-0">
                       <span className="text-amber-600 dark:text-amber-400">📚</span>
@@ -293,7 +315,7 @@ export default function ScholarshipDetailsPage({ params }) {
                     </div>
                   </div>
 
-                  {/* NEW: Language Required */}
+                  {/* Language Required */}
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-cyan-100 dark:bg-cyan-900 rounded-lg flex items-center justify-center flex-shrink-0">
                       <span className="text-cyan-600 dark:text-cyan-400">🗣️</span>
@@ -306,7 +328,7 @@ export default function ScholarshipDetailsPage({ params }) {
                     </div>
                   </div>
 
-                  {/* NEW: Eligible Countries */}
+                  {/* Eligible Countries */}
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center flex-shrink-0">
                       <span className="text-orange-600 dark:text-orange-400">🌐</span>
