@@ -50,7 +50,7 @@ export default function ControlPanelLayout({ children }) {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [isDropdownOpen, isMoreDropdownOpen]);
+    }, [isDropdownOpen]);
 
     const checkAuth = () => {
         if (typeof window !== 'undefined') {
