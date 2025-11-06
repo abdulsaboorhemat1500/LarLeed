@@ -284,9 +284,6 @@ const totalPages = Math.ceil(filteredScholarships.length / itemsPerPage);
 
                     {/* Scholarship Details */}
                     <div className="flex flex-wrap gap-3 text-sm text-gray-700">
-                      <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
-                        Duration: {scholarship.s_duration_eng || 'Not specified'}
-                      </span>
                       <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full">
                         Gender: {scholarship.s_gender_eng || 'Any'}
                       </span>
