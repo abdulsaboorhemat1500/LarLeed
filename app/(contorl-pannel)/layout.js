@@ -28,11 +28,9 @@ import { useRouter } from 'next/navigation';
 
 export default function ControlPanelLayout({ children }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-    const [sidebarOpen, setSidebarOpen] = useState(false);
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
     const router = useRouter();
 
     // Check if user is logged in on component mount
@@ -45,9 +43,6 @@ export default function ControlPanelLayout({ children }) {
         const handleClickOutside = (event) => {
             if (isDropdownOpen && !event.target.closest('.user-dropdown')) {
                 setIsDropdownOpen(false);
-            }
-            if (isMoreDropdownOpen && !event.target.closest('.more-dropdown')) {
-                setIsMoreDropdownOpen(false);
             }
         };
 
@@ -84,14 +79,6 @@ export default function ControlPanelLayout({ children }) {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
-    const toggleMoreDropdown = () => {
-        setIsMoreDropdownOpen(!isMoreDropdownOpen);
-    };
-
-    const toggleSidebar = () => {
-        setSidebarOpen(!sidebarOpen);
-    };
-
     // Redirect to login if not authenticated
     useEffect(() => {
         if (!isLoading && !user) {
@@ -116,26 +103,20 @@ export default function ControlPanelLayout({ children }) {
         <div className="min-h-screen flex">
             {/* Sidebar */}
             <aside className={`
-                fixed lg:sticky top-0 left-0 z-40 h-screen w-64 bg-white dark:bg-gray-800 shadow-lg border-r border-gray-200 dark:border-gray-700
+                fixed lg:sticky top-0 left-0 z-40 h-screen w-70 bg-white dark:bg-gray-800 shadow-lg border-r border-gray-200 dark:border-gray-700
                 transform transition-transform duration-300 ease-in-out
-                ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+               
             `}>
                 <div className="flex flex-col h-full">
                     {/* Sidebar Header */}
-                    <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-                        <Link href="/" className="flex items-center gap-x-2">
+                    <div className="flex items-center justify-center p-2 border-b border-gray-200 dark:border-gray-700">
+                        <Link href="/" className="flex items-center">
                             <img 
                                 src="/logo.png"
                                 alt="LarLeed Logo"
-                                className="h-8 w-auto"
+                                className="h-16 w-auto"
                             />
                         </Link>
-                        <button 
-                            onClick={toggleSidebar}
-                            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                        >
-                            <X className="size-5 text-gray-600 dark:text-gray-400" />
-                        </button>
                     </div>
 
                     {/* Navigation Menu */}
@@ -188,52 +169,30 @@ export default function ControlPanelLayout({ children }) {
                             <PlaySquare className="size-5" />
                             <span className="font-medium">Featured Videos</span>
                         </Link>
-
-                        {/* More Options Dropdown */}
-                        <div className="relative more-dropdown">
-                            <button
-                                onClick={toggleMoreDropdown}
-                                className="flex items-center gap-x-3 w-full p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
-                            >
-                                <MoreVertical className="size-5" />
-                                <span className="font-medium">More Options</span>
-                                <ChevronDown 
-                                    className={`size-4 ml-auto transition-transform duration-200 ${
-                                        isMoreDropdownOpen ? 'rotate-180' : ''
-                                    }`} 
-                                />
-                            </button>
-
-                            {/* More Dropdown Menu */}
-                            {isMoreDropdownOpen && (
-                                <div className="ml-4 mt-2 space-y-1 border-l-2 border-gray-200 dark:border-gray-700 pl-4">
-                                    <Link 
-                                        href="/get-in-touch-cp" 
-                                        className="flex items-center gap-x-3 p-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
-                                        onClick={() => setIsMoreDropdownOpen(false)}
-                                    >
-                                        <Mail className="size-4" />
-                                        Get In Touch
-                                    </Link>
-                                    <Link 
-                                        href="/contact-us-cp" 
-                                        className="flex items-center gap-x-3 p-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
-                                        onClick={() => setIsMoreDropdownOpen(false)}
-                                    >
-                                        <Contact className="size-4" />
-                                        Contact Us
-                                    </Link>
-                                    <Link 
-                                        href="/hero-section-text" 
-                                        className="flex items-center gap-x-3 p-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
-                                        onClick={() => setIsMoreDropdownOpen(false)}
-                                    >
-                                        <Type className="size-4" />
-                                        Hero Section Text
-                                    </Link>
-                                </div>
-                            )}
-                        </div>
+                        <Link 
+                            href="/get-in-touch-cp" 
+                            className="flex items-center gap-x-3 p-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                            
+                        >
+                            <Mail className="size-4" />
+                            Get In Touch
+                        </Link>
+                        <Link 
+                            href="/contact-us-cp" 
+                            className="flex items-center gap-x-3 p-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                            
+                        >
+                            <Contact className="size-4" />
+                            Contact Us
+                        </Link>
+                        <Link 
+                            href="/hero-section-text" 
+                            className="flex items-center gap-x-3 p-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                            
+                        >
+                            <Type className="size-4" />
+                            Hero Section Text
+                        </Link>
                     </nav>
 
                     {/* User Section */}
@@ -316,16 +275,16 @@ export default function ControlPanelLayout({ children }) {
             {/* Main Content */}
             <div className="flex-1 flex flex-col min-h-screen lg:ml-0">
                 {/* Header */}
-                <header className="bg-white dark:bg-gray-800 sticky top-0 z-30 shadow-sm border-b border-gray-200 dark:border-gray-700">
-                    <div className="flex items-center justify-between p-4 lg:px-8">
+                <header className="bg-white dark:bg-gray-800 sticky top-0 h-20 z-30 shadow-sm border-b border-gray-200 dark:border-gray-700">
+                    <div className="flex items-center justify-center p-4 mt-2 lg:px-8">
                         {/* Logo and Title */}
                         <div className="flex items-center gap-x-4">
-                            <button 
+                            {/* <button 
                                 onClick={toggleSidebar}
                                 className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                             >
                                 <Menu className="size-6 text-gray-600 dark:text-gray-400" />
-                            </button>
+                            </button> */}
                             <div className="flex items-center gap-x-3">
                                 <Link href="/" className="lg:hidden">
                                     <img 
@@ -334,7 +293,7 @@ export default function ControlPanelLayout({ children }) {
                                         className="h-8 w-auto"
                                     />
                                 </Link>
-                                <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                <h1 className="text-xl font-bold text-gray-900 dark:text-white">
                                     Connecting Afghan Youth through Education, Dialogue, and Vision
                                 </h1>
                             </div>
@@ -467,14 +426,6 @@ export default function ControlPanelLayout({ children }) {
                         </div>
                     </div>
                 </div>
-            )}
-
-            {/* Overlay for mobile sidebar */}
-            {sidebarOpen && (
-                <div 
-                    className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
-                    onClick={toggleSidebar}
-                />
             )}
         </div>
     );
