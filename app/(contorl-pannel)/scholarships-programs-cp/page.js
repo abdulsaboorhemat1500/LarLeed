@@ -76,26 +76,12 @@ export default function ScholarshipsPage() {
     };
   }, []);
 
-  // // Close dropdown when clicking outside
-  // useEffect(() => {
-  //   const handleClickOutside = (event) => {
-  //     if (dropdownButtonRef.current && !dropdownRef.current.contains(event.target)) {
-  //       setOpenDropdown(null);
-  //     }
-  //   };
-
-  //   document.addEventListener('mousedown', handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickOutside);
-  //   };
-  // }, []);
-
   // Filter scholarships based on search
 const filteredScholarships = scholarships.filter(scholarship => {
   const matches = 
-    scholarship.s_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    scholarship.s_university?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    scholarship.s_country?.toLowerCase().includes(searchTerm.toLowerCase());
+    scholarship.s_name_eng?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    scholarship.s_university_eng?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    scholarship.s_country_eng?.toLowerCase().includes(searchTerm.toLowerCase());
   return matches;
 });
 // Calculate pagination
@@ -220,7 +206,7 @@ const totalPages = Math.ceil(filteredScholarships.length / itemsPerPage);
                     <div className="w-full h-70 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
                       <img 
                         src={scholarship.s_image || "/hero-section-image.jpg"} 
-                        alt={scholarship.s_name}
+                        alt={scholarship.s_name_eng}
                         className="w-full h-full object-cover"
                         onError={(e) => {
                           e.target.style.display = 'none';
@@ -241,7 +227,7 @@ const totalPages = Math.ceil(filteredScholarships.length / itemsPerPage);
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex-1">
                         <h2 className="text-xl font-bold text-gray-900 mb-1">
-                          {scholarship.s_name}
+                          {scholarship.s_name_eng}
                         </h2>
                         <p className="text-red-600 font-medium">
                           Deadline: {formatDate(scholarship.s_app_deadline)}
@@ -287,28 +273,28 @@ const totalPages = Math.ceil(filteredScholarships.length / itemsPerPage);
                     {/* University and Country */}
                     <div className="mb-4">
                       <p className="text-lg font-semibold text-gray-800">
-                        {scholarship.s_university} - {scholarship.s_country}
+                        {scholarship.s_university_eng} - {scholarship.s_country_eng}
                       </p>
                     </div>
 
                     {/* Description - Limited to 4 lines */}
                     <div className="mb-6">
-                      <div className="text-gray-600 leading-relaxed line-clamp-4 rich-text-content" dangerouslySetInnerHTML={{ __html: scholarship.s_overview || scholarship.s_detailed_info || 'No description available.' }} />
+                      <div className="text-gray-600 leading-relaxed line-clamp-4 rich-text-content" dangerouslySetInnerHTML={{ __html: scholarship.s_overview_eng || scholarship.s_detailed_info_eng || 'No description available.' }} />
                     </div>
 
                     {/* Scholarship Details */}
                     <div className="flex flex-wrap gap-3 text-sm text-gray-700">
                       <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full">
-                        Duration: {scholarship.s_duration || 'Not specified'}
+                        Duration: {scholarship.s_duration_eng || 'Not specified'}
                       </span>
                       <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full">
-                        Gender: {scholarship.s_gender || 'Any'}
+                        Gender: {scholarship.s_gender_eng || 'Any'}
                       </span>
                       <span className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full">
-                        Funding: {scholarship.s_funding_type || 'Not specified'}
+                        Funding: {scholarship.s_funding_type_eng || 'Not specified'}
                       </span>
                       <span className="bg-orange-100 text-orange-800 px-3 py-1 rounded-full">
-                        Language: {scholarship.s_language || 'Not specified'}
+                        Language: {scholarship.s_language_eng || 'Not specified'}
                       </span>
                     </div>
                   </div>

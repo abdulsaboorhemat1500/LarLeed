@@ -171,27 +171,25 @@ export default function ControlPanelLayout({ children }) {
                         </Link>
                         <Link 
                             href="/get-in-touch-cp" 
-                            className="flex items-center gap-x-3 p-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
                             
                         >
-                            <Mail className="size-4" />
-                            Get In Touch
+                            <Mail className="size-5" />
+                            <span className="font-medium">Get In Touch</span>
                         </Link>
                         <Link 
                             href="/contact-us-cp" 
-                            className="flex items-center gap-x-3 p-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
-                            
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"  
                         >
-                            <Contact className="size-4" />
-                            Contact Us
+                            <Contact className="size-5" />
+                            <span className="font-medium">Contact Us</span>
                         </Link>
                         <Link 
                             href="/hero-section-text" 
-                            className="flex items-center gap-x-3 p-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
-                            
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
                         >
-                            <Type className="size-4" />
-                            Hero Section Text
+                            <Type className="size-5" />
+                            <span className="font-medium">Hero Section Text</span>
                         </Link>
                     </nav>
 

@@ -9,25 +9,94 @@ import { useState, useEffect } from 'react';
 export default function UpdateScholarshipPage() {
   const router = useRouter();
   const params = useParams();
-  const { get, put } = useApi(); // Changed from post to put for update
+  const { get, put } = useApi();
   const scholarshipId = params.id;
 
   const [formData, setFormData] = useState({
-    s_name: '',
+    // Scholarship Name - Multi-language
+    s_name_eng: '',
+    s_name_pash: '',
+    s_name_dari: '',
+    
+    // University - Multi-language
+    s_university_eng: '',
+    s_university_pash: '',
+    s_university_dari: '',
+    
+    // Country - Multi-language
+    s_country_eng: '',
+    s_country_pash: '',
+    s_country_dari: '',
+    
+    // Language - Multi-language
+    s_language_eng: '',
+    s_language_pash: '',
+    s_language_dari: '',
+    
+    // Gender - Multi-language
+    s_gender_eng: '',
+    s_gender_pash: '',
+    s_gender_dari: '',
+    
+    // Study Level - Multi-language
+    s_study_level_eng: '',
+    s_study_level_pash: '',
+    s_study_level_dari: '',
+    
+    // Duration - Multi-language
+    s_duration_eng: '',
+    s_duration_pash: '',
+    s_duration_dari: '',
+    
+    // Funding Type - Multi-language
+    s_funding_type_eng: '',
+    s_funding_type_pash: '',
+    s_funding_type_dari: '',
+    
+    // New Fields: Fields of Study - Multi-language
+    s_fields_of_study_eng: '',
+    s_fields_of_study_pash: '',
+    s_fields_of_study_dari: '',
+    
+    // New Fields: Language Required - Multi-language
+    s_language_required_eng: '',
+    s_language_required_pash: '',
+    s_language_required_dari: '',
+    
+    // New Fields: Eligible Countries - Multi-language
+    s_eligible_countries_eng: '',
+    s_eligible_countries_pash: '',
+    s_eligible_countries_dari: '',
+    
+    // Overview - Multi-language
+    s_overview_eng: '',
+    s_overview_pash: '',
+    s_overview_dari: '',
+    
+    // Detailed Information - Multi-language
+    s_detailed_info_eng: '',
+    s_detailed_info_pash: '',
+    s_detailed_info_dari: '',
+    
+    // Eligibility Criteria - Multi-language
+    s_eligibility_eng: '',
+    s_eligibility_pash: '',
+    s_eligibility_dari: '',
+    
+    // Application Process - Multi-language
+    s_app_procces_eng: '',
+    s_app_procces_pash: '',
+    s_app_procces_dari: '',
+    
+    // Benefits - Multi-language
+    s_benefits_eng: '',
+    s_benefits_pash: '',
+    s_benefits_dari: '',
+    
+    // Single language fields
     s_image: null,
-    s_country: '',
-    s_university: '',
-    s_language: '',
-    s_gender: '',
-    s_study_level: '',
     s_app_deadline: '',
-    s_duration: '',
-    s_funding_type: '',
-    s_overview: '',
-    s_detailed_info: '',
-    s_eligibility: '',
-    s_app_procces: '',
-    s_benefits: ''
+    s_applying_link: ''
   });
 
   const [errors, setErrors] = useState({});
@@ -38,50 +107,39 @@ export default function UpdateScholarshipPage() {
   const [error, setError] = useState('');
   const [isValid, setIsValid] = useState(false);
 
+  // Validation rules for multi-language fields
+  const validateMultiLanguageField = (fieldName, value) => {
+    const newErrors = { ...errors };
+    
+    if (!value.trim()) {
+      newErrors[fieldName] = `${fieldName.replace('_', ' ')} is required`;
+    } else {
+      delete newErrors[fieldName];
+    }
+    
+    setErrors(newErrors);
+    return !newErrors[fieldName];
+  };
+
   // Validation rules
   const validateField = (name, value) => {
     const newErrors = { ...errors };
     
     switch (name) {
-      case 's_name':
+      case 's_name_eng':
+      case 's_university_eng':
+      case 's_country_eng':
+      case 's_language_eng':
+      case 's_study_level_eng':
+      case 's_duration_eng':
+      case 's_funding_type_eng':
+      case 's_fields_of_study_eng':
+      case 's_language_required_eng':
+      case 's_eligible_countries_eng':
         if (!value.trim()) {
-          newErrors.s_name = 'Scholarship name is required';
-        } else if (value.length < 3) {
-          newErrors.s_name = 'Scholarship name must be at least 3 characters';
+          newErrors[name] = 'This field is required';
         } else {
-          delete newErrors.s_name;
-        }
-        break;
-
-      case 's_country':
-        if (!value.trim()) {
-          newErrors.s_country = 'Country is required';
-        } else {
-          delete newErrors.s_country;
-        }
-        break;
-
-      case 's_university':
-        if (!value.trim()) {
-          newErrors.s_university = 'University is required';
-        } else {
-          delete newErrors.s_university;
-        }
-        break;
-
-      case 's_language':
-        if (!value.trim()) {
-          newErrors.s_language = 'Language is required';
-        } else {
-          delete newErrors.s_language;
-        }
-        break;
-
-      case 's_study_level':
-        if (!value) {
-          newErrors.s_study_level = 'Study level is required';
-        } else {
-          delete newErrors.s_study_level;
+          delete newErrors[name];
         }
         break;
 
@@ -95,69 +153,53 @@ export default function UpdateScholarshipPage() {
         }
         break;
 
-      case 's_duration':
+      case 's_overview_eng':
         if (!value.trim()) {
-          newErrors.s_duration = 'Duration is required';
-        } else {
-          delete newErrors.s_duration;
-        }
-        break;
-
-      case 's_funding_type':
-        if (!value) {
-          newErrors.s_funding_type = 'Funding type is required';
-        } else {
-          delete newErrors.s_funding_type;
-        }
-        break;
-
-      case 's_overview':
-        if (!value.trim()) {
-          newErrors.s_overview = 'Overview is required';
+          newErrors.s_overview_eng = 'Overview is required';
         } else if (value.length < 50) {
-          newErrors.s_overview = 'Overview must be at least 50 characters';
+          newErrors.s_overview_eng = 'Overview must be at least 50 characters';
         } else {
-          delete newErrors.s_overview;
+          delete newErrors.s_overview_eng;
         }
         break;
 
-      case 's_detailed_info':
+      case 's_detailed_info_eng':
         if (!value.trim()) {
-          newErrors.s_detailed_info = 'Detailed information is required';
+          newErrors.s_detailed_info_eng = 'Detailed information is required';
         } else if (value.length < 100) {
-          newErrors.s_detailed_info = 'Detailed information must be at least 100 characters';
+          newErrors.s_detailed_info_eng = 'Detailed information must be at least 100 characters';
         } else {
-          delete newErrors.s_detailed_info;
+          delete newErrors.s_detailed_info_eng;
         }
         break;
 
-      case 's_eligibility':
+      case 's_eligibility_eng':
         if (!value.trim()) {
-          newErrors.s_eligibility = 'Eligibility criteria is required';
+          newErrors.s_eligibility_eng = 'Eligibility criteria is required';
         } else if (value.length < 50) {
-          newErrors.s_eligibility = 'Eligibility criteria must be at least 50 characters';
+          newErrors.s_eligibility_eng = 'Eligibility criteria must be at least 50 characters';
         } else {
-          delete newErrors.s_eligibility;
+          delete newErrors.s_eligibility_eng;
         }
         break;
 
-      case 's_app_procces':
+      case 's_app_procces_eng':
         if (!value.trim()) {
-          newErrors.s_app_procces = 'Application process is required';
+          newErrors.s_app_procces_eng = 'Application process is required';
         } else if (value.length < 50) {
-          newErrors.s_app_procces = 'Application process must be at least 50 characters';
+          newErrors.s_app_procces_eng = 'Application process must be at least 50 characters';
         } else {
-          delete newErrors.s_app_procces;
+          delete newErrors.s_app_procces_eng;
         }
         break;
 
-      case 's_benefits':
+      case 's_benefits_eng':
         if (!value.trim()) {
-          newErrors.s_benefits = 'Benefits are required';
+          newErrors.s_benefits_eng = 'Benefits are required';
         } else if (value.length < 30) {
-          newErrors.s_benefits = 'Benefits must be at least 30 characters';
+          newErrors.s_benefits_eng = 'Benefits must be at least 30 characters';
         } else {
-          delete newErrors.s_benefits;
+          delete newErrors.s_benefits_eng;
         }
         break;
 
@@ -175,24 +217,25 @@ export default function UpdateScholarshipPage() {
   }, [formData, errors]);
 
   const checkFormValidity = () => {
-    const requiredFields = [
-      's_name', 's_country', 's_university', 's_language', 's_study_level',
-      's_app_deadline', 's_duration', 's_funding_type', 's_overview',
-      's_detailed_info', 's_eligibility', 's_app_procces', 's_benefits'
+    const requiredEnglishFields = [
+      's_name_eng', 's_country_eng', 's_university_eng', 's_language_eng', 's_study_level_eng',
+      's_duration_eng', 's_funding_type_eng', 's_fields_of_study_eng', 's_language_required_eng',
+      's_eligible_countries_eng', 's_overview_eng', 's_detailed_info_eng', 's_eligibility_eng',
+      's_app_procces_eng', 's_benefits_eng'
     ];
 
-    // Check if all required fields are filled
-    const hasAllRequiredFields = requiredFields.every(field => 
+    // Check if all required English fields are filled
+    const hasAllRequiredFields = requiredEnglishFields.every(field => 
       formData[field] && formData[field].toString().trim() !== ''
     );
 
-    // Check length requirements
+    // Check length requirements for English fields
     const meetsLengthRequirements = 
-      formData.s_overview.length >= 50 &&
-      formData.s_detailed_info.length >= 100 &&
-      formData.s_eligibility.length >= 50 &&
-      formData.s_app_procces.length >= 50 &&
-      formData.s_benefits.length >= 30;
+      formData.s_overview_eng.length >= 50 &&
+      formData.s_detailed_info_eng.length >= 100 &&
+      formData.s_eligibility_eng.length >= 50 &&
+      formData.s_app_procces_eng.length >= 50 &&
+      formData.s_benefits_eng.length >= 30;
 
     // Check if deadline is in the future
     const isFutureDate = formData.s_app_deadline && new Date(formData.s_app_deadline) > new Date();
@@ -219,21 +262,90 @@ export default function UpdateScholarshipPage() {
           console.log('🎯 Scholarship data:', scholarship);
           
           setFormData({
-            s_name: scholarship.s_name || '',
+            // Scholarship Name - Multi-language
+            s_name_eng: scholarship.s_name_eng || '',
+            s_name_pash: scholarship.s_name_pash || '',
+            s_name_dari: scholarship.s_name_dari || '',
+            
+            // University - Multi-language
+            s_university_eng: scholarship.s_university_eng || '',
+            s_university_pash: scholarship.s_university_pash || '',
+            s_university_dari: scholarship.s_university_dari || '',
+            
+            // Country - Multi-language
+            s_country_eng: scholarship.s_country_eng || '',
+            s_country_pash: scholarship.s_country_pash || '',
+            s_country_dari: scholarship.s_country_dari || '',
+            
+            // Language - Multi-language
+            s_language_eng: scholarship.s_language_eng || '',
+            s_language_pash: scholarship.s_language_pash || '',
+            s_language_dari: scholarship.s_language_dari || '',
+            
+            // Gender - Multi-language
+            s_gender_eng: scholarship.s_gender_eng || '',
+            s_gender_pash: scholarship.s_gender_pash || '',
+            s_gender_dari: scholarship.s_gender_dari || '',
+            
+            // Study Level - Multi-language
+            s_study_level_eng: scholarship.s_study_level_eng || '',
+            s_study_level_pash: scholarship.s_study_level_pash || '',
+            s_study_level_dari: scholarship.s_study_level_dari || '',
+            
+            // Duration - Multi-language
+            s_duration_eng: scholarship.s_duration_eng || '',
+            s_duration_pash: scholarship.s_duration_pash || '',
+            s_duration_dari: scholarship.s_duration_dari || '',
+            
+            // Funding Type - Multi-language
+            s_funding_type_eng: scholarship.s_funding_type_eng || '',
+            s_funding_type_pash: scholarship.s_funding_type_pash || '',
+            s_funding_type_dari: scholarship.s_funding_type_dari || '',
+            
+            // New Fields: Fields of Study - Multi-language
+            s_fields_of_study_eng: scholarship.s_fields_of_study_eng || '',
+            s_fields_of_study_pash: scholarship.s_fields_of_study_pash || '',
+            s_fields_of_study_dari: scholarship.s_fields_of_study_dari || '',
+            
+            // New Fields: Language Required - Multi-language
+            s_language_required_eng: scholarship.s_language_required_eng || '',
+            s_language_required_pash: scholarship.s_language_required_pash || '',
+            s_language_required_dari: scholarship.s_language_required_dari || '',
+            
+            // New Fields: Eligible Countries - Multi-language
+            s_eligible_countries_eng: scholarship.s_eligible_countries_eng || '',
+            s_eligible_countries_pash: scholarship.s_eligible_countries_pash || '',
+            s_eligible_countries_dari: scholarship.s_eligible_countries_dari || '',
+            
+            // Overview - Multi-language
+            s_overview_eng: scholarship.s_overview_eng || '',
+            s_overview_pash: scholarship.s_overview_pash || '',
+            s_overview_dari: scholarship.s_overview_dari || '',
+            
+            // Detailed Information - Multi-language
+            s_detailed_info_eng: scholarship.s_detailed_info_eng || '',
+            s_detailed_info_pash: scholarship.s_detailed_info_pash || '',
+            s_detailed_info_dari: scholarship.s_detailed_info_dari || '',
+            
+            // Eligibility Criteria - Multi-language
+            s_eligibility_eng: scholarship.s_eligibility_eng || '',
+            s_eligibility_pash: scholarship.s_eligibility_pash || '',
+            s_eligibility_dari: scholarship.s_eligibility_dari || '',
+            
+            // Application Process - Multi-language
+            s_app_procces_eng: scholarship.s_app_procces_eng || '',
+            s_app_procces_pash: scholarship.s_app_procces_pash || '',
+            s_app_procces_dari: scholarship.s_app_procces_dari || '',
+            
+            // Benefits - Multi-language
+            s_benefits_eng: scholarship.s_benefits_eng || '',
+            s_benefits_pash: scholarship.s_benefits_pash || '',
+            s_benefits_dari: scholarship.s_benefits_dari || '',
+            
+            // Single language fields
             s_image: null,
-            s_country: scholarship.s_country || '',
-            s_university: scholarship.s_university || '',
-            s_language: scholarship.s_language || '',
-            s_gender: scholarship.s_gender || '',
-            s_study_level: scholarship.s_study_level || '',
             s_app_deadline: scholarship.s_app_deadline ? scholarship.s_app_deadline.split('T')[0] : '',
-            s_duration: scholarship.s_duration || '',
-            s_funding_type: scholarship.s_funding_type || '',
-            s_overview: scholarship.s_overview || '',
-            s_detailed_info: scholarship.s_detailed_info || '',
-            s_eligibility: scholarship.s_eligibility || '',
-            s_app_procces: scholarship.s_app_procces || '',
-            s_benefits: scholarship.s_benefits || ''
+            s_applying_link: scholarship.s_applying_link || ''
           });
           
           // Set current image if exists
@@ -266,6 +378,14 @@ export default function UpdateScholarshipPage() {
     
     // Validate field on change
     validateField(name, value);
+  };
+
+  const handleRichTextChange = (fieldName, value) => {
+    setFormData(prevState => ({
+      ...prevState,
+      [fieldName]: value
+    }));
+    validateField(fieldName, value);
   };
 
   const handleImageChange = (e) => {
@@ -310,34 +430,166 @@ export default function UpdateScholarshipPage() {
     setCurrentImage('');
   };
 
+  // Helper function to render multi-language input group
+  const renderMultiLanguageInput = (fieldBase, label, placeholder, isTextArea = false, isRichText = false) => (
+    <div className="space-y-4">
+      {/* English */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          {label} (English) *
+        </label>
+        {isRichText ? (
+          <RichTextEditor
+            value={formData[`${fieldBase}_eng`]}
+            onChange={(value) => handleRichTextChange(`${fieldBase}_eng`, value)}
+            placeholder={placeholder.eng}
+            rows={4}
+          />
+        ) : isTextArea ? (
+          <textarea
+            name={`${fieldBase}_eng`}
+            value={formData[`${fieldBase}_eng`]}
+            onChange={handleChange}
+            required
+            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              errors[`${fieldBase}_eng`] ? 'border-red-500' : 'border-gray-300'
+            }`}
+            placeholder={placeholder.eng}
+            rows={4}
+          />
+        ) : (
+          <input
+            type="text"
+            name={`${fieldBase}_eng`}
+            value={formData[`${fieldBase}_eng`]}
+            onChange={handleChange}
+            required
+            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              errors[`${fieldBase}_eng`] ? 'border-red-500' : 'border-gray-300'
+            }`}
+            placeholder={placeholder.eng}
+          />
+        )}
+        {errors[`${fieldBase}_eng`] && (
+          <p className="mt-1 text-sm text-red-600">{errors[`${fieldBase}_eng`]}</p>
+        )}
+      </div>
+
+      {/* Pashto */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          {label} (پښتو) *
+        </label>
+        {isRichText ? (
+          <RichTextEditor
+            value={formData[`${fieldBase}_pash`]}
+            onChange={(value) => handleRichTextChange(`${fieldBase}_pash`, value)}
+            placeholder={placeholder.pash}
+            rows={4}
+          />
+        ) : isTextArea ? (
+          <textarea
+            name={`${fieldBase}_pash`}
+            value={formData[`${fieldBase}_pash`]}
+            onChange={handleChange}
+            required
+            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              errors[`${fieldBase}_pash`] ? 'border-red-500' : 'border-gray-300'
+            }`}
+            placeholder={placeholder.pash}
+            rows={4}
+          />
+        ) : (
+          <input
+            type="text"
+            name={`${fieldBase}_pash`}
+            value={formData[`${fieldBase}_pash`]}
+            onChange={handleChange}
+            required
+            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              errors[`${fieldBase}_pash`] ? 'border-red-500' : 'border-gray-300'
+            }`}
+            placeholder={placeholder.pash}
+          />
+        )}
+        {errors[`${fieldBase}_pash`] && (
+          <p className="mt-1 text-sm text-red-600">{errors[`${fieldBase}_pash`]}</p>
+        )}
+      </div>
+
+      {/* Dari */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          {label} (دری) *
+        </label>
+        {isRichText ? (
+          <RichTextEditor
+            value={formData[`${fieldBase}_dari`]}
+            onChange={(value) => handleRichTextChange(`${fieldBase}_dari`, value)}
+            placeholder={placeholder.dari}
+            rows={4}
+          />
+        ) : isTextArea ? (
+          <textarea
+            name={`${fieldBase}_dari`}
+            value={formData[`${fieldBase}_dari`]}
+            onChange={handleChange}
+            required
+            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              errors[`${fieldBase}_dari`] ? 'border-red-500' : 'border-gray-300'
+            }`}
+            placeholder={placeholder.dari}
+            rows={4}
+          />
+        ) : (
+          <input
+            type="text"
+            name={`${fieldBase}_dari`}
+            value={formData[`${fieldBase}_dari`]}
+            onChange={handleChange}
+            required
+            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+              errors[`${fieldBase}_dari`] ? 'border-red-500' : 'border-gray-300'
+            }`}
+            placeholder={placeholder.dari}
+          />
+        )}
+        {errors[`${fieldBase}_dari`] && (
+          <p className="mt-1 text-sm text-red-600">{errors[`${fieldBase}_dari`]}</p>
+        )}
+      </div>
+    </div>
+  );
+
   const validateForm = () => {
-    const requiredFields = [
-      's_name', 's_country', 's_university', 's_language', 's_study_level',
-      's_app_deadline', 's_duration', 's_funding_type', 's_overview',
-      's_detailed_info', 's_eligibility', 's_app_procces', 's_benefits'
+    const requiredEnglishFields = [
+      's_name_eng', 's_country_eng', 's_university_eng', 's_language_eng', 's_study_level_eng',
+      's_duration_eng', 's_funding_type_eng', 's_fields_of_study_eng', 's_language_required_eng',
+      's_eligible_countries_eng', 's_overview_eng', 's_detailed_info_eng', 's_eligibility_eng',
+      's_app_procces_eng', 's_benefits_eng'
     ];
 
     let formErrors = {};
 
-    requiredFields.forEach(field => {
+    requiredEnglishFields.forEach(field => {
       validateField(field, formData[field]);
     });
 
-    // Additional length validations
-    if (formData.s_overview.length < 50) {
-      formErrors.s_overview = 'Overview must be at least 50 characters';
+    // Additional length validations for English fields
+    if (formData.s_overview_eng.length < 50) {
+      formErrors.s_overview_eng = 'Overview must be at least 50 characters';
     }
-    if (formData.s_detailed_info.length < 100) {
-      formErrors.s_detailed_info = 'Detailed information must be at least 100 characters';
+    if (formData.s_detailed_info_eng.length < 100) {
+      formErrors.s_detailed_info_eng = 'Detailed information must be at least 100 characters';
     }
-    if (formData.s_eligibility.length < 50) {
-      formErrors.s_eligibility = 'Eligibility criteria must be at least 50 characters';
+    if (formData.s_eligibility_eng.length < 50) {
+      formErrors.s_eligibility_eng = 'Eligibility criteria must be at least 50 characters';
     }
-    if (formData.s_app_procces.length < 50) {
-      formErrors.s_app_procces = 'Application process must be at least 50 characters';
+    if (formData.s_app_procces_eng.length < 50) {
+      formErrors.s_app_procces_eng = 'Application process must be at least 50 characters';
     }
-    if (formData.s_benefits.length < 30) {
-      formErrors.s_benefits = 'Benefits must be at least 30 characters';
+    if (formData.s_benefits_eng.length < 30) {
+      formErrors.s_benefits_eng = 'Benefits must be at least 30 characters';
     }
 
     setErrors(formErrors);
@@ -360,20 +612,11 @@ export default function UpdateScholarshipPage() {
       const formDataToSend = new FormData();
       
       // Append all form fields
-      formDataToSend.append('s_name', formData.s_name);
-      formDataToSend.append('s_country', formData.s_country);
-      formDataToSend.append('s_university', formData.s_university);
-      formDataToSend.append('s_language', formData.s_language);
-      formDataToSend.append('s_gender', formData.s_gender);
-      formDataToSend.append('s_study_level', formData.s_study_level);
-      formDataToSend.append('s_app_deadline', formData.s_app_deadline);
-      formDataToSend.append('s_duration', formData.s_duration);
-      formDataToSend.append('s_funding_type', formData.s_funding_type);
-      formDataToSend.append('s_overview', formData.s_overview);
-      formDataToSend.append('s_detailed_info', formData.s_detailed_info);
-      formDataToSend.append('s_eligibility', formData.s_eligibility);
-      formDataToSend.append('s_app_procces', formData.s_app_procces);
-      formDataToSend.append('s_benefits', formData.s_benefits);
+      Object.keys(formData).forEach(key => {
+        if (key !== 's_image' && formData[key]) {
+          formDataToSend.append(key, formData[key]);
+        }
+      });
       
       // Handle image - only append if there's a new image
       if (formData.s_image) {
@@ -387,7 +630,7 @@ export default function UpdateScholarshipPage() {
 
       console.log('🔄 Updating scholarship with ID:', scholarshipId);
       
-      // Use PUT method for update - this is the key change
+      // Use PUT method for update
       const result = await put(`/api/scholarships/${scholarshipId}`, formDataToSend);
 
       if (result.success) {
@@ -416,7 +659,7 @@ export default function UpdateScholarshipPage() {
     );
   }
 
-  if (error && !formData.s_name) {
+  if (error && !formData.s_name_eng) {
     return (
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -436,11 +679,11 @@ export default function UpdateScholarshipPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Update Scholarship</h1>
-          <p className="text-gray-600 mt-2">Editing: {formData.s_name}</p>
+          <p className="text-gray-600 mt-2">Editing: {formData.s_name_eng}</p>
         </div>
 
         {/* Error Message */}
@@ -454,26 +697,19 @@ export default function UpdateScholarshipPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Scholarship Name */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Scholarship Name *
-              </label>
-              <input
-                type="text"
-                name="s_name"
-                value={formData.s_name}
-                onChange={handleChange}
-                required
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.s_name ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="Enter scholarship name"
-              />
-              {errors.s_name && (
-                <p className="mt-1 text-sm text-red-600">{errors.s_name}</p>
-              )}
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Scholarship Name</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_name', 'Scholarship Name', {
+                  eng: 'Enter scholarship name',
+                  pash: 'د بورس نوم داخل کړئ',
+                  dari: 'اسم بورسیه را وارد نمایید'
+                })}
+              </div>
             </div>
 
-            {/* Image Upload Section */}
+            {/* Image Upload */}
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Scholarship Image
@@ -523,113 +759,147 @@ export default function UpdateScholarshipPage() {
             </div>
 
             {/* Country */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Country *
-              </label>
-              <input
-                type="text"
-                name="s_country"
-                value={formData.s_country}
-                onChange={handleChange}
-                required
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.s_country ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="Enter country"
-              />
-              {errors.s_country && (
-                <p className="mt-1 text-sm text-red-600">{errors.s_country}</p>
-              )}
+            <div className="md:col-span-2">
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Country</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_country', 'Country', {
+                  eng: 'Enter country',
+                  pash: 'هیواد داخل کړئ',
+                  dari: 'کشور را وارد نمایید'
+                })}
+              </div>
             </div>
 
             {/* University */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                University *
-              </label>
-              <input
-                type="text"
-                name="s_university"
-                value={formData.s_university}
-                onChange={handleChange}
-                required
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.s_university ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="Enter university name"
-              />
-              {errors.s_university && (
-                <p className="mt-1 text-sm text-red-600">{errors.s_university}</p>
-              )}
+            <div className="md:col-span-2">
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">University</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_university', 'University', {
+                  eng: 'Enter university name',
+                  pash: 'د پوهنتون نوم داخل کړئ',
+                  dari: 'اسم دانشگاه را وارد نمایید'
+                })}
+              </div>
             </div>
 
             {/* Language */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Language *
-              </label>
-              <input
-                type="text"
-                name="s_language"
-                value={formData.s_language}
-                onChange={handleChange}
-                required
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.s_language ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="Enter Language..."
-              />
-              {errors.s_language && (
-                <p className="mt-1 text-sm text-red-600">{errors.s_language}</p>
-              )}
+            <div className="md:col-span-2">
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Language</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_language', 'Language', {
+                  eng: 'Enter language',
+                  pash: 'ژبه داخل کړئ',
+                  dari: 'زبان را وارد نمایید'
+                })}
+              </div>
             </div>
 
             {/* Gender */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Gender
-              </label>
-              <select
-                name="s_gender"
-                value={formData.s_gender}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              >
-                <option value="">Any gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Both">Male/Female</option>
-              </select>
+            <div className="md:col-span-2">
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Gender</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_gender', 'Gender', {
+                  eng: 'Enter gender requirements',
+                  pash: 'د جنس اړتیاګانې داخل کړئ',
+                  dari: 'مقررات جنسیت را وارد نمایید'
+                })}
+              </div>
             </div>
 
             {/* Study Level */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Study Level *
-              </label>
-              <select
-                name="s_study_level"
-                value={formData.s_study_level}
-                onChange={handleChange}
-                required
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.s_study_level ? 'border-red-500' : 'border-gray-300'
-                }`}
-              >
-                <option value="">Select study level</option>
-                <option value="Undergraduate">Undergraduate</option>
-                <option value="Master">Master</option>
-                <option value="PhD">PhD</option>
-                <option value="School">School</option>
-              </select>
-              {errors.s_study_level && (
-                <p className="mt-1 text-sm text-red-600">{errors.s_study_level}</p>
-              )}
+            <div className="md:col-span-2">
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Study Level</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_study_level', 'Study Level', {
+                  eng: 'Enter study level',
+                  pash: 'د زده کړې کچه داخل کړئ',
+                  dari: 'سطح تحصیل را وارد نمایید'
+                })}
+              </div>
+            </div>
+
+            {/* Duration */}
+            <div className="md:col-span-2">
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Duration</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_duration', 'Duration', {
+                  eng: 'e.g., 4 years, 2 semesters',
+                  pash: 'لکه: ۴ کاله، ۲ سمستر',
+                  dari: 'مثال: ۴ سال، ۲ سمستر'
+                })}
+              </div>
+            </div>
+
+            {/* Funding Type */}
+            <div className="md:col-span-2">
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Funding Type</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_funding_type', 'Funding Type', {
+                  eng: 'Enter funding type',
+                  pash: 'د مالي ملاتړ ډول داخل کړئ',
+                  dari: 'نوعیت تامین مالی را وارد نمایید'
+                })}
+              </div>
+            </div>
+
+            {/* New Fields: Fields of Study */}
+            <div className="md:col-span-2">
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Fields of Study</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_fields_of_study', 'Fields of Study', {
+                  eng: 'Enter available fields of study',
+                  pash: 'د زده کړې ساحې داخل کړئ',
+                  dari: 'رشته های تحصیلی را وارد نمایید'
+                }, true)}
+              </div>
+            </div>
+
+            {/* New Fields: Language Required */}
+            <div className="md:col-span-2">
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Language Required</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_language_required', 'Language Required', {
+                  eng: 'Enter language requirements',
+                  pash: 'د ژبې اړتیاګانې داخل کړئ',
+                  dari: 'مقررات زبان را وارد نمایید'
+                }, true)}
+              </div>
+            </div>
+
+            {/* New Fields: Eligible Countries */}
+            <div className="md:col-span-2">
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Eligible Countries</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_eligible_countries', 'Eligible Countries', {
+                  eng: 'Enter eligible countries',
+                  pash: 'وړ هیوادونه داخل کړئ',
+                  dari: 'کشورهای واجد شرایط را وارد نمایید'
+                }, true)}
+              </div>
             </div>
 
             {/* Application Deadline */}
-            <div>
+            <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Application Deadline *
               </label>
@@ -648,161 +918,107 @@ export default function UpdateScholarshipPage() {
               )}
             </div>
 
-            {/* Duration */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Duration *
-              </label>
-              <input
-                type="text"
-                name="s_duration"
-                value={formData.s_duration}
-                onChange={handleChange}
-                required
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.s_duration ? 'border-red-500' : 'border-gray-300'
-                }`}
-                placeholder="e.g., 4 years, 2 semesters"
-              />
-              {errors.s_duration && (
-                <p className="mt-1 text-sm text-red-600">{errors.s_duration}</p>
-              )}
-            </div>
-
-            {/* Funding Type */}
+            {/* Applying Link */}
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Funding Type *
+                Applying Link
               </label>
-              <select
-                name="s_funding_type"
-                value={formData.s_funding_type}
+              <input
+                type="url"
+                name="s_applying_link"
+                value={formData.s_applying_link}
                 onChange={handleChange}
-                required
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.s_funding_type ? 'border-red-500' : 'border-gray-300'
-                }`}
-              >
-                <option value="">Select funding type</option>
-                <option value="Fully Funded">Fully Funded</option>
-                <option value="Partially Funded">Partially Funded</option>
-                <option value="Tuition Waiver">Tuition Waiver</option>
-                <option value="Stipend">Stipend</option>
-                <option value="Research Grant">Research Grant</option>
-              </select>
-              {errors.s_funding_type && (
-                <p className="mt-1 text-sm text-red-600">{errors.s_funding_type}</p>
-              )}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="https://example.com/apply"
+              />
+              <p className="text-sm text-gray-500 mt-1">
+                Enter the application link (Optional)
+              </p>
             </div>
 
             {/* Overview */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Overview *
-                <span className="text-xs text-gray-500 ml-1">
-                  ({formData.s_overview.length}/50 minimum)
-                </span>
-              </label>
-              <RichTextEditor
-                value={formData.s_overview}
-                onChange={(value) => setFormData(prevState => ({
-                  ...prevState,
-                  s_overview: value
-                }))}
-                placeholder="Provide a brief overview of the scholarship"
-                rows={4}
-              />
-              {errors.s_overview && (
-                <p className="mt-1 text-sm text-red-600">{errors.s_overview}</p>
-              )}
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Overview</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_overview', 'Overview', {
+                  eng: 'Provide a brief overview of the scholarship',
+                  pash: 'د بورس لنډه کتنه ورکړئ',
+                  dari: 'خلاصه ای از بورسیه ارائه دهید'
+                }, false, true)}
+                <p className="text-sm text-gray-500 mt-2">
+                  English: {formData.s_overview_eng.length}/50 characters (minimum 50 required)
+                </p>
+              </div>
             </div>
 
             {/* Detailed Information */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Detailed Information *
-                <span className="text-xs text-gray-500 ml-1">
-                  ({formData.s_detailed_info.length}/100 minimum)
-                </span>
-              </label>
-              <RichTextEditor
-                value={formData.s_detailed_info}
-                onChange={(value) => setFormData(prevState => ({
-                  ...prevState,
-                  s_detailed_info: value
-                }))}
-                placeholder="Provide detailed information about the scholarship"
-                rows={6}
-              />
-              {errors.s_detailed_info && (
-                <p className="mt-1 text-sm text-red-600">{errors.s_detailed_info}</p>
-              )}
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Detailed Information</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_detailed_info', 'Detailed Information', {
+                  eng: 'Provide detailed information about the scholarship',
+                  pash: 'د بورس په اړه مفصله معلومات ورکړئ',
+                  dari: 'اطلاعات مفصلی در مورد بورسیه ارائه دهید'
+                }, false, true)}
+                <p className="text-sm text-gray-500 mt-2">
+                  English: {formData.s_detailed_info_eng.length}/100 characters (minimum 100 required)
+                </p>
+              </div>
             </div>
 
             {/* Eligibility Criteria */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Eligibility Criteria *
-                <span className="text-xs text-gray-500 ml-1">
-                  ({formData.s_eligibility.length}/50 minimum)
-                </span>
-              </label>
-              <RichTextEditor
-                value={formData.s_eligibility}
-                onChange={(value) => setFormData(prevState => ({
-                  ...prevState,
-                  s_eligibility: value
-                }))}
-                placeholder="List the eligibility requirements"
-                rows={5}
-              />
-              {errors.s_eligibility && (
-                <p className="mt-1 text-sm text-red-600">{errors.s_eligibility}</p>
-              )}
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Eligibility Criteria</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_eligibility', 'Eligibility Criteria', {
+                  eng: 'List the eligibility requirements',
+                  pash: 'د وړتیا اړتیاګانې لیست کړئ',
+                  dari: 'معیارهای واجد شرایط را فهرست کنید'
+                }, false, true)}
+                <p className="text-sm text-gray-500 mt-2">
+                  English: {formData.s_eligibility_eng.length}/50 characters (minimum 50 required)
+                </p>
+              </div>
             </div>
 
             {/* Application Process */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Application Process *
-                <span className="text-xs text-gray-500 ml-1">
-                  ({formData.s_app_procces.length}/50 minimum)
-                </span>
-              </label>
-              <RichTextEditor
-                value={formData.s_app_procces}
-                onChange={(value) => setFormData(prevState => ({
-                  ...prevState,
-                  s_app_procces: value
-                }))}
-                placeholder="Describe the application process step by step"
-                rows={5}
-              />
-              {errors.s_app_procces && (
-                <p className="mt-1 text-sm text-red-600">{errors.s_app_procces}</p>
-              )}
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Application Process</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_app_procces', 'Application Process', {
+                  eng: 'Describe the application process step by step',
+                  pash: 'د غوښتنلیک پروسه ګام په ګام تشریح کړئ',
+                  dari: 'فرآیند درخواست را مرحله به مرحله شرح دهید'
+                }, false, true)}
+                <p className="text-sm text-gray-500 mt-2">
+                  English: {formData.s_app_procces_eng.length}/50 characters (minimum 50 required)
+                </p>
+              </div>
             </div>
 
             {/* Benefits */}
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Benefits *
-                <span className="text-xs text-gray-500 ml-1">
-                  ({formData.s_benefits.length}/30 minimum)
-                </span>
-              </label>
-              <RichTextEditor
-                value={formData.s_benefits}
-                onChange={(value) => setFormData(prevState => ({
-                  ...prevState,
-                  s_benefits: value
-                }))}
-                placeholder="List the benefits offered by this scholarship"
-                rows={4}
-              />
-              {errors.s_benefits && (
-                <p className="mt-1 text-sm text-red-600">{errors.s_benefits}</p>
-              )}
+              <div className="mb-4">
+                <h2 className="text-xl font-bold text-gray-900">Benefits</h2>
+              </div>
+              <div className="bg-gray-50 rounded-lg shadow-sm p-4">
+                {renderMultiLanguageInput('s_benefits', 'Benefits', {
+                  eng: 'List the benefits offered by this scholarship',
+                  pash: 'د دې بورس ګټې لیست کړئ',
+                  dari: 'مزایای ارائه شده توسط این بورسیه را فهرست کنید'
+                }, false, true)}
+                <p className="text-sm text-gray-500 mt-2">
+                  English: {formData.s_benefits_eng.length}/30 characters (minimum 30 required)
+                </p>
+              </div>
             </div>
           </div>
 

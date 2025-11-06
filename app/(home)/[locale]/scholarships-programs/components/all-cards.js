@@ -5,38 +5,38 @@ import Link from 'next/link';
 import { useApi } from '@/app/hooks/useApi';
 import { useTranslations } from '@/hooks/useTranslations';
 import { useParams } from 'next/navigation';
+
 export default function AllVideos() {
   const [currentPage, setCurrentPage] = useState(1);
   const scholarshipsPerpage = 12;
   const [activeFilter, setActiveFilter] = useState('All');
   const [searchQuery, setSearchQuery] = useState('');
-  const [scholarships, setScholarships] = useState([]); // Changed to array
+  const [scholarships, setScholarships] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { get } = useApi();
   const { t } = useTranslations();
   const { locale } = useParams();
- const getScholarships = async () => {
-  try {
-    setLoading(true);
-    setError(null);
 
-    
-    const resultedData = await get('/api/scholarships');
-   
-    if (resultedData.success) {
-      setScholarships(resultedData.data || []); 
-    } else {
-      console.log('❌ API returned error:', resultedData.error);
+  const getScholarships = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const resultedData = await get('/api/scholarships');
+      if (resultedData.success) {
+        setScholarships(resultedData.data || []); 
+      } else {
+        console.log('❌ API returned error:', resultedData.error);
+      }
+    } catch (error) {
+      setError(error.message);
+      console.log('🚨 Fetch error:', error);
+    } finally {
+      setLoading(false);
+      console.log("🏁 Fetch completed");
     }
-  } catch (error) {
-    setError(error.message);
-    console.log('🚨 Fetch error:', error);
-  } finally {
-    setLoading(false);
-    console.log("🏁 Fetch completed");
-  }
-};
+  };
+
   useEffect(() => {
     getScholarships();
   }, []);
@@ -49,25 +49,31 @@ export default function AllVideos() {
     t('ScholarshipsPage.school'),
   ];
 
+  // Helper function to get the appropriate language field based on locale
+  const getLocalizedField = (scholarship, fieldBase) => {
+    const fieldName = `${fieldBase}_${locale}`;
+    return scholarship[fieldName] || scholarship[`${fieldBase}_eng`] || '';
+  };
+
   // Filter scholarships based on search query and active filter
   const filteredScholarships = useMemo(() => {
     return scholarships.filter(scholarship => {
       // Filter by study level
       const matchesFilter = activeFilter === 'All' || 
-        scholarship.S_study_level?.toLowerCase().includes(activeFilter.toLowerCase());
+        getLocalizedField(scholarship, 's_study_level')?.toLowerCase().includes(activeFilter.toLowerCase());
       
       // Filter by search query (search in multiple fields)
       const matchesSearch = searchQuery === '' || 
-        scholarship.s_name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        scholarship.s_country?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        scholarship.s_university?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        scholarship.s_language?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        scholarship.s_funding_type?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        scholarship.s_overview?.toLowerCase().includes(searchQuery.toLowerCase());
+        getLocalizedField(scholarship, 's_name')?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        getLocalizedField(scholarship, 's_country')?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        getLocalizedField(scholarship, 's_university')?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        getLocalizedField(scholarship, 's_language')?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        getLocalizedField(scholarship, 's_funding_type')?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        getLocalizedField(scholarship, 's_overview')?.toLowerCase().includes(searchQuery.toLowerCase());
       
       return matchesFilter && matchesSearch;
     });
-  }, [scholarships, activeFilter, searchQuery]);
+  }, [scholarships, activeFilter, searchQuery, locale]);
 
   // Calculate pagination based on FILTERED scholarships
   const totalPages = Math.ceil(filteredScholarships.length / scholarshipsPerpage);
@@ -141,7 +147,7 @@ export default function AllVideos() {
                 </div>
                 <input
                   type="text"
-                    placeholder={t('ScholarshipsPage.search for scholarships')}
+                  placeholder={t('ScholarshipsPage.search for scholarships')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-12 pr-12 py-4 border border-gray-300 dark:border-gray-600 rounded-2xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 text-base w-full transition-all duration-300 shadow-lg hover:shadow-xl"
@@ -207,58 +213,65 @@ export default function AllVideos() {
         )}
 
         {/* Scholarship Grid */}
-       {!loading && !error && currentScholarships.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
-              {currentScholarships.map((scholarship) => (
-                <div 
-                  key={scholarship.id}
-                  className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300"
-                >
-                  {/* Scholarship Image */}
-                  <div className="h-48 bg-gray-200 relative">
-                    <img 
-                      src={scholarship.s_image || "/hero-section-image.jpg"} 
-                      alt={scholarship.s_name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-
-                  {/* Scholarship Content */}
-                  <div className="p-5">
-                    {/* Scholarship Name */}
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
-                      {scholarship.s_name}
-                    </h3>
-
-                    {/* University and Country */}
-                    <p className="text-gray-600 dark:text-white text-sm mb-3 font-medium">
-                      {scholarship.s_university} - {scholarship.s_country}
-                    </p>
-
-                    {/* Description */}
-                    <div className="text-gray-500 dark:text-white text-sm mb-4 line-clamp-3 leading-relaxed rich-text-content" dangerouslySetInnerHTML={{ __html: scholarship.s_detailed_info || scholarship.s_overview || 'No description available.' }} />
-
-                    {/* Deadline and Language */}
-                    <div className="flex justify-between items-center text-sm text-gray-700 border-t border-gray-100 pt-3">
-                      <span className="font-medium text-red-600">
-                        Deadline: {formatDate(scholarship.s_app_deadline)}
-                      </span>
-                      <span className="text-blue-600">
-                        {scholarship.s_language}
-                      </span>
-                    </div>
-
-                    {/* Read More Button */}
-                    <Link href={`/${locale}/scholarships-programs/${scholarship.id}`}>
-                      <button className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition-colors duration-200">
-                        {t('ScholarshipsPage.read more')}
-                      </button>
-                    </Link>
-                  </div>
+        {!loading && !error && currentScholarships.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+            {currentScholarships.map((scholarship) => (
+              <div 
+                key={scholarship.id}
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300"
+              >
+                {/* Scholarship Image */}
+                <div className="h-48 bg-gray-200 relative">
+                  <img 
+                    src={scholarship.s_image} 
+                    alt={getLocalizedField(scholarship, 's_name')}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-              ))}
-            </div>
-          ) : (
+
+                {/* Scholarship Content */}
+                <div className="p-5">
+                  {/* Scholarship Name */}
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
+                    {getLocalizedField(scholarship, 's_name')}
+                  </h3>
+
+                  {/* University and Country */}
+                  <p className="text-gray-600 dark:text-white text-sm mb-3 font-medium">
+                    {getLocalizedField(scholarship, 's_university')} - {getLocalizedField(scholarship, 's_country')}
+                  </p>
+
+                  {/* Description */}
+                  <div 
+                    className="text-gray-500 dark:text-white text-sm mb-4 line-clamp-3 leading-relaxed rich-text-content" 
+                    dangerouslySetInnerHTML={{ 
+                      __html: getLocalizedField(scholarship, 's_detailed_info') || 
+                              getLocalizedField(scholarship, 's_overview') || 
+                              'No description available.' 
+                    }} 
+                  />
+
+                  {/* Deadline and Language */}
+                  <div className="flex justify-between items-center text-sm text-gray-700 border-t border-gray-100 pt-3">
+                    <span className="font-medium text-red-600">
+                      Deadline: {formatDate(scholarship.s_app_deadline)}
+                    </span>
+                    <span className="text-blue-600">
+                      {getLocalizedField(scholarship, 's_language')}
+                    </span>
+                  </div>
+
+                  {/* Read More Button */}
+                  <Link href={`/${locale}/scholarships-programs/${scholarship.id}`}>
+                    <button className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition-colors duration-200">
+                      {t('ScholarshipsPage.read more')}
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
           // No results message (only when not loading and no error)
           !loading && !error && (
             <div className="text-center py-12">
@@ -308,7 +321,7 @@ export default function AllVideos() {
                     : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 hover:border-gray-400'
                 }`}
               >
-                 {page}
+                {page}
               </button>
             ))}
 
