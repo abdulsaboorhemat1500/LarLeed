@@ -99,152 +99,11 @@ export default function UpdateScholarshipPage() {
     s_applying_link: ''
   });
 
-  const [errors, setErrors] = useState({});
   const [currentImage, setCurrentImage] = useState('');
   const [imagePreview, setImagePreview] = useState('');
   const [loading, setLoading] = useState(false);
   const [fetchLoading, setFetchLoading] = useState(true);
   const [error, setError] = useState('');
-  const [isValid, setIsValid] = useState(false);
-
-  // Validation rules for multi-language fields
-  const validateMultiLanguageField = (fieldName, value) => {
-    const newErrors = { ...errors };
-    
-    if (!value.trim()) {
-      newErrors[fieldName] = `${fieldName.replace('_', ' ')} is required`;
-    } else {
-      delete newErrors[fieldName];
-    }
-    
-    setErrors(newErrors);
-    return !newErrors[fieldName];
-  };
-
-  // Validation rules
-  const validateField = (name, value) => {
-    const newErrors = { ...errors };
-    
-    switch (name) {
-      case 's_name_eng':
-      case 's_university_eng':
-      case 's_country_eng':
-      case 's_language_eng':
-      case 's_study_level_eng':
-      case 's_duration_eng':
-      case 's_funding_type_eng':
-      case 's_fields_of_study_eng':
-      case 's_language_required_eng':
-      case 's_eligible_countries_eng':
-        if (!value.trim()) {
-          newErrors[name] = 'This field is required';
-        } else {
-          delete newErrors[name];
-        }
-        break;
-
-      case 's_app_deadline':
-        if (!value) {
-          newErrors.s_app_deadline = 'Application deadline is required';
-        } else if (new Date(value) <= new Date()) {
-          newErrors.s_app_deadline = 'Deadline must be in the future';
-        } else {
-          delete newErrors.s_app_deadline;
-        }
-        break;
-
-      case 's_overview_eng':
-        if (!value.trim()) {
-          newErrors.s_overview_eng = 'Overview is required';
-        } else if (value.length < 50) {
-          newErrors.s_overview_eng = 'Overview must be at least 50 characters';
-        } else {
-          delete newErrors.s_overview_eng;
-        }
-        break;
-
-      case 's_detailed_info_eng':
-        if (!value.trim()) {
-          newErrors.s_detailed_info_eng = 'Detailed information is required';
-        } else if (value.length < 100) {
-          newErrors.s_detailed_info_eng = 'Detailed information must be at least 100 characters';
-        } else {
-          delete newErrors.s_detailed_info_eng;
-        }
-        break;
-
-      case 's_eligibility_eng':
-        if (!value.trim()) {
-          newErrors.s_eligibility_eng = 'Eligibility criteria is required';
-        } else if (value.length < 50) {
-          newErrors.s_eligibility_eng = 'Eligibility criteria must be at least 50 characters';
-        } else {
-          delete newErrors.s_eligibility_eng;
-        }
-        break;
-
-      case 's_app_procces_eng':
-        if (!value.trim()) {
-          newErrors.s_app_procces_eng = 'Application process is required';
-        } else if (value.length < 50) {
-          newErrors.s_app_procces_eng = 'Application process must be at least 50 characters';
-        } else {
-          delete newErrors.s_app_procces_eng;
-        }
-        break;
-
-      case 's_benefits_eng':
-        if (!value.trim()) {
-          newErrors.s_benefits_eng = 'Benefits are required';
-        } else if (value.length < 30) {
-          newErrors.s_benefits_eng = 'Benefits must be at least 30 characters';
-        } else {
-          delete newErrors.s_benefits_eng;
-        }
-        break;
-
-      default:
-        break;
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  // Check form validity whenever formData or errors change
-  useEffect(() => {
-    checkFormValidity();
-  }, [formData, errors]);
-
-  const checkFormValidity = () => {
-    const requiredEnglishFields = [
-      's_name_eng', 's_country_eng', 's_university_eng', 's_language_eng', 's_study_level_eng',
-      's_duration_eng', 's_funding_type_eng', 's_fields_of_study_eng', 's_language_required_eng',
-      's_eligible_countries_eng', 's_overview_eng', 's_detailed_info_eng', 's_eligibility_eng',
-      's_app_procces_eng', 's_benefits_eng'
-    ];
-
-    // Check if all required English fields are filled
-    const hasAllRequiredFields = requiredEnglishFields.every(field => 
-      formData[field] && formData[field].toString().trim() !== ''
-    );
-
-    // Check length requirements for English fields
-    const meetsLengthRequirements = 
-      formData.s_overview_eng.length >= 50 &&
-      formData.s_detailed_info_eng.length >= 100 &&
-      formData.s_eligibility_eng.length >= 50 &&
-      formData.s_app_procces_eng.length >= 50 &&
-      formData.s_benefits_eng.length >= 30;
-
-    // Check if deadline is in the future
-    const isFutureDate = formData.s_app_deadline && new Date(formData.s_app_deadline) > new Date();
-
-    // Check if there are no validation errors
-    const hasNoErrors = Object.keys(errors).length === 0;
-
-    setIsValid(hasAllRequiredFields && meetsLengthRequirements && isFutureDate && hasNoErrors);
-  };
 
   // Fetch specific scholarship by ID
   useEffect(() => {
@@ -375,9 +234,6 @@ export default function UpdateScholarshipPage() {
       ...prevState,
       [name]: value
     }));
-    
-    // Validate field on change
-    validateField(name, value);
   };
 
   const handleRichTextChange = (fieldName, value) => {
@@ -385,35 +241,19 @@ export default function UpdateScholarshipPage() {
       ...prevState,
       [fieldName]: value
     }));
-    validateField(fieldName, value);
   };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
-    // Validate file type
-    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
-    if (!allowedTypes.includes(file.type)) {
-      setError('Please select a valid image file (JPEG, PNG, etc.)');
-      return;
-    }
-
-    // Validate file size (5MB max)
-    if (file.size > 5 * 1024 * 1024) {
-      setError('Image size must be less than 5MB');
-      return;
-    }
-
     setFormData(prevState => ({
       ...prevState,
       s_image: file
     }));
 
-    // Clear any previous errors
     setError('');
 
-    // Create preview
     const reader = new FileReader();
     reader.onload = (e) => {
       setImagePreview(e.target.result);
@@ -436,7 +276,7 @@ export default function UpdateScholarshipPage() {
       {/* English */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          {label} (English) *
+          {label} (English)
         </label>
         {isRichText ? (
           <RichTextEditor
@@ -450,10 +290,7 @@ export default function UpdateScholarshipPage() {
             name={`${fieldBase}_eng`}
             value={formData[`${fieldBase}_eng`]}
             onChange={handleChange}
-            required
-            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors[`${fieldBase}_eng`] ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder={placeholder.eng}
             rows={4}
           />
@@ -463,22 +300,16 @@ export default function UpdateScholarshipPage() {
             name={`${fieldBase}_eng`}
             value={formData[`${fieldBase}_eng`]}
             onChange={handleChange}
-            required
-            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors[`${fieldBase}_eng`] ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder={placeholder.eng}
           />
-        )}
-        {errors[`${fieldBase}_eng`] && (
-          <p className="mt-1 text-sm text-red-600">{errors[`${fieldBase}_eng`]}</p>
         )}
       </div>
 
       {/* Pashto */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          {label} (پښتو) *
+          {label} (پښتو)
         </label>
         {isRichText ? (
           <RichTextEditor
@@ -492,10 +323,7 @@ export default function UpdateScholarshipPage() {
             name={`${fieldBase}_pash`}
             value={formData[`${fieldBase}_pash`]}
             onChange={handleChange}
-            required
-            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors[`${fieldBase}_pash`] ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder={placeholder.pash}
             rows={4}
           />
@@ -505,22 +333,16 @@ export default function UpdateScholarshipPage() {
             name={`${fieldBase}_pash`}
             value={formData[`${fieldBase}_pash`]}
             onChange={handleChange}
-            required
-            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors[`${fieldBase}_pash`] ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder={placeholder.pash}
           />
-        )}
-        {errors[`${fieldBase}_pash`] && (
-          <p className="mt-1 text-sm text-red-600">{errors[`${fieldBase}_pash`]}</p>
         )}
       </div>
 
       {/* Dari */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-2">
-          {label} (دری) *
+          {label} (دری)
         </label>
         {isRichText ? (
           <RichTextEditor
@@ -534,10 +356,7 @@ export default function UpdateScholarshipPage() {
             name={`${fieldBase}_dari`}
             value={formData[`${fieldBase}_dari`]}
             onChange={handleChange}
-            required
-            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors[`${fieldBase}_dari`] ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder={placeholder.dari}
             rows={4}
           />
@@ -547,64 +366,17 @@ export default function UpdateScholarshipPage() {
             name={`${fieldBase}_dari`}
             value={formData[`${fieldBase}_dari`]}
             onChange={handleChange}
-            required
-            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              errors[`${fieldBase}_dari`] ? 'border-red-500' : 'border-gray-300'
-            }`}
+            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder={placeholder.dari}
           />
-        )}
-        {errors[`${fieldBase}_dari`] && (
-          <p className="mt-1 text-sm text-red-600">{errors[`${fieldBase}_dari`]}</p>
         )}
       </div>
     </div>
   );
 
-  const validateForm = () => {
-    const requiredEnglishFields = [
-      's_name_eng', 's_country_eng', 's_university_eng', 's_language_eng', 's_study_level_eng',
-      's_duration_eng', 's_funding_type_eng', 's_fields_of_study_eng', 's_language_required_eng',
-      's_eligible_countries_eng', 's_overview_eng', 's_detailed_info_eng', 's_eligibility_eng',
-      's_app_procces_eng', 's_benefits_eng'
-    ];
-
-    let formErrors = {};
-
-    requiredEnglishFields.forEach(field => {
-      validateField(field, formData[field]);
-    });
-
-    // Additional length validations for English fields
-    if (formData.s_overview_eng.length < 50) {
-      formErrors.s_overview_eng = 'Overview must be at least 50 characters';
-    }
-    if (formData.s_detailed_info_eng.length < 100) {
-      formErrors.s_detailed_info_eng = 'Detailed information must be at least 100 characters';
-    }
-    if (formData.s_eligibility_eng.length < 50) {
-      formErrors.s_eligibility_eng = 'Eligibility criteria must be at least 50 characters';
-    }
-    if (formData.s_app_procces_eng.length < 50) {
-      formErrors.s_app_procces_eng = 'Application process must be at least 50 characters';
-    }
-    if (formData.s_benefits_eng.length < 30) {
-      formErrors.s_benefits_eng = 'Benefits must be at least 30 characters';
-    }
-
-    setErrors(formErrors);
-    return Object.keys(formErrors).length === 0;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
-    // Validate all fields before submission
-    if (!validateForm()) {
-      setError('Please fix the validation errors before submitting');
-      return;
-    }
 
     setLoading(true);
 
@@ -747,14 +519,14 @@ export default function UpdateScholarshipPage() {
                 <div className="flex-1">
                   <input
                     type="file"
-                    accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                    accept="image/*"
                     onChange={handleImageChange}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   />
                 </div>
               </div>
               <p className="text-sm text-gray-500 mt-1">
-                Upload a new image (JPEG, PNG, max 5MB) - Leave empty to keep current image
+                Upload a new image - Leave empty to keep current image
               </p>
             </div>
 
@@ -901,21 +673,15 @@ export default function UpdateScholarshipPage() {
             {/* Application Deadline */}
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Application Deadline *
+                Application Deadline
               </label>
               <input
                 type="date"
                 name="s_app_deadline"
                 value={formData.s_app_deadline}
                 onChange={handleChange}
-                required
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.s_app_deadline ? 'border-red-500' : 'border-gray-300'
-                }`}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
-              {errors.s_app_deadline && (
-                <p className="mt-1 text-sm text-red-600">{errors.s_app_deadline}</p>
-              )}
             </div>
 
             {/* Applying Link */}
@@ -947,9 +713,6 @@ export default function UpdateScholarshipPage() {
                   pash: 'د بورس لنډه کتنه ورکړئ',
                   dari: 'خلاصه ای از بورسیه ارائه دهید'
                 }, false, true)}
-                <p className="text-sm text-gray-500 mt-2">
-                  English: {formData.s_overview_eng.length}/50 characters (minimum 50 required)
-                </p>
               </div>
             </div>
 
@@ -964,9 +727,6 @@ export default function UpdateScholarshipPage() {
                   pash: 'د بورس په اړه مفصله معلومات ورکړئ',
                   dari: 'اطلاعات مفصلی در مورد بورسیه ارائه دهید'
                 }, false, true)}
-                <p className="text-sm text-gray-500 mt-2">
-                  English: {formData.s_detailed_info_eng.length}/100 characters (minimum 100 required)
-                </p>
               </div>
             </div>
 
@@ -981,9 +741,6 @@ export default function UpdateScholarshipPage() {
                   pash: 'د وړتیا اړتیاګانې لیست کړئ',
                   dari: 'معیارهای واجد شرایط را فهرست کنید'
                 }, false, true)}
-                <p className="text-sm text-gray-500 mt-2">
-                  English: {formData.s_eligibility_eng.length}/50 characters (minimum 50 required)
-                </p>
               </div>
             </div>
 
@@ -998,9 +755,6 @@ export default function UpdateScholarshipPage() {
                   pash: 'د غوښتنلیک پروسه ګام په ګام تشریح کړئ',
                   dari: 'فرآیند درخواست را مرحله به مرحله شرح دهید'
                 }, false, true)}
-                <p className="text-sm text-gray-500 mt-2">
-                  English: {formData.s_app_procces_eng.length}/50 characters (minimum 50 required)
-                </p>
               </div>
             </div>
 
@@ -1015,9 +769,6 @@ export default function UpdateScholarshipPage() {
                   pash: 'د دې بورس ګټې لیست کړئ',
                   dari: 'مزایای ارائه شده توسط این بورسیه را فهرست کنید'
                 }, false, true)}
-                <p className="text-sm text-gray-500 mt-2">
-                  English: {formData.s_benefits_eng.length}/30 characters (minimum 30 required)
-                </p>
               </div>
             </div>
           </div>
@@ -1034,7 +785,7 @@ export default function UpdateScholarshipPage() {
             </button>
             <button
               type="submit"
-              disabled={loading || !isValid}
+              disabled={loading}
               className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-medium transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center"
             >
               {loading ? (
