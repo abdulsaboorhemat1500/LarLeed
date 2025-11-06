@@ -4,17 +4,35 @@ import * as React from "react"
 import "../globals.css";
 
 import { useState, useEffect } from 'react';
-import { X, Menu, LogOut, User, ChevronDown, Settings, MoreVertical } from 'lucide-react';
+import { 
+  X, 
+  Menu, 
+  LogOut, 
+  User, 
+  ChevronDown, 
+  Settings, 
+  MoreVertical,
+  Users,
+  Award,
+  FileText,
+  Users as TeamIcon,
+  MessageSquare,
+  PlaySquare,
+  Mail,
+  Contact,
+  Type,
+  Home
+} from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Users } from "lucide-react";
 
-export default function ContorlPannelLayout({ children }) {
+export default function ControlPanelLayout({ children }) {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false); // New state for more dropdown
+    const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
     const router = useRouter();
 
     // Check if user is logged in on component mount
@@ -50,21 +68,15 @@ export default function ContorlPannelLayout({ children }) {
     };
 
     const handleLogout = () => {
-        // Clear all session data
         if (typeof window !== 'undefined') {
             localStorage.removeItem('user');
             localStorage.removeItem('rememberMe');
             sessionStorage.removeItem('user');
-            
-            // Clear the auth cookie
             document.cookie = 'auth-token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
         }
         
-        // Clear user state and close dropdown
         setUser(null);
         setIsDropdownOpen(false);
-        
-        // Redirect to login page
         router.push('/login');
     };
 
@@ -74,6 +86,10 @@ export default function ContorlPannelLayout({ children }) {
 
     const toggleMoreDropdown = () => {
         setIsMoreDropdownOpen(!isMoreDropdownOpen);
+    };
+
+    const toggleSidebar = () => {
+        setSidebarOpen(!sidebarOpen);
     };
 
     // Redirect to login if not authenticated
@@ -92,101 +108,151 @@ export default function ContorlPannelLayout({ children }) {
         );
     }
 
-    // Don't render layout if no user
     if (!user) {
         return null;
     }
 
     return (
-        <div className="min-h-screen flex flex-col">
-            {/* Header */}
-            <header className="bg-white dark:bg-gray-800 sticky top-0 z-50 shadow-sm border-b border-gray-200 dark:border-gray-900">
-                <nav aria-label="Global" className="mx-auto flex container items-center justify-between p-6 lg:px-8">
-                    <div className="flex lg:flex-1">
-                        <Link href="/dashboard" className="-m-1.5 p-1.5 flex lg:gap-x-1">
-                            <p className="text-3xl font-bold">
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">LarLeed</span>
-                            </p>
+        <div className="min-h-screen flex">
+            {/* Sidebar */}
+            <aside className={`
+                fixed lg:sticky top-0 left-0 z-40 h-screen w-64 bg-white dark:bg-gray-800 shadow-lg border-r border-gray-200 dark:border-gray-700
+                transform transition-transform duration-300 ease-in-out
+                ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
+            `}>
+                <div className="flex flex-col h-full">
+                    {/* Sidebar Header */}
+                    <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+                        <Link href="/" className="flex items-center gap-x-2">
+                            <img 
+                                src="/logo.png"
+                                alt="LarLeed Logo"
+                                className="h-8 w-auto"
+                            />
                         </Link>
+                        <button 
+                            onClick={toggleSidebar}
+                            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                        >
+                            <X className="size-5 text-gray-600 dark:text-gray-400" />
+                        </button>
                     </div>
-                    
-                    {/* Desktop Navigation */}
-                    <div className="hidden lg:flex lg:gap-x-8 items-center">
-                        <Link href="/scholarships-programs-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105">
-                            Scholarships
+
+                    {/* Navigation Menu */}
+                    <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+                        {/* Main Navigation Items */}
+                        <Link 
+                            href="/dashboard"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                        >
+                            <Home className="size-5" />
+                            <span className="font-medium">Dashboard</span>
                         </Link>
-                        <Link href="/applying-for-sch-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105">
-                            Applying for Scholarships
+
+                        <Link 
+                            href="/scholarships-programs-cp"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                        >
+                            <Award className="size-5" />
+                            <span className="font-medium">Scholarships</span>
                         </Link>
-                        <Link href="/mentors-tmembers-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105">
-                            Mentors/Team Member
+
+                        <Link 
+                            href="/applying-for-sch-cp"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                        >
+                            <FileText className="size-5" />
+                            <span className="font-medium">Applying for Scholarships</span>
                         </Link>
-                        <Link href="/posts-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105">
-                            Posts/Roshangari
+
+                        <Link 
+                            href="/mentors-tmembers-cp"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                        >
+                            <TeamIcon className="size-5" />
+                            <span className="font-medium">Mentors/Team Member</span>
                         </Link>
-                        <Link href="/featured-videos-cp" className="text-md font-semibold text-gray-900 hover:text-blue-600 dark:text-white transition-all duration-200 transform hover:scale-105">
-                            Featured Videos
+
+                        <Link 
+                            href="/posts-cp"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                        >
+                            <MessageSquare className="size-5" />
+                            <span className="font-medium">Posts/Roshangari</span>
                         </Link>
-                        
+
+                        <Link 
+                            href="/featured-videos-cp"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                        >
+                            <PlaySquare className="size-5" />
+                            <span className="font-medium">Featured Videos</span>
+                        </Link>
+
                         {/* More Options Dropdown */}
                         <div className="relative more-dropdown">
                             <button
                                 onClick={toggleMoreDropdown}
-                                className="cursor-pointer flex items-center p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                                className="flex items-center gap-x-3 w-full p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
                             >
-                                <MoreVertical className="size-5 text-gray-600 dark:text-gray-400" />
+                                <MoreVertical className="size-5" />
+                                <span className="font-medium">More Options</span>
+                                <ChevronDown 
+                                    className={`size-4 ml-auto transition-transform duration-200 ${
+                                        isMoreDropdownOpen ? 'rotate-180' : ''
+                                    }`} 
+                                />
                             </button>
 
                             {/* More Dropdown Menu */}
                             {isMoreDropdownOpen && (
-                                <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-lg bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-                                    <div className="p-2">
-                                        <Link 
-                                            href="/get-in-touch-cp" 
-                                            className="flex items-center gap-x-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
-                                            onClick={() => setIsMoreDropdownOpen(false)}
-                                        >
-                                            Get In Touch
-                                        </Link>
-                                        <Link 
-                                            href="/contact-us-cp" 
-                                            className="flex items-center gap-x-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
-                                            onClick={() => setIsMoreDropdownOpen(false)}
-                                        >
-                                            Contact Us
-                                        </Link>
-                                        <Link 
-                                            href="/hero-section-text" 
-                                            className="flex items-center gap-x-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
-                                            onClick={() => setIsMoreDropdownOpen(false)}
-                                        >
-                                            Hero Section Text
-                                        </Link>
-                                    </div>
+                                <div className="ml-4 mt-2 space-y-1 border-l-2 border-gray-200 dark:border-gray-700 pl-4">
+                                    <Link 
+                                        href="/get-in-touch-cp" 
+                                        className="flex items-center gap-x-3 p-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                                        onClick={() => setIsMoreDropdownOpen(false)}
+                                    >
+                                        <Mail className="size-4" />
+                                        Get In Touch
+                                    </Link>
+                                    <Link 
+                                        href="/contact-us-cp" 
+                                        className="flex items-center gap-x-3 p-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                                        onClick={() => setIsMoreDropdownOpen(false)}
+                                    >
+                                        <Contact className="size-4" />
+                                        Contact Us
+                                    </Link>
+                                    <Link 
+                                        href="/hero-section-text" 
+                                        className="flex items-center gap-x-3 p-2 rounded-lg text-sm text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                                        onClick={() => setIsMoreDropdownOpen(false)}
+                                    >
+                                        <Type className="size-4" />
+                                        Hero Section Text
+                                    </Link>
                                 </div>
                             )}
                         </div>
-                    </div>
+                    </nav>
 
-                    {/* User Dropdown - Desktop */}
-                    <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+                    {/* User Section */}
+                    <div className="p-4 border-t border-gray-200 dark:border-gray-700">
                         <div className="relative user-dropdown">
                             <button
                                 onClick={toggleDropdown}
-                                className="cursor-pointer flex items-center gap-x-2 p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                                className="flex items-center gap-x-3 w-full p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
                             >
-                                <div className="flex items-center gap-x-2">
-                                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                                        <User className="size-4 text-white" />
-                                    </div>
-                                    <div className="text-left">
-                                        <p className="text-sm font-medium text-gray-900 dark:text-white">
-                                            {user.fullName.split(' ')[0]} {/* First name only */}
-                                        </p>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                                            {user.role}
-                                        </p>
-                                    </div>
+                                <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                                    <User className="size-4 text-white" />
+                                </div>
+                                <div className="flex-1 text-left">
+                                    <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                                        {user.fullName.split(' ')[0]}
+                                    </p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                                        {user.role}
+                                    </p>
                                 </div>
                                 <ChevronDown 
                                     className={`size-4 text-gray-500 dark:text-gray-400 transition-transform duration-200 ${
@@ -197,11 +263,11 @@ export default function ContorlPannelLayout({ children }) {
 
                             {/* Dropdown Menu */}
                             {isDropdownOpen && (
-                                <div className="absolute right-0 mt-2 w-56 origin-top-right rounded-lg bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                <div className="absolute bottom-full left-0 right-0 mb-2 rounded-lg bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5">
                                     <div className="p-2">
                                         {/* User Info */}
                                         <div className="px-3 py-2 border-b border-gray-100 dark:border-gray-700">
-                                            <p className="text-sm font-medium text-gray-900 dark:text-white">
+                                            <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                                                 {user.fullName}
                                             </p>
                                             <p className="text-sm text-gray-500 dark:text-gray-400 truncate">
@@ -221,10 +287,20 @@ export default function ContorlPannelLayout({ children }) {
                                             </Link>
                                         )}
 
+                                        {/* Settings */}
+                                        <Link 
+                                            href="/settings" 
+                                            className="flex items-center gap-x-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
+                                            onClick={() => setIsDropdownOpen(false)}
+                                        >
+                                            <Settings className="size-4" />
+                                            Settings
+                                        </Link>
+
                                         {/* Logout Button */}
                                         <button
                                             onClick={handleLogout}
-                                            className="cursor-pointer flex items-center gap-x-2 w-full px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors duration-200 mt-1"
+                                            className="flex items-center gap-x-2 w-full px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-md transition-colors duration-200 mt-1"
                                         >
                                             <LogOut className="size-4" />
                                             Sign out
@@ -234,124 +310,172 @@ export default function ContorlPannelLayout({ children }) {
                             )}
                         </div>
                     </div>
-                    
-                    {/* Mobile Menu Button */}
-                    <div className="flex lg:hidden">
-                        <button 
-                            type="button" 
-                            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-300"
-                            onClick={() => setMobileMenuOpen(true)}
-                        >
-                            <span className="sr-only">Open main menu</span>
-                            <Menu className="size-6" />
-                        </button>
-                    </div>
-                </nav>
+                </div>
+            </aside>
 
-                {/* Mobile Menu */}
-                {mobileMenuOpen && (
-                    <div className="lg:hidden">
-                        <div className="fixed inset-0 z-50 bg-black bg-opacity-25" />
-                        <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-800 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-                            <div className="flex items-center justify-between">
-                                <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)} className="-m-1.5 p-1.5">
-                                    <p className="text-2xl font-bold text-gray-900 dark:text-white">LarLeed</p>
+            {/* Main Content */}
+            <div className="flex-1 flex flex-col min-h-screen lg:ml-0">
+                {/* Header */}
+                <header className="bg-white dark:bg-gray-800 sticky top-0 z-30 shadow-sm border-b border-gray-200 dark:border-gray-700">
+                    <div className="flex items-center justify-between p-4 lg:px-8">
+                        {/* Logo and Title */}
+                        <div className="flex items-center gap-x-4">
+                            <button 
+                                onClick={toggleSidebar}
+                                className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                            >
+                                <Menu className="size-6 text-gray-600 dark:text-gray-400" />
+                            </button>
+                            <div className="flex items-center gap-x-3">
+                                <Link href="/" className="lg:hidden">
+                                    <img 
+                                        src="/logo.png"
+                                        alt="LarLeed Logo"
+                                        className="h-8 w-auto"
+                                    />
                                 </Link>
-                                <button 
-                                    type="button" 
-                                    className="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-300"
-                                    onClick={() => setMobileMenuOpen(false)}
-                                >
-                                    <span className="sr-only">Close menu</span>
-                                    <X className="size-6" />
-                                </button>
+                                <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
+                                    Connecting Afghan Youth through Education, Dialogue, and Vision
+                                </h1>
                             </div>
-                            
-                            {/* User Info - Mobile */}
-                            <div className="mt-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-                                <div className="flex items-center gap-x-3">
-                                    <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-                                        <User className="size-5 text-white" />
-                                    </div>
-                                    <div>
-                                        <p className="text-sm font-medium text-gray-900 dark:text-white">
-                                            {user.fullName}
-                                        </p>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400">
-                                            {user.email}
-                                        </p>
-                                    </div>
+                        </div>
+
+                        {/* Mobile Menu Button (for mobile menu that's already in your code) */}
+                        <div className="flex lg:hidden">
+                            <button 
+                                type="button" 
+                                className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-300"
+                                onClick={() => setMobileMenuOpen(true)}
+                            >
+                                <span className="sr-only">Open mobile menu</span>
+                                <Menu className="size-6" />
+                            </button>
+                        </div>
+                    </div>
+                </header>
+
+                {/* Page Content */}
+                <main className="flex-1 p-4 lg:p-8 bg-gray-50 dark:bg-gray-900">
+                    {children}
+                </main>
+            </div>
+
+            {/* Mobile Menu (existing code - keep as backup) */}
+            {mobileMenuOpen && (
+                <div className="lg:hidden">
+                    <div className="fixed inset-0 z-50 bg-black bg-opacity-25" />
+                    <div className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-800 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+                        <div className="flex items-center justify-between">
+                            <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)} className="-m-1.5 p-1.5">
+                                <img 
+                                    src="/logo.png"
+                                    alt="LarLeed Logo"
+                                    className="h-8 w-auto"
+                                />
+                            </Link>
+                            <button 
+                                type="button" 
+                                className="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-300"
+                                onClick={() => setMobileMenuOpen(false)}
+                            >
+                                <span className="sr-only">Close menu</span>
+                                <X className="size-6" />
+                            </button>
+                        </div>
+                        
+                        {/* User Info - Mobile */}
+                        <div className="mt-4 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                            <div className="flex items-center gap-x-3">
+                                <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+                                    <User className="size-5 text-white" />
+                                </div>
+                                <div>
+                                    <p className="text-sm font-medium text-gray-900 dark:text-white">
+                                        {user.fullName}
+                                    </p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                                        {user.email}
+                                    </p>
                                 </div>
                             </div>
+                        </div>
 
-                            <div className="mt-6 flow-root">
-                                <div className="-my-6 divide-y divide-gray-500/10 dark:divide-gray-700">
-                                    <div className="space-y-2 py-6">
-                                        <Link href="/scholarships-programs-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
-                                            Scholarships
-                                        </Link>
-                                        <Link href="/applying-for-sch-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
-                                            Applying for Scholarships
-                                        </Link>
-                                        <Link href="/mentors-tmembers-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
-                                            Mentors/Team Member
-                                        </Link>
-                                        <Link href="/posts-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
-                                            Posts/Roshangari
-                                        </Link>
-                                        <Link href="/featured-videos-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
-                                            Featured Videos
-                                        </Link>
-                                        
-                                        {/* Additional links in mobile menu (no dropdown) */}
-                                        <Link href="/get-in-touch-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
-                                            Get In Touch
-                                        </Link>
-                                        <Link href="/contact-us-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
-                                            Contact Us
-                                        </Link>
-                                        <Link href="/hero-section-text" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
-                                            Hero Section Text
-                                        </Link>
-
-                                        {/* Mobile User Links - Only show Users Management for admin */}
-                                        <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                                            {user.role === 'admin' && (
-                                                <Link href="/user-list" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
-                                                    Users Management
-                                                </Link>
-                                            )}
-                                            <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
-                                                My Profile
-                                            </Link>
-                                            <Link href="/settings" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
-                                                Settings
-                                            </Link>
-                                        </div>
-                                    </div>
+                        <div className="mt-6 flow-root">
+                            <div className="-my-6 divide-y divide-gray-500/10 dark:divide-gray-700">
+                                <div className="space-y-2 py-6">
+                                    {/* Mobile navigation links */}
+                                    <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        Dashboard
+                                    </Link>
+                                    <Link href="/scholarships-programs-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        Scholarships
+                                    </Link>
+                                    <Link href="/applying-for-sch-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        Applying for Scholarships
+                                    </Link>
+                                    <Link href="/mentors-tmembers-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        Mentors/Team Member
+                                    </Link>
+                                    <Link href="/posts-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        Posts/Roshangari
+                                    </Link>
+                                    <Link href="/featured-videos-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        Featured Videos
+                                    </Link>
                                     
-                                    {/* Logout Button - Mobile */}
-                                    <div className="py-6">
-                                        <button
-                                            onClick={() => {
-                                                handleLogout();
-                                                setMobileMenuOpen(false);
-                                            }}
-                                            className="flex items-center gap-x-2 w-full text-left -mx-3 rounded-lg px-3 py-2 text-base font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200"
-                                        >
-                                            <LogOut className="size-4" />
-                                            Sign out
-                                        </button>
+                                    {/* Additional links */}
+                                    <Link href="/get-in-touch-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        Get In Touch
+                                    </Link>
+                                    <Link href="/contact-us-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        Contact Us
+                                    </Link>
+                                    <Link href="/hero-section-text" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        Hero Section Text
+                                    </Link>
+
+                                    {/* Mobile User Links */}
+                                    <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                                        {user.role === 'admin' && (
+                                            <Link href="/user-list" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                                Users Management
+                                            </Link>
+                                        )}
+                                        <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                            My Profile
+                                        </Link>
+                                        <Link href="/settings" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                            Settings
+                                        </Link>
                                     </div>
+                                </div>
+                                
+                                {/* Logout Button - Mobile */}
+                                <div className="py-6">
+                                    <button
+                                        onClick={() => {
+                                            handleLogout();
+                                            setMobileMenuOpen(false);
+                                        }}
+                                        className="flex items-center gap-x-2 w-full text-left -mx-3 rounded-lg px-3 py-2 text-base font-semibold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200"
+                                    >
+                                        <LogOut className="size-4" />
+                                        Sign out
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                )}
-            </header>
-            <main className="flex-1">
-                {children}
-            </main>
+                </div>
+            )}
+
+            {/* Overlay for mobile sidebar */}
+            {sidebarOpen && (
+                <div 
+                    className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
+                    onClick={toggleSidebar}
+                />
+            )}
         </div>
     );
 }
