@@ -80,7 +80,9 @@
     "read more":"اضافه ولولۍ",
     "no scholarships available yet":"هیڅ ډول بورسونه پیدا نشوو",
     "no scholarships found matching your criteria":"ستاسو د خوښي بورسونه پیدا نشوو",
-    "clear filters":"فلټر لري کړۍ"
+    "clear filters":"فلټر لري کړۍ",
+    "country":"کشورها",
+    "university":"دانشګاها"
   },
   "MentorshipsPage": {
     "enter your full Name":"خپل نوم ولیکئ",
@@ -210,7 +212,10 @@
     "duration": "موده",
     "funding type": "د مالي ملاتړ ډول",
     "genders": "جنس",
-    "apply now": "اوس غوښتنلیک وکړئ"
+    "apply now": "اوس غوښتنلیک وکړئ",
+    "fields of study":"د زدکړو برخي",
+    "language required":"ژبي",
+    "eligible countries":"وړ هیوادونه"
   },
   "MentorDetailsPage":{
     "mentor not found":"هیڅ منټور پیدا نشوو",

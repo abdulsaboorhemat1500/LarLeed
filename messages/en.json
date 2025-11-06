@@ -80,7 +80,9 @@
     "read more":"Read More",
     "no scholarships available yet":"No scholarships available yet",
     "no scholarships found matching your criteria":"No scholarships found matching your criteria.",
-    "clear filters":"Clear Filters"
+    "clear filters":"Clear Filters",
+    "country":"Country",
+    "university":"University"
   },
   "MentorshipsPage": {
     "enter your full Name":"Enter Your Full Name",
@@ -215,7 +217,10 @@
     "apply now": "Apply Now",
     "loading scholarship details":"Loading Scholarship Details",
     "error loading scholarship":"Error Loading Scholarship",
-    "try again":"Try Again"
+    "try again":"Try Again",
+    "fields of study":"Fields of Study",
+    "language required":"Languages Required",
+    "eligible countries":"Eligible Countries"
   },
   "MentorDetailsPage":{
     "mentor not found":"Mentor not found",

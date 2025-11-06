@@ -158,7 +158,7 @@ export default function ScholarshipDetailsPage() {
               {getLocalizedField(scholarship, 's_name')}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-400">
-              {getLocalizedField(scholarship, 's_university')} • {getLocalizedField(scholarship, 's_country')}
+              {t('ScholarshipsPage.university')} : {getLocalizedField(scholarship, 's_university')} • {t('ScholarshipsPage.country')} :  {getLocalizedField(scholarship, 's_country')}
             </p>
           </div>
 
@@ -355,11 +355,6 @@ export default function ScholarshipDetailsPage() {
                       </svg>
                     )}
                   </button>
-                  {scholarship.s_applying_link && (
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-center">
-                      {t('scholarshipDetailsPage.opens in new tab')}
-                    </p>
-                  )}
                 </div>
               </div>
             </div>

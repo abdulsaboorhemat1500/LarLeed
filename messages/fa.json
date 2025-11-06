@@ -80,7 +80,9 @@
     "read more":"بیشتر بدانید",
     "no scholarships available yet":"هیچ بورسیه ی نیست",
     "no scholarships found matching your criteria":"هیچ بورسیه ی پیدا نشود",
-    "clear filters":"بازنشانی"
+    "clear filters":"بازنشانی",
+    "country":"هیوادونه",
+    "university":"پوهنتونونه"
   },
   "MentorshipsPage": {
     "enter your full Name":"نام خود را اضافه نمایید",
@@ -210,7 +212,10 @@
     "duration": "مدت زمان",
     "funding type": "نوع سرمایه گذاری",
     "genders": "جنسیت ها",
-    "apply now": "ارسال برنامه"
+    "apply now": "ارسال برنامه",
+    "fields of study":"رشته های تحصیلی",
+    "language required":"مقررات زبان",
+    "eligible countries":"کشورهای واجد شرایط"
   },
   "MentorDetailsPage":{
     "mentor not found":"مینتوری پیدا نشود",

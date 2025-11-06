@@ -276,7 +276,7 @@ export default function AllVideos() {
                   </h3>
 
                   {/* University and Country */}
-                  <p className="text-gray-600 dark:text-white text-sm mb-3 font-medium">
+                  <p className="text-blue-700 dark:text-white text-sm mb-3 font-medium">
                     {t('ScholarshipsPage.university')} : {getLocalizedField(scholarship, 's_university')} - {t('ScholarshipsPage.country')} : {getLocalizedField(scholarship, 's_country')}
                   </p>
 
