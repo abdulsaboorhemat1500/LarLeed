@@ -1,17 +1,21 @@
 {
   "Header": {
-    "scholarshipsPrograms": "بورسونه",
+    "scholarshipsPrograms": "لوړي زدکړي",
+    "school":"دوره مکتب",
     "mentorships": "مینټورشیپ",
     "roshangari": "روښنګري",
     "donate": "ډونیټ",
     "contactUs": "موږ سره اړیکه",
-    "aboutUs": "زموږ په اړه"
+    "aboutUs": "زموږ په اړه",
+    "certifications":"وړیا کورسونه"
   },
   "Banner": {
     "title": "لرلید",
     "description": "د افغان ځوانانو وصل کول د زدکړي، خبرو او لید له لاري."
   },
   "HomePage": {
+    "page under maintenance":"پر دې صفحه کار روان ده",
+    "this page is temporarily unavailable":"دې صفحې ته اوس مهال لاسرسی نه کیږي",
     "close":"تړل",
     "connecting afghan youth":"د افغان ځوانانو وصل کول",
     "failed to submit form":"ستاستو فورم اضافه نه کړلای شو",

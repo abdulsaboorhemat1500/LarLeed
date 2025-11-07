@@ -1,17 +1,21 @@
 {
   "Header": {
-    "scholarshipsPrograms": "بورسیه ها",
+    "scholarshipsPrograms": "تحصیلات عالی",
+    "school":"د مکتب دوره",
     "mentorships": "منتورها",
     "roshangari": "روشنگری",
     "donate": "حمایت",
     "contactUs": "تماس با ما",
-    "aboutUs": "درباره ما"
+    "aboutUs": "درباره ما",
+    "certifications":"کورس های رایګان"
   },
   "Banner": {
     "title": "لرلید",
     "description": "وصل نمودن نو جوانان افغان به طریقه آموزش، گفتگو و چشم انداز"
   },
   "HomePage": {
+    "page under maintenance":"این صفحه در حال ساختن است",
+    "this page is temporarily unavailable":"به این صفحه دسترسی نه میشود",
     "close":"بسته",
     "connecting afghan youth":"وصل نمودن جوانان افغان",
     "failed to submit form":"فورم شما اضافه نشود",
