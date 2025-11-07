@@ -57,7 +57,7 @@ export default function HeroSection() {
                 {/* Main Image Container */}
                 <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
                   <Image
-                    src="/hero-section-image.jpg"
+                    src="/imageofHS.png"
                     alt="Hero Image"
                     width={400}
                     height={400}
