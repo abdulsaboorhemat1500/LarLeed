@@ -57,7 +57,7 @@ export default function FeaturedStories() {
   // Loading state
   if (loading) {
     return (
-      <section className="py-16 bg-gray-50 dark:bg-gray-800">
+      <section className="py-16 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-sm border-b">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
             <div className="mb-4 sm:mb-0">
@@ -80,7 +80,7 @@ export default function FeaturedStories() {
   // Error state
   if (error) {
     return (
-      <section className="py-16 bg-gray-50 dark:bg-gray-800">
+      <section className="py-16 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-sm border-b">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
             <div className="mb-4 sm:mb-0">
@@ -101,7 +101,7 @@ export default function FeaturedStories() {
   }
 
   return (
-    <section className="py-16 bg-gray-50 dark:bg-gray-800">
+    <section className="py-16 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-sm border-b">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
           <div className="mb-4 sm:mb-0">

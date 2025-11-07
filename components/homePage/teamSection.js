@@ -42,7 +42,7 @@ export default function TeamSection() {
 
   if (loading) {
     return (
-      <section className="py-20 bg-gray-50 dark:bg-gray-700">
+      <section className="py-20 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-sm border-b">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
@@ -59,7 +59,7 @@ export default function TeamSection() {
 
   if (error) {
     return (
-      <section className="py-20 bg-gray-50 dark:bg-gray-700">
+      <section className="py-20 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-sm border-b">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
@@ -75,7 +75,7 @@ export default function TeamSection() {
   }
 
   return (
-    <section className="py-20 bg-gray-50 dark:bg-gray-700">
+    <section className="py-20 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-sm border-b">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">

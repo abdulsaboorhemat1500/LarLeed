@@ -49,7 +49,7 @@ export default function LanguageDropdown() {
   );
 
   // Extract current locale from pathname (only for localized routes)
-  let currentLocale = 'ps'; // Default to Pashto
+  let currentLocale = 'en'; // Default to Pashto
   
   if (!isNonLocalizedRoute) {
     const pathSegments = pathname.split('/').filter(segment => segment);

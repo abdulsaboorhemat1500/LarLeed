@@ -11,7 +11,6 @@ import {
   User, 
   ChevronDown, 
   Settings, 
-  MoreVertical,
   Users,
   Award,
   FileText,
@@ -21,7 +20,9 @@ import {
   Mail,
   Contact,
   Type,
-  Home
+  Home,
+  School,
+  Paperclip
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -110,7 +111,7 @@ export default function ControlPanelLayout({ children }) {
                 <div className="flex flex-col h-full">
                     {/* Sidebar Header */}
                     <div className="flex items-center justify-center p-2 border-b border-gray-200 dark:border-gray-700">
-                        <Link href="/" className="flex items-center">
+                        <Link href="/dashboard" className="flex items-center">
                             <img 
                                 src="/logo.png"
                                 alt="LarLeed Logo"
@@ -120,11 +121,11 @@ export default function ControlPanelLayout({ children }) {
                     </div>
 
                     {/* Navigation Menu */}
-                    <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+                    <nav className="flex-1 p-4 overflow-y-auto">
                         {/* Main Navigation Items */}
                         <Link 
                             href="/dashboard"
-                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
                         >
                             <Home className="size-5" />
                             <span className="font-medium">Dashboard</span>
@@ -132,7 +133,7 @@ export default function ControlPanelLayout({ children }) {
 
                         <Link 
                             href="/scholarships-programs-cp"
-                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
                         >
                             <Award className="size-5" />
                             <span className="font-medium">Scholarships</span>
@@ -140,15 +141,15 @@ export default function ControlPanelLayout({ children }) {
 
                         <Link 
                             href="/applying-for-sch-cp"
-                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
                         >
                             <FileText className="size-5" />
-                            <span className="font-medium">Applying for Scholarships</span>
+                            <span className="font-medium">Scholarships Forms</span>
                         </Link>
 
                         <Link 
                             href="/mentors-tmembers-cp"
-                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
                         >
                             <TeamIcon className="size-5" />
                             <span className="font-medium">Mentors/Team Member</span>
@@ -156,22 +157,35 @@ export default function ControlPanelLayout({ children }) {
 
                         <Link 
                             href="/posts-cp"
-                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
                         >
                             <MessageSquare className="size-5" />
                             <span className="font-medium">Posts/Roshangari</span>
                         </Link>
-
                         <Link 
                             href="/featured-videos-cp"
-                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
                         >
                             <PlaySquare className="size-5" />
                             <span className="font-medium">Featured Videos</span>
                         </Link>
                         <Link 
+                            href="/school-cp"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
+                        >
+                            <School className="size-5" />
+                            <span className="font-medium">School Content</span>
+                        </Link>
+                        <Link 
+                            href="/certifications-cp"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
+                        >
+                            <Paperclip className="size-5" />
+                            <span className="font-medium">Free Courses</span>
+                        </Link>
+                        <Link 
                             href="/get-in-touch-cp" 
-                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
                             
                         >
                             <Mail className="size-5" />
@@ -179,14 +193,14 @@ export default function ControlPanelLayout({ children }) {
                         </Link>
                         <Link 
                             href="/contact-us-cp" 
-                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"  
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"  
                         >
                             <Contact className="size-5" />
                             <span className="font-medium">Contact Us</span>
                         </Link>
                         <Link 
                             href="/hero-section-text" 
-                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
                         >
                             <Type className="size-5" />
                             <span className="font-medium">Hero Section Text</span>
@@ -198,7 +212,7 @@ export default function ControlPanelLayout({ children }) {
                         <div className="relative user-dropdown">
                             <button
                                 onClick={toggleDropdown}
-                                className="flex items-center gap-x-3 w-full p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer"
+                                className="flex items-center gap-x-3 w-full p-3 rounded-lg hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
                             >
                                 <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
                                     <User className="size-4 text-white" />
@@ -236,7 +250,7 @@ export default function ControlPanelLayout({ children }) {
                                         {user.role === 'admin' && (
                                             <Link 
                                                 href="/user-list" 
-                                                className="flex items-center gap-x-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
+                                                className="flex items-center gap-x-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors duration-200"
                                                 onClick={() => setIsDropdownOpen(false)}
                                             >
                                                 <Users className="size-4" />
@@ -246,8 +260,8 @@ export default function ControlPanelLayout({ children }) {
 
                                         {/* Settings */}
                                         <Link 
-                                            href="/settings" 
-                                            className="flex items-center gap-x-2 px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition-colors duration-200"
+                                            href="#" 
+                                            className="flex items-center gap-x-2 px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors duration-200"
                                             onClick={() => setIsDropdownOpen(false)}
                                         >
                                             <Settings className="size-4" />
@@ -277,12 +291,6 @@ export default function ControlPanelLayout({ children }) {
                     <div className="flex items-center justify-center p-4 mt-2 lg:px-8">
                         {/* Logo and Title */}
                         <div className="flex items-center gap-x-4">
-                            {/* <button 
-                                onClick={toggleSidebar}
-                                className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                            >
-                                <Menu className="size-6 text-gray-600 dark:text-gray-400" />
-                            </button> */}
                             <div className="flex items-center gap-x-3">
                                 <Link href="/" className="lg:hidden">
                                     <img 
@@ -301,7 +309,7 @@ export default function ControlPanelLayout({ children }) {
                         <div className="flex lg:hidden">
                             <button 
                                 type="button" 
-                                className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-300"
+                                className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
                                 onClick={() => setMobileMenuOpen(true)}
                             >
                                 <span className="sr-only">Open mobile menu</span>
@@ -332,7 +340,7 @@ export default function ControlPanelLayout({ children }) {
                             </Link>
                             <button 
                                 type="button" 
-                                className="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-300"
+                                className="-m-2.5 rounded-md p-2.5 text-gray-700"
                                 onClick={() => setMobileMenuOpen(false)}
                             >
                                 <span className="sr-only">Close menu</span>
@@ -361,47 +369,51 @@ export default function ControlPanelLayout({ children }) {
                             <div className="-my-6 divide-y divide-gray-500/10 dark:divide-gray-700">
                                 <div className="space-y-2 py-6">
                                     {/* Mobile navigation links */}
-                                    <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <Link href="/dashboard" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
                                         Dashboard
                                     </Link>
-                                    <Link href="/scholarships-programs-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <Link href="/scholarships-programs-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
                                         Scholarships
                                     </Link>
-                                    <Link href="/applying-for-sch-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <Link href="/applying-for-sch-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
                                         Applying for Scholarships
                                     </Link>
-                                    <Link href="/mentors-tmembers-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <Link href="/mentors-tmembers-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
                                         Mentors/Team Member
                                     </Link>
-                                    <Link href="/posts-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <Link href="/posts-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
                                         Posts/Roshangari
                                     </Link>
-                                    <Link href="/featured-videos-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <Link href="/featured-videos-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
                                         Featured Videos
                                     </Link>
-                                    
-                                    {/* Additional links */}
-                                    <Link href="/get-in-touch-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <Link href="/school-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
+                                        School Content
+                                    </Link>
+                                    <Link href="/certifications-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
+                                        Free Courses
+                                    </Link>
+                                    <Link href="/get-in-touch-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
                                         Get In Touch
                                     </Link>
-                                    <Link href="/contact-us-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <Link href="/contact-us-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
                                         Contact Us
                                     </Link>
-                                    <Link href="/hero-section-text" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                    <Link href="/hero-section-text" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
                                         Hero Section Text
                                     </Link>
 
                                     {/* Mobile User Links */}
                                     <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                                         {user.role === 'admin' && (
-                                            <Link href="/user-list" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                            <Link href="/user-list" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
                                                 Users Management
                                             </Link>
                                         )}
-                                        <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
                                             My Profile
                                         </Link>
-                                        <Link href="/settings" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700">
+                                        <Link href="#" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
                                             Settings
                                         </Link>
                                     </div>

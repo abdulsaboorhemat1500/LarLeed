@@ -72,7 +72,7 @@ export default function FeaturedVideos() {
   // Loading state
   if (loading) {
     return (
-      <section className="py-16 bg-gray-100 dark:bg-gray-900">
+      <section className="py-16 bg-gradient-to-r from-blue-50 to-indigo-50 ">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
             <div className="mb-4 sm:mb-0">
@@ -95,7 +95,7 @@ export default function FeaturedVideos() {
   // Error state
   if (error) {
     return (
-      <section className="py-16 bg-gray-100 dark:bg-gray-900">
+      <section className="py-16 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-sm border-b">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
             <div className="mb-4 sm:mb-0">
@@ -116,7 +116,7 @@ export default function FeaturedVideos() {
   }
 
   return (
-    <section className="py-16 bg-gray-100 dark:bg-gray-900">
+    <section className="py-16 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-sm border-b">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
           <div className="mb-4 sm:mb-0">
