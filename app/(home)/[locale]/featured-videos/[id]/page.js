@@ -42,7 +42,7 @@ export default function VideoDetailsPage({ params }) {
     }
   }, [id]);
 
-  const getYouTubeThumbnail = (url) => {
+  const getYouTubeEmbedUrl = (url) => {
     if (!url) return null;
     
     const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
@@ -50,7 +50,7 @@ export default function VideoDetailsPage({ params }) {
     const videoId = (match && match[7].length === 11) ? match[7] : null;
     
     if (videoId) {
-      return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+      return `https://www.youtube.com/embed/${videoId}`;
     }
     
     return null;
@@ -101,6 +101,8 @@ export default function VideoDetailsPage({ params }) {
     );
   }
 
+  const embedUrl = getYouTubeEmbedUrl(video.v_link);
+
   return (
     <>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
@@ -109,6 +111,29 @@ export default function VideoDetailsPage({ params }) {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-8">
             <div className="lg:col-span-2">
+              
+              {/* Video Player Section */}
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 dark:border-gray-700 mb-8">
+                {embedUrl ? (
+                  <div className="relative w-full h-0 pb-[56.25%]"> {/* 16:9 aspect ratio */}
+                    <iframe
+                      src={embedUrl}
+                      className="absolute top-0 left-0 w-full h-full rounded-lg"
+                      title={video.v_title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      frameBorder="0"
+                    />
+                  </div>
+                ) : (
+                  <div className="bg-gray-200 dark:bg-gray-700 rounded-lg w-full h-96 flex items-center justify-center">
+                    <p className="text-gray-500 dark:text-gray-400 text-lg">
+                      {t('videoDetailsPage.video not available')}
+                    </p>
+                  </div>
+                )}
+              </div>
+
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 dark:border-gray-700">
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                   {video.v_title}
@@ -225,7 +250,7 @@ export default function VideoDetailsPage({ params }) {
                           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M8 5v14l11-7z"/>
                           </svg>
-                          {t('videoDetailsPage.watch video')}
+                          {t('videoDetailsPage.watch on youtube')}
                         </button>
                       </a>
                     ) : (
