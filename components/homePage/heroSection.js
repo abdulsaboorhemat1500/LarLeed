@@ -39,13 +39,13 @@ export default function HeroSection() {
   ];
 
   return (
-    <section className="min-h-screen bg-transparent">
+    <section className="min-h-screen bg-gradient-to-r from-blue-50 to-indigo-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex flex-col lg:flex-row items-center justify-between min-h-screen py-12 lg:py-0 ${isRTL ? 'lg:flex-row-reverse' : ''}`}>
           
           {/* Image Section */}
           <div className={`flex-1 flex ${isRTL ? 'lg:justify-end' : 'lg:justify-end'} mt-8 lg:mt-0 ${isRTL ? 'lg:order-1' : 'lg:order-2'}`}>
-            <div className={`relative w-full max-w-md lg:max-w-lg ${isRTL ? 'lg:me-12' : 'lg:ms-12'}`}>
+            <div className={`relative w-full max-w-md lg:max-w-lg`}>
               {/* Main Image Container - No border or background */}
               <div className="relative transform hover:scale-105 transition-transform duration-300">
                 <Image
@@ -62,13 +62,10 @@ export default function HeroSection() {
 
           {/* Content Section */}
           <div className={`flex-1 max-w-2xl ${isRTL ? 'lg:text-right lg:ps-12' : 'lg:text-left lg:pe-12'} text-center lg:text-start ${isRTL ? 'lg:order-2' : 'lg:order-1'}`}>
-            {/* Main Heading */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              <span className="text-black dark:text-white">{t('Banner.title')}</span>
-            </h1>
-            
+          
             {/* Subtitle */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
+              <span className="text-black dark:text-white">{t('Banner.title')}</span>
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 {t('HomePage.connecting afghan youth')}
               </span>
@@ -77,7 +74,7 @@ export default function HeroSection() {
             {/* Features List */}
             <ul className="space-y-4 mb-8">
               {features.map((feature, index) => (
-                <li key={index} className="flex items-center space-x-3 text-lg text-gray-700 dark:text-gray-300">
+                <li key={index} className="flex items-center space-x-3 font-bold text-lg text-gray-700">
                   <span className="text-blue-600 dark:text-blue-400 flex-shrink-0">
                     {feature.icon}
                   </span>
@@ -90,14 +87,15 @@ export default function HeroSection() {
             <div className={`flex flex-col pt-6 sm:flex-row gap-4 ${isRTL ? 'justify-start' : 'justify-start'}`}>
               <Link 
                 href={`/${currentLocale}/scholarships-programs`}
-                className="cursor-pointer px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
+                className="cursor-pointer px-8 py-4 bg-transparent border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
               >
-                Find Scholarships Now
+                {t('HomePage.Find Scholarships Now')}
               </Link>
             </div>
           </div>
         </div>
       </div>
+      <div className="h-5"></div>
     </section>
   );
 }

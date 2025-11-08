@@ -120,7 +120,7 @@ export default function FeaturedVideos() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
           <div className="mb-4 sm:mb-0">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
               {t('HomePage.featured videos')}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
@@ -188,36 +188,8 @@ export default function FeaturedVideos() {
                       {video.v_description || 'No description available'}
                     </p>
                   </div>
-
                   {/* Buttons - Full width at the bottom */}
                   <div className="p-5 pt-0 space-y-2">
-                    {/* Watch Video Button */}
-                    {video.v_link ? (
-                      <a 
-                        href={video.v_link} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="block"
-                      >
-                        <Button 
-                          size="sm" 
-                          className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2 w-full justify-center py-2.5"
-                        >
-                          <Play className="w-4 h-4" />
-                          {t('HomePage.watch video')}
-                        </Button>
-                      </a>
-                    ) : (
-                      <Button 
-                        size="sm" 
-                        disabled
-                        className="cursor-not-allowed bg-gray-400 text-white flex items-center gap-2 w-full justify-center py-2.5"
-                      >
-                        <Play className="w-4 h-4" />
-                        {t('HomePage.No videos found.')}
-                      </Button>
-                    )}
-                    
                     {/* Video Details Button */}
                     <Link href={`/${locale}/featured-videos/${video.id}`} className="block">
                       <Button 

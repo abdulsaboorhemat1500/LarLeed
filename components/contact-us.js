@@ -58,7 +58,7 @@ export default function ContactUsSection() {
   };
 
   return (
-    <section id="contact-section" className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 border-b border-gray-200 dark:border-gray-700">
+    <section id="contact-section" className="bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-20">
           <div className="lg:col-span-2">
