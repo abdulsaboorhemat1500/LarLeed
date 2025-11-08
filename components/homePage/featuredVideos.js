@@ -160,7 +160,7 @@ export default function FeaturedVideos() {
                 >
                   {/* Video Thumbnail */}
                   <div className="relative overflow-hidden">
-                    <div className="w-full h-60 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
+                    <div className="w-full h-50 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
                       <Image
                         src={displayImage}
                         alt={video.v_title}
@@ -179,7 +179,7 @@ export default function FeaturedVideos() {
                     </h3>
                     
                     {/* Creator */}
-                    <p className="text-blue-600 dark:text-gray-400 text-sm mb-4">
+                    <p className="text-blue-600 dark:text-gray-400 font-semibold text-sm mb-2">
                       {video.v_creature || 'Unknown Creator'}
                     </p>
                     

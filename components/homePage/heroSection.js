@@ -62,17 +62,16 @@ export default function HeroSection() {
 
           {/* Content Section */}
           <div className={`flex-1 max-w-2xl ${isRTL ? 'lg:text-right lg:ps-12' : 'lg:text-left lg:pe-12'} text-center lg:text-start ${isRTL ? 'lg:order-2' : 'lg:order-1'}`}>
-          
             {/* Subtitle */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-8 leading-tight">
-              <span className="text-black dark:text-white">{t('Banner.title')}</span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-2 leading-tight">
+              <span className="text-black dark:text-white block">{t('Banner.title')}</span>
               <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 {t('HomePage.connecting afghan youth')}
               </span>
             </h1>
 
             {/* Features List */}
-            <ul className="space-y-4 mb-8">
+            <ul className="space-y-2">
               {features.map((feature, index) => (
                 <li key={index} className="flex items-center space-x-3 font-bold text-lg text-gray-700">
                   <span className="text-blue-600 dark:text-blue-400 flex-shrink-0">

@@ -139,7 +139,7 @@ export default function FeaturedStories() {
               >
                 {/* Post Thumbnail */}
                 <div className="relative overflow-hidden">
-                  <div className="w-full h-60 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
+                  <div className="w-full h-50 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
                     {story.post_image ? (
                       <Image
                         src={story.post_image}
@@ -168,7 +168,7 @@ export default function FeaturedStories() {
                   </h3>
                   
                   {/* Author Information */}
-                  <p className="text-blue-600 dark:text-gray-400 text-sm mb-4">
+                  <p className="text-blue-600 font-semibold text-sm mb-2">
                     {story.auther_name || story.author_name}
                     {story.auther_job_title && `, ${story.auther_job_title}`}
                   </p>
@@ -181,7 +181,7 @@ export default function FeaturedStories() {
                   {/* Story Details Button - Full width at the bottom */}
                   <button 
                     onClick={() => handleStoryDetails(story.id)} 
-                    className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
+                    className="cursor-pointer w-full mt-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
                   >
                     {t('HomePage.story details')}
                   </button>

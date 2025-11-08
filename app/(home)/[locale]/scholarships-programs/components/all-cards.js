@@ -269,7 +269,7 @@ export default function AllVideos() {
                 </div>
 
                 {/* Scholarship Content */}
-                <div className="p-5">
+                <div className="p-3">
                   {/* Scholarship Name */}
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
                     {getLocalizedField(scholarship, 's_name')}
@@ -277,7 +277,7 @@ export default function AllVideos() {
 
                   {/* University and Country */}
                   <p className="text-blue-700 dark:text-white text-sm mb-3 font-medium">
-                    {t('ScholarshipsPage.university')} : {getLocalizedField(scholarship, 's_university')} - {t('ScholarshipsPage.country')} : {getLocalizedField(scholarship, 's_country')}
+                    {t('ScholarshipsPage.country')} : {getLocalizedField(scholarship, 's_country')}
                   </p>
 
                   {/* Description */}
@@ -293,9 +293,6 @@ export default function AllVideos() {
                   <div className="flex justify-between items-center text-sm text-gray-700 border-t border-gray-100 pt-3">
                     <span className="font-medium text-red-600">
                       Deadline: {formatDate(scholarship.s_app_deadline)}
-                    </span>
-                    <span className="text-blue-600">
-                      {getLocalizedField(scholarship, 's_language')}
                     </span>
                   </div>
 
