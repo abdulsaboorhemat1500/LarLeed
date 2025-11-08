@@ -49,13 +49,13 @@ export default function LanguageDropdown() {
   );
 
   // Extract current locale from pathname (only for localized routes)
-  let currentLocale = 'en'; // Default to Pashto
+  let currentLocale = 'en'; // Default to english
   
   if (!isNonLocalizedRoute) {
     const pathSegments = pathname.split('/').filter(segment => segment);
     currentLocale = pathSegments[0] && languages.some(lang => lang.code === pathSegments[0]) 
       ? pathSegments[0] 
-      : 'ps';
+      : 'en';
   }
 
   const selectedLanguage = languages.find(lang => lang.code === currentLocale) || languages[1];
