@@ -14,6 +14,7 @@
     "description": "وصل نمودن نو جوانان افغان به طریقه آموزش، گفتگو و چشم انداز"
   },
   "HomePage": {
+    "phone":"مبایل نمبر",
     "Find Scholarships Now":"بورسیه ها را جستجو کنید",
     "Scholarships guiding":"رهنمایی در بخش بورسیه ها",
     "Free Resources":"منابع رایګان",
@@ -177,6 +178,7 @@
     "share story": "اشتراک گذاری روشنگری"
   },
   "videoDetailsPage": {
+  "watch on youtube":"در یوتیوب ببینید",
   "watch video": "دیدن ویدیو",
   "share video": "اشتراک گذاری ویدیو",
   "published": "منتشر شده",

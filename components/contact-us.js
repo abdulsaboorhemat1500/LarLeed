@@ -173,9 +173,6 @@ export default function ContactUsSection() {
                     placeholder={t('HomePage.enter your email')}
                   />
                 </div>
-              </div>
-              
-              <div className="pt-5">
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     {t('HomePage.phone number')}
                 </label>

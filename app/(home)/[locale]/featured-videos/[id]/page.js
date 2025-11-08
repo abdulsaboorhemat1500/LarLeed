@@ -113,7 +113,6 @@ export default function VideoDetailsPage({ params }) {
             <div className="lg:col-span-2">
               
               {/* Video Player Section */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 dark:border-gray-700 mb-8">
                 {embedUrl ? (
                   <div className="relative w-full h-0 pb-[56.25%]"> {/* 16:9 aspect ratio */}
                     <iframe
@@ -132,7 +131,6 @@ export default function VideoDetailsPage({ params }) {
                     </p>
                   </div>
                 )}
-              </div>
 
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 dark:border-gray-700">
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">

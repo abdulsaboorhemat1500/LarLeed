@@ -167,7 +167,7 @@ export default function FeaturedVideosList() {
                   className="bg-white dark:bg-gray-800 rounded-xl hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
                 >
                   <div className="relative overflow-hidden">
-                    <div className="w-full h-60 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
+                    <div className="w-full h-50 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
                       <Image
                         src={displayImage}
                         alt={video.v_title}
@@ -185,7 +185,7 @@ export default function FeaturedVideosList() {
                       {limitTitleToFiveWords(video.v_title)}
                     </h3>
                     
-                    <p className="text-blue-600 dark:text-gray-400 text-sm mb-4">
+                    <p className="text-blue-600 dark:text-gray-400 text-sm mb-2 font-semibold">
                       {video.v_creature || 'Unknown Creator'}
                     </p>
                     
@@ -193,25 +193,6 @@ export default function FeaturedVideosList() {
                   </div>
 
                   <div className="p-5 pt-0 space-y-2">
-                    {video.v_link ? (
-                      <a href={video.v_link} target="_blank" rel="noopener noreferrer">
-                        <Button 
-                          size="sm" 
-                          className="cursor-pointer mb-2 bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2 w-full justify-center py-2.5"
-                        >
-                          {t('HomePage.watch video')}
-                        </Button>
-                      </a>
-                    ) : (
-                      <Button 
-                        size="sm" 
-                        disabled
-                        className="cursor-not-allowed mb-2 bg-gray-400 text-white flex items-center gap-2 w-full justify-center py-2.5"
-                      >
-                        {t('HomePage.no Video Link')}
-                      </Button>
-                    )}
-                    
                     <Link href={`/${locale}/featured-videos/${video.id}`}>
                       <Button 
                         size="sm" 

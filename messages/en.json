@@ -14,6 +14,7 @@
     "description": "Connecting Afghan Youth through Education, Dialogue, and Vision"
   },
   "HomePage": {
+    "phone":"Phone",
     "Find Scholarships Now":"Find Scholarships Now",
     "Scholarships guiding":"Scholarships guidance",
     "Free Resources":"Free Resources",
@@ -179,6 +180,7 @@
     "share story": "Share Story"
   },
   "videoDetailsPage": {
+  "watch on youtube":"Watch on youtube",
   "watch video": "Watch Video",
   "share video": "Share Video",
   "published": "Published",

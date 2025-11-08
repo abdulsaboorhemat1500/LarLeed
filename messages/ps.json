@@ -14,6 +14,7 @@
     "description": "د افغان ځوانانو وصل کول د زدکړي، خبرو او لید له لاري."
   },
   "HomePage": {
+    "phone":"تلیفون نمبر",
     "Find Scholarships Now":"همدا اوس بورسونه وپلټۍ",
     "Scholarships guiding":"د بورسونو لارښوونه",
     "Free Resources":"وړیا سرچینې",
@@ -177,6 +178,7 @@
     "share story": "کیسه شریکه کړئ"
   },
   "videoDetailsPage": {
+  "watch on youtube":"په یوټیوب کي یې وګورۍ",
   "watch video": "ویډیو وګورئ",
   "share video": "ویډیو شریکه کړئ",
   "published": "خپور شوی",
