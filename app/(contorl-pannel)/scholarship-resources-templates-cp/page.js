@@ -234,9 +234,9 @@ export default function ScholarshipResourcesTemplatesPage() {
                       )}
                     </td>
                     
-                    {/* Actions */}
-                    <td className="px-6 py-4 whitespace-nowrap text-center">
-                      <div className="relative" ref={dropdownButtonRef}>
+                   {/* Actions */}
+                    <td className="px-6 py-4 whitespace-nowrap text-center relative">
+                      <div className="relative inline-block">
                         <button
                           onClick={() => handleDropdownToggle(template.id)}
                           className="cursor-pointer p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
@@ -250,7 +250,8 @@ export default function ScholarshipResourcesTemplatesPage() {
                         {openDropdown === template.id && (
                           <div 
                             ref={dropdownMenuRef}
-                            className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10"
+                            className="absolute right-0 top-full mt-1 w-32 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50"
+                            style={{ position: 'fixed' }} // This ensures it's above everything
                           >
                             <Link 
                               href={`/scholarship-resources-templates-cp/update/${template.id}`}

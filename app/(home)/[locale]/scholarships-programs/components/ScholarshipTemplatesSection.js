@@ -101,17 +101,14 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
-            Scholarship Templates
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+            Scholarship Resources Templates
             {scholarshipName && (
               <span className="block text-lg text-blue-600 mt-1">
                 for {scholarshipName}
               </span>
             )}
-          </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            Download helpful templates and resources for your scholarship application
-          </p>
+          </h1>
         </div>
 
         {/* Templates Grid */}
