@@ -115,12 +115,6 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
               <h2 className="text-4xl font-bold text-gray-900 mb-4">
                 Stories of Graduation Students
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                No student stories available for {scholarshipName} yet.
-              </p>
-              <p className="text-gray-500 mt-2">
-                Check back later for inspiring stories from our scholarship students.
-              </p>
             </div>
           </div>
         </section>
@@ -142,16 +136,6 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
               </span>
             )}
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            {scholarshipName 
-              ? `Discover inspiring stories from students who received the ${scholarshipName} scholarship`
-              : 'Discover inspiring stories from our successful scholarship students who have achieved their academic dreams'
-            }
-          </p>
-          <div className="mt-4 text-sm text-gray-500">
-            Showing {filteredVideos.length} video{filteredVideos.length !== 1 ? 's' : ''}
-            {scholarshipName && ` for ${scholarshipName}`}
-          </div>
         </div>
 
         {/* Slider Container */}
@@ -193,7 +177,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                 <div className="relative overflow-hidden rounded-t-2xl">
                   {/* Video Thumbnail */}
                   <div className="relative group cursor-pointer" onClick={() => openVideoModal(video)}>
-                    <div className="w-full h-48 bg-gray-200 overflow-hidden">
+                    <div className="w-full h-50 bg-gray-200 overflow-hidden">
                       {video.video_image ? (
                         <img
                           src={video.video_image}
@@ -209,16 +193,6 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                         </div>
                       )}
                     </div>
-                    
-                    {/* Hover Overlay with Play Button */}
-                    <div className="absolute inset-0 bg-black bg-opacity-40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <div className="bg-white bg-opacity-20 rounded-full p-4 backdrop-blur-sm transform group-hover:scale-110 transition-transform duration-300">
-                        <svg className="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M8 5v14l11-7z"/>
-                        </svg>
-                      </div>
-                    </div>
-
                     {/* Play Button (Always visible but smaller) */}
                     <div className="absolute bottom-4 right-4 bg-black bg-opacity-60 rounded-full p-2">
                       <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
@@ -229,7 +203,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                 </div>
 
                 {/* Card Content */}
-                <div className="p-6">
+                <div className="p-3">
                   <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
                     {video.video_title}
                   </h3>
@@ -289,16 +263,6 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                     title={selectedVideo.video_title}
                   />
                 </div>
-              </div>
-
-              {/* Modal Footer */}
-              <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
-                <button
-                  onClick={closeVideoModal}
-                  className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium"
-                >
-                  Close Video
-                </button>
               </div>
             </div>
           </div>

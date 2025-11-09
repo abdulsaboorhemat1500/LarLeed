@@ -159,7 +159,7 @@ export default function GetInTouchSection() {
                     autoComplete="email"
                     required
                     className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
-                    placeholder="{t('getInTouchPage.enter your email')}"
+                    placeholder={t('getInTouchPage.enter your email')}
                     disabled={loading}
                   />
                 </div>

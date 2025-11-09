@@ -108,44 +108,47 @@ export default function UpdateVideoPage() {
     setRemoveImage(true);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  
+  if (!formData.video_link || !formData.video_title || !formData.rt_scholarship_name) {
+    setMessage({ type: 'error', text: 'Video link, video title, and scholarship name are required' });
+    return;
+  }
+
+  try {
+    setLoading(true);
+    setMessage({ type: '', text: '' });
     
-    if (!formData.video_link || !formData.rt_scholarship_name) {
-      alert('Video link and scholarship name are required');
-      return;
+    const submitData = new FormData();
+    submitData.append('video_link', formData.video_link);
+    submitData.append('video_title', formData.video_title);
+    submitData.append('rt_scholarship_name', formData.rt_scholarship_name);
+    
+    if (formData.video_image) {
+      submitData.append('video_image', formData.video_image);
+    }
+    
+    if (removeImage) {
+      submitData.append('remove_image', 'true');
     }
 
-    try {
-      setLoading(true);
-      
-      const submitData = new FormData();
-      submitData.append('video_link', formData.video_link);
-      submitData.append('rt_scholarship_name', formData.rt_scholarship_name);
-      
-      if (formData.video_image) {
-        submitData.append('video_image', formData.video_image);
-      }
-      
-      if (removeImage) {
-        submitData.append('remove_image', 'true');
-      }
+    const result = await put(`/api/scholarship-stu-videos/${videoId}`, submitData);
 
-      const result = await put(`/api/scholarship-stu-videos/${videoId}`, submitData);
-
-      if (result.success) {
-        alert('Video updated successfully!');
-        router.push('/scholarship-stu-videos-cp');
-      } else {
-        alert('Error: ' + result.error);
-      }
-    } catch (error) {
-      console.error('Update error:', error);
-      alert('Failed to update video');
-    } finally {
-      setLoading(false);
+    if (result.success) {
+      setMessage({ type: 'success', text: 'Video updated successfully! Redirecting...' });
+      setTimeout(() => {
+        router.push('/scholarship-stu-video-cp');
+      }, 1500);
+    } else {
+      setMessage({ type: 'error', text: result.error || 'Failed to update video' });
     }
-  };
+  } catch (error) {
+    setMessage({ type: 'error', text: 'Failed to update video. Please try again.' });
+  } finally {
+    setLoading(false);
+  }
+};
 
   if (fetchLoading) {
     return (
@@ -275,7 +278,7 @@ export default function UpdateVideoPage() {
             <div className="flex justify-end space-x-4 pt-6">
               <button
                 type="button"
-                onClick={() => router.push('/scholarship-stu-videos-cp')}
+                onClick={() => router.push('/scholarship-stu-video-cp')}
                 className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors duration-200"
               >
                 Cancel

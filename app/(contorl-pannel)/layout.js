@@ -210,7 +210,7 @@ export default function ControlPanelLayout({ children }) {
                             className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
                         >
                             <Type className="size-5" />
-                            <span className="font-medium">Hero Section Text</span>
+                            <span className="font-medium">About Us</span>
                         </Link>
                     </nav>
 
@@ -410,7 +410,7 @@ export default function ControlPanelLayout({ children }) {
                                         Contact Us
                                     </Link>
                                     <Link href="/hero-section-text" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
-                                        Hero Section Text
+                                        About Us
                                     </Link>
 
                                     {/* Mobile User Links */}

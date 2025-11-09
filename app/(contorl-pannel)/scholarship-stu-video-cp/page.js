@@ -174,113 +174,128 @@ export default function ScholarshipStudentVideosPage() {
           </div>
         )}
 
-        {/* Videos List */}
         {!loading && !error && (
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
-            {/* Table Header */}
-            <div className="grid grid-cols-12 bg-gray-50 border-b border-gray-200 px-6 py-4 text-sm font-medium text-gray-700">
+            {/* Table */}
+            <table className="min-w-full divide-y divide-gray-200">
+              {/* Table Header */}
+              <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Video Title
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Video Image
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Video Link
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Scholarship Name
+                  </th>
+                  <th scope="col" className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
+                </tr>
+              </thead>
               
-              <div className="col-span-4">Video Title</div>
-              <div className="col-span-3">Video Image</div>
-              <div className="col-span-3">Video Link</div>
-              <div className="col-span-4">Scholarship Name</div>
-              <div className="col-span-2 text-center">Actions</div>
-            </div>
-
-            {/* Table Body */}
-            <div className="divide-y divide-gray-200">
-              {currentVideos.map((video) => (
-                <div key={video.id} className="grid grid-cols-12 px-6 py-4 items-center hover:bg-gray-50">
-                
-                  <div className="col-span-3">
-                    <p className="text-gray-900 font-medium truncate" title={video.video_title}>
-                      {video.video_title}
-                    </p>
-                  </div>
-                  <div className="col-span-3">
-                    <div className="w-20 h-16 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
-                      {video.video_image ? (
-                        <img 
-                          src={video.video_image} 
-                          alt="Video thumbnail"
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            e.target.style.display = 'none';
-                            e.target.nextSibling.style.display = 'flex';
-                          }}
-                        />
-                      ) : null}
-                      <div className={`flex-col items-center justify-center text-gray-500 ${video.video_image ? 'hidden' : 'flex'}`}>
-                        <svg className="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        <span className="text-xs">No Image</span>
+              {/* Table Body */}
+              <tbody className="bg-white divide-y divide-gray-200">
+                {currentVideos.map((video) => (
+                  <tr key={video.id} className="hover:bg-gray-50 transition-colors duration-150">
+                    {/* Video Title */}
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm font-medium text-gray-900 max-w-xs truncate" title={video.video_title}>
+                        {video.video_title}
                       </div>
-                    </div>
-                  </div>
-
-                  {/* Video Link */}
-                  <div className="col-span-3">
-                    <a 
-                      href={video.video_link} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 truncate block max-w-xs"
-                      title={video.video_link}
-                    >
-                      {video.video_link}
-                    </a>
-                  </div>
-
-                  {/* Scholarship Name */}
-                  <div className="col-span-4">
-                    <p className="text-gray-900 font-medium truncate" title={video.rt_scholarship_name}>
-                      {video.rt_scholarship_name}
-                    </p>
-                  </div>
-
-                  {/* Actions */}
-                  <div className="col-span-2 flex justify-center">
-                    <div className="relative" ref={dropdownButtonRef}>
-                      <button
-                        onClick={() => handleDropdownToggle(video.id)}
-                        className="cursor-pointer p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-                      >
-                        <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
-                        </svg>
-                      </button>
-
-                      {/* Dropdown Menu */}
-                      {openDropdown === video.id && (
-                        <div 
-                          ref={dropdownMenuRef}
-                          className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10"
-                        >
-                          <Link 
-                            href={`/scholarship-stu-video-cp/update/${video.id}`}
-                            onClick={() => setOpenDropdown(null)}
-                          >
-                            <button className="cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
-                              Update
-                            </button>
-                          </Link>
-                          <button
-                            onClick={() => {
-                              setOpenDropdown(null);
-                              handleDelete(video.id);
+                    </td>
+                    
+                    {/* Video Image */}
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="w-20 h-16 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
+                        {video.video_image ? (
+                          <img 
+                            src={video.video_image} 
+                            alt="Video thumbnail"
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                              e.target.nextSibling.style.display = 'flex';
                             }}
-                            className="cursor-pointer block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition-colors duration-200"
-                          >
-                            Delete
-                          </button>
+                          />
+                        ) : null}
+                        <div className={`flex-col items-center justify-center text-gray-500 ${video.video_image ? 'hidden' : 'flex'}`}>
+                          <svg className="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          <span className="text-xs">No Image</span>
                         </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+                      </div>
+                    </td>
+                    
+                    {/* Video Link */}
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <a 
+                        href={video.video_link} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="text-sm text-blue-600 hover:text-blue-800 truncate max-w-xs block"
+                        title={video.video_link}
+                      >
+                        {video.video_link}
+                      </a>
+                    </td>
+                    
+                    {/* Scholarship Name */}
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <div className="text-sm text-gray-900 font-medium max-w-xs truncate" title={video.rt_scholarship_name}>
+                        {video.rt_scholarship_name}
+                      </div>
+                    </td>
+                    
+                    {/* Actions */}
+                    <td className="px-6 py-4 whitespace-nowrap text-center">
+                      <div className="relative" ref={dropdownButtonRef}>
+                        <button
+                          onClick={() => handleDropdownToggle(video.id)}
+                          className="cursor-pointer p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                        >
+                          <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z" />
+                          </svg>
+                        </button>
+
+                        {/* Dropdown Menu */}
+                        {openDropdown === video.id && (
+                          <div 
+                            ref={dropdownMenuRef}
+                            className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10"
+                          >
+                            <Link 
+                              href={`/scholarship-stu-video-cp/update/${video.id}`}
+                              onClick={() => setOpenDropdown(null)}
+                            >
+                              <button className="cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
+                                Update
+                              </button>
+                            </Link>
+                            <button
+                              onClick={() => {
+                                setOpenDropdown(null);
+                                handleDelete(video.id);
+                              }}
+                              className="cursor-pointer block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition-colors duration-200"
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         )}
 
