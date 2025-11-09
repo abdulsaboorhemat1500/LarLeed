@@ -125,7 +125,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
 
   return (
     <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -171,7 +171,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
             {filteredVideos.map((video) => (
               <div
                 key={video.id}
-                className="flex-shrink-0 w-80 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2"
+                className="flex-shrink-0 w-80 bg-white rounded-2xl shadow-sm transition-all duration-300 transform hover:-translate-y-1"
               >
                 {/* Video Card */}
                 <div className="relative overflow-hidden rounded-t-2xl">
@@ -230,7 +230,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
         {/* Video Modal */}
         {isModalOpen && selectedVideo && (
           <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4">
-            <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
+            <div className="bg-white rounded-2xl max-w-7xl w-full max-h-[90vh] overflow-hidden">
               {/* Modal Header */}
               <div className="flex justify-between items-center p-6 border-b border-gray-200">
                 <div>

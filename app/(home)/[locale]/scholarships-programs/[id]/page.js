@@ -158,9 +158,6 @@ export default function ScholarshipDetailsPage() {
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
               {getLocalizedField(scholarship, 's_name')}
             </h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
-              {t('ScholarshipsPage.university')} : {getLocalizedField(scholarship, 's_university')} • {t('ScholarshipsPage.country')} :  {getLocalizedField(scholarship, 's_country')}
-            </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
