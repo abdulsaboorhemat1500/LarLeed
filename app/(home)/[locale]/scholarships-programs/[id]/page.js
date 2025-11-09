@@ -7,6 +7,7 @@ import BackButton from "@/components/ui/back-button";
 import { useApi } from '@/app/hooks/useApi';
 import { useTranslations } from '@/hooks/useTranslations';
 import { useParams } from 'next/navigation';
+import StudentStoriesSection from "../components/StudentsStoryVideos";
 
 export default function ScholarshipDetailsPage() {
   const [scholarship, setScholarship] = useState(null);
@@ -361,6 +362,8 @@ export default function ScholarshipDetailsPage() {
           </div>
         </div>
       </div>
+
+      <StudentStoriesSection scholarshipName={scholarship.s_name_eng} />
     
       <GetInTouchSection />
     </>
