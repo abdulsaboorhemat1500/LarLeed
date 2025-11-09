@@ -67,39 +67,41 @@ export default function AddVideoPage() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
+  
+  // Add video_title to validation
+  if (!formData.video_link || !formData.video_title || !formData.rt_scholarship_name) {
+    alert('Video link, video title, and scholarship name are required');
+    return;
+  }
+
+  try {
+    setLoading(true);
     
-    if (!formData.video_link || !formData.rt_scholarship_name) {
-      alert('Video link and scholarship name are required');
-      return;
+    const submitData = new FormData();
+    submitData.append('video_link', formData.video_link);
+    submitData.append('video_title', formData.video_title); // Add this line
+    submitData.append('rt_scholarship_name', formData.rt_scholarship_name);
+    
+    if (formData.video_image) {
+      submitData.append('video_image', formData.video_image);
     }
 
-    try {
-      setLoading(true);
-      
-      const submitData = new FormData();
-      submitData.append('video_link', formData.video_link);
-      submitData.append('rt_scholarship_name', formData.rt_scholarship_name);
-      
-      if (formData.video_image) {
-        submitData.append('video_image', formData.video_image);
-      }
+    const result = await post('/api/scholarship-stu-videos', submitData);
 
-      const result = await post('/api/scholarship-stu-videos', submitData);
-
-      if (result.success) {
-        alert('Video added successfully!');
-        router.push('/scholarship-stu-videos-cp');
-      } else {
-        alert('Error: ' + result.error);
-      }
-    } catch (error) {
-      console.error('Submit error:', error);
-      alert('Failed to add video');
-    } finally {
-      setLoading(false);
+    if (result.success) {
+      alert('Video added successfully!');
+      router.push('/scholarship-stu-video-cp');
+    } else {
+      alert('Error: ' + result.error);
     }
-  };
+  } catch (error) {
+    console.error('Submit error:', error);
+    alert('Failed to add video');
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
@@ -110,8 +112,6 @@ export default function AddVideoPage() {
           </h1>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            // Add this to both Add and Update form components:
-
             {/* Video Title */}
             <div>
               <label htmlFor="video_title" className="block text-sm font-medium text-gray-700 mb-2">

@@ -118,7 +118,7 @@ export default function ScholarshipStudentVideosPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Add Video Section */}
         <div className="flex justify-end items-center pb-6 mb-8 border-b border-gray-200">
-          <Link href="/scholarship-stu-videos-cp/add">
+          <Link href="/scholarship-stu-video-cp/add">
             <button className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center">
               <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -258,7 +258,7 @@ export default function ScholarshipStudentVideosPage() {
                           className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10"
                         >
                           <Link 
-                            href={`/scholarship-stu-videos-cp/update/${video.id}`}
+                            href={`/scholarship-stu-video-cp/update/${video.id}`}
                             onClick={() => setOpenDropdown(null)}
                           >
                             <button className="cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">

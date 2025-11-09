@@ -22,7 +22,7 @@ import {
   Type,
   Home,
   School,
-  Paperclip
+  Paperclip,
 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -137,6 +137,13 @@ export default function ControlPanelLayout({ children }) {
                         >
                             <Award className="size-5" />
                             <span className="font-medium">Scholarships</span>
+                        </Link>
+                        <Link 
+                            href="/scholarship-stu-video-cp"
+                            className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
+                        >
+                            <TeamIcon className="size-5" />
+                            <span className="font-medium">Student Stories</span>
                         </Link>
 
                         <Link 
@@ -374,6 +381,9 @@ export default function ControlPanelLayout({ children }) {
                                     </Link>
                                     <Link href="/scholarships-programs-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
                                         Scholarships
+                                    </Link>
+                                    <Link href="/scholarships-stu-video-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
+                                        Students Stories
                                     </Link>
                                     <Link href="/applying-for-sch-cp" onClick={() => setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold text-gray-900 dark:text-white hover:bg-gray-50">
                                         Applying for Scholarships

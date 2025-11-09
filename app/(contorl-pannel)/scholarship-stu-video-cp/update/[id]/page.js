@@ -171,8 +171,6 @@ export default function UpdateVideoPage() {
           </h1>
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            // Add this to both Add and Update form components:
-
             {/* Video Title */}
             <div>
             <label htmlFor="video_title" className="block text-sm font-medium text-gray-700 mb-2">
