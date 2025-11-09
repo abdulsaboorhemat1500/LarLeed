@@ -8,6 +8,7 @@ import { useApi } from '@/app/hooks/useApi';
 import { useTranslations } from '@/hooks/useTranslations';
 import { useParams } from 'next/navigation';
 import StudentStoriesSection from "../components/StudentsStoryVideos";
+import ScholarshipTemplatesSection from "../components/ScholarshipTemplatesSection";
 
 export default function ScholarshipDetailsPage() {
   const [scholarship, setScholarship] = useState(null);
@@ -359,7 +360,7 @@ export default function ScholarshipDetailsPage() {
           </div>
         </div>
       </div>
-
+      <ScholarshipTemplatesSection scholarshipName={scholarship.s_name_eng}/>             
       <StudentStoriesSection scholarshipName={scholarship.s_name_eng} />
     
       <GetInTouchSection />
