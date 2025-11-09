@@ -66,10 +66,9 @@ export default function AddVideoPage() {
     setImagePreview('');
   };
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
   
-  // Add video_title to validation
   if (!formData.video_link || !formData.video_title || !formData.rt_scholarship_name) {
     alert('Video link, video title, and scholarship name are required');
     return;
@@ -80,24 +79,43 @@ export default function AddVideoPage() {
     
     const submitData = new FormData();
     submitData.append('video_link', formData.video_link);
-    submitData.append('video_title', formData.video_title); // Add this line
+    submitData.append('video_title', formData.video_title);
     submitData.append('rt_scholarship_name', formData.rt_scholarship_name);
     
     if (formData.video_image) {
       submitData.append('video_image', formData.video_image);
     }
 
+    console.log('🔄 Sending request to API...');
+    
     const result = await post('/api/scholarship-stu-videos', submitData);
 
     if (result.success) {
       alert('Video added successfully!');
       router.push('/scholarship-stu-video-cp');
     } else {
-      alert('Error: ' + result.error);
+      console.error('❌ API returned error:', result);
+      alert('Error: ' + (result.error || 'Unknown error'));
     }
   } catch (error) {
-    console.error('Submit error:', error);
-    alert('Failed to add video');
+    console.error('💥 Submit error:', error);
+    console.error('💥 Error details:', {
+      message: error.message,
+      name: error.name,
+      stack: error.stack
+    });
+    
+    // Try to get response text if available
+    if (error.response) {
+      try {
+        const errorText = await error.response.text();
+        console.error('💥 Response error text:', errorText);
+      } catch (e) {
+        console.error('💥 Could not read error response');
+      }
+    }
+    
+    alert('Failed to add video - Check console for details');
   } finally {
     setLoading(false);
   }
