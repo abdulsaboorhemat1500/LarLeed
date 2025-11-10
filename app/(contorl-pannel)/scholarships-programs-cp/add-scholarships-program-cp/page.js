@@ -131,40 +131,50 @@ export default function AddScholarshipPage() {
     reader.readAsDataURL(file);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
+ const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError('');
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
-      const formDataToSend = new FormData();
-      
-      // Append all form data
-      Object.keys(formData).forEach(key => {
-        if (key !== 's_image' && formData[key]) {
-          formDataToSend.append(key, formData[key]);
-        }
-      });
-      
-      if (formData.s_image) {
-        formDataToSend.append('s_image', formData.s_image);
+  try {
+    const formDataToSend = new FormData();
+    
+    // Debug: Log what we're sending
+    console.log('🔄 Sending scholarship data:', {
+      s_name_eng: formData.s_name_eng,
+      s_university_eng: formData.s_university_eng,
+      s_country_eng: formData.s_country_eng,
+      has_image: !!formData.s_image
+    });
+    
+    // Append all form data
+    Object.keys(formData).forEach(key => {
+      if (key !== 's_image' && formData[key]) {
+        formDataToSend.append(key, formData[key]);
       }
-
-      const result = await post('/api/scholarships', formDataToSend);
-
-      if (result.success) {
-        router.push('/scholarships-programs-cp');
-      } else {
-        setError(result.error || 'Failed to create scholarship');
-      }
-    } catch (error) {
-      setError('Network error. Please try again.');
-      console.error('Submission error:', error);
-    } finally {
-      setLoading(false);
+    });
+    
+    if (formData.s_image) {
+      formDataToSend.append('s_image', formData.s_image);
     }
-  };
+
+    const result = await post('/api/scholarships', formDataToSend);
+
+    console.log('📨 API Response:', result);
+
+    if (result.success) {
+      router.push('/scholarships-programs-cp');
+    } else {
+      setError(result.error || 'Failed to create scholarship');
+    }
+  } catch (error) {
+    console.error('💥 Submission error:', error);
+    setError('Network error. Please try again.');
+  } finally {
+    setLoading(false);
+  }
+};
 
   const removeImage = () => {
     setFormData(prevState => ({
