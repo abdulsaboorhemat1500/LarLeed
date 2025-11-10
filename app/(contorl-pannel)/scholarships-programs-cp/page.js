@@ -37,13 +37,14 @@ export default function ScholarshipsPage() {
     }
   };
 
-  const handleDelete = async (scholarshipId) => {
+ const handleDelete = async (scholarshipId) => {
   if (!confirm('Are you sure you want to delete this scholarship? This action cannot be undone.')) {
     return;
   }
 
   try {
-    const result = await del(`/api/scholarships?id=${scholarshipId}`);
+    // Change from query parameter to path parameter
+    const result = await del(`/api/scholarships/${scholarshipId}`);
 
     if (result.success) {
       // Refresh the list
