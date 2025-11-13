@@ -99,9 +99,7 @@ export default function WhyChoseUse() {
               {t("HomePage.Why Choose Us")}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              {t(
-                "HomePage.We provide comprehensive support to help you achieve your academic and career goals"
-              )}
+              {t("HomePage.We provide")}
             </p>
           </div>
 

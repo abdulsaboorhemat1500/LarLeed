@@ -53,7 +53,7 @@ export default function HeroSection() {
               </span>
             </h1>
             <p className="text-lg font-semibold text-black">
-              {t("HomePage.Our platform connects students")}
+              {t("HomePage.Our platform connect")}
             </p>
             {/* CTA Button */}
             <div

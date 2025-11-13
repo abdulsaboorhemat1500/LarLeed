@@ -2,7 +2,7 @@
 import HomePage from '@/components/homePage/heroSection';
 import FeaturedStories from "@/components/homePage/featuredStories";
 import FeaturedVieos from "@/components/homePage/featuredVideos";
-import WorkThusFor from "@/components/homePage/workThusFor";
+import ScholarshipSliderSection from "@/components/homePage/scholarshipsSection";
 import TeamSection from "@/components/homePage/teamSection";
 import ContactUsSection from "@/components/contact-us";
 import WhyChoseUse from "@/components/homePage/whychoseus";
@@ -41,10 +41,10 @@ export default function LocalizedHomePage({ params }) {
   return (
     <>
       <HomePage />
+      <ScholarshipSliderSection />
       <FeaturedStories />
       <FeaturedVieos />
       <WhyChoseUse />
-      <WorkThusFor />
       <TeamSection />
       <ContactUsSection />
     </>
