@@ -53,10 +53,7 @@ export default function HeroSection() {
               </span>
             </h1>
             <p className="text-lg font-semibold text-black">
-              Our platform connects students with expert instructors and
-              comprehensive curriculum designed specifically for native language
-              speakers. We focus on making education accessible, affordable, and
-              culturally relevant.
+              {t("HomePage.Our platform connects students")}
             </p>
             {/* CTA Button */}
             <div

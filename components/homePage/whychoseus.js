@@ -96,11 +96,11 @@ export default function WhyChoseUse() {
           {/* Section Title */}
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
-              {t("Why Choose Us")}
+              {t("HomePage.Why Choose Us")}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
               {t(
-                "We provide comprehensive support to help you achieve your academic and career goals"
+                "HomePage.We provide comprehensive support to help you achieve your academic and career goals"
               )}
             </p>
           </div>
