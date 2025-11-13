@@ -78,9 +78,9 @@ export default function ScholarshipSliderSection() {
     console.log("📅 Two weeks from now:", twoWeeksFromNow);
 
     const expiringSoon = scholarships.filter((scholarship) => {
-      if (!scholarship.s_deadline) return false;
+      if (!scholarship.s_app_deadline) return false;
 
-      const deadline = new Date(scholarship.s_deadline);
+      const deadline = new Date(scholarship.s_app_deadline);
       deadline.setHours(23, 59, 59, 999); // Set to end of deadline day
 
       console.log("🎯 Scholarship:", getLocalizedField(scholarship, "s_name"));
@@ -119,8 +119,8 @@ export default function ScholarshipSliderSection() {
     twoWeeksFromNow.setHours(23, 59, 59, 999);
 
     const expiringSoon = scholarships.filter((scholarship) => {
-      if (!scholarship.s_deadline) return false;
-      const deadline = new Date(scholarship.s_deadline);
+      if (!scholarship.s_app_deadline) return false;
+      const deadline = new Date(scholarship.s_app_deadline);
       deadline.setHours(23, 59, 59, 999);
       return deadline >= today && deadline <= twoWeeksFromNow;
     });
@@ -224,7 +224,7 @@ export default function ScholarshipSliderSection() {
                           {scholarship.s_country_eng || "International"}
                         </div>
                         <div className="text-lg font-semibold text-gray-900 dark:text-white">
-                          {formatDate(scholarship.s_deadline)}
+                          {formatDate(scholarship.s_app_deadline)}
                         </div>
                       </div>
                     </div>
@@ -245,12 +245,12 @@ export default function ScholarshipSliderSection() {
 
                     <button
                       onClick={handleApplyNow}
-                      className="cursor-pointer w-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105"
+                      className="cursor-pointer w-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 group"
                     >
                       {t("scholarshipDetailsPage.apply now")}
                       {scholarship.s_applying_link && (
                         <svg
-                          className="w-5 h-5"
+                          className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-200"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
