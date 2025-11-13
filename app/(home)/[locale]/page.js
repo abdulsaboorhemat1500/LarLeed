@@ -5,32 +5,30 @@ import FeaturedVieos from "@/components/homePage/featuredVideos";
 import WorkThusFor from "@/components/homePage/workThusFor";
 import TeamSection from "@/components/homePage/teamSection";
 import ContactUsSection from "@/components/contact-us";
-
+import WhyChoseUse from "@/components/homePage/whychoseus";
 
 export async function generateStaticParams() {
-  return [
-    { locale: 'en' },
-    { locale: 'ps' },
-    { locale: 'fa' }
-  ];
+  return [{ locale: "en" }, { locale: "ps" }, { locale: "fa" }];
 }
 
 export async function generateMetadata({ params }) {
   const { locale } = params;
-  
+
   const metadata = {
     en: {
       title: "LarLeed - Online Learning Platform",
-      description: "Connecting Afghan Youth through Education, Dialogue, and Vision"
+      description:
+        "Connecting Afghan Youth through Education, Dialogue, and Vision",
     },
     ps: {
       title: "لرلید - آنلاین زده کړې پلیټفارم",
-      description: "د افغان ځوانانو د زده کړې، خبرو اترو او لید له لارې سره نښلول"
+      description:
+        "د افغان ځوانانو د زده کړې، خبرو اترو او لید له لارې سره نښلول",
     },
     fa: {
       title: "لرلید - پلتفرم آموزش آنلاین",
-      description: "اتصال جوانان افغان از طریق آموزش، گفتگو و چشم انداز"
-    }
+      description: "اتصال جوانان افغان از طریق آموزش، گفتگو و چشم انداز",
+    },
   };
 
   return {
@@ -45,6 +43,7 @@ export default function LocalizedHomePage({ params }) {
       <HomePage />
       <FeaturedStories />
       <FeaturedVieos />
+      <WhyChoseUse />
       <WorkThusFor />
       <TeamSection />
       <ContactUsSection />
