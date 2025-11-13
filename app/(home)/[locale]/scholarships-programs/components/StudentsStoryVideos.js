@@ -171,7 +171,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
             {filteredVideos.map((video) => (
               <div
                 key={video.id}
-                className="flex-shrink-0 w-80 bg-white rounded-2xl shadow-sm transition-all duration-300 transform hover:-translate-y-2"
+                className="flex-shrink-0 w-80 bg-blue-100 rounded-2xl shadow-sm transition-all duration-300 transform hover:-translate-y-2"
               >
                 {/* Video Card */}
                 <div className="relative overflow-hidden rounded-t-2xl">

@@ -68,7 +68,7 @@ export default function ContactUsSection() {
             
             <div>
               <p className="text-lg text-gray-500 dark:text-white font-medium">
-                {t('HomePage.we would love to hear from you! Whether you have questions about courses, need technical support, or want to share your learning journey, our team is ready to assist you.')}
+                {t('HomePage.we would love to hear from you! Whether you have questions about courses need technical support, or want to share your learning journey our team is ready to assist you')}
               </p>
             </div>
             <div className="space-y-4 justify-center mt-10">
@@ -157,7 +157,8 @@ export default function ContactUsSection() {
               </div>
               
               <div className="pt-5">
-                <div className="lg:col-span-1">
+                <div className="grid">
+                    <div className="lg:col-span-1">
                   <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
                     {t('HomePage.email *')}
                   </label>
@@ -191,6 +192,7 @@ export default function ContactUsSection() {
                       placeholder={t('HomePage.enter your phone number')}
                     />
                   </div>
+                </div>
                 </div>
               </div>
               

@@ -161,11 +161,11 @@ export default function FeaturedStoriesList() {
             {currentStories.map((story) => (
               <div 
                 key={story.id}
-                className="bg-white dark:bg-gray-800 rounded-xl hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
+                className="bg-blue-100 rounded-xl hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
               >
                 {/* Story Thumbnail */}
                 <div className="relative overflow-hidden">
-                  <div className="w-full h-60 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
+                  <div className="w-full h-50 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
                     {story.post_image ? (
                       <Image
                         src={story.post_image}
@@ -194,12 +194,12 @@ export default function FeaturedStoriesList() {
                   </h3>
                   
                   {/* Author */}
-                  <p className="text-blue-600 dark:text-gray-400 text-sm mb-4">
+                  <p className="text-blue-600 dark:text-gray-400 text-sm mb-2">
                     {story.author_name}
                   </p>
                   
                   {/* Description - Limited to 3 lines */}
-                  <div className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1 rich-text-content" dangerouslySetInnerHTML={{ __html: story.post_description }} />
+                  <div className="text-gray-600 dark:text-gray-300 text-sm mb-2 line-clamp-3 flex-1 rich-text-content" dangerouslySetInnerHTML={{ __html: story.post_description }} />
                   
                   {/* Story Details Button - Full width at the bottom */}
                   <Link href={`/${locale}/featured-stories/${story.id}`}>

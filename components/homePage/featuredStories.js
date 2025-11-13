@@ -135,7 +135,7 @@ export default function FeaturedStories() {
             {stories.map((story) => (
               <div 
                 key={story.id}
-                className="bg-white dark:bg-gray-800 rounded-2xl hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
+                className="bg-blue-100 rounded-2xl hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
               >
                 {/* Post Thumbnail */}
                 <div className="relative overflow-hidden">

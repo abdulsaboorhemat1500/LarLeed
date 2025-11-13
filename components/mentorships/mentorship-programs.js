@@ -1,81 +1,477 @@
+'use client';
+import { useState } from 'react';
 import Image from "next/image";
 import Link from "next/link";
 
 export default function MentorshipProgramsSection(){
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    
     return (
-    <section className=" bg-gray-50 dark:bg-gray-800">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-             <div className="flex flex-col lg:flex-row items-center justify-between min-h-screen py-12 lg:py-0">
-          
-          {/* Introduction Section - Left Side */}
-          <div className="flex-1 max-w-2xl lg:pr-12 text-center lg:text-left ">
-            {/* Main Heading */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold  mb-6 leading-tight">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600"> MintorShip</span>
-            </h1>
+        <>
+            <section 
+                className="relative min-h-screen bg-cover bg-center bg-no-repeat"
+                style={{ backgroundImage: "url('/mentorshipbg.png')" }}
+            >
+                {/* Overlay for better text readability */}
+                <div className="absolute inset-0 bg-black/30"></div>
+                
+                <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                    <div className="flex flex-col items-center justify-center min-h-[80vh] text-center">
+                        
+                        {/* Main Heading */}
+                        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight text-white drop-shadow-lg">
+                            Get Selected with our Free Mentorship
+                        </h1>
 
-            {/* Subtitle */}
-            <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-              Connectiong Afghan Youth through Education, Dialogue and Vision.
-               Invest in education, for it is the foundation upon which the 
-               grandest dreams are built and the brightest futures are crafted.
-               Connectiong Afghan Youth through Education, Dialogue and Vision.
-               Invest in education, for it is the foundation upon which the 
-               grandest dreams are built and the brightest futures are crafted.
-               Connectiong Afghan Youth through Education, Dialogue and Vision.
-               Invest in education, for it is the foundation upon which the 
-               grandest dreams are built and the brightest futures are crafted.
-               Connectiong Afghan Youth through Education, Dialogue and Vision.
-               Invest in education, for it is the foundation upon which the 
-               grandest dreams are built and the brightest futures are crafted.
-            </p>
+                        {/* Bullet Points */}
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-12 max-w-4xl">
+                            {[
+                                { name: 'Coaching', emoji: '🎯' },
+                                { name: 'Goal Setting', emoji: '🏆' },
+                                { name: 'Success Planning', emoji: '📈' },
+                                { name: 'Motivation', emoji: '💪' },
+                                { name: 'Expert Advice', emoji: '💡' },
+                                { name: 'Support', emoji: '🤝' },
+                                { name: 'Direction', emoji: '🧭' },
+                                { name: 'Guidance', emoji: '🌟' }
+                            ].map((item, index) => (
+                                <div 
+                                    key={index}
+                                    className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20"
+                                >
+                                    <div className="text-3xl mb-2">{item.emoji}</div>
+                                    <h3 className="text-xl font-semibold text-white">{item.name}</h3>
+                                </div>
+                            ))}
+                        </div>
 
-            {/* CTA Buttons */}
-            {/* <div className="flex flex-col pt-10 sm:flex-row gap-4 justify-center lg:justify-start">
-              <Link href="/about">
-              <button className="cursor-pointer px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                More about Us
-              </button>
-              </Link>
-            </div> */}
+                        {/* Outlined Button */}
+                        <button 
+                            onClick={() => setIsModalOpen(true)}
+                            className="mt-16 px-12 py-4 border-2 border-white text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 hover:bg-white/10 backdrop-blur-sm text-lg"
+                        >
+                            Submit Form for Help
+                        </button>
+                    </div>
+                </div>
+            </section>
 
-            
-            <div className="flex flex-wrap justify-between  lg:justify-between gap-6 mt-12 pt-8 border-t border-gray-200 dark:border-gray-700">
-             
-            </div>
-          </div>
-
-          {/* Image Section - Right Side */}
-          <div className="flex-1 flex justify-center lg:justify-end">
-            <div className="relative w-full  max-w-lg">
-              {/* Main Image Container */}
-              {/* <div className="relative rounded-2xl overflow-hidden shadow-2xl transform hover:scale-105 transition-transform duration-300">
-                <Image
-                    src="/hero-section-image.jpg" // Replace with your image path
-                    alt="Hero Image"
-                    width={500}
-                    height={500}
-                    className='w-full'
-                />
-              </div> */}
-
-              <div className="relative">
-                <Image
-                    src="/heroSectionImagePNG.png" // Replace with your image path
-                    alt="Hero Image"
-                    width={500}
-                    height={500}
-                    className='w-full transform hover:scale-105 transition-transform duration-300'
-                />
-              </div>
-
-              {/* Background decorative elements */}
-              <div className="absolute -z-10 top-10 -right-10 w-32 h-32 bg-purple-200 dark:bg-purple-900 rounded-full blur-3xl opacity-60"></div>
-              <div className="absolute -z-10 bottom-10 -left-10 w-40 h-40 bg-blue-200 dark:bg-blue-900 rounded-full blur-3xl opacity-40"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+            {/* Modal */}
+            {isModalOpen && (
+                <div className="fixed inset-0 z-50 overflow-y-auto">
+                    <div className="flex items-center justify-center min-h-screen p-4">
+                        {/* Backdrop */}
+                        <div 
+                            className="fixed inset-0 bg-black/70 transition-opacity"
+                            onClick={() => setIsModalOpen(false)}
+                        ></div>
+                        
+                        {/* Modal Content */}
+                        <div className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-7xl w-full max-h-[90vh] overflow-y-auto">
+                            {/* Close Button */}
+                            <button
+                                onClick={() => setIsModalOpen(false)}
+                                className="absolute top-4 right-4 z-10 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                            >
+                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                            
+                            {/* Form Component */}
+                            <ScholarshipFormModal />
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     );
 }
+
+// Form Component (same as provided)
+function ScholarshipFormModal() {
+    const [formData, setFormData] = useState({
+      full_name: '',
+      email: '',
+      address: '',
+      phone: '',
+      date_of_birth: '',
+      uni_name: '',
+      level_of_study: '',
+      graduation_year: '',
+      major: '',
+      gpa: '',
+      sch_name: '',
+      sch_country: '',
+      sch_university: '',
+      sch_level: '',
+      sch_deadline: ''
+    });
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState({ type: '', text: '' });
+
+    const handleChange = (e) => {
+      const { name, value } = e.target;
+      setFormData(prevState => ({
+        ...prevState,
+        [name]: value
+      }));
+    };
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      setLoading(true);
+      setMessage({ type: '', text: '' });
+    
+      try {
+        // Simulate API call - replace with your actual API call
+        // const result = await post('/api/applyingScholarships', formData);
+        await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate API delay
+        
+        // Mock success response
+        setMessage({ 
+          type: 'success', 
+          text: 'Application submitted successfully!' 
+        });
+        
+        // Reset form
+        setFormData({
+          full_name: '',
+          email: '',
+          address: '',
+          phone: '',
+          date_of_birth: '',
+          uni_name: '',
+          level_of_study: '',
+          graduation_year: '',
+          major: '',
+          gpa: '',
+          sch_name: '',
+          sch_country: '',
+          sch_university: '',
+          sch_level: '',
+          sch_deadline: ''
+        });
+        
+      } catch (error) {
+        setMessage({ 
+          type: 'error', 
+          text: 'Failed to submit application. Please try again.' 
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    return (
+      <section className="py-10 bg-gray-50 dark:bg-gray-800">
+        <div className="container mx-auto px-4">
+          <h1 className="text-3xl text-center font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-300 dark:border-gray-600 pb-4">
+            Scholarship Submission Form
+          </h1>
+
+          {message.text && (
+            <div className={`mb-6 p-4 rounded-lg ${
+              message.type === 'success' 
+                ? 'bg-green-50 border border-green-200 text-green-800' 
+                : 'bg-red-50 border border-red-200 text-red-800'
+            }`}>
+              {message.text}
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit}>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 p-4">
+              {/* Personal Details */}
+              <div className="lg:col-span-1">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                  Personal Details
+                </h2>
+                
+                <div>
+                  <label htmlFor="full_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Full Name *
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="full_name"
+                      name="full_name"
+                      type="text"
+                      value={formData.full_name}
+                      onChange={handleChange}
+                      required
+                      className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+                      placeholder="Enter your full Name"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-5">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Email Address *
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+                      placeholder="Enter your email address"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-5">
+                  <label htmlFor="address" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Current Address
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="address"
+                      name="address"
+                      type="text"
+                      value={formData.address}
+                      onChange={handleChange}
+                      className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+                      placeholder="Enter your current address"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-5">
+                  <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Phone Number
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+                      placeholder="Enter your phone number"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-5">
+                  <label htmlFor="date_of_birth" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Date of Birth
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="date_of_birth"
+                      name="date_of_birth"
+                      type="date"
+                      value={formData.date_of_birth}
+                      onChange={handleChange}
+                      className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Academic Details */}
+              <div className="lg:col-span-1">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                  Academic Details
+                </h2>
+                
+                <div>
+                  <label htmlFor="uni_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    University/School Name *
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="uni_name"
+                      name="uni_name"
+                      type="text"
+                      value={formData.uni_name}
+                      onChange={handleChange}
+                      required
+                      className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+                      placeholder="Enter university/school name"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-5">
+                  <label htmlFor="level_of_study" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Level of Study
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="level_of_study"
+                      name="level_of_study"
+                      type="text"
+                      value={formData.level_of_study}
+                      onChange={handleChange}
+                      className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+                      placeholder="Enter level of study"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-5">
+                  <label htmlFor="graduation_year" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Year of Graduation
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="graduation_year"
+                      name="graduation_year"
+                      type="text"
+                      value={formData.graduation_year}
+                      onChange={handleChange}
+                      className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+                      placeholder="Enter year of graduation"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-5">
+                  <label htmlFor="major" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Your Major
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="major"
+                      name="major"
+                      type="text"
+                      value={formData.major}
+                      onChange={handleChange}
+                      className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+                      placeholder="Enter your major"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-5">
+                  <label htmlFor="gpa" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Your GPA/Score
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="gpa"
+                      name="gpa"
+                      type="text"
+                      value={formData.gpa}
+                      onChange={handleChange}
+                      className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+                      placeholder="Enter your GPA/score"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Scholarship Details */}
+              <div className="lg:col-span-1">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+                  Scholarship Details
+                </h2>
+                
+                <div>
+                  <label htmlFor="sch_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Scholarship Name *
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="sch_name"
+                      name="sch_name"
+                      type="text"
+                      value={formData.sch_name}
+                      onChange={handleChange}
+                      required
+                      className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+                      placeholder="Enter scholarship name"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-5">
+                  <label htmlFor="sch_country" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Scholarship Country *
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="sch_country"
+                      name="sch_country"
+                      type="text"
+                      value={formData.sch_country}
+                      onChange={handleChange}
+                      className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+                      placeholder="Enter scholarship country"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-5">
+                  <label htmlFor="sch_university" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Scholarship University
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="sch_university"
+                      name="sch_university"
+                      type="text"
+                      value={formData.sch_university}
+                      onChange={handleChange}
+                      className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+                      placeholder="Enter scholarship university"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-5">
+                  <label htmlFor="sch_level" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Scholarship Level
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="sch_level"
+                      name="sch_level"
+                      type="text"
+                      value={formData.sch_level}
+                      onChange={handleChange}
+                      className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+                      placeholder="Enter scholarship level"
+                    />
+                  </div>
+                </div>
+
+                <div className="pt-5">
+                  <label htmlFor="sch_deadline" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Scholarship Deadline
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      id="sch_deadline"
+                      name="sch_deadline"
+                      type="date"
+                      value={formData.sch_deadline}
+                      onChange={handleChange}
+                      className="appearance-none block w-full px-3 py-3 border border-gray-400 dark:border-gray-600 rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-4 text-center">
+              <button 
+                type="submit" 
+                disabled={loading}
+                className="cursor-pointer px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? 'Submitting...' : 'Submit Form'}
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+    );
+  }

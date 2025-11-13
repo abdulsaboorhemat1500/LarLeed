@@ -61,7 +61,6 @@ export default function AllVideos() {
       console.log('🚨 Fetch error:', error);
     } finally {
       setLoading(false);
-      console.log("🏁 Fetch completed");
     }
   };
 
@@ -74,7 +73,6 @@ export default function AllVideos() {
     t('ScholarshipsPage.undergraduate'),
     t('ScholarshipsPage.master'),
     t('ScholarshipsPage.phd'), 
-    t('ScholarshipsPage.school'),
   ];
 
   // Helper function to get the appropriate language field based on locale
@@ -98,7 +96,7 @@ export default function AllVideos() {
   const filteredScholarships = useMemo(() => {
     return scholarships.filter(scholarship => {
       // Filter by study level
-      const matchesFilter = activeFilter === 'All' || 
+      const matchesFilter = activeFilter === 'all' || 
         getLocalizedField(scholarship, 's_study_level')?.toLowerCase().includes(activeFilter.toLowerCase());
       
       // Filter by search query (search in localized fields)
@@ -257,7 +255,7 @@ export default function AllVideos() {
             {currentScholarships.map((scholarship) => (
               <div 
                 key={scholarship.id}
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300"
+                className="bg-blue-100  rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300"
               >
                 {/* Scholarship Image */}
                 <div className="h-48 bg-gray-200 relative">

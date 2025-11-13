@@ -85,9 +85,6 @@ export default function AboutPage() {
           <p className="text-gray-600 dark:text-gray-300 text-lg mb-4">
             We understand the unique challenges faced by native language speakers in accessing quality education. Our platform is built specifically to address these challenges.
           </p>
-          <p className="text-gray-600 dark:text-gray-300 text-lg mb-4">
-            All our courses are taught by qualified instructors who are native speakers and understand the cultural context of the students.
-          </p>
           <p className="text-gray-600 dark:text-gray-300 text-lg">
             We provide flexible learning schedules that allow students to learn at their own pace while balancing other responsibilities.
           </p>

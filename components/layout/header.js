@@ -60,9 +60,9 @@ export default function HeaderSection(){
                 
                 {/* Desktop Navigation */}
                 <div className="hidden lg:flex lg:gap-x-8">
-                    <Link href={`/${locale}/certifications`} className={`${textSizeClass} font-bold text-gray-900 hover:text-blue-600 transition-all duration-200 transform hover:scale-105`}>
+                    {/* <Link href={`/${locale}/certifications`} className={`${textSizeClass} font-bold text-gray-900 hover:text-blue-600 transition-all duration-200 transform hover:scale-105`}>
                         {t('Header.certifications')}
-                    </Link>
+                    </Link> */}
                     <Link href={`/${locale}/school`} className={`${textSizeClass} font-bold text-gray-900 hover:text-blue-600 transition-all duration-200 transform hover:scale-105`}>
                         {t('Header.school')}
                     </Link>
@@ -109,9 +109,9 @@ export default function HeaderSection(){
                         <div className="mt-6 flow-root">
                             <div className="-my-6 divide-y divide-gray-500/10">
                                 <div className="space-y-2 py-6">
-                                    <Link href={`/${locale}/certifications`} onClick={() => setMobileMenuOpen(false)} className={`-mx-3 block rounded-lg px-3 py-2 ${mobileTextSizeClass} font-bold text-gray-900 hover:bg-gray-50`}>
+                                    {/* <Link href={`/${locale}/certifications`} onClick={() => setMobileMenuOpen(false)} className={`-mx-3 block rounded-lg px-3 py-2 ${mobileTextSizeClass} font-bold text-gray-900 hover:bg-gray-50`}>
                                         {t('Header.certifications')}
-                                    </Link>
+                                    </Link> */}
                                     <Link href={`/${locale}/school`} onClick={() => setMobileMenuOpen(false)} className={`-mx-3 block rounded-lg px-3 py-2 ${mobileTextSizeClass} font-bold text-gray-900 hover:bg-gray-50`}>
                                         {t('Header.school')}
                                     </Link>
