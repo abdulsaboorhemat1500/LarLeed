@@ -68,7 +68,7 @@ export default function ContactUsSection() {
             
             <div>
               <p className="text-lg text-gray-500 dark:text-white font-medium">
-                {t('HomePage.we would love to hear from you! Whether you have questions about courses need technical support, or want to share your learning journey our team is ready to assist you')}
+                {t('HomePage.we would love to hear from you')}
               </p>
             </div>
             <div className="space-y-4 justify-center mt-10">

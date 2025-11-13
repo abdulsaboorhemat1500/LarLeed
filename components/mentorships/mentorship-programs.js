@@ -20,11 +20,14 @@ export default function MentorshipProgramsSection(){
                         
                         {/* Main Heading */}
                         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight text-white drop-shadow-lg">
-                            Get Selected with our Free Mentorship
+                            Get Selected with our <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
+                                Free Mentorship
+                            </span>
                         </h1>
 
                         {/* Bullet Points */}
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-12 max-w-4xl">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-12 max-w-4xl">
                             {[
                                 { name: 'Coaching', emoji: '🎯' },
                                 { name: 'Goal Setting', emoji: '🏆' },
@@ -37,10 +40,12 @@ export default function MentorshipProgramsSection(){
                             ].map((item, index) => (
                                 <div 
                                     key={index}
-                                    className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 transform hover:scale-105 transition-all duration-300 hover:bg-white/20"
+                                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border-2 border-blue-300/50 transform hover:scale-105 transition-all duration-300 hover:bg-blue-500/20 hover:border-blue-400 cursor-pointer"
                                 >
-                                    <div className="text-3xl mb-2">{item.emoji}</div>
-                                    <h3 className="text-xl font-semibold text-white">{item.name}</h3>
+                                    <div className="flex items-center justify-start space-x-3">
+                                        <div className="text-2xl">{item.emoji}</div>
+                                        <h3 className="text-lg font-semibold text-white text-left">{item.name}</h3>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -48,7 +53,7 @@ export default function MentorshipProgramsSection(){
                         {/* Outlined Button */}
                         <button 
                             onClick={() => setIsModalOpen(true)}
-                            className="mt-16 px-12 py-4 border-2 border-white text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 hover:bg-white/10 backdrop-blur-sm text-lg"
+                            className="cursor-pointer mt-16 px-12 py-4 border-2 border-blue-500 text-blue-500 font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 hover:bg-blue-500 hover:text-white text-lg"
                         >
                             Submit Form for Help
                         </button>
