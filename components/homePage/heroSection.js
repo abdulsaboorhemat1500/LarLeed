@@ -128,24 +128,6 @@ export default function HeroSection() {
               speakers. We focus on making education accessible, affordable, and
               culturally relevant.
             </p>
-
-            {/* Features Grid - Single Line with Better Design */}
-            <div className="flex flex-wrap gap-4 my-8">
-              {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="flex items-center space-x-2 bg-white/80 backdrop-blur-sm px-4 py-3 rounded-xl border border-blue-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-200 hover:scale-105 cursor-pointer"
-                >
-                  <span className="text-blue-600 dark:text-blue-400 flex-shrink-0">
-                    {feature.icon}
-                  </span>
-                  <span className="font-semibold text-gray-800 text-sm whitespace-nowrap">
-                    {feature.text}
-                  </span>
-                </div>
-              ))}
-            </div>
-
             {/* CTA Button */}
             <div
               className={`flex flex-col pt-6 sm:flex-row gap-4 ${
@@ -160,6 +142,22 @@ export default function HeroSection() {
               </Link>
             </div>
           </div>
+        </div>
+        {/* Features Grid - Single Line with Better Design */}
+        <div className="flex flex-wrap gap-4 my-8">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="flex items-center space-x-2 bg-white/80 backdrop-blur-sm px-4 py-3 rounded-xl border border-blue-200 shadow-sm hover:shadow-md hover:border-blue-300 transition-all duration-200 hover:scale-105 cursor-pointer"
+            >
+              <span className="text-blue-600 dark:text-blue-400 flex-shrink-0">
+                {feature.icon}
+              </span>
+              <span className="font-semibold text-gray-800 text-sm whitespace-nowrap">
+                {feature.text}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
       <div className="h-5"></div>
