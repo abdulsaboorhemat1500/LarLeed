@@ -18,7 +18,7 @@ export default function MentorshipProgramsSection(){
           <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 py-20">
             <div className="flex flex-col items-center justify-center min-h-[80vh] text-center">
               {/* Main Heading */}
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight text-white drop-shadow-lg">
+              <h1 className="text-5xl sm:text-5xl lg:text-5xl font-bold leading-tight text-white drop-shadow-lg">
                 Get selected in the top universities <br />
                 with our <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
@@ -57,7 +57,7 @@ export default function MentorshipProgramsSection(){
                 onClick={() => setIsModalOpen(true)}
                 className="cursor-pointer mt-16 px-12 py-4 border-2 border-blue-200 text-blue-200 font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 hover:bg-blue-500 hover:text-white hover:border-blue-500 text-lg"
               >
-                Submit Form for Help
+                Fill Form For Mentor
               </button>
             </div>
           </div>
