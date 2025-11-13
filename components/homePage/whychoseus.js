@@ -1,5 +1,7 @@
 "use client";
+import { useTranslations } from "@/hooks/useTranslations";
 export default function WhyChoseUse() {
+  const { t } = useTranslations();
   const features = [
     {
       icon: (
@@ -94,11 +96,12 @@ export default function WhyChoseUse() {
           {/* Section Title */}
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
-              Why Choose Us?
+              {t("Why Choose Us")}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              We provide comprehensive support to help you achieve your academic
-              and career goals
+              {t(
+                "We provide comprehensive support to help you achieve your academic and career goals"
+              )}
             </p>
           </div>
 
