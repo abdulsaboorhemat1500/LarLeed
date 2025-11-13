@@ -48,6 +48,16 @@ export default function ScholarshipSliderSection() {
     getScholarships();
   }, []);
 
+  // Handle apply now button click
+  const handleApplyNow = () => {
+    if (scholarship?.s_applying_link) {
+      window.open(scholarship.s_applying_link, "_blank", "noopener,noreferrer");
+    } else {
+      // Fallback behavior if no link is provided
+      alert(t("scholarshipDetailsPage.no application link available"));
+    }
+  };
+
   // Helper function to get the appropriate language field based on locale
   const getLocalizedField = (scholarship, fieldBase) => {
     const cleanFieldBase = fieldBase.replace(/_(eng|pash|dari)$/, "");
@@ -55,17 +65,36 @@ export default function ScholarshipSliderSection() {
     return scholarship[fieldName] || scholarship[`${cleanFieldBase}_eng`] || "";
   };
 
-  // Filter scholarships: first try to get scholarships expiring in 14 days, if none then show all
+  // Filter scholarships: show scholarships where deadline is within next 14 days from current date
   const filteredScholarships = useMemo(() => {
     const today = new Date();
+    today.setHours(0, 0, 0, 0); // Set to start of day for accurate comparison
+
     const twoWeeksFromNow = new Date();
     twoWeeksFromNow.setDate(today.getDate() + 14);
+    twoWeeksFromNow.setHours(23, 59, 59, 999); // Set to end of day
+
+    console.log("📅 Today:", today);
+    console.log("📅 Two weeks from now:", twoWeeksFromNow);
 
     const expiringSoon = scholarships.filter((scholarship) => {
       if (!scholarship.s_deadline) return false;
+
       const deadline = new Date(scholarship.s_deadline);
+      deadline.setHours(23, 59, 59, 999); // Set to end of deadline day
+
+      console.log("🎯 Scholarship:", getLocalizedField(scholarship, "s_name"));
+      console.log("📝 Deadline:", deadline);
+      console.log(
+        "⏰ Is within 14 days:",
+        deadline >= today && deadline <= twoWeeksFromNow
+      );
+
       return deadline >= today && deadline <= twoWeeksFromNow;
     });
+
+    console.log("🎓 Expiring soon scholarships:", expiringSoon.length);
+    console.log("📊 Total scholarships:", scholarships.length);
 
     return expiringSoon.length > 0 ? expiringSoon : scholarships;
   }, [scholarships]);
@@ -83,12 +112,16 @@ export default function ScholarshipSliderSection() {
   // Get section title based on filtered scholarships
   const getSectionTitle = () => {
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     const twoWeeksFromNow = new Date();
     twoWeeksFromNow.setDate(today.getDate() + 14);
+    twoWeeksFromNow.setHours(23, 59, 59, 999);
 
     const expiringSoon = scholarships.filter((scholarship) => {
       if (!scholarship.s_deadline) return false;
       const deadline = new Date(scholarship.s_deadline);
+      deadline.setHours(23, 59, 59, 999);
       return deadline >= today && deadline <= twoWeeksFromNow;
     });
 
@@ -149,10 +182,10 @@ export default function ScholarshipSliderSection() {
               {filteredScholarships.map((scholarship) => (
                 <div
                   key={scholarship.id}
-                  className="flex-shrink-0 w-80 snap-start bg-white dark:bg-gray-800 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300"
+                  className="flex-shrink-0 w-80 snap-start bg-blue-100 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300"
                 >
                   {/* Scholarship Header with Logo and Name */}
-                  <div className="p-6 border-b border-gray-100 dark:border-gray-700">
+                  <div className="p-6 border-b border-gray-100 ">
                     <div className="flex items-center gap-4">
                       {/* Circular Logo */}
                       <div className="flex-shrink-0">
@@ -171,41 +204,33 @@ export default function ScholarshipSliderSection() {
 
                       {/* Scholarship Name */}
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white truncate">
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                           {getLocalizedField(scholarship, "s_name")}
                         </h3>
-                        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                          {scholarship.s_organization || "Scholarship Program"}
-                        </p>
                       </div>
                     </div>
                   </div>
 
                   {/* Scholarship Details */}
                   <div className="p-6">
-                    {/* Funding Type */}
+                    {/* Country and Deadline in one line */}
                     <div className="mb-4">
-                      <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                        {getLocalizedField(scholarship, "s_funding_type") ||
-                          "Full Scholarship"}
+                      <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400 mt-1">
+                        <span>Country</span>
+                        <span>Deadline</span>
                       </div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                        Funding Type
-                      </div>
-                    </div>
-
-                    {/* Deadline */}
-                    <div className="mb-4">
-                      <div className="text-lg font-semibold text-gray-900 dark:text-white">
-                        {formatDate(scholarship.s_deadline)}
-                      </div>
-                      <div className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                        Deadline
+                      <div className="flex justify-between items-center">
+                        <div className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                          {scholarship.s_country_eng || "International"}
+                        </div>
+                        <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                          {formatDate(scholarship.s_deadline)}
+                        </div>
                       </div>
                     </div>
 
                     {/* Overview */}
-                    <div className="mb-6">
+                    <div className="mb-4">
                       <div
                         className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 rich-text-content"
                         dangerouslySetInnerHTML={{
@@ -216,28 +241,29 @@ export default function ScholarshipSliderSection() {
                       />
                     </div>
 
-                    {/* Country Tags */}
-                    <div className="flex flex-wrap gap-2">
-                      {scholarship.s_country && (
-                        <div className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-3 py-1 rounded-full text-xs font-medium">
-                          {getLocalizedField(scholarship, "s_country")}
-                        </div>
-                      )}
-                      {scholarship.s_study_level && (
-                        <div className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-3 py-1 rounded-full text-xs font-medium">
-                          {getLocalizedField(scholarship, "s_study_level")}
-                        </div>
-                      )}
-                    </div>
+                    {/* Apply Button - Outlined Blue */}
 
-                    {/* Apply Button */}
-                    <Link
-                      href={`/${locale}/scholarships-programs/${scholarship.id}`}
+                    <button
+                      onClick={handleApplyNow}
+                      className="cursor-pointer w-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105"
                     >
-                      <button className="cursor-pointer w-full mt-6 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 transform hover:scale-105">
-                        {t("ScholarshipsPage.apply now") || "Apply Now"}
-                      </button>
-                    </Link>
+                      {t("scholarshipDetailsPage.apply now")}
+                      {scholarship.s_applying_link && (
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                          />
+                        </svg>
+                      )}
+                    </button>
                   </div>
                 </div>
               ))}
