@@ -7,89 +7,101 @@ export default function MentorshipProgramsSection(){
     const [isModalOpen, setIsModalOpen] = useState(false);
     
     return (
-        <>
-            <section 
-                className="relative min-h-screen bg-cover bg-center bg-no-repeat"
-                style={{ backgroundImage: "url('/mentorshipbg.png')" }}
-            >
-                {/* Overlay for better text readability */}
-                <div className="absolute inset-0 bg-black/30"></div>
-                
-                <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 py-20">
-                    <div className="flex flex-col items-center justify-center min-h-[80vh] text-center">
-                        
-                        {/* Main Heading */}
-                        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight text-white drop-shadow-lg">
-                            Get Selected with our <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
-                                Free Mentorship
-                            </span>
-                        </h1>
+      <>
+        <section
+          className="relative min-h-screen bg-cover bg-center bg-no-repeat"
+          style={{ backgroundImage: "url('/mentorshipbg.png')" }}
+        >
+          {/* Background blur overlay */}
+          <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
 
-                        {/* Bullet Points */}
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-12 max-w-4xl">
-                            {[
-                                { name: 'Coaching', emoji: '🎯' },
-                                { name: 'Goal Setting', emoji: '🏆' },
-                                { name: 'Success Planning', emoji: '📈' },
-                                { name: 'Motivation', emoji: '💪' },
-                                { name: 'Expert Advice', emoji: '💡' },
-                                { name: 'Support', emoji: '🤝' },
-                                { name: 'Direction', emoji: '🧭' },
-                                { name: 'Guidance', emoji: '🌟' }
-                            ].map((item, index) => (
-                                <div 
-                                    key={index}
-                                    className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border-2 border-blue-300/50 transform hover:scale-105 transition-all duration-300 hover:bg-blue-500/20 hover:border-blue-400 cursor-pointer"
-                                >
-                                    <div className="flex items-center justify-start space-x-3">
-                                        <div className="text-2xl">{item.emoji}</div>
-                                        <h3 className="text-lg font-semibold text-white text-left">{item.name}</h3>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+          <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div className="flex flex-col items-center justify-center min-h-[80vh] text-center">
+              {/* Main Heading */}
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight text-white drop-shadow-lg">
+                Get selected in the top universities <br />
+                with our <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
+                  Free Mentorship
+                </span>
+              </h1>
 
-                        {/* Outlined Button */}
-                        <button 
-                            onClick={() => setIsModalOpen(true)}
-                            className="cursor-pointer mt-16 px-12 py-4 border-2 border-blue-500 text-blue-500 font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 hover:bg-blue-500 hover:text-white text-lg"
-                        >
-                            Submit Form for Help
-                        </button>
+              {/* Bullet Points */}
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-12 max-w-4xl">
+                {[
+                  { name: "Coaching", emoji: "🎯" },
+                  { name: "Goal", emoji: "🏆" },
+                  { name: "Success", emoji: "📈" },
+                  { name: "Motivation", emoji: "💪" },
+                  { name: "Expert Advice", emoji: "💡" },
+                  { name: "Support", emoji: "🤝" },
+                  { name: "Direction", emoji: "🧭" },
+                  { name: "Guidance", emoji: "🌟" },
+                ].map((item, index) => (
+                  <div
+                    key={index}
+                    className="bg-white/10 backdrop-blur-sm rounded-xl p-3 border-2 border-blue-300/50 transform hover:scale-105 transition-all duration-300 hover:bg-blue-500/20 hover:border-blue-400 cursor-pointer"
+                  >
+                    <div className="flex items-center justify-start space-x-3">
+                      <div className="text-2xl">{item.emoji}</div>
+                      <h3 className="text-lg font-semibold text-white text-left">
+                        {item.name}
+                      </h3>
                     </div>
-                </div>
-            </section>
+                  </div>
+                ))}
+              </div>
 
-            {/* Modal */}
-            {isModalOpen && (
-                <div className="fixed inset-0 z-50 overflow-y-auto">
-                    <div className="flex items-center justify-center min-h-screen p-4">
-                        {/* Backdrop */}
-                        <div 
-                            className="fixed inset-0 bg-black/70 transition-opacity"
-                            onClick={() => setIsModalOpen(false)}
-                        ></div>
-                        
-                        {/* Modal Content */}
-                        <div className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-7xl w-full max-h-[90vh] overflow-y-auto">
-                            {/* Close Button */}
-                            <button
-                                onClick={() => setIsModalOpen(false)}
-                                className="absolute top-4 right-4 z-10 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
-                            >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                            
-                            {/* Form Component */}
-                            <ScholarshipFormModal />
-                        </div>
-                    </div>
-                </div>
-            )}
-        </>
+              {/* Outlined Button */}
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="cursor-pointer mt-16 px-12 py-4 border-2 border-blue-200 text-blue-200 font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 hover:bg-blue-500 hover:text-white hover:border-blue-500 text-lg"
+              >
+                Submit Form for Help
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* Modal */}
+        {isModalOpen && (
+          <div className="fixed inset-0 z-50 overflow-y-auto">
+            <div className="flex items-center justify-center min-h-screen p-4">
+              {/* Backdrop */}
+              <div
+                className="fixed inset-0 bg-black/70 transition-opacity"
+                onClick={() => setIsModalOpen(false)}
+              ></div>
+
+              {/* Modal Content */}
+              <div className="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-7xl w-full max-h-[90vh] overflow-y-auto">
+                {/* Close Button */}
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="absolute top-4 right-4 z-10 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                >
+                  <svg
+                    className="w-6 h-6"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+
+                {/* Form Component */}
+                <ScholarshipFormModal />
+              </div>
+            </div>
+          </div>
+        )}
+      </>
     );
 }
 
