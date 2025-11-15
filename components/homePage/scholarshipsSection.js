@@ -126,9 +126,9 @@ export default function ScholarshipSliderSection() {
     });
 
     if (expiringSoon.length > 0) {
-      return t("ScholarshipsPage.expiringSoon") || "Expiring Soon Scholarships";
+      return t("ScholarshipsPage.deadline in two weeks");
     } else {
-      return t("ScholarshipsPage.allScholarships") || "All Scholarships";
+      return t("ScholarshipsPage.allScholarships");
     }
   };
 
@@ -137,7 +137,7 @@ export default function ScholarshipSliderSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header with Title and See All Button */}
         <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-3xl font-bold text-gray-900 ">
             {getSectionTitle()}
           </h2>
           <Link
@@ -241,29 +241,13 @@ export default function ScholarshipSliderSection() {
                       />
                     </div>
 
-                    {/* Apply Button - Outlined Blue */}
-
-                    <button
-                      onClick={handleApplyNow}
-                      className="cursor-pointer w-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold py-3 px-4 rounded-xl transition-all duration-200 flex items-center justify-center gap-2 group"
+                    <Link
+                      href={`/${locale}/scholarships-programs/${scholarship.id}`}
                     >
-                      {t("scholarshipDetailsPage.apply now")}
-                      {scholarship.s_applying_link && (
-                        <svg
-                          className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-200"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                          />
-                        </svg>
-                      )}
-                    </button>
+                      <button className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition-colors duration-200">
+                        {t("ScholarshipsPage.read more")}
+                      </button>
+                    </Link>
                   </div>
                 </div>
               ))}

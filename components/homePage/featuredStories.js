@@ -101,30 +101,37 @@ export default function FeaturedStories() {
   }
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-gradient-to-r from-blue-50 to-indigo-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
           <div className="mb-4 sm:mb-0">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-              {t('HomePage.featured stories')}
+              {t("HomePage.featured stories")}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-              {t('HomePage.inspiring stories of hope, resilience, and transformation from our community')}
+              {t(
+                "HomePage.inspiring stories of hope, resilience, and transformation from our community"
+              )}
             </p>
           </div>
-          
+
           <Link
-            href={`/${locale}/featured-stories`} 
-            className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-lg transition-colors duration-200"
+            href={`/${locale}/featured-stories`}
+            className="cursor-pointer px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105"
           >
-            {t('HomePage.see all')}
-            <svg 
-              className="w-5 h-5 ms-2 rtl:rotate-180" 
-              fill="none" 
-              stroke="currentColor" 
+            {t("HomePage.see all")}
+            <svg
+              className="w-5 h-5 ms-2 rtl:rotate-180"
+              fill="none"
+              stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </Link>
         </div>
@@ -133,7 +140,7 @@ export default function FeaturedStories() {
         {stories.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {stories.map((story) => (
-              <div 
+              <div
                 key={story.id}
                 className="bg-blue-100 rounded-2xl hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
               >
@@ -143,7 +150,7 @@ export default function FeaturedStories() {
                     {story.post_image ? (
                       <Image
                         src={story.post_image}
-                        alt={story.post_title || 'Story image'}
+                        alt={story.post_title || "Story image"}
                         width={500}
                         height={500}
                         className="w-full h-full object-cover"
@@ -166,24 +173,24 @@ export default function FeaturedStories() {
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
                     {limitTitleToFiveWords(story.post_title)}
                   </h3>
-                  
+
                   {/* Author Information */}
                   <p className="text-blue-600 font-semibold text-sm mb-2">
                     {story.auther_name || story.author_name}
                     {story.auther_job_title && `, ${story.auther_job_title}`}
                   </p>
-                  
+
                   {/* Description - Limited to 3 lines */}
                   <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1">
                     {story.post_description}
                   </p>
-                  
+
                   {/* Story Details Button - Full width at the bottom */}
-                  <button 
-                    onClick={() => handleStoryDetails(story.id)} 
+                  <button
+                    onClick={() => handleStoryDetails(story.id)}
                     className="cursor-pointer w-full mt-1 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
                   >
-                    {t('HomePage.story details')}
+                    {t("HomePage.story details")}
                   </button>
                 </div>
               </div>
@@ -191,7 +198,9 @@ export default function FeaturedStories() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">{t('HomePage.no featured stories found.')}</p>
+            <p className="text-gray-500 text-lg">
+              {t("HomePage.no featured stories found.")}
+            </p>
           </div>
         )}
       </div>

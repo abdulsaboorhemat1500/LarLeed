@@ -116,31 +116,38 @@ export default function FeaturedVideos() {
   }
 
   return (
-    <section className="py-16 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-sm border-b">
+    <section className="py-16 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
+        <div className="flex flex-col sm:flex-row justify-between items-center sm:items-center mb-12">
           <div className="mb-4 sm:mb-0">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-              {t('HomePage.featured videos')}
+              {t("HomePage.featured videos")}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-              {t('HomePage.inspiring videos of hope, resilience, and transformation from our community')}
+              {t(
+                "HomePage.inspiring videos of hope, resilience, and transformation from our community"
+              )}
             </p>
           </div>
-          
+
           {videos.length > 0 && (
-            <Link 
-              href={`/${locale}/featured-videos`} 
-              className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-lg transition-colors duration-200"
+            <Link
+              href={`/${locale}/featured-videos`}
+              className="cursor-pointer px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105"
             >
-              {t('HomePage.see all')}
-              <svg 
-                className="w-5 h-5 ms-2 rtl:rotate-180" 
-                fill="none" 
-                stroke="currentColor" 
+              {t("HomePage.see all")}
+              <svg
+                className="w-5 h-5 ms-2 rtl:rotate-180"
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </Link>
           )}
@@ -151,10 +158,11 @@ export default function FeaturedVideos() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {videos.map((video) => {
               const youtubeThumbnail = getYouTubeThumbnail(video.v_link);
-              const displayImage = video.v_image || youtubeThumbnail || "/hero-section-image.jpg";
-              
+              const displayImage =
+                video.v_image || youtubeThumbnail || "/hero-section-image.jpg";
+
               return (
-                <div 
+                <div
                   key={video.id}
                   className="bg-blue-100 rounded-xl hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
                 >
@@ -177,24 +185,34 @@ export default function FeaturedVideos() {
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
                       {limitTitleToFiveWords(video.v_title)}
                     </h3>
-                    
+
                     {/* Creator */}
                     <p className="text-blue-600 dark:text-gray-400 font-semibold text-sm mb-2">
-                      {video.v_creature || 'Unknown Creator'}
+                      {video.v_creature || "Unknown Creator"}
                     </p>
-                    
+
                     {/* Description - Limited to 3 lines */}
-                    <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 flex-1" dangerouslySetInnerHTML={{ __html: video.v_description || 'No description available for this video.' }} />
+                    <p
+                      className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 flex-1"
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          video.v_description ||
+                          "No description available for this video.",
+                      }}
+                    />
                   </div>
                   {/* Buttons - Full width at the bottom */}
                   <div className="p-5 pt-0 space-y-2">
                     {/* Video Details Button */}
-                    <Link href={`/${locale}/featured-videos/${video.id}`} className="block">
-                      <Button 
-                        size="sm" 
+                    <Link
+                      href={`/${locale}/featured-videos/${video.id}`}
+                      className="block"
+                    >
+                      <Button
+                        size="sm"
                         className="cursor-pointer bg-green-600 hover:bg-green-700 text-white flex items-center gap-2 w-full justify-center py-2.5"
-                      >  
-                        {t('HomePage.video details')}
+                      >
+                        {t("HomePage.video details")}
                       </Button>
                     </Link>
                   </div>
@@ -204,7 +222,9 @@ export default function FeaturedVideos() {
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">{t('HomePage.no videos found.')}</p>
+            <p className="text-gray-500 text-lg">
+              {t("HomePage.no videos found.")}
+            </p>
           </div>
         )}
       </div>

@@ -1,13 +1,13 @@
 {
   "Header": {
-    "scholarshipsPrograms": "لوړي زدکړي",
-    "school":"دوره مکتب",
+    "scholarshipsPrograms": "تحصیلي فرصتونه",
+    "school": "د مکتب دوره",
     "mentorships": "مینټورشیپ",
     "roshangari": "روښنګري",
     "donate": "ډونیټ",
     "contactUs": "موږ سره اړیکه",
     "aboutUs": "زموږ په اړه",
-    "certifications":"وړیا کورسونه"
+    "certifications": "وړیا کورسونه"
   },
   "Banner": {
     "title": "لرلید",
@@ -74,6 +74,8 @@
     "all rights reserved": "ټول حقونه خوندي دي"
   },
   "ScholarshipsPage": {
+    "allScholarships": "ټول تحصیلي فرصتونه",
+    "deadline in two weeks": "هغه بورسونه چې نیټه یې نژدې ده",
     "all": "ټول",
     "undergraduate": "لیسانس",
     "master": "ماستر",
@@ -87,25 +89,25 @@
     "of": "څخه",
     "results": "پایلې",
     "show": "ښکاره کړئ",
-    "error":"مشکل",
-    "try again":"بیا ځلي کوښښ وکړئ",
-    "loading scholarships":"د بورسونو پيدا کول",
-    "read more":"اضافه ولولۍ",
-    "no scholarships available yet":"هیڅ ډول بورسونه پیدا نشوو",
-    "no scholarships found matching your criteria":"ستاسو د خوښي بورسونه پیدا نشوو",
-    "clear filters":"فلټر لري کړۍ",
-    "country":"هیواد",
-    "university":"پوهنتونونه"
+    "error": "مشکل",
+    "try again": "بیا ځلي کوښښ وکړئ",
+    "loading scholarships": "د بورسونو پيدا کول",
+    "read more": "اضافه ولولۍ",
+    "no scholarships available yet": "هیڅ ډول بورسونه پیدا نشوو",
+    "no scholarships found matching your criteria": "ستاسو د خوښي بورسونه پیدا نشوو",
+    "clear filters": "فلټر لري کړۍ",
+    "country": "هیواد",
+    "university": "پوهنتونونه"
   },
   "MentorshipsPage": {
-    "enter your full Name":"خپل نوم ولیکئ",
-    "enter your email address":"خپل ایمیل ادرس ولیکئ",
-    "enter your current address":"خپل ادرس مو ولیکئ",
-    "enter your phone number":"مبایل نمبر مو ولیکئ",
-    "year of graduation":"د فراغت کال",
-    "enter year of graduation":"د فراغت کال مو ولیکئ",
-    "your major":"د تحصیل رشته",
-    "failed to fetch mentors":"د مینټور په پیدا کولو کي مشکل",
+    "enter your full Name": "خپل نوم ولیکئ",
+    "enter your email address": "خپل ایمیل ادرس ولیکئ",
+    "enter your current address": "خپل ادرس مو ولیکئ",
+    "enter your phone number": "مبایل نمبر مو ولیکئ",
+    "year of graduation": "د فراغت کال",
+    "enter year of graduation": "د فراغت کال مو ولیکئ",
+    "your major": "د تحصیل رشته",
+    "failed to fetch mentors": "د مینټور په پیدا کولو کي مشکل",
     "meet our mentors": "زموږ د مرستندویانو سره وکتل",
     "no mentors found": "هیڅ مرستندویان ونه موندل شول.",
     "scholarship submission form": "د بورس د سپارلو فورمه",
@@ -144,8 +146,8 @@
     "enter your GPA/score": "ستاسو gpa اضافه کړئ"
   },
   "RoshangariPage": {
-    "clear search":"د لټون پاک کول",
-    "no stories found":"هیڅ کیسه پیدا نشوه",
+    "clear search": "د لټون پاک کول",
+    "no stories found": "هیڅ کیسه پیدا نشوه",
     "back to previous": "پخوانۍ پاڼې ته بیرته",
     "search roshangari stories": "د روښانتیا کیسې لټون",
     "searching...": "په لټون کې...",
@@ -182,22 +184,22 @@
     "share story": "کیسه شریکه کړئ"
   },
   "videoDetailsPage": {
-  "watch on youtube":"په یوټیوب کي یې وګورۍ",
-  "watch video": "ویډیو وګورئ",
-  "share video": "ویډیو شریکه کړئ",
-  "published": "خپور شوی",
-  "category": "کټګوري",
-  "creator": "جوړونکی",
-  "loading video...": "د ویډیو په پورته کولو کې...",
-  "failed to fetch video": "د ویډیو راټولول ناکام شول",
-  "network error. Please try again.": "د شبکې تیروتنه. مهرباني وکړئ بیا هڅه وکړئ.",
-  "try again": "بیا هڅه وکړئ",
-  "video not found.": "ویډیو ونه موندل شو.",
-  "video information": "د ویډیو معلومات",
-  "created": "جوړ شوی",
-  "video creator": "د ویډیو جوړونکی",
-  "no video link": "د ویډیو لینک نشته"
-},
+    "watch on youtube": "په یوټیوب کي یې وګورۍ",
+    "watch video": "ویډیو وګورئ",
+    "share video": "ویډیو شریکه کړئ",
+    "published": "خپور شوی",
+    "category": "کټګوري",
+    "creator": "جوړونکی",
+    "loading video...": "د ویډیو په پورته کولو کې...",
+    "failed to fetch video": "د ویډیو راټولول ناکام شول",
+    "network error. Please try again.": "د شبکې تیروتنه. مهرباني وکړئ بیا هڅه وکړئ.",
+    "try again": "بیا هڅه وکړئ",
+    "video not found.": "ویډیو ونه موندل شو.",
+    "video information": "د ویډیو معلومات",
+    "created": "جوړ شوی",
+    "video creator": "د ویډیو جوړونکی",
+    "no video link": "د ویډیو لینک نشته"
+  },
   "teamPage": {
     "team member details": "د د ټیم د غړي جزئیات",
     "no team member details found.": "هیڅ د د ټیم د غړي جزئیات ونه موندل شول.",
@@ -227,17 +229,17 @@
     "funding type": "د مالي ملاتړ ډول",
     "genders": "جنس",
     "apply now": "اوس غوښتنلیک وکړئ",
-    "fields of study":"د زدکړو برخي",
-    "language required":"ژبي",
-    "eligible countries":"وړ هیوادونه"
+    "fields of study": "د زدکړو برخي",
+    "language required": "ژبي",
+    "eligible countries": "وړ هیوادونه"
   },
-  "MentorDetailsPage":{
-    "mentor not found":"هیڅ منټور پیدا نشوو",
-    "experience":"تجربه کاري",
-    "address":"آدرس",
-    "country":"هیواد",
-    "email":"ایمیل",
-    "phone":"مبایل",
-    "contact":"اړیکه"
+  "MentorDetailsPage": {
+    "mentor not found": "هیڅ منټور پیدا نشوو",
+    "experience": "تجربه کاري",
+    "address": "آدرس",
+    "country": "هیواد",
+    "email": "ایمیل",
+    "phone": "مبایل",
+    "contact": "اړیکه"
   }
 }

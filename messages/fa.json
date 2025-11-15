@@ -1,13 +1,13 @@
 {
   "Header": {
     "scholarshipsPrograms": "تحصیلات عالی",
-    "school":"د مکتب دوره",
+    "school": "دوره مکتب",
     "mentorships": "منتورها",
     "roshangari": "روشنگری",
     "donate": "حمایت",
     "contactUs": "تماس با ما",
     "aboutUs": "درباره ما",
-    "certifications":"کورس های رایګان"
+    "certifications": "کورس های رایګان"
   },
   "Banner": {
     "title": "لرلید",
@@ -74,6 +74,8 @@
     "all rights reserved": "تمامی حقوق محفوظ است"
   },
   "ScholarshipsPage": {
+    "allScholarships": "همه بورسیه ها",
+    "deadline in two weeks": "بورسیه های کی مهلت اش نزدیک است",
     "all": "همه",
     "undergraduate": "دانشجویان",
     "master": "ماستر",
@@ -87,25 +89,25 @@
     "of": "از",
     "results": "نتایج",
     "show": "نمایش",
-    "error":"مشکل",
-    "try again":"دوباره امتحان کنید",
-    "loading scholarships":"دنبال بورسیه ها",
-    "read more":"بیشتر بدانید",
-    "no scholarships available yet":"هیچ بورسیه ی نیست",
-    "no scholarships found matching your criteria":"هیچ بورسیه ی پیدا نشود",
-    "clear filters":"بازنشانی",
-    "country":"کشور",
-    "university":"دانشګاها"
+    "error": "مشکل",
+    "try again": "دوباره امتحان کنید",
+    "loading scholarships": "دنبال بورسیه ها",
+    "read more": "بیشتر بدانید",
+    "no scholarships available yet": "هیچ بورسیه ی نیست",
+    "no scholarships found matching your criteria": "هیچ بورسیه ی پیدا نشود",
+    "clear filters": "بازنشانی",
+    "country": "کشور",
+    "university": "دانشګاها"
   },
   "MentorshipsPage": {
-    "enter your full Name":"نام خود را اضافه نمایید",
-    "enter your email address":"ایمیل خود را اضافه نمایید",
-    "enter your current address":"آدرس خود را اضافه نمایید",
-    "enter your phone number":"تلیفون نمبر خود را اضافه نمایید",
-    "year of graduation":"سال فراغت شما",
-    "enter year of graduation":"سال فراغت خود را اضافه نمایید",
-    "your major":"رشته تحصیل شما",
-    "failed to fetch mentors":"مشکل د پیدا کردن مینتور ها",
+    "enter your full Name": "نام خود را اضافه نمایید",
+    "enter your email address": "ایمیل خود را اضافه نمایید",
+    "enter your current address": "آدرس خود را اضافه نمایید",
+    "enter your phone number": "تلیفون نمبر خود را اضافه نمایید",
+    "year of graduation": "سال فراغت شما",
+    "enter year of graduation": "سال فراغت خود را اضافه نمایید",
+    "your major": "رشته تحصیل شما",
+    "failed to fetch mentors": "مشکل د پیدا کردن مینتور ها",
     "meet our mentors": "ملاقات با منتورها",
     "no mentors found": "هیچ منتوری مورد اشتراک یافت نشد.",
     "scholarship submission form": "فرم ارسال بورسیه",
@@ -144,8 +146,8 @@
     "enter your GPA/score": "اضافه نمودن نمرات gpa شما"
   },
   "RoshangariPage": {
-    "clear search":"پاک کردن جستجو",
-    "no stories found":"هیچ قیصه پیدا نشود",
+    "clear search": "پاک کردن جستجو",
+    "no stories found": "هیچ قیصه پیدا نشود",
     "back to previous": "بازگشت به صفحه قبل",
     "search roshangari stories": "جستجوی روشنگری",
     "searching...": "در حال جستجو...",
@@ -182,22 +184,22 @@
     "share story": "اشتراک گذاری روشنگری"
   },
   "videoDetailsPage": {
-  "watch on youtube":"در یوتیوب ببینید",
-  "watch video": "دیدن ویدیو",
-  "share video": "اشتراک گذاری ویدیو",
-  "published": "منتشر شده",
-  "category": "دسته بندی",
-  "creator": "ایجاد کننده",
-  "loading video...": "در حال بارگذاری ویدیو...",
-  "failed to fetch video": "دریافت ویدیو با خطا مواجه شد",
-  "network error. Please try again.": "خطا در ارتباط. لطفا دوباره تلاش کنید.",
-  "try again": "دوباره تلاش کنید",
-  "video not found.": "ویدیو مورد نظر یافت نشد.",
-  "video information": "اطلاعات ویدیو",
-  "created": "ایجاد شده",
-  "video creator": "ایجاد کننده ویدیو",
-  "no video link": "لینک ویدیو موجود نیست"
-},
+    "watch on youtube": "در یوتیوب ببینید",
+    "watch video": "دیدن ویدیو",
+    "share video": "اشتراک گذاری ویدیو",
+    "published": "منتشر شده",
+    "category": "دسته بندی",
+    "creator": "ایجاد کننده",
+    "loading video...": "در حال بارگذاری ویدیو...",
+    "failed to fetch video": "دریافت ویدیو با خطا مواجه شد",
+    "network error. Please try again.": "خطا در ارتباط. لطفا دوباره تلاش کنید.",
+    "try again": "دوباره تلاش کنید",
+    "video not found.": "ویدیو مورد نظر یافت نشد.",
+    "video information": "اطلاعات ویدیو",
+    "created": "ایجاد شده",
+    "video creator": "ایجاد کننده ویدیو",
+    "no video link": "لینک ویدیو موجود نیست"
+  },
   "teamPage": {
     "team member details": "جزئیات تیم",
     "no team member details found.": "هیچ جزئیات تیمی ای مورد اشتراک یافت نشد.",
@@ -227,17 +229,17 @@
     "funding type": "نوع سرمایه گذاری",
     "genders": "جنسیت ها",
     "apply now": "ارسال برنامه",
-    "fields of study":"رشته های تحصیلی",
-    "language required":"مقررات زبان",
-    "eligible countries":"کشورهای واجد شرایط"
+    "fields of study": "رشته های تحصیلی",
+    "language required": "مقررات زبان",
+    "eligible countries": "کشورهای واجد شرایط"
   },
-  "MentorDetailsPage":{
-    "mentor not found":"مینتوری پیدا نشود",
-    "experience":"تجربه کاری",
-    "address":"آدرس",
-    "country":"کشور",
-    "email":"ایمیل",
-    "phone":"تلفون",
-    "contact":"ارتباط"
+  "MentorDetailsPage": {
+    "mentor not found": "مینتوری پیدا نشود",
+    "experience": "تجربه کاری",
+    "address": "آدرس",
+    "country": "کشور",
+    "email": "ایمیل",
+    "phone": "تلفون",
+    "contact": "ارتباط"
   }
 }

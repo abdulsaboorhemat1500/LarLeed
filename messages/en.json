@@ -74,6 +74,8 @@
     "all rights reserved": "All Rights Reserved"
   },
   "ScholarshipsPage": {
+    "allScholarships": "All Scholarships",
+    "deadline in two weeks": "Deadline in Two Weeks",
     "all": "All",
     "undergraduate": "Undergraduate",
     "master": "Master",
@@ -87,15 +89,15 @@
     "of": "Of",
     "results": "Results",
     "show": "Show",
-    "error":"Error",
-    "try again":"Try Again",
-    "loading scholarships":"Loading Scholarships",
-    "read more":"Read More",
-    "no scholarships available yet":"No scholarships available yet",
-    "no scholarships found matching your criteria":"No scholarships found matching your criteria.",
-    "clear filters":"Clear Filters",
-    "country":"Country",
-    "university":"Universities"
+    "error": "Error",
+    "try again": "Try Again",
+    "loading scholarships": "Loading Scholarships",
+    "read more": "Read More",
+    "no scholarships available yet": "No scholarships available yet",
+    "no scholarships found matching your criteria": "No scholarships found matching your criteria.",
+    "clear filters": "Clear Filters",
+    "country": "Country",
+    "university": "Universities"
   },
   "MentorshipsPage": {
     "enter your full Name":"Enter Your Full Name",
