@@ -136,15 +136,28 @@ export default function ScholarshipSliderSection() {
     <section className="py-12 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header with Title and See All Button */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
           <h2 className="text-3xl font-bold text-gray-900 ">
             {getSectionTitle()}
           </h2>
           <Link
             href={`/${locale}/scholarships-programs`}
-            className="cursor-pointer px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105"
+            className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-lg transition-colors duration-200"
           >
-            {t("HomePage.see all") || "See All"}
+            {t("HomePage.see all")}
+            <svg
+              className="w-5 h-5 ms-2 rtl:rotate-180"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
           </Link>
         </div>
 

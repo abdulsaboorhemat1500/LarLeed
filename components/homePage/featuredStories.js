@@ -62,15 +62,14 @@ export default function FeaturedStories() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
             <div className="mb-4 sm:mb-0">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                {t('HomePage.featured stories')}
+                {t("HomePage.featured stories")}
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-                {t('HomePage.inspiring stories of hope, resilience, and transformation from our community')}
-              </p>
             </div>
           </div>
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">{t('HomePage.loading stories...')}</p>
+            <p className="text-gray-500 text-lg">
+              {t("HomePage.loading stories")}
+            </p>
           </div>
         </div>
       </section>
@@ -85,15 +84,14 @@ export default function FeaturedStories() {
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
             <div className="mb-4 sm:mb-0">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                {t('HomePage.featured stories')}
+                {t("HomePage.featured stories")}
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-                {t('HomePage.inspiring stories of hope, resilience, and transformation from our community')}
-              </p>
             </div>
           </div>
           <div className="text-center py-12">
-            <p className="text-red-500 text-lg">{t('RoshangariPage.error:')}: {error}</p>
+            <p className="text-red-500 text-lg">
+              {t("RoshangariPage.error")}: {error}
+            </p>
           </div>
         </div>
       </section>
@@ -103,21 +101,16 @@ export default function FeaturedStories() {
   return (
     <section className="py-16 bg-gradient-to-r from-blue-50 to-indigo-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
           <div className="mb-4 sm:mb-0">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
               {t("HomePage.featured stories")}
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl">
-              {t(
-                "HomePage.inspiring stories of hope, resilience, and transformation from our community"
-              )}
-            </p>
           </div>
 
           <Link
             href={`/${locale}/featured-stories`}
-            className="cursor-pointer px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105"
+            className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-lg transition-colors duration-200"
           >
             {t("HomePage.see all")}
             <svg
@@ -199,7 +192,7 @@ export default function FeaturedStories() {
         ) : (
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">
-              {t("HomePage.no featured stories found.")}
+              {t("HomePage.no featured stories found")}
             </p>
           </div>
         )}
