@@ -30,7 +30,7 @@ const InstagramIcon = () => (
   </svg>
 );
 
-export default function TeamMemberPage() {
+export default function CEOPage() {
   return (
     <section className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-blue-900 py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">

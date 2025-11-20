@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import ScholarshipFormModal from "./ScholarshipFormModal";
+import ScholarshipFormModal from "@/app/(home)/[locale]/mentorships/components/scholarship-form";
 
 export default function MentorshipProgramsSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
