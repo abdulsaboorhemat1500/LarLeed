@@ -115,12 +115,53 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
   if (filteredVideos.length === 0) {
     if (scholarshipName) {
       return (
-        <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-100">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Stories of Graduation Students
-              </h2>
+        <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              {/* Left Column - Text Content */}
+              <div className="space-y-6">
+                <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
+                  Need Help?
+                </h2>
+
+                <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+                  If you need our help with this scholarship then fill the
+                  following form. Our experts will guide you through the entire
+                  application process and maximize your chances of success.
+                </p>
+
+                <div className="pt-4">
+                  <button
+                    onClick={() => setIsMentorModalOpen(true)}
+                    className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                  >
+                    Open Scholarship Form
+                  </button>
+                </div>
+
+                {/* Modal Component */}
+                <ScholarshipFormModal
+                  isOpen={isMentorModalOpen}
+                  onClose={() => setIsMentorModalOpen(false)}
+                />
+              </div>
+
+              {/* Right Column - Video */}
+              <div className="relative">
+                <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-300">
+                  <iframe
+                    src="https://www.youtube.com/embed/rqYhq03nOv4?si=pu9lgxTvIKLpzzwn"
+                    title="Scholarship Guidance Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-80 lg:h-96 rounded-2xl border-4 border-white dark:border-gray-800"
+                  />
+                </div>
+
+                {/* Decorative elements */}
+                <div className="absolute -top-4 -right-4 w-24 h-24 bg-blue-200 dark:bg-blue-800 rounded-full opacity-50 -z-10"></div>
+                <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-orange-200 dark:bg-orange-800 rounded-full opacity-50 -z-10"></div>
+              </div>
             </div>
           </div>
         </section>

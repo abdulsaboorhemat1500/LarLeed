@@ -65,7 +65,7 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
 
   if (loading) {
     return (
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-white mt-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
@@ -79,7 +79,7 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
   if (filteredTemplates.length === 0) {
     if (scholarshipName) {
       return (
-        <section className="py-8 bg-white border-t border-gray-200">
+        <section className="py-8 bg-white border-t border-gray-200 mt-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -97,7 +97,7 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
   }
 
   return (
-    <section className="py-8 bg-white border-t border-gray-200">
+    <section className="py-8 bg-white border-t border-gray-200 mt-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-8">
@@ -118,24 +118,48 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
               key={template.id}
               onClick={() => handleDownload(template)}
               className={`border-2 rounded-lg p-4 text-center cursor-pointer transition-all duration-200 hover:shadow-md ${
-                template.word_file 
-                  ? 'border-blue-500 hover:border-blue-600 hover:bg-blue-50' 
-                  : 'border-gray-300 cursor-not-allowed opacity-50'
+                template.word_file
+                  ? "border-blue-500 hover:border-blue-600 hover:bg-blue-50"
+                  : "border-gray-300 cursor-not-allowed opacity-50"
               }`}
-              title={template.word_file ? `Download ${template.template_name}` : 'File not available'}
+              title={
+                template.word_file
+                  ? `Download ${template.template_name}`
+                  : "File not available"
+              }
             >
               {/* File Icon */}
               <div className="mb-3">
                 {template.word_file ? (
                   <div className="w-12 h-12 mx-auto bg-blue-100 rounded-full flex items-center justify-center">
-                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    <svg
+                      className="w-6 h-6 text-blue-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
                     </svg>
                   </div>
                 ) : (
                   <div className="w-12 h-12 mx-auto bg-gray-100 rounded-full flex items-center justify-center">
-                    <svg className="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    <svg
+                      className="w-6 h-6 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
                     </svg>
                   </div>
                 )}
@@ -147,15 +171,22 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
               </h3>
 
               {/* File Status */}
-              <p className={`text-xs ${
-                template.word_file ? 'text-green-600' : 'text-gray-500'
-              }`}>
-                {template.word_file ? 'Click to download' : 'File not available'}
+              <p
+                className={`text-xs ${
+                  template.word_file ? "text-green-600" : "text-gray-500"
+                }`}
+              >
+                {template.word_file
+                  ? "Click to download"
+                  : "File not available"}
               </p>
 
               {/* Scholarship Name (only show if not filtered) */}
               {!scholarshipName && (
-                <p className="text-xs text-gray-500 mt-2 truncate" title={template.rt_scholarship_name}>
+                <p
+                  className="text-xs text-gray-500 mt-2 truncate"
+                  title={template.rt_scholarship_name}
+                >
                   {template.rt_scholarship_name}
                 </p>
               )}
@@ -166,7 +197,8 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
         {/* Template Count */}
         <div className="text-center mt-6">
           <p className="text-sm text-gray-500">
-            Showing {filteredTemplates.length} template{filteredTemplates.length !== 1 ? 's' : ''}
+            Showing {filteredTemplates.length} template
+            {filteredTemplates.length !== 1 ? "s" : ""}
             {scholarshipName && ` for ${scholarshipName}`}
           </p>
         </div>

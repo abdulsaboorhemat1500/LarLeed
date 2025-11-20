@@ -33,7 +33,7 @@ const InstagramIcon = () => (
 export default function CEOPage() {
   return (
     <section className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-blue-900 py-12">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 md:p-12">
           {/* Header Section */}
           <div className="text-center mb-12">
@@ -48,7 +48,7 @@ export default function CEOPage() {
             {/* Image Column */}
             <div className="lg:col-span-2 flex justify-center">
               <div className="relative">
-                <div className="w-100 h-100 rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-700">
+                <div className=" rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
                   <img
                     src="/hamid.jpg"
                     alt="Abdul Hamid Hatsaandh"
@@ -92,7 +92,7 @@ export default function CEOPage() {
 
               {/* Social Media Links */}
               <div className="pt-4">
-                <p className="text-sm font-semibold text-white mb-3">
+                <p className="text-sm font-semibold text-gray-800 mb-3">
                   Connect with Abdul Hamid!
                 </p>
                 <div className="flex space-x-3">
@@ -100,7 +100,7 @@ export default function CEOPage() {
                     href="https://www.facebook.com/ahamid.hatsaandh"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-gray-800 hover:bg-blue-600 rounded-xl transition-all duration-200 transform hover:scale-110"
+                    className="p-3 bg-gray-200 hover:bg-blue-600 rounded-xl transition-all duration-200 transform hover:scale-110"
                     aria-label="Facebook"
                   >
                     <FacebookIcon />
@@ -109,7 +109,7 @@ export default function CEOPage() {
                     href="https://x.com/HamidHatsaandh"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-gray-800 hover:bg-blue-400 rounded-xl transition-all duration-200 transform hover:scale-110"
+                    className="p-3 bg-gray-200 hover:bg-blue-400 rounded-xl transition-all duration-200 transform hover:scale-110"
                     aria-label="Twitter"
                   >
                     <TwitterIcon />
@@ -118,7 +118,7 @@ export default function CEOPage() {
                     href="https://www.instagram.com/hatsaandh/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-gray-800 hover:bg-pink-600 rounded-xl transition-all duration-200 transform hover:scale-110"
+                    className="p-3 bg-gray-200 hover:bg-pink-600 rounded-xl transition-all duration-200 transform hover:scale-110"
                     aria-label="Instagram"
                   >
                     <InstagramIcon />
@@ -127,7 +127,7 @@ export default function CEOPage() {
                     href="https://www.youtube.com/@lomritob"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-gray-800 hover:bg-red-600 rounded-xl transition-all duration-200 transform hover:scale-110"
+                    className="p-3 bg-gray-200 hover:bg-red-600 rounded-xl transition-all duration-200 transform hover:scale-110"
                     aria-label="YouTube"
                   >
                     <YoutubeIcon />
@@ -136,7 +136,7 @@ export default function CEOPage() {
                     href="https://www.linkedin.com/in/hamidhatsaandh"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 bg-gray-800 hover:bg-blue-700 rounded-xl transition-all duration-200 transform hover:scale-110"
+                    className="p-3 bg-gray-200 hover:bg-blue-700 rounded-xl transition-all duration-200 transform hover:scale-110"
                     aria-label="LinkedIn"
                   >
                     <LinkedinIcon />
