@@ -43,8 +43,8 @@ export default function LocalizedHomePage({ params }) {
     <>
       <HomePage />
       <ScholarshipSliderSection />
-      <FeaturedVieos />
       <FeaturedStories />
+      <FeaturedVieos />
       <WhyChoseUse />
       <CEOPage />
       <TeamSection />

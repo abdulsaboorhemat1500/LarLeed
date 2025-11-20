@@ -44,19 +44,17 @@ export default function CEOPage() {
           </div>
 
           {/* Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
             {/* Image Column */}
-            <div className="lg:col-span-1 flex justify-center">
+            <div className="lg:col-span-2 flex justify-center">
               <div className="relative">
-                <div className="w-64 h-64 rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-700">
+                <div className="w-100 h-100 rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-gray-700">
                   <img
-                    src="/hamid.jpeg"
+                    src="/hamid.jpg"
                     alt="Abdul Hamid Hatsaandh"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <div className="absolute -bottom-4 -right-4 w-8 h-8 bg-blue-500 rounded-full"></div>
-                <div className="absolute -top-4 -left-4 w-6 h-6 bg-orange-500 rounded-full"></div>
               </div>
             </div>
 
@@ -73,40 +71,28 @@ export default function CEOPage() {
 
               {/* Experience Section */}
               <div className="space-y-4">
-                <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl border-l-4 border-blue-500">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Past Experience
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Creative Associates International - USAID's Afghan Children
-                    Read and Ministry of Education, Afghanistan
-                  </p>
-                </div>
-
-                <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-xl border-l-4 border-green-500">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Current Studies
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Studies at New York University
-                    <br />
-                    Started in 2022
-                  </p>
-                </div>
-
-                <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-xl border-l-4 border-purple-500">
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    Location
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300">
-                    Lives in Jersey City, New Jersey
+                <div className="bg-gradient-to-r from-blue-50 to-indigo-50  p-6 rounded-2xl border-l-4 border-blue-500 shadow-sm">
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    Abdul Hamid Hatsaandh is an Education Researcher at New York
+                    University, building upon his extensive experience with
+                    Creative Associates International where he contributed to
+                    USAID's Afghan Children Read program and collaborated with
+                    the Ministry of Education in Afghanistan. His dedication to
+                    educational development extends beyond professional
+                    obligations, as he passionately works to empower
+                    Afghanistan's new generation through educational initiatives
+                    and research. Currently pursuing advanced studies at New
+                    York University since 2022, Abdul Hamid combines academic
+                    rigor with practical field experience to drive meaningful
+                    change in education systems and create opportunities for
+                    young learners in challenging environments.
                   </p>
                 </div>
               </div>
 
               {/* Social Media Links */}
               <div className="pt-4">
-                <p className="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-3">
+                <p className="text-sm font-semibold text-white mb-3">
                   Connect with Abdul Hamid!
                 </p>
                 <div className="flex space-x-3">

@@ -474,7 +474,6 @@ export default function ScholarshipDetailsPage() {
       <ScholarshipTemplatesSection scholarshipName={scholarship.s_name_eng} />
       <StudentStoriesSection scholarshipName={scholarship.s_name_eng} />
 
-      <GetInTouchSection />
     </>
   );
 }

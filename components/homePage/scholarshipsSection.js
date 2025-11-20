@@ -133,7 +133,7 @@ export default function ScholarshipSliderSection() {
   };
 
   return (
-    <section className="py-12 bg-white dark:bg-gray-900">
+    <section className="py-12 bg-white mt-6">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header with Title and See All Button */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
