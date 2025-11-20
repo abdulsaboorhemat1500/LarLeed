@@ -177,8 +177,8 @@ export default function AllVideos() {
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
           {/* Filter Section */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-            {/* Filter Badges */}
-            <div className="flex flex-wrap gap-3">
+            {/* Desktop Filter Badges */}
+            <div className="hidden sm:flex flex-wrap gap-3">
               {filters.map((filter) => (
                 <button
                   key={filter}
@@ -192,6 +192,21 @@ export default function AllVideos() {
                   {filter}
                 </button>
               ))}
+            </div>
+
+            {/* Mobile Dropdown (Optional) */}
+            <div className="sm:hidden w-full">
+              <select
+                onChange={(e) => setActiveFilter(e.target.value)}
+                value={activeFilter}
+                className="w-full px-4 py-3 bg-white/80 dark:bg-gray-800/80 border-2 border-gray-100 dark:border-gray-700 rounded-2xl backdrop-blur-sm"
+              >
+                {filters.map((filter) => (
+                  <option key={filter} value={filter}>
+                    {filter}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
 
@@ -220,7 +235,7 @@ export default function AllVideos() {
                   placeholder={t("ScholarshipsPage.search for scholarships")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 pr-12 py-4 border border-gray-300 dark:border-gray-600 rounded-2xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 text-base w-full transition-all duration-300 shadow-lg hover:shadow-xl"
+                  className="pl-12 pr-12 py-4 border border-gray-300 dark:border-gray-600 rounded-2xl bg-white dark:bg-gray-800 text-gray-900  placeholder-gray-500 dark:placeholder-gray-400 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 text-base w-full transition-all duration-300 shadow-lg hover:shadow-xl"
                 />
 
                 {/* Clear Search Button */}
@@ -322,19 +337,19 @@ export default function AllVideos() {
                 {/* Scholarship Content */}
                 <div className="p-3">
                   {/* Scholarship Name */}
-                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
+                  <h3 className="text-lg font-bold text-gray-900  mb-2 line-clamp-1 leading-tight">
                     {getLocalizedField(scholarship, "s_name")}
                   </h3>
 
                   {/* University and Country */}
-                  <p className="text-blue-700 dark:text-white text-sm mb-3 font-medium">
+                  <p className="text-blue-700  text-sm mb-3 font-medium line-clamp-1">
                     {t("ScholarshipsPage.country")} :{" "}
                     {getLocalizedField(scholarship, "s_country")}
                   </p>
 
                   {/* Description */}
                   <div
-                    className="text-gray-500 dark:text-white text-sm mb-4 line-clamp-3 leading-relaxed rich-text-content"
+                    className="text-gray-500  text-sm mb-4 line-clamp-3 leading-relaxed rich-text-content"
                     dangerouslySetInnerHTML={{
                       __html:
                         getLocalizedField(scholarship, "s_overview") ||

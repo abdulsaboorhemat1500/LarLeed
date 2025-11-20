@@ -2,8 +2,7 @@
 'use client';
 export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
-import { useState, useEffect , use } from 'react';
-import GetInTouchSection from '@/components/get-in-touch';
+import { useState, useEffect, use } from "react";
 import BackButton from '@/components/ui/back-button';
 import Image from 'next/image';
 import { useApi } from '@/app/hooks/useApi';

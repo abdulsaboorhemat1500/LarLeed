@@ -6,6 +6,7 @@ import ScholarshipSliderSection from "@/components/homePage/scholarshipsSection"
 import TeamSection from "@/components/homePage/teamSection";
 import ContactUsSection from "@/components/contact-us";
 import WhyChoseUse from "@/components/homePage/whychoseus";
+import CEOPage from "@/components/homePage/ceo";
 
 export async function generateStaticParams() {
   return [{ locale: "en" }, { locale: "ps" }, { locale: "fa" }];
@@ -42,9 +43,10 @@ export default function LocalizedHomePage({ params }) {
     <>
       <HomePage />
       <ScholarshipSliderSection />
-      <FeaturedStories />
       <FeaturedVieos />
+      <FeaturedStories />
       <WhyChoseUse />
+      <CEOPage />
       <TeamSection />
       <ContactUsSection />
     </>
