@@ -107,26 +107,27 @@ export default function FeaturedStoriesList() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
+      <div className="mb-8 bg-gradient-to-r from-purple-500 to-orange-500 h-40 w-full text-center flex items-center justify-center">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900  mb-4">
+          Roshangari and Featured Stories
+        </h1>
+      </div>
       <div className="container mx-auto px-4">
-        <BackButton />
-        
-        
-
         {/* Search Input */}
         <div className="max-w-2xl mx-auto mb-6">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg 
-                className="w-5 h-5 text-gray-400" 
-                fill="none" 
-                stroke="currentColor" 
+              <svg
+                className="w-5 h-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" 
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
               </svg>
             </div>
@@ -135,18 +136,26 @@ export default function FeaturedStoriesList() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-12 py-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-              placeholder={t('RoshangariPage.search roshangari stories')}
+              placeholder={t("RoshangariPage.search roshangari stories")}
             />
-            
+
             {/* Clear Search Button */}
             {searchQuery && (
               <button
-                onClick={() => setSearchQuery('')}
+                onClick={() => setSearchQuery("")}
                 className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-red-500 transition-colors"
-                title={t('RoshangariPage.clear search')}
+                title={t("RoshangariPage.clear search")}
               >
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                <svg
+                  className="h-5 w-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </button>
             )}
@@ -159,7 +168,7 @@ export default function FeaturedStoriesList() {
         {currentStories.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {currentStories.map((story) => (
-              <div 
+              <div
                 key={story.id}
                 className="bg-blue-100 rounded-xl hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
               >
@@ -185,26 +194,29 @@ export default function FeaturedStoriesList() {
                     )}
                   </div>
                 </div>
-  
+
                 {/* Card Content - Flex column to push button to bottom */}
                 <div className="p-5 flex flex-col flex-1">
                   {/* Title - Limited to 5 words */}
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
                     {limitTitleToFiveWords(story.post_title)}
                   </h3>
-                  
+
                   {/* Author */}
                   <p className="text-blue-600 dark:text-gray-400 text-sm mb-2">
                     {story.author_name}
                   </p>
-                  
+
                   {/* Description - Limited to 3 lines */}
-                  <div className="text-gray-600 dark:text-gray-300 text-sm mb-2 line-clamp-3 flex-1 rich-text-content" dangerouslySetInnerHTML={{ __html: story.post_description }} />
-                  
+                  <div
+                    className="text-gray-600 dark:text-gray-300 text-sm mb-2 line-clamp-3 flex-1 rich-text-content"
+                    dangerouslySetInnerHTML={{ __html: story.post_description }}
+                  />
+
                   {/* Story Details Button - Full width at the bottom */}
                   <Link href={`/${locale}/featured-stories/${story.id}`}>
                     <button className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
-                      {t('RoshangariPage.story detail')}
+                      {t("RoshangariPage.story detail")}
                     </button>
                   </Link>
                 </div>
@@ -215,14 +227,16 @@ export default function FeaturedStoriesList() {
           // No results message
           <div className="text-center py-12">
             <div className="text-gray-500 dark:text-gray-400 text-lg mb-4">
-              {stories.length === 0 ? t('RoshangariPage.no stories found') : t(`RoshangariPage.no stories found "${searchQuery}"`)}
+              {stories.length === 0
+                ? t("RoshangariPage.no stories found")
+                : t(`RoshangariPage.no stories found "${searchQuery}"`)}
             </div>
             {searchQuery && (
               <button
-                onClick={() => setSearchQuery('')}
+                onClick={() => setSearchQuery("")}
                 className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
               >
-                {t('RoshangariPage.clear search')}
+                {t("RoshangariPage.clear search")}
               </button>
             )}
           </div>
@@ -233,15 +247,15 @@ export default function FeaturedStoriesList() {
           <div className="flex justify-center items-center space-x-2">
             {/* Previous Button */}
             <button
-              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
               className={`px-4 py-2 rounded-lg border transition-colors ${
-                currentPage === 1 
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                  : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600'
+                currentPage === 1
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600"
               }`}
             >
-              {t('RoshangariPage.previous')}
+              {t("RoshangariPage.previous")}
             </button>
 
             {/* Page Numbers */}
@@ -251,8 +265,8 @@ export default function FeaturedStoriesList() {
                 onClick={() => setCurrentPage(page)}
                 className={`w-10 h-10 rounded-lg border transition-colors ${
                   currentPage === page
-                    ? 'bg-blue-500 text-white border-blue-500'
-                    : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600'
+                    ? "bg-blue-500 text-white border-blue-500"
+                    : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600"
                 }`}
               >
                 {page}
@@ -261,15 +275,17 @@ export default function FeaturedStoriesList() {
 
             {/* Next Button */}
             <button
-              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
               disabled={currentPage === totalPages}
               className={`px-4 py-2 rounded-lg border transition-colors ${
                 currentPage === totalPages
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600'
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600"
               }`}
             >
-                {t('RoshangariPage.next')}  
+              {t("RoshangariPage.next")}
             </button>
           </div>
         )}

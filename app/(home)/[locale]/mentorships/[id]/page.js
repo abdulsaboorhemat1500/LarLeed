@@ -113,7 +113,7 @@ export default function TeamMemberDetails({ params }) {
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 dark:border-gray-700">
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-20">
               <div className="lg:col-span-2 mx-auto text-center">
-                <div className="mb-5 mx-auto w-45 h-45 text-center">
+                <div className="mb-5 mx-auto w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40 text-center">
                   <div className="cursor-pointer hover:shadow-xl w-full h-full rounded-full transform hover:scale-105 transition-transform duration-300  flex items-center justify-center overflow-hidden shadow-md">
                     <Image
                       src={mentor.profile_image || "/team-members/saboor.png"}
@@ -130,8 +130,8 @@ export default function TeamMemberDetails({ params }) {
                     <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2 mt-2">
                       {mentor.full_name || "Mentor Name"}
                     </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">
-                      {mentor.job_title || "Web Developer"}
+                    <p className="text-sm text-gray-500 dark:text-gray-400 font-medium ">
+                      {mentor.job_title}
                     </p>
                   </div>
                 </div>
@@ -193,7 +193,7 @@ export default function TeamMemberDetails({ params }) {
                       </div>
                     </div>
 
-                    <div className="flex items-center space-x-3">
+                    {/* <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
                         <span className="text-green-600 dark:text-green-400">
                           📍
@@ -207,9 +207,9 @@ export default function TeamMemberDetails({ params }) {
                           {mentor.address || "No Address"}
                         </p>
                       </div>
-                    </div>
+                    </div> */}
 
-                    <div className="flex items-center space-x-3">
+                    {/* <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
                         <span className="text-purple-600 dark:text-purple-400">
                           🌍
@@ -223,7 +223,7 @@ export default function TeamMemberDetails({ params }) {
                           {mentor.country || "No Country"}
                         </p>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="flex items-center space-x-3">
                       <div className="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">

@@ -1,13 +1,13 @@
 {
   "Header": {
-    "scholarshipsPrograms": "Higher Education",
-    "school":"School",
+    "scholarshipsPrograms": "Scholarships",
+    "school": "School",
     "mentorships": "Mentorships",
     "roshangari": "Roshangari",
     "donate": "Donate",
     "contactUs": "Contact Us",
     "aboutUs": "About Us",
-    "certifications":"Free Courses"
+    "certifications": "Free Courses"
   },
   "Banner": {
     "title": "LarLeed",

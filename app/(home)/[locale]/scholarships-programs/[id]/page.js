@@ -163,7 +163,7 @@ export default function ScholarshipDetailsPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50 ">
+      <div className="min-h-screen bg-gray-50 py-10">
         {/* Header */}
         <div className="mb-8 bg-gradient-to-r from-purple-500 to-orange-500 h-40 w-full text-center flex items-center justify-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900  mb-4">
@@ -473,7 +473,6 @@ export default function ScholarshipDetailsPage() {
       </div>
       <ScholarshipTemplatesSection scholarshipName={scholarship.s_name_eng} />
       <StudentStoriesSection scholarshipName={scholarship.s_name_eng} />
-
     </>
   );
 }

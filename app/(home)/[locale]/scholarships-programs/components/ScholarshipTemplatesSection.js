@@ -65,7 +65,7 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
 
   if (loading) {
     return (
-      <section className="py-8 bg-white mt-8">
+      <section className="py-8 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
@@ -79,7 +79,7 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
   if (filteredTemplates.length === 0) {
     if (scholarshipName) {
       return (
-        <section className="py-8 bg-white border-t border-gray-200 mt-8">
+        <section className="py-8 bg-white border-t border-gray-200 ">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -97,7 +97,7 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
   }
 
   return (
-    <section className="py-8 bg-white border-t border-gray-200 mt-8">
+    <section className="py-8 bg-white border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-8">
