@@ -163,14 +163,14 @@ export default function ScholarshipDetailsPage() {
 
   return (
     <>
-      <div className="min-h-screen bg-gray-50 py-10">
+      <div className="min-h-screen bg-gray-50 ">
         {/* Header */}
         <div className="mb-8 bg-gradient-to-r from-purple-500 to-orange-500 h-40 w-full text-center flex items-center justify-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900  mb-4">
             {getLocalizedField(scholarship, "s_name")}
           </h1>
         </div>
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 py-10">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left Column - Scholarship Details (2/3 width) */}
             <div className="lg:col-span-2 space-y-8">

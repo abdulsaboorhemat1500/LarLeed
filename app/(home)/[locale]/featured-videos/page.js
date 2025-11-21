@@ -162,7 +162,7 @@ export default function FeaturedVideosList() {
               const displayImage = video.v_image || getYouTubeThumbnail(video.v_link) || "/hero-section-image.jpg";
               
               return (
-                <div 
+                <div
                   key={video.id}
                   className="bg-blue-100 rounded-xl hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
                 >
@@ -175,8 +175,6 @@ export default function FeaturedVideosList() {
                         height={500}
                         className="w-full h-full object-cover"
                       />
-                      
-                      
                     </div>
                   </div>
 
@@ -184,21 +182,24 @@ export default function FeaturedVideosList() {
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
                       {limitTitleToFiveWords(video.v_title)}
                     </h3>
-                    
+
                     <p className="text-blue-600 dark:text-gray-400 text-sm mb-2 font-semibold">
-                      {video.v_creature || 'Unknown Creator'}
+                      {video.v_creature || "Unknown Creator"}
                     </p>
-                    
-                    <div className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 flex-1 rich-text-content" dangerouslySetInnerHTML={{ __html: video.v_description || 'No description available' }} />
+
+                    <div
+                      className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 flex-1 rich-text-content"
+                      dangerouslySetInnerHTML={{
+                        __html:
+                          video.v_description || "No description available",
+                      }}
+                    />
                   </div>
 
                   <div className="p-5 pt-0 space-y-2">
                     <Link href={`/${locale}/featured-videos/${video.id}`}>
-                      <Button 
-                        size="sm" 
-                        className="cursor-pointer bg-green-600 hover:bg-green-700 text-white flex items-center gap-2 w-full justify-center py-2.5"
-                      >  
-                        {t('HomePage.video details')}
+                      <Button size="sm" className="custom-my-btn">
+                        {t("HomePage.video details")}
                       </Button>
                     </Link>
                   </div>

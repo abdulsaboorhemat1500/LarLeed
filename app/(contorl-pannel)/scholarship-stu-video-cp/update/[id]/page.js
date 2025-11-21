@@ -1,66 +1,70 @@
-'use client';
+"use client";
 
-export const runtime = 'edge';
-import { useState, useEffect } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import { useApi } from '@/app/hooks/useApi';
+export const runtime = "edge";
+import { useState, useEffect } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { useApi } from "@/app/hooks/useApi";
 
 export default function UpdateVideoPage() {
   const router = useRouter();
   const params = useParams();
   const videoId = params.id;
   const { get, put } = useApi();
-  
+
   const [formData, setFormData] = useState({
-    video_title: '',
+    video_title: "",
     video_image: null,
-    video_link: '',
-    rt_scholarship_name: ''
+    video_link: "",
+    rt_scholarship_name: "",
+    vd_status: "Status", // Default value
   });
   const [scholarships, setScholarships] = useState([]);
   const [loading, setLoading] = useState(false);
   const [fetchLoading, setFetchLoading] = useState(true);
-  const [imagePreview, setImagePreview] = useState('');
+  const [imagePreview, setImagePreview] = useState("");
   const [removeImage, setRemoveImage] = useState(false);
-  const [currentImage, setCurrentImage] = useState('');
+  const [currentImage, setCurrentImage] = useState("");
+  const [message, setMessage] = useState({ type: "", text: "" }); // Added message state
 
   // Fetch scholarships for dropdown
   const fetchScholarships = async () => {
     try {
-      const result = await get('/api/scholarships');
+      const result = await get("/api/scholarships");
       if (result.success) {
         setScholarships(result.data || []);
       }
     } catch (error) {
-      console.error('Error fetching scholarships:', error);
+      console.error("Error fetching scholarships:", error);
     }
   };
 
   // Fetch video data for update
   const fetchVideoData = async () => {
     if (!videoId) return;
-    
+
     try {
       setFetchLoading(true);
       const result = await get(`/api/scholarship-stu-videos/${videoId}`);
       if (result.success) {
         const video = result.data;
         setFormData({
-          video_link: video.video_link || '',
-          rt_scholarship_name: video.rt_scholarship_name || ''
+          video_title: video.video_title || "",
+          video_link: video.video_link || "",
+          rt_scholarship_name: video.rt_scholarship_name || "",
+          vd_status: video.vd_status || "Student Story", // Set status from API
         });
         if (video.video_image) {
           setImagePreview(video.video_image);
           setCurrentImage(video.video_image);
         }
       } else {
-        alert('Error loading video: ' + result.error);
-        router.push('/scholarship-stu-videos-cp');
+        alert("Error loading video: " + result.error);
+        router.push("/scholarship-stu-videos-cp");
       }
     } catch (error) {
-      console.error('Error fetching video data:', error);
-      alert('Failed to load video data');
-      router.push('/scholarship-stu-videos-cp');
+      console.error("Error fetching video data:", error);
+      alert("Failed to load video data");
+      router.push("/scholarship-stu-videos-cp");
     } finally {
       setFetchLoading(false);
     }
@@ -75,20 +79,20 @@ export default function UpdateVideoPage() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFormData(prev => ({
+      setFormData((prev) => ({
         ...prev,
-        video_image: file
+        video_image: file,
       }));
-      
+
       // Create preview
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -100,55 +104,76 @@ export default function UpdateVideoPage() {
   };
 
   const handleRemoveImage = () => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      video_image: null
+      video_image: null,
     }));
-    setImagePreview('');
+    setImagePreview("");
     setRemoveImage(true);
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  
-  if (!formData.video_link || !formData.video_title || !formData.rt_scholarship_name) {
-    setMessage({ type: 'error', text: 'Video link, video title, and scholarship name are required' });
-    return;
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    setLoading(true);
-    setMessage({ type: '', text: '' });
-    
-    const submitData = new FormData();
-    submitData.append('video_link', formData.video_link);
-    submitData.append('video_title', formData.video_title);
-    submitData.append('rt_scholarship_name', formData.rt_scholarship_name);
-    
-    if (formData.video_image) {
-      submitData.append('video_image', formData.video_image);
-    }
-    
-    if (removeImage) {
-      submitData.append('remove_image', 'true');
+    if (
+      !formData.video_link ||
+      !formData.video_title ||
+      !formData.rt_scholarship_name ||
+      !formData.vd_status
+    ) {
+      setMessage({
+        type: "error",
+        text: "Video link, video title, scholarship name, and status are required",
+      });
+      return;
     }
 
-    const result = await put(`/api/scholarship-stu-videos/${videoId}`, submitData);
+    try {
+      setLoading(true);
+      setMessage({ type: "", text: "" });
 
-    if (result.success) {
-      setMessage({ type: 'success', text: 'Video updated successfully! Redirecting...' });
-      setTimeout(() => {
-        router.push('/scholarship-stu-video-cp');
-      }, 1500);
-    } else {
-      setMessage({ type: 'error', text: result.error || 'Failed to update video' });
+      const submitData = new FormData();
+      submitData.append("video_link", formData.video_link);
+      submitData.append("video_title", formData.video_title);
+      submitData.append("rt_scholarship_name", formData.rt_scholarship_name);
+      submitData.append("vd_status", formData.vd_status);
+
+      if (formData.video_image) {
+        submitData.append("video_image", formData.video_image);
+      }
+
+      if (removeImage) {
+        submitData.append("remove_image", "true");
+      }
+
+      const result = await put(
+        `/api/scholarship-stu-videos/${videoId}`,
+        submitData
+      );
+
+      if (result.success) {
+        setMessage({
+          type: "success",
+          text: "Video updated successfully! Redirecting...",
+        });
+        setTimeout(() => {
+          router.push("/scholarship-stu-video-cp");
+        }, 1500);
+      } else {
+        setMessage({
+          type: "error",
+          text: result.error || "Failed to update video",
+        });
+      }
+    } catch (error) {
+      setMessage({
+        type: "error",
+        text: "Failed to update video. Please try again.",
+      });
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    setMessage({ type: 'error', text: 'Failed to update video. Please try again.' });
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
   if (fetchLoading) {
     return (
@@ -173,13 +198,56 @@ const handleSubmit = async (e) => {
             Update Student Video
           </h1>
 
+          {/* Message Display */}
+          {message.text && (
+            <div
+              className={`mb-6 p-4 rounded-lg ${
+                message.type === "success"
+                  ? "bg-green-50 border border-green-200 text-green-700"
+                  : "bg-red-50 border border-red-200 text-red-700"
+              }`}
+            >
+              <div className="flex items-center">
+                {message.type === "success" ? (
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                ) : (
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                )}
+                <span className="font-medium">{message.text}</span>
+              </div>
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Video Title */}
             <div>
-            <label htmlFor="video_title" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="video_title"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Video Title *
-            </label>
-            <input
+              </label>
+              <input
                 type="text"
                 id="video_title"
                 name="video_title"
@@ -188,8 +256,9 @@ const handleSubmit = async (e) => {
                 placeholder="Enter video title"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 required
-            />
+              />
             </div>
+
             {/* Video Image */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -198,15 +267,25 @@ const handleSubmit = async (e) => {
               <div className="flex items-center space-x-4">
                 <div className="w-32 h-24 bg-gray-200 rounded-lg flex items-center justify-center overflow-hidden">
                   {imagePreview ? (
-                    <img 
-                      src={imagePreview} 
-                      alt="Preview" 
+                    <img
+                      src={imagePreview}
+                      alt="Preview"
                       className="w-full h-full object-cover"
                     />
                   ) : (
                     <div className="text-gray-500 text-center">
-                      <svg className="w-8 h-8 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      <svg
+                        className="w-8 h-8 mx-auto mb-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
                       </svg>
                       <span className="text-xs">No Image</span>
                     </div>
@@ -237,7 +316,10 @@ const handleSubmit = async (e) => {
 
             {/* Video Link */}
             <div>
-              <label htmlFor="video_link" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="video_link"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Video Link *
               </label>
               <input
@@ -254,7 +336,10 @@ const handleSubmit = async (e) => {
 
             {/* Scholarship Name Dropdown */}
             <div>
-              <label htmlFor="rt_scholarship_name" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="rt_scholarship_name"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Scholarship Name *
               </label>
               <select
@@ -274,11 +359,32 @@ const handleSubmit = async (e) => {
               </select>
             </div>
 
+            {/* Status Field - NEW */}
+            <div>
+              <label
+                htmlFor="vd_status"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                Status *
+              </label>
+              <select
+                id="vd_status"
+                name="vd_status"
+                value={formData.vd_status}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                required
+              >
+                <option value="Student Story">Student Story</option>
+                <option value="How to Apply">How to Apply</option>
+              </select>
+            </div>
+
             {/* Buttons */}
             <div className="flex justify-end space-x-4 pt-6">
               <button
                 type="button"
-                onClick={() => router.push('/scholarship-stu-video-cp')}
+                onClick={() => router.push("/scholarship-stu-video-cp")}
                 className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors duration-200"
               >
                 Cancel
@@ -288,7 +394,7 @@ const handleSubmit = async (e) => {
                 disabled={loading}
                 className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-blue-300 transition-colors duration-200"
               >
-                {loading ? 'Updating...' : 'Update Video'}
+                {loading ? "Updating..." : "Update Video"}
               </button>
             </div>
           </form>

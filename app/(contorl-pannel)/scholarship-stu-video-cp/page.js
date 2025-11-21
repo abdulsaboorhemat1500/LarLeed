@@ -1,10 +1,10 @@
-'use client';
-import Link from 'next/link';
-import { useState, useEffect, useRef } from 'react';
-import { useApi } from '@/app/hooks/useApi';
+"use client";
+import Link from "next/link";
+import { useState, useEffect, useRef } from "react";
+import { useApi } from "@/app/hooks/useApi";
 
 export default function ScholarshipStudentVideosPage() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [openDropdown, setOpenDropdown] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
@@ -20,15 +20,15 @@ export default function ScholarshipStudentVideosPage() {
     try {
       setLoading(true);
       setError(null);
-      const resultedData = await get('/api/scholarship-stu-videos');
+      const resultedData = await get("/api/scholarship-stu-videos");
       if (resultedData.success) {
         setVideos(resultedData.data || []);
       } else {
-        console.log('❌ API returned error:', resultedData.error);
+        console.log("❌ API returned error:", resultedData.error);
       }
     } catch (error) {
       setError(error.message);
-      console.log('🚨 Fetch error:', error);
+      console.log("🚨 Fetch error:", error);
     } finally {
       setLoading(false);
       console.log("🏁 Fetch completed");
@@ -36,7 +36,11 @@ export default function ScholarshipStudentVideosPage() {
   };
 
   const handleDelete = async (videoId) => {
-    if (!confirm('Are you sure you want to delete this video? This action cannot be undone.')) {
+    if (
+      !confirm(
+        "Are you sure you want to delete this video? This action cannot be undone."
+      )
+    ) {
       return;
     }
 
@@ -46,38 +50,46 @@ export default function ScholarshipStudentVideosPage() {
       if (result.success) {
         // Refresh the list
         getVideos();
-        alert('Video deleted successfully!');
+        alert("Video deleted successfully!");
       } else {
-        alert('Error: ' + result.error);
+        alert("Error: " + result.error);
       }
     } catch (error) {
-      console.error('Delete error:', error);
-      alert('Failed to delete video');
+      console.error("Delete error:", error);
+      alert("Failed to delete video");
     }
   };
 
   useEffect(() => {
     getVideos();
     const handleClickOutside = (event) => {
-      const isOutsideButton = dropdownButtonRef.current && !dropdownButtonRef.current.contains(event.target);
-      const isOutsideMenu = dropdownMenuRef.current && !dropdownMenuRef.current.contains(event.target);
-      
+      const isOutsideButton =
+        dropdownButtonRef.current &&
+        !dropdownButtonRef.current.contains(event.target);
+      const isOutsideMenu =
+        dropdownMenuRef.current &&
+        !dropdownMenuRef.current.contains(event.target);
+
       if (isOutsideButton && isOutsideMenu) {
         setOpenDropdown(null);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   // Filter videos based on search
-  const filteredVideos = videos.filter(video => {
-    const matches = 
-      video.rt_scholarship_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      video.video_link?.toLowerCase().includes(searchTerm.toLowerCase());
+  const filteredVideos = videos.filter((video) => {
+    const matches =
+      video.rt_scholarship_name
+        ?.toLowerCase()
+        .includes(searchTerm.toLowerCase()) ||
+      video.video_link?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      video.video_title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      video.vd_status?.toLowerCase().includes(searchTerm.toLowerCase()); // Added status to search
     return matches;
   });
 
@@ -158,7 +170,7 @@ export default function ScholarshipStudentVideosPage() {
             </div>
             <input
               type="text"
-              placeholder="Search videos..."
+              placeholder="Search videos by title, scholarship, link, or status..."
               className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               value={searchTerm}
               onChange={(e) => {
@@ -222,6 +234,12 @@ export default function ScholarshipStudentVideosPage() {
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
                     Scholarship Name
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Status
                   </th>
                   <th
                     scope="col"
@@ -307,6 +325,19 @@ export default function ScholarshipStudentVideosPage() {
                       >
                         {video.rt_scholarship_name}
                       </div>
+                    </td>
+
+                    {/* Status - NEW */}
+                    <td className="px-6 py-4 whitespace-nowrap">
+                      <span
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          video.vd_status === "Student Story"
+                            ? "bg-green-100 text-green-800"
+                            : "bg-blue-100 text-blue-800"
+                        }`}
+                      >
+                        {video.vd_status}
+                      </span>
                     </td>
 
                     {/* Actions */}

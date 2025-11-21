@@ -185,8 +185,8 @@ export default function AllVideos() {
                   onClick={() => setActiveFilter(filter)}
                   className={`cursor-pointer px-5 py-3 text-sm font-semibold rounded-2xl transition-all duration-300 border-2 ${
                     activeFilter === filter
-                      ? "bg-blue-500 text-white border-blue-500 shadow-2xl shadow-blue-500/30 transform scale-105"
-                      : "bg-white/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 border-gray-100 dark:border-gray-700 backdrop-blur-sm hover:bg-white dark:hover:bg-gray-800 hover:border-blue-200 dark:hover:border-blue-800 hover:text-blue-600 dark:hover:text-blue-400 hover:shadow-lg"
+                      ? "bg-custom-md text-white border-custom-half shadow-2xl shadow-blue-500/30 transform scale-105"
+                      : "bg-white/80 dark:bg-gray-800/80 text-gray-600 dark:text-gray-400 border-gray-100  backdrop-blur-sm hover:bg-white  hover:border-blue-200 hover:text-blue-600 hover:shadow-lg"
                   }`}
                 >
                   {filter}
@@ -199,7 +199,7 @@ export default function AllVideos() {
               <select
                 onChange={(e) => setActiveFilter(e.target.value)}
                 value={activeFilter}
-                className="w-full px-4 py-3 bg-white/80 dark:bg-gray-800/80 border-2 border-gray-100 dark:border-gray-700 rounded-2xl backdrop-blur-sm"
+                className="w-full px-4 py-3 bg-white/80 dark:bg-gray-800/80 border-2 border-gray-100  rounded-2xl backdrop-blur-sm"
               >
                 {filters.map((filter) => (
                   <option key={filter} value={filter}>
@@ -217,7 +217,7 @@ export default function AllVideos() {
               <div className="relative group flex-1 max-w-2xl">
                 <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
                   <svg
-                    className="h-5 w-5 text-gray-500 group-focus-within:text-blue-500 transition-colors"
+                    className="h-5 w-5 text-gray-500 group-focus-within:text-custom-md transition-colors"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -368,7 +368,7 @@ export default function AllVideos() {
                   <Link
                     href={`/${locale}/scholarships-programs/${scholarship.id}`}
                   >
-                    <button className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition-colors duration-200">
+                    <button className="custom-my-btn">
                       {t("ScholarshipsPage.read more")}
                     </button>
                   </Link>

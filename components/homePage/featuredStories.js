@@ -181,7 +181,7 @@ export default function FeaturedStories() {
                   {/* Story Details Button - Full width at the bottom */}
                   <button
                     onClick={() => handleStoryDetails(story.id)}
-                    className="cursor-pointer w-full mt-1 py-2 px-4 bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
+                    className="custom-my-btn"
                   >
                     {t("HomePage.story details")}
                   </button>

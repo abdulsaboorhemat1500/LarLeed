@@ -4,7 +4,7 @@ import { useTranslations } from '@/hooks/useTranslations';
 export default function TopBanner() {
   const { t } = useTranslations();
   return (
-    <div className="pt-10 pb-5 bg-gradient-to-r from-bg-custom-half to-bg-custom-sm border-b border-gray-200 dark:border-gray-700 py-4 px-4">
+    <div className="pt-10 pb-5 bg-custom-sm border-b border-gray-200  py-4 px-4">
       <div className="container mx-auto text-center">
         <h1 className="text-4xl md:text-5xl font-bold text-black dark:text-white mb-3">
           {t("Banner.title")}

@@ -113,7 +113,7 @@ export default function LoginPage() {
                 <span className="text-white font-bold text-xl">LarLeed</span>
               </div>
             </div>
-            
+
             <h2 className="mt-6 text-center text-3xl font-bold text-gray-900 dark:text-white">
               Sign in to your account
             </h2>
@@ -122,7 +122,10 @@ export default function LoginPage() {
           <form className="space-y-6" onSubmit={handleSubmit}>
             {/* Email Field */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
                 Email address
               </label>
               <div className="mt-1">
@@ -135,7 +138,9 @@ export default function LoginPage() {
                   value={formData.email}
                   onChange={handleChange}
                   className={`appearance-none block w-full px-3 py-2 border ${
-                    errors.email ? 'border-red-300' : 'border-gray-300 dark:border-gray-600'
+                    errors.email
+                      ? "border-red-300"
+                      : "border-gray-300 dark:border-gray-600"
                   } rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm transition-colors`}
                   placeholder="Enter your email"
                 />
@@ -147,7 +152,10 @@ export default function LoginPage() {
 
             {/* Password Field */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              >
                 Password
               </label>
               <div className="mt-1">
@@ -160,7 +168,9 @@ export default function LoginPage() {
                   value={formData.password}
                   onChange={handleChange}
                   className={`appearance-none block w-full px-3 py-2 border ${
-                    errors.password ? 'border-red-300' : 'border-gray-300 dark:border-gray-600'
+                    errors.password
+                      ? "border-red-300"
+                      : "border-gray-300 dark:border-gray-600"
                   } rounded-md placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white sm:text-sm transition-colors`}
                   placeholder="Enter your password"
                 />
@@ -181,14 +191,17 @@ export default function LoginPage() {
                   onChange={(e) => setRememberMe(e.target.checked)}
                   className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                 />
-                <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                <label
+                  htmlFor="remember-me"
+                  className="ml-2 block text-sm text-gray-700 dark:text-gray-300"
+                >
                   Remember me
                 </label>
               </div>
 
               <div className="text-sm">
-                <Link 
-                  href="/forgot-password" 
+                <Link
+                  href="/forgot-password"
                   className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300"
                 >
                   Forgot your password?
@@ -199,7 +212,9 @@ export default function LoginPage() {
             {/* Submit Error (for non-field specific errors) */}
             {errors.submit && (
               <div className="rounded-md bg-red-50 dark:bg-red-900 p-4">
-                <p className="text-sm text-red-700 dark:text-red-200">{errors.submit}</p>
+                <p className="text-sm text-red-700 dark:text-red-200">
+                  {errors.submit}
+                </p>
               </div>
             )}
 
@@ -216,22 +231,9 @@ export default function LoginPage() {
                     Signing in...
                   </div>
                 ) : (
-                  'Sign in'
+                  "Sign in"
                 )}
               </button>
-            </div>
-
-            {/* Sign Up Link */}
-            <div className="text-center">
-              <p className="text-sm text-gray-600 dark:text-gray-400">
-                Don't have an account?{' '}
-                <Link 
-                  href="/signup" 
-                  className="font-medium text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
-                >
-                  Sign up
-                </Link>
-              </p>
             </div>
           </form>
         </div>

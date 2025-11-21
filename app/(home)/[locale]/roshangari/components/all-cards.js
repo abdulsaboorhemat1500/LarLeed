@@ -215,7 +215,7 @@ export default function FeaturedStoriesList() {
 
                   {/* Story Details Button - Full width at the bottom */}
                   <Link href={`/${locale}/featured-stories/${story.id}`}>
-                    <button className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
+                    <button className="custom-my-btn">
                       {t("RoshangariPage.story detail")}
                     </button>
                   </Link>

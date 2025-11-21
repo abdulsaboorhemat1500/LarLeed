@@ -48,7 +48,7 @@ export default function HeroSection() {
               <span className="text-black dark:text-white block">
                 {t("Banner.title")}
               </span>
-              <span className="bg-gradient-to-r from-text-custom-half to-text-custom-md bg-clip-text text-transparent">
+              <span className="text-gradient-custom">
                 {t("HomePage.connecting afghan youth")}
               </span>
             </h1>
@@ -63,7 +63,7 @@ export default function HeroSection() {
             >
               <Link
                 href={`/${currentLocale}/scholarships-programs`}
-                className="cursor-pointer px-8 py-4 bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
+                className="custom-my-btn"
               >
                 {t("HomePage.Find Scholarships Now")}
               </Link>

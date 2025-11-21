@@ -95,7 +95,7 @@ export default function WhyChoseUse() {
         <div className="">
           {/* Section Title */}
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
+            <h2 className="text-3xl font-bold text-gradient-custom mb-4">
               {t("HomePage.Why Choose Us")}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
@@ -121,7 +121,7 @@ export default function WhyChoseUse() {
                   {/* Content */}
                   <div className="relative z-10">
                     {/* Icon Container with Animation */}
-                    <div className="inline-flex items-center justify-center p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl mb-4 transform group-hover:rotate-12 transition-transform duration-300">
+                    <div className="inline-flex items-center justify-center p-3 bg-custom-full rounded-xl mb-4 transform group-hover:rotate-12 transition-transform duration-300">
                       <div className="text-white transform group-hover:scale-110 transition-transform duration-300">
                         {feature.icon}
                       </div>
@@ -133,7 +133,7 @@ export default function WhyChoseUse() {
                     </h3>
 
                     {/* Animated Underline */}
-                    <div className="w-0 group-hover:w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-500 mt-2"></div>
+                    <div className="w-0 group-hover:w-full h-0.5 bg-gradient-to-r from-blue-500 to-blue-800 transition-all duration-500 mt-2"></div>
                   </div>
 
                   {/* Sparkle Effects */}

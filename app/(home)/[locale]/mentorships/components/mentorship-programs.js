@@ -54,7 +54,7 @@ export default function MentorshipProgramsSection() {
             {/* Outlined Button */}
             <button
               onClick={() => setIsModalOpen(true)}
-              className="cursor-pointer mt-16 px-12 py-4 border-2 border-blue-200 text-blue-200 font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 hover:bg-blue-500 hover:text-white hover:border-blue-500 text-lg"
+              className="custom-my-btn"
             >
               Fill Form For Mentor
             </button>

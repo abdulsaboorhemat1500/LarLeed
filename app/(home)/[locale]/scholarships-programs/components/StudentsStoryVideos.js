@@ -1,12 +1,13 @@
-'use client';
-import { useState, useEffect, useRef } from 'react';
-import { useApi } from '@/app/hooks/useApi';
+"use client";
+import { useState, useEffect, useRef } from "react";
+import { useApi } from "@/app/hooks/useApi";
 import ScholarshipFormModal from "../../mentorships/components/scholarship-form";
 
 export default function StudentStoriesSection({ scholarshipName = null }) {
   const { get } = useApi();
   const [videos, setVideos] = useState([]);
   const [filteredVideos, setFilteredVideos] = useState([]);
+  const [howToApplyVideo, setHowToApplyVideo] = useState(null); // New state for How to Apply video
   const [loading, setLoading] = useState(true);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,16 +23,30 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
         const allVideos = result.data || [];
         setVideos(allVideos);
 
-        // Filter videos if scholarshipName is provided
+        // Filter videos based on status and scholarshipName
+        const studentStoryVideos = allVideos.filter(
+          (video) => video.status === "Student Story"
+        );
+
+        const howToApplyVideos = allVideos.filter(
+          (video) => video.status === "How to Apply"
+        );
+
+        // Set the first How to Apply video (or null if none)
+        setHowToApplyVideo(
+          howToApplyVideos.length > 0 ? howToApplyVideos[0] : null
+        );
+
+        // Filter student story videos by scholarshipName if provided
         if (scholarshipName) {
-          const filtered = allVideos.filter(
+          const filtered = studentStoryVideos.filter(
             (video) =>
               video.rt_scholarship_name?.toLowerCase() ===
               scholarshipName.toLowerCase()
           );
           setFilteredVideos(filtered);
         } else {
-          setFilteredVideos(allVideos);
+          setFilteredVideos(studentStoryVideos);
         }
       }
     } catch (error) {
@@ -48,14 +63,20 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
   // Update filtered videos when scholarshipName or videos change
   useEffect(() => {
     if (scholarshipName && videos.length > 0) {
-      const filtered = videos.filter(
+      const studentStoryVideos = videos.filter(
+        (video) => video.status === "Student Story"
+      );
+      const filtered = studentStoryVideos.filter(
         (video) =>
           video.rt_scholarship_name?.toLowerCase() ===
           scholarshipName.toLowerCase()
       );
       setFilteredVideos(filtered);
     } else {
-      setFilteredVideos(videos);
+      const studentStoryVideos = videos.filter(
+        (video) => video.status === "Student Story"
+      );
+      setFilteredVideos(studentStoryVideos);
     }
   }, [scholarshipName, videos]);
 
@@ -150,14 +171,39 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
               {/* Right Column - Video */}
               <div className="relative">
                 <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-300">
-                  <iframe
-                    src="https://www.youtube.com/embed/rqYhq03nOv4?si=pu9lgxTvIKLpzzwn"
-                    title="Scholarship Guidance Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-full h-80 lg:h-96 rounded-2xl border-4 border-white dark:border-gray-800"
-                  />
+                  {/* Show How to Apply video if available, otherwise show default */}
+                  {howToApplyVideo ? (
+                    <iframe
+                      src={getEmbedUrl(howToApplyVideo.video_link)}
+                      title={
+                        howToApplyVideo.video_title || "How to Apply Video"
+                      }
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-80 lg:h-96 rounded-2xl border-4 border-white dark:border-gray-800"
+                    />
+                  ) : (
+                    <iframe
+                      src="#"
+                      title="Scholarship Guidance Video"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-80 lg:h-96 rounded-2xl border-4 border-white dark:border-gray-800"
+                    />
+                  )}
                 </div>
+
+                {/* Video title for How to Apply video */}
+                {howToApplyVideo && (
+                  <div className="mt-4 text-center">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                      {howToApplyVideo.video_title}
+                    </h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      How to Apply Guide
+                    </p>
+                  </div>
+                )}
 
                 {/* Decorative elements */}
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-blue-200 dark:bg-blue-800 rounded-full opacity-50 -z-10"></div>
@@ -425,14 +471,37 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
             {/* Right Column - Video */}
             <div className="relative">
               <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-300">
-                <iframe
-                  src="https://www.youtube.com/embed/rqYhq03nOv4?si=pu9lgxTvIKLpzzwn"
-                  title="Scholarship Guidance Video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="w-full h-80 lg:h-96 rounded-2xl border-4 border-white dark:border-gray-800"
-                />
+                {/* Show How to Apply video if available, otherwise show default */}
+                {howToApplyVideo ? (
+                  <iframe
+                    src={getEmbedUrl(howToApplyVideo.video_link)}
+                    title={howToApplyVideo.video_title || "How to Apply Video"}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-80 lg:h-96 rounded-2xl border-4 border-white dark:border-gray-800"
+                  />
+                ) : (
+                  <iframe
+                    src="#"
+                    title="Scholarship Guidance Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-80 lg:h-96 rounded-2xl border-4 border-white dark:border-gray-800"
+                  />
+                )}
               </div>
+
+              {/* Video title for How to Apply video */}
+              {howToApplyVideo && (
+                <div className="mt-4 text-center">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    {howToApplyVideo.video_title}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    How to Apply Guide
+                  </p>
+                </div>
+              )}
 
               {/* Decorative elements */}
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-blue-200 dark:bg-blue-800 rounded-full opacity-50 -z-10"></div>
