@@ -542,3 +542,23 @@ html {
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+
+/* Background colors */
+.bg-custom-half {
+  background-color: #2E5E99 !important;
+}
+
+.hover\:bg-custom-half:hover {
+  background-color: #2E5E99 !important;
+}
+
+/* Text colors */
+.text-custom-half {
+  color: #2E5E99 !important;
+}
+
+/* Border colors */
+.border-custom-half {
+  border-color: #2E5E99 !important;
+}

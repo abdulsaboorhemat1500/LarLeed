@@ -12,7 +12,7 @@ export default function AddVideoPage() {
     video_link: "",
     video_title: "",
     rt_scholarship_name: "",
-    vd_status: "Status", // Default value
+    vd_status: "Student Story", // Default value
   });
   const [scholarships, setScholarships] = useState([]);
   const [loading, setLoading] = useState(false);

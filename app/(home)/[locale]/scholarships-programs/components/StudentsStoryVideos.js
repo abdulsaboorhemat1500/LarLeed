@@ -25,11 +25,11 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
 
         // Filter videos based on status and scholarshipName
         const studentStoryVideos = allVideos.filter(
-          (video) => video.status === "Student Story"
+          (video) => video.vd_status === "Student Story"
         );
 
         const howToApplyVideos = allVideos.filter(
-          (video) => video.status === "How to Apply"
+          (video) => video.vd_status === "How to Apply"
         );
 
         // Set the first How to Apply video (or null if none)
@@ -64,7 +64,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
   useEffect(() => {
     if (scholarshipName && videos.length > 0) {
       const studentStoryVideos = videos.filter(
-        (video) => video.status === "Student Story"
+        (video) => video.vd_status === "Student Story"
       );
       const filtered = studentStoryVideos.filter(
         (video) =>
@@ -74,7 +74,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
       setFilteredVideos(filtered);
     } else {
       const studentStoryVideos = videos.filter(
-        (video) => video.status === "Student Story"
+        (video) => video.vd_status === "Student Story"
       );
       setFilteredVideos(studentStoryVideos);
     }
@@ -155,7 +155,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                 <div className="pt-4">
                   <button
                     onClick={() => setIsMentorModalOpen(true)}
-                    className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                    className="cursor-pointer mt-4  py-3 px-4 bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
                   >
                     Open Scholarship Form
                   </button>
@@ -455,7 +455,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
               <div className="pt-4">
                 <button
                   onClick={() => setIsMentorModalOpen(true)}
-                  className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+                  className="cursor-pointer mt-4  py-3 px-4 bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
                 >
                   Open Scholarship Form
                 </button>

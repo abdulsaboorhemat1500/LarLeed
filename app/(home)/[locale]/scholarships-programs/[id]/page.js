@@ -165,7 +165,7 @@ export default function ScholarshipDetailsPage() {
     <>
       <div className="min-h-screen bg-gray-50 ">
         {/* Header */}
-        <div className="mb-8 bg-gradient-to-r from-purple-500 to-orange-500 h-40 w-full text-center flex items-center justify-center">
+        <div className="mb-8 bg-custom-sm h-40 w-full text-center flex items-center justify-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900  mb-4">
             {getLocalizedField(scholarship, "s_name")}
           </h1>
@@ -446,7 +446,7 @@ export default function ScholarshipDetailsPage() {
                 <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
                   <button
                     onClick={handleApplyNow}
-                    className="cursor-pointer w-full bg-green-600 hover:bg-green-700 text-white py-4 px-6 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                    className=" py-4 px-6 text-lg cursor-pointer mt-4 flex w-full justify-center gap-8  bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-bold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
                   >
                     {t("scholarshipDetailsPage.apply now")}
                     {scholarship.s_applying_link && (
