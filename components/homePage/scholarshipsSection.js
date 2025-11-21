@@ -257,7 +257,7 @@ export default function ScholarshipSliderSection() {
                     <Link
                       href={`/${locale}/scholarships-programs/${scholarship.id}`}
                     >
-                      <button className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition-colors duration-200">
+                      <button className="cursor-pointer w-full mt-4 py-2 px-4 bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">
                         {t("ScholarshipsPage.read more")}
                       </button>
                     </Link>

@@ -128,7 +128,7 @@ export default function ContactUsSection() {
                 </div>
                 <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                   <a href="mailto:saboorhemat4600@gmail.com">
-                    <button className="cursor-pointer w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors">
+                    <button className="cursor-pointer w-full  py-3 px-4 bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">
                       {t("HomePage.contact via email")}
                     </button>
                   </a>
@@ -270,7 +270,7 @@ export default function ContactUsSection() {
 
                 <Button
                   type="submit"
-                  className="mt-4 cursor-pointer px-7"
+                  className="mt-4 cursor-pointer px-7 bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
                   disabled={isSubmitting}
                 >
                   {isSubmitting

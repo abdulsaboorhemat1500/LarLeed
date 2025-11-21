@@ -469,3 +469,44 @@ html {
 .scrollbar-custom::-webkit-scrollbar-thumb:hover {
   background: #a8a8a8;
 }
+
+/* custom background colors */
+.bg-custom-full{
+  background-color: #0D2440;
+}
+.bg-custom-half{
+  background-color: #2E5E99;
+}
+.bg-custom-md{
+  background-color: #7BA4D0;
+}
+.bg-custom-sm{
+  background-color: #E7F0FA;
+}
+/* text custom color */
+.text-custom-full{
+  color:#0D2440
+}
+.text-custom-half{
+  color:#2E5E99
+}
+.text-custom-md{
+  color:#7BA4D0
+}
+.text-custom-sm{
+  color:#E7F0FA
+}
+
+/* Border colors */
+.border-custom-full{
+  border-color:#0D2440
+}
+.border-custom-half{
+  border-color:#2E5E99
+}
+.border-custom-md{
+  border-color:#7BA4D0
+}
+.border-custom-sm{
+  border-color:#E7F0FA
+}

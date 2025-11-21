@@ -48,11 +48,11 @@ export default function HeroSection() {
               <span className="text-black dark:text-white block">
                 {t("Banner.title")}
               </span>
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-text-custom-half to-text-custom-md bg-clip-text text-transparent">
                 {t("HomePage.connecting afghan youth")}
               </span>
             </h1>
-            <p className="text-lg font-semibold text-black">
+            <p className="text-lg font-semibold text-gray-600">
               {t("HomePage.Our platform connect")}
             </p>
             {/* CTA Button */}
@@ -63,7 +63,7 @@ export default function HeroSection() {
             >
               <Link
                 href={`/${currentLocale}/scholarships-programs`}
-                className="cursor-pointer px-8 py-4 bg-transparent border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
+                className="cursor-pointer px-8 py-4 bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
               >
                 {t("HomePage.Find Scholarships Now")}
               </Link>

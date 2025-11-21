@@ -203,7 +203,7 @@ export default function FeaturedVideos() {
                     >
                       <Button
                         size="sm"
-                        className="cursor-pointer bg-green-600 hover:bg-green-700 text-white flex items-center gap-2 w-full justify-center py-2.5"
+                        className="cursor-pointer w-full py-2.5 bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
                       >
                         {t("HomePage.video details")}
                       </Button>

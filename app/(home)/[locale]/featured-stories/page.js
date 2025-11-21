@@ -102,21 +102,21 @@ export default function FeaturedStoriesList() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
       <div className="container mx-auto px-4">
-        <BackButton />  
+        <BackButton />
         <div className="max-w-2xl mx-auto mb-6">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-              <svg 
-                className="w-5 h-5 text-gray-400" 
-                fill="none" 
-                stroke="currentColor" 
+              <svg
+                className="w-5 h-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" 
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 />
               </svg>
             </div>
@@ -125,17 +125,27 @@ export default function FeaturedStoriesList() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-12 py-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-              placeholder={t('HomePage.search stories by title, description, or author...')}
+              placeholder={t(
+                "HomePage.search stories by title, description, or author..."
+              )}
             />
-            
+
             {searchQuery && (
               <button
-                onClick={() => setSearchQuery('')}
+                onClick={() => setSearchQuery("")}
                 className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-red-500 transition-colors"
-                title={t('HomePage.clear search')}
+                title={t("HomePage.clear search")}
               >
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                <svg
+                  className="h-5 w-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </button>
             )}
@@ -147,7 +157,7 @@ export default function FeaturedStoriesList() {
         {currentStories.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {currentStories.map((story) => (
-              <div 
+              <div
                 key={story.id}
                 className="bg-blue-100 rounded-xl hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
               >
@@ -172,21 +182,24 @@ export default function FeaturedStoriesList() {
                     )}
                   </div>
                 </div>
-  
+
                 <div className="p-5 flex flex-col flex-1">
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
                     {limitTitleToFiveWords(story.post_title)}
                   </h3>
-                  
+
                   <p className="text-blue-600 dark:text-gray-400 text-sm mb-4">
                     {story.author_name}
                   </p>
-                  
-                  <div className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1 rich-text-content" dangerouslySetInnerHTML={{ __html: story.post_description }} />
-                  
+
+                  <div
+                    className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1 rich-text-content"
+                    dangerouslySetInnerHTML={{ __html: story.post_description }}
+                  />
+
                   <Link href={`/${locale}/featured-stories/${story.id}`}>
-                    <button className="cursor-pointer w-full mt-4 bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200">
-                      {t('HomePage.story details')}
+                    <button className="cursor-pointer w-full mt-4  py-2 px-4 bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center">
+                      {t("HomePage.story details")}
                     </button>
                   </Link>
                 </div>
@@ -196,14 +209,16 @@ export default function FeaturedStoriesList() {
         ) : (
           <div className="text-center py-12">
             <div className="text-gray-500 dark:text-gray-400 text-lg mb-4">
-              {stories.length === 0 ? t('HomePage.no stories found.') : t(`HomePage.no stories found matching "${searchQuery}"`)}
+              {stories.length === 0
+                ? t("HomePage.no stories found.")
+                : t(`HomePage.no stories found matching "${searchQuery}"`)}
             </div>
             {searchQuery && (
               <button
-                onClick={() => setSearchQuery('')}
+                onClick={() => setSearchQuery("")}
                 className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
               >
-                {t('HomePage.clear search')}
+                {t("HomePage.clear search")}
               </button>
             )}
           </div>
@@ -212,15 +227,15 @@ export default function FeaturedStoriesList() {
         {totalPages > 1 && (
           <div className="flex justify-center items-center space-x-2">
             <button
-              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
               className={`px-4 py-2 rounded-lg border transition-colors ${
-                currentPage === 1 
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
-                  : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600'
+                currentPage === 1
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600"
               }`}
             >
-              {t('HomePage.previous')}
+              {t("HomePage.previous")}
             </button>
 
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
@@ -229,8 +244,8 @@ export default function FeaturedStoriesList() {
                 onClick={() => setCurrentPage(page)}
                 className={`w-10 h-10 rounded-lg border transition-colors ${
                   currentPage === page
-                    ? 'bg-blue-500 text-white border-blue-500'
-                    : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600'
+                    ? "bg-blue-500 text-white border-blue-500"
+                    : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600"
                 }`}
               >
                 {page}
@@ -238,15 +253,17 @@ export default function FeaturedStoriesList() {
             ))}
 
             <button
-              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              onClick={() =>
+                setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+              }
               disabled={currentPage === totalPages}
               className={`px-4 py-2 rounded-lg border transition-colors ${
                 currentPage === totalPages
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600'
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-white text-gray-700 hover:bg-gray-50 border-gray-300 dark:bg-gray-700 dark:text-white dark:border-gray-600"
               }`}
             >
-              {t('HomePage.next')}  
+              {t("HomePage.next")}
             </button>
           </div>
         )}
