@@ -351,7 +351,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                     )}
                     <button
                       onClick={() => openVideoModal(video)}
-                      className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200 font-medium flex items-center justify-center"
+                      className="w-full cursor-pointer mt-4 bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center py-2 px-4  flex items-center justify-center"
                     >
                       <svg
                         className="w-4 h-4 mr-2"

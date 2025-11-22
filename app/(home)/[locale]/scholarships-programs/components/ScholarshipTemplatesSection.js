@@ -131,7 +131,7 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
               {/* File Icon */}
               <div className="mb-3">
                 {template.word_file ? (
-                  <div className="w-12 h-12 mx-auto bg-blue-100 rounded-full flex items-center justify-center">
+                  <div className="w-12 h-12 mx-auto bg-custom-sm rounded-full flex items-center justify-center">
                     <svg
                       className="w-6 h-6 text-blue-600"
                       fill="none"

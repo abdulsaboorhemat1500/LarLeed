@@ -323,7 +323,7 @@ export default function AllVideos() {
             {currentScholarships.map((scholarship) => (
               <div
                 key={scholarship.id}
-                className="bg-blue-100 rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300"
+                className="bg-custom-sm rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300"
               >
                 {/* Scholarship Image */}
                 <div className="h-48 bg-gray-200 relative">

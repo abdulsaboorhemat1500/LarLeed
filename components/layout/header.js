@@ -49,7 +49,7 @@ export default function HeaderSection() {
   ];
 
   return (
-    <header className="bg-blue-100 sticky top-0 z-50 shadow-sm border-b">
+    <header className="bg-custom-sm sticky top-0 z-50 shadow-sm border-b">
       <nav
         aria-label="Global"
         className="mx-auto flex container items-center justify-between p-6 lg:px-8"
