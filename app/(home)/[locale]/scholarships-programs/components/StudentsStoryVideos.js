@@ -176,7 +176,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                 {howToApplyVideo && (
                   <div className="mb-4 text-center">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                      {howToApplyVideo.video_title}
+                      How to Apply For:{scholarshipName}
                     </h3>
                   </div>
                 )}
@@ -461,6 +461,15 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
 
             {/* Right Column - Video */}
             <div className="relative">
+              {/* Video title for How to Apply video */}
+              {howToApplyVideo && (
+                <div className="mt-4 text-center">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    How to Apply For:{scholarshipName}
+                  </h3>
+                </div>
+              )}
+
               <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-300">
                 {/* Show How to Apply video if available, otherwise show default */}
                 {howToApplyVideo ? (
@@ -481,18 +490,6 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                   />
                 )}
               </div>
-
-              {/* Video title for How to Apply video */}
-              {howToApplyVideo && (
-                <div className="mt-4 text-center">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    {howToApplyVideo.video_title}
-                  </h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
-                    How to Apply Guide
-                  </p>
-                </div>
-              )}
 
               {/* Decorative elements */}
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-blue-200 dark:bg-blue-800 rounded-full opacity-50 -z-10"></div>

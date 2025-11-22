@@ -1,18 +1,18 @@
-'use client';
-import { Play} from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useState, useEffect } from 'react';
-import { useApi } from '@/app/hooks/useApi';
-import { useTranslations } from '@/hooks/useTranslations';
-import { useParams } from 'next/navigation';
-
+"use client";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useApi } from "@/app/hooks/useApi";
+import { useTranslations } from "@/hooks/useTranslations";
+import { useParams } from "next/navigation";
 
 export default function FeaturedVideos() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const router = useRouter();
   const { get } = useApi();
   const { t } = useTranslations();
   const { locale } = useParams();
@@ -53,8 +53,8 @@ export default function FeaturedVideos() {
   };
 
   // Function to handle navigation to story details
-  const handleStoryDetails = (storyId) => {
-    router.push(`/${locale}/featured-videos/${storyId}`);
+  const handleStoryDetails = (id) => {
+    router.push(`/${locale}/featured-videos/${id}`);
   };
 
   // Function to extract YouTube video ID from URL
@@ -193,9 +193,7 @@ export default function FeaturedVideos() {
                     <p
                       className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 flex-1"
                       dangerouslySetInnerHTML={{
-                        __html:
-                          video.v_description ||
-                          "No description available for this video.",
+                        __html: video.v_description,
                       }}
                     />
 

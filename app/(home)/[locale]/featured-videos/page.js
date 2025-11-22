@@ -1,13 +1,11 @@
 'use client';
-export const runtime = 'edge';
-import BackButton from '@/components/ui/back-button';
-import { useState, useMemo, useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import { useApi } from '@/app/hooks/useApi';
-import { useTranslations } from '@/hooks/useTranslations';
-import { useParams } from 'next/navigation';
+export const runtime = "edge";
+import { useState, useMemo, useEffect } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useApi } from "@/app/hooks/useApi";
+import { useTranslations } from "@/hooks/useTranslations";
+import { useParams } from "next/navigation";
 import SocialMediaSection from "@/components/homePage/socialmedia";
 
 export default function FeaturedVideosList() {
@@ -15,6 +13,7 @@ export default function FeaturedVideosList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
   const [error, setError] = useState(null);
   const videosPerpage = 12;
   const { get } = useApi();
@@ -78,8 +77,8 @@ export default function FeaturedVideosList() {
   };
 
   // Function to handle navigation to story details
-  const handleStoryDetails = (storyId) => {
-    router.push(`/${locale}/featured-videos/${storyId}`);
+  const handleStoryDetails = (id) => {
+    router.push(`/${locale}/featured-videos/${id}`);
   };
 
   const getYouTubeThumbnail = (url) => {
@@ -215,15 +214,15 @@ export default function FeaturedVideosList() {
                       <p
                         className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1"
                         dangerouslySetInnerHTML={{
-                          __html: story.post_description,
+                          __html: video.v_description,
                         }}
                       />
                       {/* Story Details Button - Full width at the bottom */}
                       <button
-                        onClick={() => handleStoryDetails(story.id)}
+                        onClick={() => handleStoryDetails(video.id)}
                         className="custom-my-btn"
                       >
-                        {t("HomePage.story details")}
+                        {t("HomePage.video details")}
                       </button>
                     </div>
                   </div>
