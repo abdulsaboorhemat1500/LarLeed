@@ -212,22 +212,19 @@ export default function FeaturedVideosList() {
                         {video.v_creature || "Unknown Creator"}
                       </p>
 
-                      <div
-                        className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 flex-1 rich-text-content"
+                      <p
+                        className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1"
                         dangerouslySetInnerHTML={{
-                          __html:
-                            video.v_description || "No description available",
+                          __html: story.post_description,
                         }}
                       />
-                    </div>
-
-                    <div className="p-5 pt-0 space-y-2">
-                      <Button
-                        className="custom-my-btn"
+                      {/* Story Details Button - Full width at the bottom */}
+                      <button
                         onClick={() => handleStoryDetails(story.id)}
+                        className="custom-my-btn"
                       >
-                        {t("HomePage.video details")}
-                      </Button>
+                        {t("HomePage.story details")}
+                      </button>
                     </div>
                   </div>
                 );

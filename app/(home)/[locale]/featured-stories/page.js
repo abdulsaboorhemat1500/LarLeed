@@ -84,8 +84,6 @@ export default function FeaturedStoriesList() {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
         <div className="container mx-auto px-4">
-          <BackButton />
-
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">
               {t("HomePage.loading stories...")}
@@ -100,7 +98,6 @@ export default function FeaturedStoriesList() {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
         <div className="container mx-auto px-4">
-          <BackButton />
           <div className="text-center py-12">
             <p className="text-red-500 text-lg"> error: {error}</p>
           </div>
@@ -113,7 +110,6 @@ export default function FeaturedStoriesList() {
     <>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
         <div className="container mx-auto px-4">
-          <BackButton />
           <div className="max-w-2xl mx-auto mb-6">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">

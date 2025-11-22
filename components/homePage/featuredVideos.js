@@ -198,12 +198,11 @@ export default function FeaturedVideos() {
                           "No description available for this video.",
                       }}
                     />
-                  </div>
-                  {/* Buttons - Full width at the bottom */}
-                  <div className="p-5 pt-0 space-y-2">
+
+                    {/* Buttons - Full width at the bottom */}
                     <Button
                       className="custom-my-btn"
-                      onClick={() => handleStoryDetails(story.id)}
+                      onClick={() => handleStoryDetails(video.id)}
                     >
                       {t("HomePage.video details")}
                     </Button>

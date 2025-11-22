@@ -174,10 +174,12 @@ export default function FeaturedStories() {
                   </p>
 
                   {/* Description - Limited to 3 lines */}
-                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1">
-                    {story.post_description}
-                  </p>
-
+                  <p
+                    className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1"
+                    dangerouslySetInnerHTML={{
+                      __html: story.post_description,
+                    }}
+                  />
                   {/* Story Details Button - Full width at the bottom */}
                   <button
                     onClick={() => handleStoryDetails(story.id)}

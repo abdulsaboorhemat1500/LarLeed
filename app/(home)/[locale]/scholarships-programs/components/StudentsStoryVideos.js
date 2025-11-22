@@ -194,7 +194,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                     />
                   ) : (
                     <iframe
-                      src="#"
+                      src="https://sdkjfskdjfdjfaskdf"
                       title="Scholarship Guidance Video"
                       allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -473,7 +473,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                   />
                 ) : (
                   <iframe
-                    src="#"
+                    src="https://sdkjfskdjfdjfaskdf"
                     title="Scholarship Guidance Video"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
