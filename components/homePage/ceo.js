@@ -45,6 +45,14 @@ export default function CEOPage() {
 
           {/* Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                Abdul Hamid Hatsaandh
+              </h2>
+              <p className="text-lg text-blue-600 dark:text-blue-400 font-semibold mb-4">
+                Education Researcher at New York University
+              </p>
+            </div>
             {/* Image Column */}
             <div className="lg:col-span-2 flex justify-center">
               <div className="relative">
@@ -60,15 +68,6 @@ export default function CEOPage() {
 
             {/* Text Content Column */}
             <div className="lg:col-span-2 space-y-6">
-              <div>
-                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                  Abdul Hamid Hatsaandh
-                </h2>
-                <p className="text-lg text-blue-600 dark:text-blue-400 font-semibold mb-4">
-                  Education Researcher at New York University
-                </p>
-              </div>
-
               {/* Experience Section */}
               <div className="space-y-4">
                 <div className="bg-gradient-to-r from-blue-50 to-indigo-50  p-6 rounded-2xl border-l-4 border-blue-500 shadow-sm">
@@ -89,59 +88,58 @@ export default function CEOPage() {
                   </p>
                 </div>
               </div>
-
-              {/* Social Media Links */}
-              <div className="pt-4">
-                <p className="text-sm font-semibold text-gray-800 mb-3">
-                  Connect with Abdul Hamid!
-                </p>
-                <div className="flex space-x-3">
-                  <a
-                    href="https://www.facebook.com/ahamid.hatsaandh"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 bg-gray-200 hover:bg-blue-600 rounded-xl transition-all duration-200 transform hover:scale-110"
-                    aria-label="Facebook"
-                  >
-                    <FacebookIcon />
-                  </a>
-                  <a
-                    href="https://x.com/HamidHatsaandh"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 bg-gray-200 hover:bg-blue-400 rounded-xl transition-all duration-200 transform hover:scale-110"
-                    aria-label="Twitter"
-                  >
-                    <TwitterIcon />
-                  </a>
-                  <a
-                    href="https://www.instagram.com/hatsaandh/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 bg-gray-200 hover:bg-pink-600 rounded-xl transition-all duration-200 transform hover:scale-110"
-                    aria-label="Instagram"
-                  >
-                    <InstagramIcon />
-                  </a>
-                  <a
-                    href="https://www.youtube.com/@lomritob"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 bg-gray-200 hover:bg-red-600 rounded-xl transition-all duration-200 transform hover:scale-110"
-                    aria-label="YouTube"
-                  >
-                    <YoutubeIcon />
-                  </a>
-                  <a
-                    href="https://www.linkedin.com/in/hamidhatsaandh"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="p-3 bg-gray-200 hover:bg-blue-700 rounded-xl transition-all duration-200 transform hover:scale-110"
-                    aria-label="LinkedIn"
-                  >
-                    <LinkedinIcon />
-                  </a>
-                </div>
+            </div>
+            {/* Social Media Links */}
+            <div className="pt-4 items-center text-center">
+              <p className="text-sm font-semibold text-gray-800 mb-3">
+                Connect with Abdul Hamid!
+              </p>
+              <div className="flex space-x-3">
+                <a
+                  href="https://www.facebook.com/ahamid.hatsaandh"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-gray-200 hover:bg-blue-600 rounded-xl transition-all duration-200 transform hover:scale-110"
+                  aria-label="Facebook"
+                >
+                  <FacebookIcon />
+                </a>
+                <a
+                  href="https://x.com/HamidHatsaandh"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-gray-200 hover:bg-blue-400 rounded-xl transition-all duration-200 transform hover:scale-110"
+                  aria-label="Twitter"
+                >
+                  <TwitterIcon />
+                </a>
+                <a
+                  href="https://www.instagram.com/hatsaandh/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-gray-200 hover:bg-pink-600 rounded-xl transition-all duration-200 transform hover:scale-110"
+                  aria-label="Instagram"
+                >
+                  <InstagramIcon />
+                </a>
+                <a
+                  href="https://www.youtube.com/@lomritob"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-gray-200 hover:bg-red-600 rounded-xl transition-all duration-200 transform hover:scale-110"
+                  aria-label="YouTube"
+                >
+                  <YoutubeIcon />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/hamidhatsaandh"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 bg-gray-200 hover:bg-blue-700 rounded-xl transition-all duration-200 transform hover:scale-110"
+                  aria-label="LinkedIn"
+                >
+                  <LinkedinIcon />
+                </a>
               </div>
             </div>
           </div>

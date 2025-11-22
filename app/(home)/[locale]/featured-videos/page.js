@@ -77,6 +77,11 @@ export default function FeaturedVideosList() {
     return title;
   };
 
+  // Function to handle navigation to story details
+  const handleStoryDetails = (storyId) => {
+    router.push(`/${locale}/featured-videos/${storyId}`);
+  };
+
   const getYouTubeThumbnail = (url) => {
     if (!url) return null;
 
@@ -98,7 +103,7 @@ export default function FeaturedVideosList() {
         <div className="container mx-auto px-4">
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">
-              {t("HomePage.loading videos...")}
+              {t("HomePage.loading videos")}
             </p>
           </div>
         </div>
@@ -122,8 +127,6 @@ export default function FeaturedVideosList() {
     <>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
         <div className="container mx-auto px-4">
-          <BackButton />
-
           <div className="max-w-2xl mx-auto mb-6">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -219,11 +222,12 @@ export default function FeaturedVideosList() {
                     </div>
 
                     <div className="p-5 pt-0 space-y-2">
-                      <Link href={`/${locale}/featured-videos/${video.id}`}>
-                        <Button size="sm" className="custom-my-btn">
-                          {t("HomePage.video details")}
-                        </Button>
-                      </Link>
+                      <Button
+                        className="custom-my-btn"
+                        onClick={() => handleStoryDetails(story.id)}
+                      >
+                        {t("HomePage.video details")}
+                      </Button>
                     </div>
                   </div>
                 );

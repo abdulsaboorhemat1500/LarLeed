@@ -17,24 +17,23 @@ export default function FeaturedVideos() {
   const { t } = useTranslations();
   const { locale } = useParams();
 
-
   // Fetch videos from API
   useEffect(() => {
     const fetchVideos = async () => {
       try {
         setLoading(true);
-        const result = await get('/api/featured-videos');
+        const result = await get("/api/featured-videos");
 
         if (result.success) {
           // Get only the latest first 4 videos (sorted by created_at descending)
           const latestVideos = result.data.slice(0, 4);
           setVideos(latestVideos);
         } else {
-          setError(result.error || 'Failed to fetch videos');
+          setError(result.error || "Failed to fetch videos");
         }
       } catch (error) {
-        console.error('Fetch error:', error);
-        setError('Network error. Please try again.');
+        console.error("Fetch error:", error);
+        setError("Network error. Please try again.");
       } finally {
         setLoading(false);
       }
@@ -45,27 +44,33 @@ export default function FeaturedVideos() {
 
   // Function to limit title to 5 words
   const limitTitleToFiveWords = (title) => {
-    if (!title) return '';
-    const words = title.split(' ');
+    if (!title) return "";
+    const words = title.split(" ");
     if (words.length > 5) {
-      return words.slice(0, 5).join(' ') + '...';
+      return words.slice(0, 5).join(" ") + "...";
     }
     return title;
+  };
+
+  // Function to handle navigation to story details
+  const handleStoryDetails = (storyId) => {
+    router.push(`/${locale}/featured-videos/${storyId}`);
   };
 
   // Function to extract YouTube video ID from URL
   const getYouTubeThumbnail = (url) => {
     if (!url) return null;
-    
+
     // Extract YouTube video ID
-    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    const regExp =
+      /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
     const match = url.match(regExp);
-    const videoId = (match && match[7].length === 11) ? match[7] : null;
-    
+    const videoId = match && match[7].length === 11 ? match[7] : null;
+
     if (videoId) {
       return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
     }
-    
+
     return null;
   };
 
@@ -196,15 +201,12 @@ export default function FeaturedVideos() {
                   </div>
                   {/* Buttons - Full width at the bottom */}
                   <div className="p-5 pt-0 space-y-2">
-                    {/* Video Details Button */}
-                    <Link
-                      href={`/${locale}/featured-videos/${video.id}`}
-                      className="block"
+                    <Button
+                      className="custom-my-btn"
+                      onClick={() => handleStoryDetails(story.id)}
                     >
-                      <Button size="sm" className="custom-my-btn">
-                        {t("HomePage.video details")}
-                      </Button>
-                    </Link>
+                      {t("HomePage.video details")}
+                    </Button>
                   </div>
                 </div>
               );

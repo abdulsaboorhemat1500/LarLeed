@@ -9,20 +9,20 @@ export default function NeedHelpSection() {
   return (
     <section className="min-h-screen bg-custom-sm py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           {/* Header with decorative elements */}
           <div className="text-center mb-12">
             <div className="w-20 h-1 bg-custom-half mx-auto mb-6 rounded-full"></div>
-            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
+            <h2 className="text-5xl md:text-5xl font-bold text-gray-900 leading-tight">
               Need Help?
             </h2>
           </div>
 
           {/* Content */}
           <div className="space-y-8">
-            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg">
-              <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed text-center">
-                If you need our help with this scholarship then fill the
+            <div className="bg-white/80  backdrop-blur-sm rounded-2xl p-8 shadow-lg">
+              <p className="text-xl text-gray-600  leading-relaxed text-center">
+                If you need our help with the scholarship then fill the
                 following form. Our experts will guide you through the entire
                 application process and maximize your chances of success.
               </p>
@@ -75,7 +75,7 @@ export default function NeedHelpSection() {
             <div className="text-center pt-6">
               <button
                 onClick={() => setIsMentorModalOpen(true)}
-                className="cursor-pointer py-4 px-12 border-2 border-custom-half text-custom-half font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center bg-white hover:bg-gray-50 text-lg"
+                className="cursor-pointer py-4 px-12 border-2 border-custom-half text-custom-half font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center text-lg"
               >
                 Open Scholarship Form
               </button>

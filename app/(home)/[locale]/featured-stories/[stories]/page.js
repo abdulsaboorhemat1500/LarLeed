@@ -128,21 +128,6 @@ export default function StoryDetailsPage({ params }) {
               {story.post_title}
             </h1>
           </div>
-
-          {story.post_image && (
-            <div className="mb-8">
-              <div className="relative w-full h-80 md:h-80 lg:h-96 rounded-2xl overflow-hidden bg-gray-200 dark:bg-gray-700">
-                <Image
-                  src={story.post_image}
-                  alt="this is story image"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-              </div>
-            </div>
-          )}
-
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 dark:border-gray-700">
@@ -158,25 +143,25 @@ export default function StoryDetailsPage({ params }) {
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
-                    {t("storyDetailsPage.story details")}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    {t("storyDetailsPage.this inspiring story was shared by")}{" "}
-                    {story.author_name}{" "}
-                    {t(
-                      "storyDetailsPage.as part of our community stories collection."
-                    )}
-                    {t(
-                      "storyDetailsPage.each story represents the resilience and hope within our community."
-                    )}
-                  </p>
+                  {story.post_image && (
+                    <div className="mb-8">
+                      <div className="relative w-full h-80 md:h-80 lg:h-96 rounded-2xl overflow-hidden bg-gray-200 dark:bg-gray-700">
+                        <Image
+                          src={story.post_image}
+                          alt="this is story image"
+                          fill
+                          className="object-cover"
+                          priority
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
 
             <div className="lg:col-span-1">
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 dark:border-gray-700 sticky top-8">
+              <div className="bg-custom-sm  rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 ">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                   {t("storyDetailsPage.story author details")}
                 </h2>

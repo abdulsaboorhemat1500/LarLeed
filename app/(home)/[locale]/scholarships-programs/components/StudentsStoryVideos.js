@@ -29,7 +29,9 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
         );
 
         const howToApplyVideos = allVideos.filter(
-          (video) => video.vd_status === "How to Apply"
+          (video) =>
+            video.vd_status === "How to Apply" &&
+            video.rt_scholarship_name === scholarshipName
         );
 
         // Set the first How to Apply video (or null if none)
@@ -172,13 +174,10 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
               <div className="relative">
                 {/* Video title for How to Apply video */}
                 {howToApplyVideo && (
-                  <div className="mt-4 text-center">
+                  <div className="mb-4 text-center">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                       {howToApplyVideo.video_title}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
-                      How to Apply Guide
-                    </p>
                   </div>
                 )}
                 <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-300">
