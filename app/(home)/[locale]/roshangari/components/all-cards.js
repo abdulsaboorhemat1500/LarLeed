@@ -1,12 +1,11 @@
 'use client'; 
-export const runtime = 'edge';
-import BackButton from '@/components/ui/back-button';
-import { useState, useMemo, useEffect } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useApi } from '@/app/hooks/useApi';
-import { useTranslations } from '@/hooks/useTranslations';
-import { useParams } from 'next/navigation';
+export const runtime = "edge";
+import { useState, useMemo, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useApi } from "@/app/hooks/useApi";
+import { useTranslations } from "@/hooks/useTranslations";
+import { useParams } from "next/navigation";
 import SocialMediaSection from "@/components/homePage/socialmedia";
 export default function FeaturedStoriesList() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,7 +27,8 @@ export default function FeaturedStoriesList() {
         if (result.success) {
           // Filter posts where category is "story"
           const storyPosts = result.data.filter(
-            (post) => post.category === "roshangari"
+            (post) =>
+              post.category === "roshangari" && post.category === "story"
           );
           setStories(storyPosts);
         } else {
@@ -88,9 +88,6 @@ export default function FeaturedStoriesList() {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
         <div className="container mx-auto px-4">
-          <BackButton />
-
-          {/* Header */}
           <div className="text-center py-12">
             <p className="text-gray-500 text-lg">
               {t("RoshangariPage.loading stories")}
