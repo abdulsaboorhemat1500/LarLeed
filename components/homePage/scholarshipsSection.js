@@ -65,17 +65,14 @@ export default function ScholarshipSliderSection() {
     return scholarship[fieldName] || scholarship[`${cleanFieldBase}_eng`] || "";
   };
 
-  // Filter scholarships: show scholarships where deadline is within next 14 days from current date
+  // Filter scholarships: show scholarships where deadline is within next 30 days from current date
   const filteredScholarships = useMemo(() => {
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Set to start of day for accurate comparison
 
-    const twoWeeksFromNow = new Date();
-    twoWeeksFromNow.setDate(today.getDate() + 14);
-    twoWeeksFromNow.setHours(23, 59, 59, 999); // Set to end of day
-
-    console.log("📅 Today:", today);
-    console.log("📅 Two weeks from now:", twoWeeksFromNow);
+    const oneMonthFromNow = new Date();
+    oneMonthFromNow.setDate(today.getDate() + 30);
+    oneMonthFromNow.setHours(23, 59, 59, 999); // Set to end of day
 
     const expiringSoon = scholarships.filter((scholarship) => {
       if (!scholarship.s_app_deadline) return false;
@@ -83,18 +80,8 @@ export default function ScholarshipSliderSection() {
       const deadline = new Date(scholarship.s_app_deadline);
       deadline.setHours(23, 59, 59, 999); // Set to end of deadline day
 
-      console.log("🎯 Scholarship:", getLocalizedField(scholarship, "s_name"));
-      console.log("📝 Deadline:", deadline);
-      console.log(
-        "⏰ Is within 14 days:",
-        deadline >= today && deadline <= twoWeeksFromNow
-      );
-
-      return deadline >= today && deadline <= twoWeeksFromNow;
+      return deadline >= today && deadline <= oneMonthFromNow;
     });
-
-    console.log("🎓 Expiring soon scholarships:", expiringSoon.length);
-    console.log("📊 Total scholarships:", scholarships.length);
 
     return expiringSoon.length > 0 ? expiringSoon : scholarships;
   }, [scholarships]);
@@ -114,15 +101,15 @@ export default function ScholarshipSliderSection() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    const twoWeeksFromNow = new Date();
-    twoWeeksFromNow.setDate(today.getDate() + 14);
-    twoWeeksFromNow.setHours(23, 59, 59, 999);
+    const oneMonthFromNow = new Date();
+    oneMonthFromNow.setDate(today.getDate() + 30);
+    oneMonthFromNow.setHours(23, 59, 59, 999);
 
     const expiringSoon = scholarships.filter((scholarship) => {
       if (!scholarship.s_app_deadline) return false;
       const deadline = new Date(scholarship.s_app_deadline);
       deadline.setHours(23, 59, 59, 999);
-      return deadline >= today && deadline <= twoWeeksFromNow;
+      return deadline >= today && deadline <= oneMonthFromNow;
     });
 
     if (expiringSoon.length > 0) {

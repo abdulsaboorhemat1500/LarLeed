@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useState, useEffect, use } from "react";
 import { useApi } from "@/app/hooks/useApi";
 import { useTranslations } from "@/hooks/useTranslations";
-import SocialMediaSection from "@/components/homePage/socialmedia";
 
 // Safe icon component
 const FacebookIcon = () => (
@@ -100,7 +99,6 @@ export default function TeamMemberDetails({ params }) {
       <>
         <section className="bg-gray-50 dark:bg-gray-800 min-h-screen">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
-            <BackButton />
             <div className="flex justify-center items-center h-64">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
             </div>
@@ -115,7 +113,6 @@ export default function TeamMemberDetails({ params }) {
       <>
         <section className="bg-gray-50 dark:bg-gray-800 min-h-screen">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
-            <BackButton />
             <div className="text-center text-red-600 py-12">
               <p>{error}</p>
             </div>
@@ -130,7 +127,6 @@ export default function TeamMemberDetails({ params }) {
       <>
         <section className="bg-gray-50 dark:bg-gray-800 min-h-screen">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-10">
-            <BackButton />
             <div className="text-center py-12">
               <p className="text-gray-500 dark:text-gray-400">
                 {t("MentorDetailsPage.mentor not found.")}
@@ -144,9 +140,9 @@ export default function TeamMemberDetails({ params }) {
 
   return (
     <>
-      <section className="bg-custom-sm min-h-screen py-8">
+      <section className="bg-white min-h-screen py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-2xl p-6 md:p-8 lg:p-12 mt-6">
+          <div className="bg-custom-sm backdrop-blur-sm rounded-3xl shadow-2xl p-6 md:p-8 lg:p-12 mt-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
               {/* First Column - Name, Job Title, and Image */}
               <div className="lg:col-span-1">
@@ -154,11 +150,11 @@ export default function TeamMemberDetails({ params }) {
                   {/* Name and Job Title at the top */}
                   <div className="space-y-3">
                     <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                      {mentor.full_name || "Mentor Name"}
+                      {mentor.full_name}
                     </h1>
                     <div className="w-16 h-1 bg-blue-500 rounded-full mx-auto lg:mx-0"></div>
                     <p className="text-xl text-blue-600 dark:text-blue-400 font-semibold">
-                      {mentor.job_title || "Professional Title"}
+                      {mentor.job_title}
                     </p>
                   </div>
 
@@ -167,10 +163,8 @@ export default function TeamMemberDetails({ params }) {
                     <div className="relative group">
                       <div className="overflow-hidden rounded-2xl shadow-2xl transform group-hover:scale-105 transition-transform duration-300">
                         <Image
-                          src={
-                            mentor.profile_image || "/team-members/saboor.png"
-                          }
-                          alt={mentor.full_name || "Mentor"}
+                          src={mentor.profile_image}
+                          alt={mentor.full_name}
                           width={400}
                           height={500}
                           className="w-full h-auto object-cover"
@@ -227,11 +221,11 @@ export default function TeamMemberDetails({ params }) {
                 <div className="space-y-8">
                   {/* Bio/Description Section */}
                   <div className="space-y-6">
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white border-l-4 border-blue-500 pl-4">
+                    <h2 className="text-2xl font-bold text-gray-900  border-l-4 border-blue-500 pl-4">
                       About: {mentor.full_name}
                     </h2>
-                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-700 dark:to-gray-800 p-6 rounded-2xl border-l-4 border-blue-500">
-                      <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
+                    <div className="bg-blue-100 p-6 rounded-2xl border-l-4 border-blue-500">
+                      <p className="text-gray-700  leading-relaxed text-lg">
                         {mentor.bio || mentor.summary}
                       </p>
                     </div>
@@ -242,7 +236,6 @@ export default function TeamMemberDetails({ params }) {
           </div>
         </div>
       </section>
-      <SocialMediaSection />
     </>
   );
 }

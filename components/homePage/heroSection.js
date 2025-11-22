@@ -2,9 +2,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "@/hooks/useTranslations";
+import ScholarshipFormModal from "@/app/(home)/[locale]/mentorships/components/scholarship-form";
 
 export default function HeroSection() {
   const { t, currentLocale } = useTranslations();
+  const [isMentorModalOpen, setIsMentorModalOpen] = useState(false);
 
   // Calculate isRTL based on current locale
   const isRTL = currentLocale === "ps" || currentLocale === "fa"; // Pashto and Dari are RTL
@@ -45,7 +47,7 @@ export default function HeroSection() {
           >
             {/* Subtitle */}
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-2 leading-tight">
-              <span className="text-black dark:text-white block">
+              <span className="text-custom-half block">
                 {t("Banner.title")}
               </span>
               <span className="text-gradient-custom">
@@ -63,16 +65,21 @@ export default function HeroSection() {
             >
               <Link
                 href={`/${currentLocale}/scholarships-programs`}
-                className="cursor-pointer mt-4  py-3 px-4  border-2 border-custom-half text-custom-half  font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
+                className="custom-my-btn"
               >
                 {t("HomePage.Find Scholarships Now")}
               </Link>
-              <Link
-                href={`/${currentLocale}/donate`}
-                className="cursor-pointer mt-4  py-3 px-4  border-2 border-custom-half text-custom-half  font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
+              <button
+                onClick={() => setIsMentorModalOpen(true)}
+                className="custom-my-btn"
               >
-                {t("HomePage.donate now")}
-              </Link>
+                Scholarship Helping Form
+              </button>
+              {/* Modal Component */}
+              <ScholarshipFormModal
+                isOpen={isMentorModalOpen}
+                onClose={() => setIsMentorModalOpen(false)}
+              />
             </div>
           </div>
         </div>

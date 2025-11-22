@@ -270,7 +270,7 @@ export default function ContactUsSection() {
 
                 <Button
                   type="submit"
-                  className="cursor-pointer mt-4  py-2 px-4  border-2 border-custom-half text-custom-half  font-semibold rounded-3xl text-center"
+                  className="bg-gray-100 text-custom-half text-md font-semibold py-2 px-4 cursor-pointer rounded-3xl pt-2 mt-2 border-2 border-custom-half "
                   disabled={isSubmitting}
                 >
                   {isSubmitting

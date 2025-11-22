@@ -112,7 +112,7 @@ export default function ScholarshipFormModal({ isOpen, onClose }) {
           <section className="py-10 bg-gray-50 dark:bg-gray-800">
             <div className="container mx-auto px-4">
               <h1 className="text-3xl text-center font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-300 dark:border-gray-600 pb-4">
-                Scholarship Submission Form
+                Fill the Following Form If you need our help
               </h1>
 
               {message.text && (

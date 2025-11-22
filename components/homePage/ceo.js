@@ -47,12 +47,14 @@ export default function CEOPage() {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
             {/* Image Column */}
             <div className="lg:col-span-2 flex justify-center text-center">
-              <h2 className="text-3xl font-bold text-gray-900  mb-2">
-                Abdul Hamid Hatsaandh
-              </h2>
-              <p className="text-lg text-blue-600  font-semibold mb-4">
-                Education Researcher at New York University
-              </p>
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900  mb-2">
+                  Abdul Hamid Hatsaandh
+                </h2>
+                <p className="text-lg text-blue-600  font-semibold mb-4">
+                  Education Researcher at New York University
+                </p>
+              </div>
               <div className="relative">
                 <div className=" rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
                   <img
