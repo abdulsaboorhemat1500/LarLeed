@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useApi } from "@/app/hooks/useApi"; // Import your useApi hook
 
 export default function ScholarshipFormModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
@@ -22,6 +23,8 @@ export default function ScholarshipFormModal({ isOpen, onClose }) {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: "", text: "" });
 
+  const { post } = useApi(); // Get the post method from your useApi hook
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({
@@ -36,38 +39,50 @@ export default function ScholarshipFormModal({ isOpen, onClose }) {
     setMessage({ type: "", text: "" });
 
     try {
-      // Simulate API call - replace with your actual API call
-      // const result = await post('/api/applyingScholarships', formData);
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate API delay
+      // Make actual API call to your backend
+      const result = await post("/api/applyingScholarships", formData);
 
-      // Mock success response
-      setMessage({
-        type: "success",
-        text: "Application submitted successfully!",
-      });
+      if (result.success) {
+        setMessage({
+          type: "success",
+          text: "Application submitted successfully!",
+        });
 
-      // Reset form
-      setFormData({
-        full_name: "",
-        email: "",
-        address: "",
-        phone: "",
-        date_of_birth: "",
-        uni_name: "",
-        level_of_study: "",
-        graduation_year: "",
-        major: "",
-        gpa: "",
-        sch_name: "",
-        sch_country: "",
-        sch_university: "",
-        sch_level: "",
-        sch_deadline: "",
-      });
+        // Reset form
+        setFormData({
+          full_name: "",
+          email: "",
+          address: "",
+          phone: "",
+          date_of_birth: "",
+          uni_name: "",
+          level_of_study: "",
+          graduation_year: "",
+          major: "",
+          gpa: "",
+          sch_name: "",
+          sch_country: "",
+          sch_university: "",
+          sch_level: "",
+          sch_deadline: "",
+        });
+
+        // Optionally close modal after success
+        // setTimeout(() => {
+        //   onClose();
+        // }, 2000);
+      } else {
+        setMessage({
+          type: "error",
+          text:
+            result.error || "Failed to submit application. Please try again.",
+        });
+      }
     } catch (error) {
+      console.error("Submission error:", error);
       setMessage({
         type: "error",
-        text: "Failed to submit application. Please try again.",
+        text: "Network error. Please check your connection and try again.",
       });
     } finally {
       setLoading(false);

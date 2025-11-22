@@ -174,6 +174,20 @@ export default function AllVideos() {
 
   return (
     <>
+      <div
+        className="mb-8 h-80 w-full text-center flex items-center justify-center relative bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/scholarshipbg.jpg')" }}
+      >
+        {/* Background blur overlay */}
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+
+        {/* Text content */}
+        <div className="relative z-10">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white">
+            Find Your Dream Scholarship Here
+          </h1>
+        </div>
+      </div>
       <section className="py-4 bg-gray-200 dark:bg-gray-800 transition-colors duration-300">
         <div className="container mx-auto px-9 py-6">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
