@@ -90,7 +90,7 @@ export default function WhyChoseUse() {
   ];
 
   return (
-    <section className="py-20 bg-custom-sm shadow-sm border-b">
+    <section className="py-20 bg-blue-100 shadow-sm border-b">
       <div className="container mx-auto px-4">
         <div className="">
           {/* Section Title */}

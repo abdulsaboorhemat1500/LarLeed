@@ -188,7 +188,7 @@ export default function VideoDetailsPage({ params }) {
             </div>
 
             <div className="lg:col-span-1">
-              <div className="bg-custom-sm  rounded-2xl shadow-sm border border-gray-200  ">
+              <div className="bg-blue-100  rounded-2xl shadow-sm border border-gray-200  ">
                 <div className="relative overflow-hidden rounded-t-xl">
                   <div className="w-full h-60 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
                     <Image

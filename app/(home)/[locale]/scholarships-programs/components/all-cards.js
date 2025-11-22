@@ -175,11 +175,11 @@ export default function AllVideos() {
   return (
     <>
       <div
-        className="mb-8 h-80 w-full text-center flex items-center justify-center relative bg-cover bg-center bg-no-repeat"
+        className=" h-80 w-full text-center flex items-center justify-center relative bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/scholarshipbg.jpg')" }}
       >
         {/* Background blur overlay */}
-        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-[3px]"></div>
 
         {/* Text content */}
         <div className="relative z-10">
@@ -339,7 +339,7 @@ export default function AllVideos() {
               {currentScholarships.map((scholarship) => (
                 <div
                   key={scholarship.id}
-                  className="bg-custom-sm rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300"
+                  className="bg-blue-100 rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300"
                 >
                   {/* Scholarship Image */}
                   <div className="h-48 bg-gray-200 relative">

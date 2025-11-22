@@ -166,7 +166,7 @@ export default function ScholarshipDetailsPage() {
     <>
       <div className="min-h-screen bg-gray-50 ">
         {/* Header */}
-        <div className="mb-8 bg-custom-sm h-40 w-full text-center flex items-center justify-center">
+        <div className="mb-8 bg-blue-100 h-40 w-full text-center flex items-center justify-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900  mb-4">
             {getLocalizedField(scholarship, "s_name")}
           </h1>

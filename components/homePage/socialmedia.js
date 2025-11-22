@@ -31,7 +31,7 @@ const InstagramIcon = () => (
 
 export default function SocialMediaSection() {
   return (
-    <section className="bg-custom-sm py-16">
+    <section className="bg-blue-100 py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           {/* Header */}

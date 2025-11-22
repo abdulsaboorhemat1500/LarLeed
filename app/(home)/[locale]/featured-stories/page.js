@@ -166,7 +166,7 @@ export default function FeaturedStoriesList() {
               {currentStories.map((story) => (
                 <div
                   key={story.id}
-                  className="bg-custom-sm rounded-xl hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
+                  className="bg-blue-100 rounded-xl hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
                 >
                   <div className="relative overflow-hidden">
                     <div className="w-full h-60 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">

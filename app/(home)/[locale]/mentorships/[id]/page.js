@@ -142,7 +142,7 @@ export default function TeamMemberDetails({ params }) {
     <>
       <section className="bg-white min-h-screen py-8">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="bg-custom-sm backdrop-blur-sm rounded-3xl shadow-2xl p-6 md:p-8 lg:p-12 mt-6">
+          <div className="bg-gray-100 backdrop-blur-sm rounded-3xl shadow-2xl p-6 md:p-8 lg:p-12 mt-6">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 items-start">
               {/* First Column - Name, Job Title, and Image */}
               <div className="lg:col-span-1">
@@ -184,7 +184,7 @@ export default function TeamMemberDetails({ params }) {
                         href={mentor.facebook_link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-3 bg-gray-100 dark:bg-gray-700 hover:bg-blue-600 rounded-xl transition-all duration-200 transform hover:scale-110"
+                        className="p-3 bg-blue-100 dark:bg-blue-700 hover:bg-blue-600 rounded-xl transition-all duration-200 transform hover:scale-110"
                         aria-label="Facebook"
                       >
                         <FacebookIcon />
@@ -195,7 +195,7 @@ export default function TeamMemberDetails({ params }) {
                         href={mentor.youtube_link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-3 bg-gray-100 dark:bg-gray-700 hover:bg-red-600 rounded-xl transition-all duration-200 transform hover:scale-110"
+                        className="p-3 bg-blue-100 dark:bg-blue-700 hover:bg-red-600 rounded-xl transition-all duration-200 transform hover:scale-110"
                         aria-label="YouTube"
                       >
                         <YoutubeIcon />
@@ -206,7 +206,7 @@ export default function TeamMemberDetails({ params }) {
                         href={mentor.linkedin_link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-3 bg-gray-100 dark:bg-gray-700 hover:bg-blue-700 rounded-xl transition-all duration-200 transform hover:scale-110"
+                        className="p-3 bg-blue-100 dark:bg-blue-700 hover:bg-blue-700 rounded-xl transition-all duration-200 transform hover:scale-110"
                         aria-label="LinkedIn"
                       >
                         <LinkedinIcon />
@@ -224,7 +224,7 @@ export default function TeamMemberDetails({ params }) {
                     <h2 className="text-2xl font-bold text-gray-900  border-l-4 border-blue-500 pl-4">
                       About: {mentor.full_name}
                     </h2>
-                    <div className="bg-blue-100 p-6 rounded-2xl border-l-4 border-blue-500">
+                    <div className="bg-gray-100 p-6 rounded-2xl border-l-4 border-blue-500">
                       <p className="text-gray-700  leading-relaxed text-lg">
                         {mentor.bio || mentor.summary}
                       </p>

@@ -7,7 +7,7 @@ export default function NeedHelpSection() {
   const [isMentorModalOpen, setIsMentorModalOpen] = useState(false);
 
   return (
-    <section className="min-h-screen bg-custom-sm py-16">
+    <section className="min-h-screen bg-blue-100 py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {/* Header with decorative elements */}

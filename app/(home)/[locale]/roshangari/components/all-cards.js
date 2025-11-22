@@ -113,7 +113,7 @@ export default function FeaturedStoriesList() {
   return (
     <>
       <div className="min-h-screen bg-gray-50 dark:bg-gray-800 ">
-        <div className="mb-8 bg-custom-sm h-40 w-full text-center flex items-center justify-center">
+        <div className="mb-8 bg-blue-100 h-40 w-full text-center flex items-center justify-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900  mb-4">
             Roshangari and Featured Stories
           </h1>
@@ -176,7 +176,7 @@ export default function FeaturedStoriesList() {
               {currentStories.map((story) => (
                 <div
                   key={story.id}
-                  className="bg-custom-sm rounded-xl hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
+                  className="bg-blue-100 rounded-xl hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
                 >
                   {/* Story Thumbnail */}
                   <div className="relative overflow-hidden">

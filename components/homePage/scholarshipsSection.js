@@ -182,7 +182,7 @@ export default function ScholarshipSliderSection() {
               {filteredScholarships.map((scholarship) => (
                 <div
                   key={scholarship.id}
-                  className="flex-shrink-0 w-80 snap-start bg-custom-sm rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300"
+                  className="flex-shrink-0 w-80 snap-start bg-blue-100 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-all duration-300"
                 >
                   {/* Scholarship Header with Logo and Name */}
                   <div className="p-6 border-b border-gray-100 ">

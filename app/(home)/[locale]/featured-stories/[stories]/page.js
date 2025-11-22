@@ -161,7 +161,7 @@ export default function StoryDetailsPage({ params }) {
             </div>
 
             <div className="lg:col-span-1">
-              <div className="bg-custom-sm  rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 ">
+              <div className="bg-blue-100  rounded-2xl p-6 md:p-8 shadow-sm border border-gray-200 ">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                   {t("storyDetailsPage.story author details")}
                 </h2>
