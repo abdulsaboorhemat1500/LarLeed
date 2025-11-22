@@ -1,10 +1,7 @@
 "use client";
 import { useState } from "react";
-import ScholarshipFormModal from "@/app/(home)/[locale]/mentorships/components/scholarship-form";
 
 export default function MentorshipProgramsSection() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   return (
     <>
       <section
@@ -50,23 +47,9 @@ export default function MentorshipProgramsSection() {
                 </div>
               ))}
             </div>
-
-            {/* Outlined Button */}
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="custom-my-btn"
-            >
-              Fill Form For Mentor
-            </button>
           </div>
         </div>
       </section>
-
-      {/* Reusable Modal Component */}
-      <ScholarshipFormModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
     </>
   );
 }
