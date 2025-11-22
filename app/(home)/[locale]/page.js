@@ -1,12 +1,13 @@
 // app/(home)/[locale]/page.js
 import HomePage from '@/components/homePage/heroSection';
-import FeaturedStories from "@/components/homePage/featuredStories";
+// import FeaturedStories from "@/components/homePage/featuredStories";
 import FeaturedVieos from "@/components/homePage/featuredVideos";
 import ScholarshipSliderSection from "@/components/homePage/scholarshipsSection";
-import TeamSection from "@/components/homePage/teamSection";
+// import TeamSection from "@/components/homePage/teamSection";
 import ContactUsSection from "@/components/contact-us";
 import WhyChoseUse from "@/components/homePage/whychoseus";
 import CEOPage from "@/components/homePage/ceo";
+import LarleedMission from '@/components/homePage/larleedMission';
 
 export async function generateStaticParams() {
   return [{ locale: "en" }, { locale: "ps" }, { locale: "fa" }];
@@ -44,7 +45,8 @@ export default function LocalizedHomePage({ params }) {
       <HomePage />
       <WhyChoseUse />
       <ScholarshipSliderSection />
-      <FeaturedStories />
+      <LarleedMission />
+      {/* <FeaturedStories /> */}
       <FeaturedVieos />
       <CEOPage />
       {/* <TeamSection /> */}
