@@ -155,7 +155,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                 <div className="pt-4">
                   <button
                     onClick={() => setIsMentorModalOpen(true)}
-                    className="cursor-pointer mt-4  py-3 px-4 bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
+                    className="cursor-pointer mt-4  py-3 px-4  border-2 border-custom-half text-custom-half  font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
                   >
                     Open Scholarship Form
                   </button>
@@ -170,29 +170,6 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
 
               {/* Right Column - Video */}
               <div className="relative">
-                <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-300">
-                  {/* Show How to Apply video if available, otherwise show default */}
-                  {howToApplyVideo ? (
-                    <iframe
-                      src={getEmbedUrl(howToApplyVideo.video_link)}
-                      title={
-                        howToApplyVideo.video_title || "How to Apply Video"
-                      }
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-80 lg:h-96 rounded-2xl border-4 border-white dark:border-gray-800"
-                    />
-                  ) : (
-                    <iframe
-                      src="#"
-                      title="Scholarship Guidance Video"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="w-full h-80 lg:h-96 rounded-2xl border-4 border-white dark:border-gray-800"
-                    />
-                  )}
-                </div>
-
                 {/* Video title for How to Apply video */}
                 {howToApplyVideo && (
                   <div className="mt-4 text-center">
@@ -204,6 +181,28 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                     </p>
                   </div>
                 )}
+                <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-300">
+                  {/* Show How to Apply video if available, otherwise show default */}
+                  {howToApplyVideo ? (
+                    <iframe
+                      src={getEmbedUrl(howToApplyVideo.video_link)}
+                      title={
+                        howToApplyVideo.video_title || "How to Apply Video"
+                      }
+                      allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-80 lg:h-96 rounded-2xl border-4 border-white dark:border-gray-800"
+                    />
+                  ) : (
+                    <iframe
+                      src="#"
+                      title="Scholarship Guidance Video"
+                      allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="w-full h-80 lg:h-96 rounded-2xl border-4 border-white dark:border-gray-800"
+                    />
+                  )}
+                </div>
 
                 {/* Decorative elements */}
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-blue-200 dark:bg-blue-800 rounded-full opacity-50 -z-10"></div>
@@ -351,16 +350,9 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                     )}
                     <button
                       onClick={() => openVideoModal(video)}
-                      className="w-full cursor-pointer mt-4 bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center py-2 px-4  flex items-center justify-center"
+                      className="custom-my-btn"
                     >
-                      <svg
-                        className="w-4 h-4 mr-2"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                      Watch Story
+                      📺 Watch Story
                     </button>
                   </div>
                 </div>
@@ -409,7 +401,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                       src={getEmbedUrl(selectedVideo.video_link)}
                       className="absolute top-0 left-0 w-full h-full"
                       frameBorder="0"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                       title={selectedVideo.video_title}
                     />
@@ -455,7 +447,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
               <div className="pt-4">
                 <button
                   onClick={() => setIsMentorModalOpen(true)}
-                  className="cursor-pointer mt-4  py-3 px-4 bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
+                  className="cursor-pointer mt-4  py-3 px-4  border-2 border-custom-half text-custom-half font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
                 >
                   Open Scholarship Form
                 </button>
@@ -476,7 +468,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                   <iframe
                     src={getEmbedUrl(howToApplyVideo.video_link)}
                     title={howToApplyVideo.video_title || "How to Apply Video"}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-80 lg:h-96 rounded-2xl border-4 border-white dark:border-gray-800"
                   />

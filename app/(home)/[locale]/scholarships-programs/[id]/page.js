@@ -7,6 +7,7 @@ import { useTranslations } from "@/hooks/useTranslations";
 import { useParams } from "next/navigation";
 import StudentStoriesSection from "../components/StudentsStoryVideos";
 import ScholarshipTemplatesSection from "../components/ScholarshipTemplatesSection";
+import SocialMediaSection from "@/components/homePage/socialmedia";
 
 export default function ScholarshipDetailsPage() {
   const [scholarship, setScholarship] = useState(null);
@@ -444,26 +445,8 @@ export default function ScholarshipDetailsPage() {
 
                 {/* Apply Now Button */}
                 <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-                  <button
-                    onClick={handleApplyNow}
-                    className=" py-4 px-6 text-lg cursor-pointer mt-4 flex w-full justify-center gap-8  bg-transparent border-2 border-custom-half text-custom-half hover:bg-custom-half hover:text-white font-bold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
-                  >
-                    {t("scholarshipDetailsPage.apply now")}
-                    {scholarship.s_applying_link && (
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                        />
-                      </svg>
-                    )}
+                  <button onClick={handleApplyNow} className="custom-my-btn">
+                    📃 {t("scholarshipDetailsPage.apply now")}
                   </button>
                 </div>
               </div>
@@ -473,6 +456,7 @@ export default function ScholarshipDetailsPage() {
       </div>
       <ScholarshipTemplatesSection scholarshipName={scholarship.s_name_eng} />
       <StudentStoriesSection scholarshipName={scholarship.s_name_eng} />
+      <SocialMediaSection />
     </>
   );
 }
