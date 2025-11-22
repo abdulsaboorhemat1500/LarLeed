@@ -67,6 +67,12 @@ export default function HeroSection() {
               >
                 {t("HomePage.Find Scholarships Now")}
               </Link>
+              <Link
+                href={`/${currentLocale}/donate`}
+                className="cursor-pointer mt-4  py-3 px-4  border-2 border-custom-half text-custom-half  font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
+              >
+                {t("HomePage.donate now")}
+              </Link>
             </div>
           </div>
         </div>

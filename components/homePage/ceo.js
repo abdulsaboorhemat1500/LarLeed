@@ -32,27 +32,27 @@ const InstagramIcon = () => (
 
 export default function CEOPage() {
   return (
-    <section className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-blue-900 py-12">
+    <section className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100  dark:to-blue-900 py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 md:p-12">
           {/* Header Section */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900  mb-4">
               About Founder and CEO of LarLeed
             </h1>
             <div className="w-24 h-1 bg-blue-500 mx-auto rounded-full"></div>
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-              Abdul Hamid Hatsaandh
-            </h2>
-            <p className="text-lg text-blue-600 dark:text-blue-400 font-semibold mb-4">
-              Education Researcher at New York University
-            </p>
           </div>
 
           {/* Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
             {/* Image Column */}
-            <div className="lg:col-span-2 flex justify-center">
+            <div className="lg:col-span-2 flex justify-center text-center">
+              <h2 className="text-3xl font-bold text-gray-900  mb-2">
+                Abdul Hamid Hatsaandh
+              </h2>
+              <p className="text-lg text-blue-600  font-semibold mb-4">
+                Education Researcher at New York University
+              </p>
               <div className="relative">
                 <div className=" rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
                   <img

@@ -47,7 +47,7 @@ export default function LocalizedHomePage({ params }) {
       <FeaturedVieos />
       <WhyChoseUse />
       <CEOPage />
-      <TeamSection />
+      {/* <TeamSection /> */}
       <ContactUsSection />
     </>
   );
