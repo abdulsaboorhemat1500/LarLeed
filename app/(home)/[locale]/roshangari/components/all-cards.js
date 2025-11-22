@@ -26,10 +26,7 @@ export default function FeaturedStoriesList() {
 
         if (result.success) {
           // Filter posts where category is "story"
-          const storyPosts = result.data.filter(
-            (post) =>
-              post.category === "roshangari" && post.category === "story"
-          );
+          const storyPosts = result.data;
           setStories(storyPosts);
         } else {
           setError(result.error || "Failed to fetch stories");

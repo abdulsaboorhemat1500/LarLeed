@@ -144,7 +144,6 @@ export default function WhyChoseUse() {
             ))}
           </div>
         </div>
-        ;
       </div>
     </section>
   );

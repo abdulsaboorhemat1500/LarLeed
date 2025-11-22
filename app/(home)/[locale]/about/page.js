@@ -15,7 +15,7 @@ export default function AboutPage() {
     try {
       const resultedData = await get("/api/heroSectionText");
       if (resultedData.success) {
-        setHeroSectionText(resultedData.data);
+        setHeroSectionText(resultedData.data[0]);
       }
     } catch (error) {
       console.log("Fetch error:", error);

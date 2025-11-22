@@ -1,6 +1,6 @@
 export default function LarleedMission(){
     return (
-      <section className="py-16 bg-gradient-to-r from-blue-50 to-indigo-50">
+      <section className="py-16 bg-blue-100">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-custom-half mb-4">
@@ -11,7 +11,7 @@ export default function LarleedMission(){
 
           {/* Mission Text */}
           <div className="max-w-4xl mx-auto text-center">
-            <p className="text-xl md:text-2xl text-gray-700 leading-relaxed mb-6">
+            <p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-semibold mb-6">
               Connecting Afghan Youth through Education, Dialogue, and Vision
             </p>
             <p className="text-lg text-gray-600 leading-relaxed">
