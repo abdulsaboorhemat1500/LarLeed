@@ -1,11 +1,12 @@
-'use client';
-export const runtime = 'edge';
-import { useState, useMemo, useEffect } from 'react';
-import Link from 'next/link';
-import { useApi } from '@/app/hooks/useApi';
-import { useTranslations } from '@/hooks/useTranslations';
-import { useParams } from 'next/navigation';
+"use client";
+export const runtime = "edge";
+import { useState, useMemo, useEffect } from "react";
+import Link from "next/link";
+import { useApi } from "@/app/hooks/useApi";
+import { useTranslations } from "@/hooks/useTranslations";
+import { useParams } from "next/navigation";
 import SocialMediaSection from "@/components/homePage/socialmedia";
+import ScholarshipCard from "@/components/ScholarshipCard"; // Import the new component
 
 export default function AllVideos() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -52,6 +53,7 @@ export default function AllVideos() {
             eng: resultedData.data[0].s_name_eng,
             pash: resultedData.data[0].s_name_pash,
             dari: resultedData.data[0].s_name_dari,
+            views: resultedData.data[0].views, // Check if views field exists
           });
         }
       } else {
@@ -151,26 +153,6 @@ export default function AllVideos() {
   useEffect(() => {
     setCurrentPage(1);
   }, [activeFilter, searchQuery]);
-
-  // Function to limit title to 5 words
-  const limitTitleToFiveWords = (title) => {
-    if (!title) return "No Title";
-    const words = title.split(" ");
-    if (words.length > 5) {
-      return words.slice(0, 5).join(" ") + "...";
-    }
-    return title;
-  };
-
-  // Format date for display
-  const formatDate = (dateString) => {
-    if (!dateString) return "No deadline";
-    return new Date(dateString).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  };
 
   return (
     <>
@@ -333,63 +315,15 @@ export default function AllVideos() {
             </div>
           )}
 
-          {/* Scholarship Grid */}
+          {/* Scholarship Grid - Using the separated ScholarshipCard component */}
           {!loading && !error && currentScholarships.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
               {currentScholarships.map((scholarship) => (
-                <div
+                <ScholarshipCard
                   key={scholarship.id}
-                  className="bg-blue-100 rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300"
-                >
-                  {/* Scholarship Image */}
-                  <div className="h-48 bg-gray-200 relative">
-                    <img
-                      src={scholarship.s_image}
-                      alt={getLocalizedField(scholarship, "s_name")}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-
-                  {/* Scholarship Content */}
-                  <div className="p-3">
-                    {/* Scholarship Name */}
-                    <h3 className="text-lg font-bold text-gray-900  mb-2 line-clamp-1 leading-tight">
-                      {getLocalizedField(scholarship, "s_name")}
-                    </h3>
-
-                    {/* University and Country */}
-                    <p className="text-blue-700  text-sm mb-3 font-medium line-clamp-1">
-                      {t("ScholarshipsPage.country")} :{" "}
-                      {getLocalizedField(scholarship, "s_country")}
-                    </p>
-
-                    {/* Description */}
-                    <div
-                      className="text-gray-500  text-sm mb-4 line-clamp-3 leading-relaxed rich-text-content"
-                      dangerouslySetInnerHTML={{
-                        __html:
-                          getLocalizedField(scholarship, "s_overview") ||
-                          "No description available.",
-                      }}
-                    />
-
-                    {/* Deadline and Language */}
-                    <div className="flex justify-between items-center text-sm text-gray-700 border-t border-gray-100 pt-3">
-                      <span className="font-medium text-red-600">
-                        Deadline: {formatDate(scholarship.s_app_deadline)}
-                      </span>
-                    </div>
-
-                    {/* Read More Button */}
-                    <Link
-                      href={`/${locale}/scholarships-programs/${scholarship.id}`}
-                    >
-                      <button className="custom-my-btn">
-                        {t("ScholarshipsPage.read more")}
-                      </button>
-                    </Link>
-                  </div>
-                </div>
+                  scholarship={scholarship}
+                  getLocalizedField={getLocalizedField}
+                />
               ))}
             </div>
           ) : (
