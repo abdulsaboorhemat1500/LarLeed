@@ -13,7 +13,7 @@ export default function ScholarshipDetailsPage() {
   const [scholarship, setScholarship] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const { get } = useApi();
+  const { get, post } = useApi();
   const { t } = useTranslations();
   const params = useParams();
 
@@ -47,6 +47,30 @@ export default function ScholarshipDetailsPage() {
     return localeMap[locale] || "eng";
   };
 
+  // Update views function
+  const updateViews = async (scholarshipId) => {
+    try {
+      console.log("🔄 Updating views for scholarship:", scholarshipId);
+
+      // Call the views API to increment view count
+      const result = await post(`/api/scholarships/${scholarshipId}/views`);
+
+      if (result.success) {
+        console.log("✅ Views updated successfully:", result.views);
+
+        // Update local state with new view count
+        setScholarship((prev) =>
+          prev ? { ...prev, views: result.views } : null
+        );
+      } else {
+        console.error("❌ Failed to update views:", result.error);
+      }
+    } catch (error) {
+      console.error("🚨 Error updating views:", error);
+      // Don't show error to user for view updates
+    }
+  };
+
   // Fetch scholarship data from API
   useEffect(() => {
     const fetchScholarship = async () => {
@@ -58,6 +82,7 @@ export default function ScholarshipDetailsPage() {
 
         if (result.success) {
           setScholarship(result.data);
+          console.log("📋 Scholarship data loaded:", result.data);
         } else {
           setError(result.error || "Failed to fetch scholarship data");
         }
@@ -70,7 +95,24 @@ export default function ScholarshipDetailsPage() {
     };
 
     fetchScholarship();
-  }, [params?.id]); // Only depend on params.id
+  }, [params?.id]);
+
+  // Separate useEffect to update views when scholarship data is loaded
+  useEffect(() => {
+    if (scholarship && !viewsUpdatedRef.current) {
+      console.log("🎯 Scholarship loaded, updating views...");
+      viewsUpdatedRef.current = true; // Mark as updated to prevent multiple calls
+      updateViews(scholarship.id);
+    }
+  }, [scholarship]); // This runs when scholarship data changes
+
+  // Alternative: Update views on component mount (if you prefer this approach)
+  // useEffect(() => {
+  //   if (params?.id && !viewsUpdatedRef.current) {
+  //     viewsUpdatedRef.current = true;
+  //     updateViews(params.id);
+  //   }
+  // }, [params?.id]);
 
   // Format date for display
   const formatDate = (dateString) => {
