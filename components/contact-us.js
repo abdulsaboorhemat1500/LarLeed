@@ -70,8 +70,8 @@ export default function ContactUsSection() {
         <div className="bg-gray-100  rounded-2xl p-6 shadow-lg">
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-20">
             {/* contact us information */}
-            <div className="lg:col-span-2">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+            <div className="lg:col-span-2 text-center">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mt-4">
                 {t("HomePage.contact us")}
               </h2>
 

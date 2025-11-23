@@ -8,6 +8,8 @@ import { useParams } from "next/navigation";
 import StudentStoriesSection from "../components/StudentsStoryVideos";
 import ScholarshipTemplatesSection from "../components/ScholarshipTemplatesSection";
 import SocialMediaSection from "@/components/homePage/socialmedia";
+import Lottie from "lottie-react";
+import Loading from "@/components/lottie-files/Loading.json";
 
 export default function ScholarshipDetailsPage() {
   const [scholarship, setScholarship] = useState(null);
@@ -106,15 +108,7 @@ export default function ScholarshipDetailsPage() {
       viewsUpdatedRef.current = true; // Mark as updated to prevent multiple calls
       updateViews(scholarship.id);
     }
-  }, [scholarship]); // This runs when scholarship data changes
-
-  // Alternative: Update views on component mount (if you prefer this approach)
-  // useEffect(() => {
-  //   if (params?.id && !viewsUpdatedRef.current) {
-  //     viewsUpdatedRef.current = true;
-  //     updateViews(params.id);
-  //   }
-  // }, [params?.id]);
+  }, [scholarship]);
 
   // Format date for display
   const formatDate = (dateString) => {
@@ -154,12 +148,7 @@ export default function ScholarshipDetailsPage() {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-center py-20">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-              <p className="mt-4 text-gray-600 dark:text-gray-400">
-                {t("scholarshipDetailsPage.loading scholarship details")}
-              </p>
-            </div>
+            <Lottie animationData={Loading} />
           </div>
         </div>
       </div>

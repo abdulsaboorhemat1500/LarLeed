@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -7,6 +6,8 @@ import { useState, useEffect } from "react";
 import { useApi } from "@/app/hooks/useApi";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useParams } from "next/navigation";
+import Lottie from "lottie-react";
+import Loading from "@/components/lottie-files/Loading.json";
 
 export default function FeaturedVideos() {
   const [videos, setVideos] = useState([]);
@@ -79,18 +80,7 @@ export default function FeaturedVideos() {
     return (
       <section className="py-16 bg-gradient-to-r from-blue-50 to-indigo-50 ">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-12">
-            <div className="mb-4 sm:mb-0">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
-                {t("HomePage.featured videos")}
-              </h2>
-            </div>
-          </div>
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">
-              {t("HomePage.loading video")}
-            </p>
-          </div>
+          <Lottie animationData={Loading} />
         </div>
       </section>
     );
@@ -156,15 +146,12 @@ export default function FeaturedVideos() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {videos.map((video) => {
               const youtubeThumbnail = getYouTubeThumbnail(video.v_link);
-              const displayImage =
-                video.v_image || youtubeThumbnail || "/hero-section-image.jpg";
-
+              const displayImage = youtubeThumbnail;
               return (
                 <div
                   key={video.id}
                   className="bg-blue-100 rounded-xl hover:shadow-xl overflow-hidden group flex flex-col h-full shadow-2xl transform hover:scale-105 transition-transform duration-300"
                 >
-                  {/* Video Thumbnail */}
                   <div className="relative overflow-hidden">
                     <div className="w-full h-50 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
                       <Image
@@ -182,33 +169,28 @@ export default function FeaturedVideos() {
                     </div>
                   </div>
 
-                  {/* Card Content - Flex column to push button to bottom */}
                   <div className="p-5 flex flex-col flex-1">
-                    {/* Title - Limited to 5 words */}
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 leading-tight">
                       {limitTitleToFiveWords(video.v_title)}
                     </h3>
 
-                    {/* Creator */}
-                    <p className="text-blue-600 dark:text-gray-400 font-semibold text-sm mb-2">
+                    <p className="text-blue-600 dark:text-gray-400 text-sm mb-2 font-semibold">
                       {video.v_creature || "Unknown Creator"}
                     </p>
 
-                    {/* Description - Limited to 3 lines */}
                     <p
-                      className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 flex-1"
+                      className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3 flex-1"
                       dangerouslySetInnerHTML={{
                         __html: video.v_description,
                       }}
                     />
-
-                    {/* Buttons - Full width at the bottom */}
-                    <Button
-                      className="custom-my-btn"
+                    {/* Story Details Button - Full width at the bottom */}
+                    <button
                       onClick={() => handleStoryDetails(video.id)}
+                      className="custom-my-btn"
                     >
                       {t("HomePage.video details")}
-                    </Button>
+                    </button>
                   </div>
                 </div>
               );

@@ -7,6 +7,8 @@ import { useApi } from "@/app/hooks/useApi";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useParams } from "next/navigation";
 import SocialMediaSection from "@/components/homePage/socialmedia";
+import Lottie from "lottie-react";
+import Loading from "@/components/lottie-files/Loading.json";
 
 export default function FeaturedVideosList() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -101,9 +103,7 @@ export default function FeaturedVideosList() {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-800 py-8">
         <div className="container mx-auto px-4">
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">
-              {t("HomePage.loading videos")}
-            </p>
+            <Lottie animationData={Loading} />
           </div>
         </div>
       </div>
@@ -148,9 +148,7 @@ export default function FeaturedVideosList() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-12 py-4 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-                placeholder={t(
-                  "HomePage.search videos by title, description, or creator..."
-                )}
+                placeholder={t("Search by name")}
               />
 
               {searchQuery && (
@@ -181,9 +179,9 @@ export default function FeaturedVideosList() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
               {currentVideos.map((video) => {
                 const displayImage =
-                  video.v_image ||
-                  getYouTubeThumbnail(video.v_link) ||
-                  "/hero-section-image.jpg";
+                  // video.v_image ||
+                  getYouTubeThumbnail(video.v_link);
+                // "/hero-section-image.jpg";
 
                 return (
                   <div
