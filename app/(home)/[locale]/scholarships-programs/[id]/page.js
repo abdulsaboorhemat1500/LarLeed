@@ -1,7 +1,7 @@
 'use client';
 export const runtime = 'edge';
 export const dynamic = 'force-dynamic';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useApi } from "@/app/hooks/useApi";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useParams } from "next/navigation";
