@@ -6,7 +6,7 @@ import { useApi } from "@/app/hooks/useApi";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useParams } from "next/navigation";
 import SocialMediaSection from "@/components/homePage/socialmedia";
-import ScholarshipCard from "@/components/ScholarshipCard"; // Import the new component
+import ScholarshipCard from "./scholarshipCard"; // Import the new component
 
 export default function AllVideos() {
   const [currentPage, setCurrentPage] = useState(1);
