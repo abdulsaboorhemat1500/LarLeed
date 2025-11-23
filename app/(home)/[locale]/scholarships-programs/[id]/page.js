@@ -166,13 +166,11 @@ export default function ScholarshipDetailsPage() {
     <>
       <div className="min-h-screen bg-gray-50 ">
         {/* Header */}
-        <div className="mb-8 bg-blue-100 h-40 w-full text-center flex items-center justify-center">
+        <div className="mb-8 bg-blue-100 h-40 w-full text-center flex flex-col items-center justify-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900  mb-4">
             {getLocalizedField(scholarship, "s_name")}
           </h1>
-          <p className="mt-4 font-semibold text-gray-600">
-            {t("scholarshipDetailsPage.viewed by")} 👁️ {scholarship.views}
-          </p>
+          <p className="text-lg font-bold ">👁️ {scholarship.views}</p>
         </div>
         <div className="container mx-auto px-4 py-10">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">

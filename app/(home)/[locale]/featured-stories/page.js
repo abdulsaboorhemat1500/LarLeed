@@ -170,23 +170,18 @@ export default function FeaturedStoriesList() {
                 >
                   <div className="relative overflow-hidden">
                     <div className="w-full h-60 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative">
-                      {story.post_image ? (
-                        <Image
-                          src={story.post_image}
-                          alt={story.post_title}
-                          width={500}
-                          height={500}
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <Image
-                          src="/hero-section-image.jpg"
-                          alt={story.post_title}
-                          width={500}
-                          height={500}
-                          className="w-full h-full object-cover"
-                        />
-                      )}
+                      <Image
+                        src={story.post_image}
+                        alt={story.post_title}
+                        width={500}
+                        height={500}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    {/* Views Counter Overlay */}
+                    <div className="absolute top-3 right-3 bg-black/70 text-white px-2 py-1 rounded-full flex items-center gap-1 text-xs backdrop-blur-sm">
+                      <span>👁️</span>
+                      <span>{story.views}</span>
                     </div>
                   </div>
 
