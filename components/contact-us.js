@@ -3,13 +3,15 @@ import { useState } from 'react';
 import { Button } from './ui/button';
 import { useApi } from '@/app/hooks/useApi';
 import { useTranslations } from '@/hooks/useTranslations';
+import Lottie from "lottie-react";
+import Contact from "@/components/lottie-files/Contact.json";
 export default function ContactUsSection() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // null, 'success', 'error'
@@ -17,9 +19,9 @@ export default function ContactUsSection() {
   const { t } = useTranslations();
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -30,28 +32,33 @@ export default function ContactUsSection() {
 
     try {
       // Validate required fields
-      if (!formData.name || !formData.email || !formData.subject || !formData.message) {
-        throw new Error(t('HomePage.please fill in all required fields'));
+      if (
+        !formData.name ||
+        !formData.email ||
+        !formData.subject ||
+        !formData.message
+      ) {
+        throw new Error(t("HomePage.please fill in all required fields"));
       }
 
-      const result = await post('/api/contact', formData);
+      const result = await post("/api/contact", formData);
 
       if (result.success) {
-        setSubmitStatus('success');
+        setSubmitStatus("success");
         // Reset form
         setFormData({
-          name: '',
-          email: '',
-          phone: '',
-          subject: '',
-          message: ''
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
         });
       } else {
-        throw new Error(result.error || t('HomePage.failed to submit form'));
+        throw new Error(result.error || t("HomePage.failed to submit form"));
       }
     } catch (error) {
-      console.error('Error submitting form:', error);
-      setSubmitStatus('error');
+      console.error("Error submitting form:", error);
+      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
@@ -68,72 +75,7 @@ export default function ContactUsSection() {
                 {t("HomePage.contact us")}
               </h2>
 
-              <div>
-                <p className="text-lg text-gray-500 dark:text-white font-medium">
-                  {t("HomePage.we would love to hear from you")}
-                </p>
-              </div>
-              <div className="space-y-4 justify-center mt-10">
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                    <span className="text-purple-600 dark:text-purple-400">
-                      🌍
-                    </span>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {t("HomePage.country")}
-                    </p>
-                    <p className="font-medium text-gray-900 dark:text-white">
-                      Afghanistan
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center">
-                    <span className="text-red-600 dark:text-red-400">✉️</span>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {t("getInTouchPage.email")}
-                    </p>
-                    <a
-                      href="mailto:saboorhemat4600@gmail.com"
-                      className="font-medium text-blue-600 dark:text-blue-400 hover:underline"
-                    >
-                      saboorhemat4600@gmail.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-3 pb-10">
-                  <div className="w-8 h-8 bg-orange-100 dark:bg-orange-900 rounded-lg flex items-center justify-center">
-                    <span className="text-orange-600 dark:text-orange-400">
-                      📞
-                    </span>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      {t("HomePage.phone")}
-                    </p>
-                    <a
-                      href="tel:+93790161600"
-                      dir="ltr"
-                      className="font-medium text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400"
-                    >
-                      +93 790 161 600
-                    </a>
-                  </div>
-                </div>
-                <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
-                  <a href="mailto:saboorhemat4600@gmail.com">
-                    <button className="custom-my-btn">
-                      {t("HomePage.contact via email")}
-                    </button>
-                  </a>
-                </div>
-              </div>
+              <Lottie animationData={Contact} />
             </div>
             {/* contact us form */}
             <div className="lg:col-span-2">

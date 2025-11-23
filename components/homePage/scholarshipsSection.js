@@ -201,7 +201,7 @@ export default function ScholarshipSliderSection() {
                           )}
                         </div>
                         {/* Views Counter Overlay */}
-                        <div className="absolute top-3 right-3 bg-black/70 text-white px-2 py-1 rounded-full flex items-center gap-1 text-xs backdrop-blur-sm">
+                        <div className="absolute mt-1 ml-2 bg-black/70 text-white px-2 py-1 rounded-full flex items-center gap-1 text-xs backdrop-blur-sm">
                           <span>👁️</span>
                           <span>{scholarship.views}</span>
                         </div>
