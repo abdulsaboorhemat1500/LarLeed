@@ -17,6 +17,8 @@ export default function ScholarshipDetailsPage() {
   const { t } = useTranslations();
   const params = useParams();
 
+  const viewsUpdatedRef = useRef(false);
+
   // Get locale from params and normalize it to match your database field suffixes
   const locale = params?.locale || "eng";
 
