@@ -78,7 +78,7 @@ export default function MentorSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            {t('MentorshipsPage.meet our mentors')}
+            {t("MentorshipsPage.meet our mentors")}
           </h2>
         </div>
 
@@ -86,10 +86,7 @@ export default function MentorSection() {
           {mentors.map((mentor) => (
             <div key={mentor.id} className="text-center w-full max-w-[180px]">
               <div className="mb-5 mx-auto w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40">
-                <Link 
-                  href={`/${locale}/mentorships/${mentor.id}`} 
-                  className="cursor-pointer hover:shadow-xl w-full h-full rounded-full transform hover:scale-105 transition-transform duration-300 flex items-center justify-center overflow-hidden shadow-md"
-                >
+                <div className="cursor-pointer hover:shadow-xl w-full h-full rounded-full transform hover:scale-105 transition-transform duration-300 flex items-center justify-center overflow-hidden shadow-md">
                   {mentor.profile_image ? (
                     <Image
                       src={mentor.profile_image}
@@ -98,15 +95,19 @@ export default function MentorSection() {
                       height={160}
                       className="object-cover rounded-full w-full h-full"
                       onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
+                        e.target.style.display = "none";
+                        e.target.nextSibling.style.display = "flex";
                       }}
                     />
                   ) : null}
-                  <div className={`${mentor.profile_image ? 'hidden' : 'flex'} items-center justify-center bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400 rounded-full w-full h-full`}>
-                    <span className="text-sm">{t('HomePage.no image')}</span>
+                  <div
+                    className={`${
+                      mentor.profile_image ? "hidden" : "flex"
+                    } items-center justify-center bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400 rounded-full w-full h-full`}
+                  >
+                    <span className="text-sm">{t("HomePage.no image")}</span>
                   </div>
-                </Link>
+                </div>
               </div>
 
               <div>
@@ -124,7 +125,7 @@ export default function MentorSection() {
         {mentors.length === 0 && !loading && (
           <div className="text-center py-12">
             <p className="text-gray-500 dark:text-gray-400 text-lg">
-              {t('MentorshipsPage.no mentors found')}
+              {t("MentorshipsPage.no mentors found")}
             </p>
           </div>
         )}

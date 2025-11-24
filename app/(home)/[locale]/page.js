@@ -4,7 +4,6 @@ import FeaturedVieos from "@/components/homePage/featuredVideos";
 import ScholarshipSliderSection from "@/components/homePage/scholarshipsSection";
 import ContactUsSection from "@/components/contact-us";
 import WhyChoseUse from "@/components/homePage/whychoseus";
-import CEOPage from "@/components/homePage/ceo";
 import LarleedMission from "@/components/homePage/larleedMission";
 
 export async function generateStaticParams() {
@@ -45,7 +44,6 @@ export default function LocalizedHomePage({ params }) {
       <ScholarshipSliderSection />
       <LarleedMission />
       <FeaturedVieos />
-      <CEOPage />
       <ContactUsSection />
     </>
   );

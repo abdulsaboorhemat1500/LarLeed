@@ -1,27 +1,17 @@
 "use client";
 
 import * as React from "react";
-import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import SimpleLanguageDropdown from "../homePage/languageDropDown";
 import { useTranslations } from "../../hooks/useTranslations";
 
 import { useState } from "react";
 import { X, Menu } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../ui/button";
 import { useParams, usePathname } from "next/navigation";
 
 export default function HeaderSection() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const { setTheme } = useTheme();
   const { t } = useTranslations();
   const { locale } = useParams();
   const pathname = usePathname();
@@ -43,7 +33,7 @@ export default function HeaderSection() {
     { href: "/school", key: "school" },
     { href: "/scholarships-programs", key: "scholarshipsPrograms" },
     { href: "/mentorships", key: "mentorships" },
-    { href: "/roshangari", key: "roshangari" },
+    // { href: "/roshangari", key: "roshangari" },
     { href: "/donate", key: "donate" },
     { href: "/about", key: "aboutUs" },
   ];

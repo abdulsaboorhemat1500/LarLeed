@@ -69,13 +69,13 @@ export default function HeroSection() {
             >
               <Link
                 href={`/${currentLocale}/scholarships-programs`}
-                className="custom-my-btn"
+                className="cursor-pointer bg-custom-half text-white px-8 py-4 rounded-3xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 {t("HomePage.Find Scholarships Now")}
               </Link>
               <button
                 onClick={() => setIsMentorModalOpen(true)}
-                className="custom-my-btn"
+                className="cursor-pointer bg-custom-half text-white px-8 py-4 rounded-3xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
               >
                 Scholarship Helping Form
               </button>

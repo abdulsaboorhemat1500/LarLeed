@@ -1,51 +1,68 @@
 "use client";
-import { useState } from "react";
 
 export default function MentorshipProgramsSection() {
   return (
     <>
-      <section
-        className="relative min-h-screen bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/mentorshipbg.png')" }}
-      >
-        {/* Background blur overlay */}
-        <div className="absolute inset-0 bg-black/30 backdrop-blur-sm"></div>
-
-        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <section className="relative min-h-screen bg-gray-50 py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col items-center justify-center min-h-[80vh] text-center">
-            {/* Main Heading */}
-            <h1 className="text-5xl sm:text-5xl lg:text-5xl font-bold leading-tight text-white drop-shadow-lg">
-              Get selected in the top universities <br />
-              with our <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
-                Free Mentorship
-              </span>
-            </h1>
+            <div className="max-w-4xl mx-auto">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-8">
+                Need Help With Scholarship Applications?
+              </h1>
 
-            {/* Bullet Points */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-12 max-w-4xl">
-              {[
-                { name: "Coaching", emoji: "🎯" },
-                { name: "Goal", emoji: "🏆" },
-                { name: "Success", emoji: "📈" },
-                { name: "Motivation", emoji: "💪" },
-                { name: "Expert Advice", emoji: "💡" },
-                { name: "Support", emoji: "🤝" },
-                { name: "Direction", emoji: "🧭" },
-                { name: "Guidance", emoji: "🌟" },
-              ].map((item, index) => (
-                <div
-                  key={index}
-                  className="bg-white/10 backdrop-blur-sm rounded-xl p-3 border-2 border-blue-300/50 transform hover:scale-105 transition-all duration-300 hover:bg-blue-500/20 hover:border-blue-400 cursor-pointer"
-                >
-                  <div className="flex items-center justify-start space-x-3">
-                    <div className="text-2xl">{item.emoji}</div>
-                    <h3 className="text-lg font-semibold text-white text-left">
-                      {item.name}
-                    </h3>
-                  </div>
-                </div>
-              ))}
+              <div className="text-lg text-gray-700 leading-relaxed space-y-6 text-left">
+                <p>
+                  If you're facing challenges with any scholarship application
+                  process, feeling confused about the requirements, or need
+                  expert guidance to navigate through the complex application
+                  procedures, we're here to help.
+                </p>
+
+                <p>
+                  Many students struggle with understanding what scholarship
+                  committees are looking for, how to write compelling essays, or
+                  how to prepare the required documentation. Whether it's a
+                  specific university's application process or general
+                  scholarship guidance, our mentorship program is designed to
+                  support you.
+                </p>
+
+                <p>
+                  <strong>Here's how our process works:</strong>
+                </p>
+
+                <ul className="list-disc list-inside space-y-2 ml-4">
+                  <li>
+                    Fill out the simple form below with your details and the
+                    scholarship you're interested in
+                  </li>
+                  <li>
+                    Our team will review your application and understand your
+                    specific needs
+                  </li>
+                  <li>
+                    We'll match you with one of our experienced mentors who
+                    specializes in your target university or scholarship program
+                  </li>
+                  <li>
+                    Your dedicated mentor will provide personalized guidance
+                    throughout your application journey
+                  </li>
+                </ul>
+
+                <p>
+                  Our mentors are professionals and current students who have
+                  successfully navigated the same processes and can provide
+                  valuable insights, tips, and support to increase your chances
+                  of success.
+                </p>
+
+                <p className="font-semibold text-custom-half">
+                  Complete the form below, and we'll connect you with the right
+                  mentor to help you achieve your educational goals.
+                </p>
+              </div>
             </div>
           </div>
         </div>
