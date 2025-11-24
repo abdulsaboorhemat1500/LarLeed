@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "@/hooks/useTranslations";
 import ScholarshipFormModal from "@/app/(home)/[locale]/mentorships/components/scholarship-form";
+import Lottie from "lottie-react";
+import Study from "@/components/lottie-files/Study.json";
 
 export default function HeroSection() {
   const { t, currentLocale } = useTranslations();
@@ -12,7 +14,7 @@ export default function HeroSection() {
   // Calculate isRTL based on current locale
   const isRTL = currentLocale === "ps" || currentLocale === "fa"; // Pashto and Dari are RTL
   return (
-    <section className="min-h-screen bg-gradient-to-r from-blue-50 to-indigo-50">
+    <section className="min-h-screen bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div
           className={`flex flex-col lg:flex-row items-center justify-between min-h-screen py-12 lg:py-0 ${
@@ -28,14 +30,15 @@ export default function HeroSection() {
             <div className={`relative w-full max-w-md lg:max-w-lg`}>
               {/* Main Image Container - No border or background */}
               <div className="relative transform hover:scale-105 transition-transform duration-300">
-                <Image
+                {/* <Image
                   src="/heroSImage.png"
                   alt="Hero Image"
                   width={500}
                   height={500}
                   className="w-full h-auto object-cover"
                   priority
-                />
+                /> */}
+                <Lottie animationData={Study} />
               </div>
             </div>
           </div>

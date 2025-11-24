@@ -95,7 +95,7 @@ export default function WhyChoseUse() {
         <div className="">
           {/* Section Title */}
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gradient-custom mb-4">
+            <h2 className="text-5xl font-bold text-gradient-custom mb-4">
               {t("HomePage.Why Choose Us")}
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
