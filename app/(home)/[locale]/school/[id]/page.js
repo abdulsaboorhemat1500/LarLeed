@@ -21,16 +21,6 @@ export default function SchoolDetailsPage() {
 
   const locale = params?.locale || "eng";
 
-  // Helper function to get the appropriate language field based on locale
-  const getLocalizedField = (school, fieldBase) => {
-    if (!school) return "";
-
-    const normalizedLocale = normalizeLocale(locale);
-    const fieldName = `${fieldBase}_${normalizedLocale}`;
-
-    return school[fieldName] || school[`${cleanFieldBase}_eng`] || "";
-  };
-
   // Normalize locale to match database field suffixes
   const normalizeLocale = (locale) => {
     const localeMap = {
@@ -42,6 +32,20 @@ export default function SchoolDetailsPage() {
       dari: "dari",
     };
     return localeMap[locale] || "eng";
+  };
+
+  // Helper function to get the appropriate language field based on locale - FIXED VERSION
+  const getLocalizedField = (school, fieldBase) => {
+    if (!school) return "";
+
+    const normalizedLocale = normalizeLocale(locale);
+
+    // Remove any existing locale suffix to get the clean base name
+    const cleanFieldBase = fieldBase.replace(/_(eng|pash|dari)$/, "");
+    const fieldName = `${cleanFieldBase}_${normalizedLocale}`;
+
+    // Fallback chain: localized field -> English field -> empty string
+    return school[fieldName] || school[`${cleanFieldBase}_eng`] || "";
   };
 
   // Update views function
