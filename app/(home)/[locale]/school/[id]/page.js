@@ -21,7 +21,7 @@ export default function SchoolDetailsPage() {
 
   const locale = params?.locale || "eng";
 
-  // Normalize locale to match database field suffixes
+  // Normalize locale to match database field suffixes - SAME AS SCHOLARSHIP
   const normalizeLocale = (locale) => {
     const localeMap = {
       en: "eng",
@@ -34,18 +34,15 @@ export default function SchoolDetailsPage() {
     return localeMap[locale] || "eng";
   };
 
-  // Helper function to get the appropriate language field based on locale - FIXED VERSION
+  // Helper function to get the appropriate language field based on locale - USING SCHOLARSHIP PATTERN
   const getLocalizedField = (school, fieldBase) => {
     if (!school) return "";
 
     const normalizedLocale = normalizeLocale(locale);
+    const fieldName = `${fieldBase}_${normalizedLocale}`;
 
-    // Remove any existing locale suffix to get the clean base name
-    const cleanFieldBase = fieldBase.replace(/_(eng|pash|dari)$/, "");
-    const fieldName = `${cleanFieldBase}_${normalizedLocale}`;
-
-    // Fallback chain: localized field -> English field -> empty string
-    return school[fieldName] || school[`${cleanFieldBase}_eng`] || "";
+    // Return the localized field or fallback to English - SAME AS SCHOLARSHIP
+    return school[fieldName] || school[`${fieldBase}_eng`] || "";
   };
 
   // Update views function
@@ -68,10 +65,12 @@ export default function SchoolDetailsPage() {
 
         if (result.success) {
           setSchool(result.data);
+          console.log("📋 School data loaded:", result.data);
         } else {
           setError(result.error || "Failed to fetch school data");
         }
       } catch (error) {
+        console.error("Fetch error:", error);
         setError("Network error. Please try again.");
       } finally {
         setLoading(false);
@@ -84,10 +83,30 @@ export default function SchoolDetailsPage() {
   // Separate useEffect to update views when school data is loaded
   useEffect(() => {
     if (school && !viewsUpdatedRef.current) {
+      console.log("🎯 School loaded, updating views...");
       viewsUpdatedRef.current = true;
       updateViews(school.id);
     }
   }, [school]);
+
+  // Debug: Log the current locale and school data
+  useEffect(() => {
+    if (school) {
+      console.log("Current locale:", locale);
+      console.log("Normalized locale:", normalizeLocale(locale));
+      console.log("School data fields:", {
+        name_eng: school.name_eng,
+        name_pash: school.name_pash,
+        name_dari: school.name_dari,
+        overview_eng: school.overview_eng,
+        overview_pash: school.overview_pash,
+        overview_dari: school.overview_dari,
+        owner_name_eng: school.owner_name_eng,
+        owner_name_pash: school.owner_name_pash,
+        owner_name_dari: school.owner_name_dari,
+      });
+    }
+  }, [school, locale]);
 
   // Handle website button click
   const handleWebsiteClick = () => {

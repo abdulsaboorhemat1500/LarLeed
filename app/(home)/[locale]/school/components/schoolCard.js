@@ -55,7 +55,7 @@ export default function SchoolCard({ school, getLocalizedField }) {
         </div>
 
         {/* Read More Button */}
-        <Link href={`/${locale}/school/${school.id}`}>
+        <Link href={`/${locale}/schools/${school.id}`}>
           <button className="custom-my-btn">View Details</button>
         </Link>
       </div>

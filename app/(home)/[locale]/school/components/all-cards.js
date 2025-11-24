@@ -56,12 +56,10 @@ export default function SchoolsPage() {
     getSchools();
   }, []);
 
-  // Helper function to get the appropriate language field based on locale
+  // Helper function to get the appropriate language field based on locale - UPDATED TO MATCH SCHOLARSHIP
   const getLocalizedField = (school, fieldBase) => {
-    const cleanFieldBase = fieldBase.replace(/_(eng|pash|dari)$/, "");
-    const fieldName = `${cleanFieldBase}_${normalizedLocale}`;
-
-    return school[fieldName] || school[`${cleanFieldBase}_eng`] || "";
+    const fieldName = `${fieldBase}_${normalizedLocale}`;
+    return school[fieldName] || school[`${fieldBase}_eng`] || "";
   };
 
   // Filter schools based on search query
@@ -76,7 +74,7 @@ export default function SchoolsPage() {
           ?.toLowerCase()
           .includes(searchQuery.toLowerCase()) ||
         school.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        getLocalizedField(school, "content_type")
+        school.content_type
           ?.toLowerCase()
           .includes(searchQuery.toLowerCase()) ||
         getLocalizedField(school, "overview")
@@ -87,6 +85,7 @@ export default function SchoolsPage() {
     });
   }, [schools, searchQuery, normalizedLocale]);
 
+  // ... rest of your SchoolsPage component remains the same
   // Calculate pagination based on FILTERED schools
   const totalPages = Math.ceil(filteredSchools.length / schoolsPerpage);
   const startIndex = (currentPage - 1) * schoolsPerpage;
