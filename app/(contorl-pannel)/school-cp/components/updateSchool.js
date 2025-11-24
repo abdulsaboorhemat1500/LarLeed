@@ -13,22 +13,17 @@ export default function UpdateSchoolModal({
   const { t } = useTranslations();
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState("");
   const [formData, setFormData] = useState({});
 
   const contentTypes = [
-    "Private School",
-    "Public School",
-    "University",
-    "Training Center",
+    "Zoom Meetings",
+    "Google Meet",
+    "WhatsApp Based",
     "Other",
   ];
-  const fundingTypes = [
-    "Private",
-    "Public",
-    "Non-Profit",
-    "International",
-    "Hybrid",
-  ];
+  const fundingTypes = ["Free", "Half Free", "Fee needed"];
 
   useEffect(() => {
     if (school) {
@@ -53,8 +48,11 @@ export default function UpdateSchoolModal({
         instagram_link: school.instagram_link || "",
         whatsapp_number: school.whatsapp_number || "",
         funding_type: school.funding_type || "",
-        image: school.image || "",
       });
+      // Set existing image preview if available
+      if (school.image) {
+        setImagePreview(school.image);
+      }
     }
   }, [school]);
 
@@ -69,6 +67,56 @@ export default function UpdateSchoolModal({
         ...prev,
         [name]: "",
       }));
+    }
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Validate file type
+      const allowedTypes = [
+        "image/jpeg",
+        "image/jpg",
+        "image/png",
+        "image/gif",
+        "image/webp",
+      ];
+      if (!allowedTypes.includes(file.type)) {
+        setErrors((prev) => ({
+          ...prev,
+          image: "Please select a valid image file (JPEG, PNG, GIF, WebP)",
+        }));
+        return;
+      }
+
+      // Validate file size (5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        setErrors((prev) => ({
+          ...prev,
+          image: "Image size must be less than 5MB",
+        }));
+        return;
+      }
+
+      setImageFile(file);
+      setErrors((prev) => ({ ...prev, image: "" }));
+
+      // Create preview
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removeImage = () => {
+    setImageFile(null);
+    setImagePreview(school?.image || ""); // Reset to original image or empty
+    // Reset file input
+    const fileInput = document.querySelector('input[type="file"]');
+    if (fileInput) {
+      fileInput.value = "";
     }
   };
 
@@ -99,8 +147,41 @@ export default function UpdateSchoolModal({
     if (!validateForm()) return;
 
     setLoading(true);
+    setErrors({});
+
     try {
-      const result = await put(`/api/school/${school.id}`, formData);
+      // Create FormData object for file upload - SAME PATTERN AS ADD
+      const submitData = new FormData();
+
+      // Append all text fields
+      submitData.append("name_en", formData.name_en);
+      submitData.append("name_ps", formData.name_ps);
+      submitData.append("name_pa", formData.name_pa);
+      submitData.append("owner_name_en", formData.owner_name_en);
+      submitData.append("owner_name_ps", formData.owner_name_ps);
+      submitData.append("owner_name_pa", formData.owner_name_pa);
+      submitData.append("email", formData.email);
+      submitData.append("content_type", formData.content_type);
+      submitData.append("phone_number", formData.phone_number);
+      submitData.append("overview_en", formData.overview_en);
+      submitData.append("overview_ps", formData.overview_ps);
+      submitData.append("overview_pa", formData.overview_pa);
+      submitData.append("detailed_info_en", formData.detailed_info_en);
+      submitData.append("detailed_info_ps", formData.detailed_info_ps);
+      submitData.append("detailed_info_pa", formData.detailed_info_pa);
+      submitData.append("website_link", formData.website_link);
+      submitData.append("facebook_link", formData.facebook_link);
+      submitData.append("instagram_link", formData.instagram_link);
+      submitData.append("whatsapp_number", formData.whatsapp_number);
+      submitData.append("funding_type", formData.funding_type);
+
+      // Append image file if exists
+      if (imageFile) {
+        submitData.append("image", imageFile);
+      }
+
+      // Call the PUT API with FormData
+      const result = await put(`/api/school/${school.id}`, submitData);
 
       if (result.success) {
         onSchoolUpdated(result.data);
@@ -109,13 +190,18 @@ export default function UpdateSchoolModal({
         setErrors({ submit: result.error || "Failed to update school" });
       }
     } catch (error) {
-      setErrors({ submit: "Network error. Please try again." });
+      console.error("Error updating school:", error);
+      setErrors({
+        submit: error.message || "Network error. Please try again.",
+      });
     } finally {
       setLoading(false);
     }
   };
 
   const handleClose = () => {
+    setImageFile(null);
+    setImagePreview(school?.image || "");
     setErrors({});
     onClose();
   };
@@ -124,7 +210,7 @@ export default function UpdateSchoolModal({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-white rounded-lg max-w-7xl w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6 border-b">
           <h2 className="text-2xl font-bold text-gray-800">Update School</h2>
           <p className="text-gray-600 mt-1">Editing: {school.name_en}</p>
@@ -137,7 +223,6 @@ export default function UpdateSchoolModal({
             </div>
           )}
 
-          {/* Same form structure as AddSchoolModal */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             {/* Basic Information */}
             <div className="md:col-span-2">
@@ -235,17 +320,67 @@ export default function UpdateSchoolModal({
               </select>
             </div>
 
+            {/* Image Upload - CHANGED TO FILE UPLOAD */}
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Image URL
+                School Image
               </label>
               <input
-                type="url"
-                name="image"
-                value={formData.image}
-                onChange={handleChange}
+                type="file"
+                accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
+                onChange={handleImageUpload}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
+              {errors.image && (
+                <p className="text-red-500 text-sm mt-1">{errors.image}</p>
+              )}
+              <p className="text-sm text-gray-500 mt-1">
+                Supported formats: JPG, PNG, WebP, GIF. Max size: 5MB
+              </p>
+
+              {/* Selected Image Preview */}
+              {imagePreview && (
+                <div className="mt-4">
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    {imageFile ? "New Image Preview:" : "Current Image:"}
+                  </label>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-32 h-24 border border-gray-300 rounded-lg overflow-hidden bg-gray-100">
+                      <img
+                        src={imagePreview}
+                        alt="Preview"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div className="flex-1">
+                      {imageFile && (
+                        <>
+                          <p className="text-sm text-gray-600">
+                            {imageFile.name}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            {(imageFile.size / (1024 * 1024)).toFixed(2)} MB
+                          </p>
+                        </>
+                      )}
+                      {!imageFile && school.image && (
+                        <p className="text-sm text-gray-600">
+                          Current school image
+                        </p>
+                      )}
+                    </div>
+                    {(imageFile || school.image) && (
+                      <button
+                        type="button"
+                        onClick={removeImage}
+                        className="text-red-600 hover:text-red-800 text-sm font-medium"
+                      >
+                        {imageFile ? "Remove New" : "Remove Current"}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
@@ -530,9 +665,12 @@ export default function UpdateSchoolModal({
             <button
               type="submit"
               disabled={loading}
-              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center space-x-2"
             >
-              {loading ? "Updating..." : "Update School"}
+              {loading && (
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+              )}
+              <span>{loading ? "Updating..." : "Update School"}</span>
             </button>
           </div>
         </form>
