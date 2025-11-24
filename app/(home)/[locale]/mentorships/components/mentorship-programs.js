@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import ScholarshipFormModal from "./scholarship-form";
 
 export default function MentorshipProgramsSection() {
