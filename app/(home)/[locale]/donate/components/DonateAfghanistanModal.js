@@ -9,19 +9,30 @@ export default function DonateAfghanistanModal({ isOpen, onClose }) {
     {
       id: "mobile",
       name: "Mobile Money",
-      providers: ["My Money", "AWCC", "Salaam", "Other"],
+      providers: [
+        "HesabPay:32423424",
+        "AWCC:070000000",
+        "Salaam:07444444",
+        "Roshan:070090900909",
+      ],
       description: "Instant transfer via mobile wallets",
     },
     {
       id: "bank",
       name: "Bank Transfer",
-      providers: ["Bank-e-Millie", "Azizi Bank", "Kabul Bank"],
+      providers: [
+        "Bank-e-Millie:2345345234525423",
+        "Azizi Bank:234234243234234234",
+        "Kabul Bank:242342342342342",
+      ],
       description: "Direct bank transfer within Afghanistan",
     },
     {
       id: "cash",
       name: "Cash Donation",
-      providers: ["Office Visit", "Authorized Agent"],
+      providers: [
+        "Office Visit:Kabul, shahr-e-now, Yaqub Squer, d Tower, 12N s",
+      ],
       description: "In-person donation at our offices",
     },
   ];
@@ -67,40 +78,10 @@ export default function DonateAfghanistanModal({ isOpen, onClose }) {
 
         {/* Content */}
         <form onSubmit={handleSubmit} className="p-6">
-          {/* Donation Amount */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-3">
-              Donation Amount (AFN)
-            </label>
-            <div className="grid grid-cols-3 gap-2 mb-2">
-              {[1000, 2000, 5000, 10000, 20000, 50000].map((amount) => (
-                <button
-                  key={amount}
-                  type="button"
-                  onClick={() => setDonationAmount(amount.toString())}
-                  className={`p-3 border rounded-lg text-sm font-medium transition-colors ${
-                    donationAmount === amount.toString()
-                      ? "bg-green-500 text-white border-green-500"
-                      : "bg-gray-50 text-gray-700 border-gray-300 hover:bg-gray-100"
-                  }`}
-                >
-                  {amount.toLocaleString()} AFN
-                </button>
-              ))}
-            </div>
-            <input
-              type="number"
-              placeholder="Or enter custom amount"
-              value={donationAmount}
-              onChange={(e) => setDonationAmount(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-            />
-          </div>
-
           {/* Payment Methods */}
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-3">
-              Select Payment Method
+              Which Way Do You Prepare?
             </label>
             <div className="space-y-3">
               {paymentMethods.map((method) => (
@@ -155,13 +136,6 @@ export default function DonateAfghanistanModal({ isOpen, onClose }) {
               className="flex-1 px-4 py-3 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
             >
               Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={!donationAmount || !selectedMethod}
-              className="flex-1 px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-green-600 hover:to-emerald-700 transition-colors"
-            >
-              Continue to Donate
             </button>
           </div>
         </form>

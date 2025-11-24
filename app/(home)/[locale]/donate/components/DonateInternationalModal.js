@@ -100,37 +100,6 @@ export default function DonateInternationalModal({ isOpen, onClose }) {
             </select>
           </div>
 
-          {/* Donation Amount */}
-          <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-3">
-              Donation Amount
-            </label>
-            <div className="grid grid-cols-3 gap-2 mb-2">
-              {[25, 50, 100, 250, 500, 1000].map((amount) => (
-                <button
-                  key={amount}
-                  type="button"
-                  onClick={() => setDonationAmount(amount.toString())}
-                  className={`p-3 border rounded-lg text-sm font-medium transition-colors ${
-                    donationAmount === amount.toString()
-                      ? "bg-blue-500 text-white border-blue-500"
-                      : "bg-gray-50 text-gray-700 border-gray-300 hover:bg-gray-100"
-                  }`}
-                >
-                  {currencies.find((c) => c.code === currency)?.symbol}
-                  {amount}
-                </button>
-              ))}
-            </div>
-            <input
-              type="number"
-              placeholder="Or enter custom amount"
-              value={donationAmount}
-              onChange={(e) => setDonationAmount(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
-          </div>
-
           {/* Payment Methods */}
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -170,19 +139,6 @@ export default function DonateInternationalModal({ isOpen, onClose }) {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Security Badge */}
-          <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
-            <div className="flex items-center space-x-2 text-green-600">
-              <span>🔒</span>
-              <span className="text-sm font-medium">
-                Secure & Encrypted Payment
-              </span>
-            </div>
-            <p className="text-xs text-gray-600 mt-1">
-              Your donation is protected with bank-level security
-            </p>
           </div>
 
           {/* Action Buttons */}

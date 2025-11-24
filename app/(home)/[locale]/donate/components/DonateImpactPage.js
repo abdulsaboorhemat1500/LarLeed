@@ -1,6 +1,5 @@
 "use client";
 
-import { Link } from "lucide-react";
 
 export default function DonationImpactPage() {
   return (
@@ -64,12 +63,6 @@ export default function DonationImpactPage() {
               >
                 Start Donating Now
               </a>
-              <Link
-                href="/about"
-                className="border-2 border-white text-white px-8 py-4 rounded-xl font-semibold text-lg hover:bg-white hover:text-blue-600 transition-colors"
-              >
-                Learn More About Our Work
-              </Link>
             </div>
           </div>
         </div>

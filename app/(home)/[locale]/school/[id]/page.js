@@ -19,30 +19,49 @@ export default function SchoolDetailsPage() {
 
   const viewsUpdatedRef = useRef(false);
 
-  const locale = params?.locale || "eng";
+  const locale = params?.locale || "en";
 
-  // Normalize locale to match database field suffixes - SAME AS SCHOLARSHIP
+  // Normalize locale to match your database field suffixes
   const normalizeLocale = (locale) => {
     const localeMap = {
-      en: "eng",
-      eng: "eng",
-      ps: "pash",
-      pash: "pash",
-      fa: "dari",
-      dari: "dari",
+      en: "en",
+      eng: "en",
+      ps: "ps",
+      pash: "ps",
+      fa: "pa", // Dari uses 'pa' in your database
+      dari: "pa",
     };
-    return localeMap[locale] || "eng";
+    return localeMap[locale] || "en";
   };
 
-  // Helper function to get the appropriate language field based on locale - USING SCHOLARSHIP PATTERN
+  // Fixed helper function that matches your database fields
   const getLocalizedField = (school, fieldBase) => {
     if (!school) return "";
 
     const normalizedLocale = normalizeLocale(locale);
     const fieldName = `${fieldBase}_${normalizedLocale}`;
 
-    // Return the localized field or fallback to English - SAME AS SCHOLARSHIP
-    return school[fieldName] || school[`${fieldBase}_eng`] || "";
+    console.log(`🔍 Looking for field: ${fieldName}`);
+    console.log(`📊 Available fields:`, {
+      name_en: school.name_en,
+      name_ps: school.name_ps,
+      name_pa: school.name_pa,
+      overview_en: school.overview_en,
+      overview_ps: school.overview_ps,
+      overview_pa: school.overview_pa,
+      owner_name_en: school.owner_name_en,
+      owner_name_ps: school.owner_name_ps,
+      owner_name_pa: school.owner_name_pa,
+      detailed_info_en: school.detailed_info_en,
+      detailed_info_ps: school.detailed_info_ps,
+      detailed_info_pa: school.detailed_info_pa,
+    });
+
+    // Return the localized field or fallback to English
+    const value = school[fieldName] || school[`${fieldBase}_en`] || "";
+    console.log(`✅ Selected value for ${fieldBase}:`, value);
+
+    return value;
   };
 
   // Update views function
@@ -92,18 +111,18 @@ export default function SchoolDetailsPage() {
   // Debug: Log the current locale and school data
   useEffect(() => {
     if (school) {
-      console.log("Current locale:", locale);
-      console.log("Normalized locale:", normalizeLocale(locale));
-      console.log("School data fields:", {
-        name_eng: school.name_eng,
-        name_pash: school.name_pash,
-        name_dari: school.name_dari,
-        overview_eng: school.overview_eng,
-        overview_pash: school.overview_pash,
-        overview_dari: school.overview_dari,
-        owner_name_eng: school.owner_name_eng,
-        owner_name_pash: school.owner_name_pash,
-        owner_name_dari: school.owner_name_dari,
+      console.log("🌐 Current locale:", locale);
+      console.log("🔧 Normalized locale:", normalizeLocale(locale));
+
+      // Test all fields
+      console.log("🧪 Testing all localized fields:");
+      const testFields = ["name", "overview", "owner_name", "detailed_info"];
+      testFields.forEach((field) => {
+        const value = getLocalizedField(school, field);
+        console.log(
+          `   ${field}:`,
+          value ? `"${value.substring(0, 50)}..."` : "EMPTY"
+        );
       });
     }
   }, [school, locale]);
@@ -175,7 +194,7 @@ export default function SchoolDetailsPage() {
         {/* Header */}
         <div className="mb-8 bg-blue-100 h-40 w-full text-center flex flex-col items-center justify-center">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-900  mb-4">
-            {getLocalizedField(school, "name")}
+            {getLocalizedField(school, "name") || "School Name Not Available"}
           </h1>
           <div className="flex items-center gap-2 bg-black/20 px-4 py-2 rounded-full backdrop-blur-sm">
             <span className="text-lg">👁️</span>
@@ -194,7 +213,7 @@ export default function SchoolDetailsPage() {
                   <div className="relative h-80 w-full">
                     <img
                       src={school.image}
-                      alt={getLocalizedField(school, "name")}
+                      alt={getLocalizedField(school, "name") || "School"}
                       className="w-full h-full object-cover rounded-lg"
                     />
                   </div>
@@ -248,7 +267,7 @@ export default function SchoolDetailsPage() {
                     <div>
                       <p className="text-sm text-gray-500">School Name</p>
                       <p className="font-semibold text-gray-900">
-                        {getLocalizedField(school, "name")}
+                        {getLocalizedField(school, "name") || "Not specified"}
                       </p>
                     </div>
                   </div>
@@ -261,7 +280,8 @@ export default function SchoolDetailsPage() {
                     <div>
                       <p className="text-sm text-gray-500">Owner</p>
                       <p className="font-semibold text-gray-900">
-                        {getLocalizedField(school, "owner_name")}
+                        {getLocalizedField(school, "owner_name") ||
+                          "Not specified"}
                       </p>
                     </div>
                   </div>
@@ -300,7 +320,7 @@ export default function SchoolDetailsPage() {
                     <div>
                       <p className="text-sm text-gray-500">Email</p>
                       <p className="font-semibold text-gray-900">
-                        {school.email}
+                        {school.email || "Not specified"}
                       </p>
                     </div>
                   </div>
@@ -313,7 +333,7 @@ export default function SchoolDetailsPage() {
                     <div>
                       <p className="text-sm text-gray-500">Phone</p>
                       <p className="font-semibold text-gray-900">
-                        {school.phone_number}
+                        {school.phone_number || "Not specified"}
                       </p>
                     </div>
                   </div>

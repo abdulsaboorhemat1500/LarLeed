@@ -21,17 +21,17 @@ export default function SchoolsPage() {
   const { t } = useTranslations();
   const { locale } = useParams();
 
-  // Normalize locale to match database field suffixes
+  // Normalize locale to match your database field suffixes
   const normalizedLocale = useMemo(() => {
     const localeMap = {
-      en: "eng",
-      eng: "eng",
-      ps: "pash",
-      pash: "pash",
-      fa: "dari",
-      dari: "dari",
+      en: "en",
+      eng: "en",
+      ps: "ps",
+      pash: "ps",
+      fa: "pa", // Dari uses 'pa' in your database
+      dari: "pa",
     };
-    return localeMap[locale] || "eng";
+    return localeMap[locale] || "en";
   }, [locale]);
 
   const getSchools = async () => {
@@ -41,6 +41,7 @@ export default function SchoolsPage() {
       const resultedData = await get("/api/school");
       if (resultedData.success) {
         setSchools(resultedData.data || []);
+        console.log("📦 Schools loaded:", resultedData.data?.length || 0);
       } else {
         console.log("❌ API returned error:", resultedData.error);
       }
@@ -56,10 +57,20 @@ export default function SchoolsPage() {
     getSchools();
   }, []);
 
-  // Helper function to get the appropriate language field based on locale - UPDATED TO MATCH SCHOLARSHIP
+  // Fixed helper function that matches your database fields
   const getLocalizedField = (school, fieldBase) => {
     const fieldName = `${fieldBase}_${normalizedLocale}`;
-    return school[fieldName] || school[`${fieldBase}_eng`] || "";
+    const value = school[fieldName] || school[`${fieldBase}_en`] || "";
+
+    // Debug logging for first school
+    if (schools.length > 0 && school.id === schools[0].id) {
+      console.log(
+        `🔍 [SchoolsPage] ${fieldBase}_${normalizedLocale}:`,
+        value ? `"${value.substring(0, 30)}..."` : "EMPTY"
+      );
+    }
+
+    return value;
   };
 
   // Filter schools based on search query
@@ -85,7 +96,6 @@ export default function SchoolsPage() {
     });
   }, [schools, searchQuery, normalizedLocale]);
 
-  // ... rest of your SchoolsPage component remains the same
   // Calculate pagination based on FILTERED schools
   const totalPages = Math.ceil(filteredSchools.length / schoolsPerpage);
   const startIndex = (currentPage - 1) * schoolsPerpage;
