@@ -14,7 +14,7 @@ export default function HeroSection() {
   // Calculate isRTL based on current locale
   const isRTL = currentLocale === "ps" || currentLocale === "fa"; // Pashto and Dari are RTL
   return (
-    <section className="min-h-screen bg-white">
+    <section className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div
           className={`flex flex-col lg:flex-row items-center justify-between min-h-screen py-12 lg:py-0 ${
