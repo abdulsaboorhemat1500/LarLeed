@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { useApi } from "@/app/hooks/useApi";
 import { useTranslations } from "@/hooks/useTranslations";
+import RichTextEditor from "@/components/RichTextEditor";
 
 export default function UpdateSchoolModal({
   isOpen,
@@ -68,6 +69,14 @@ export default function UpdateSchoolModal({
         [name]: "",
       }));
     }
+  };
+
+  // Special handler for RichTextEditor components
+  const handleRichTextChange = (name, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleImageUpload = (e) => {
@@ -150,7 +159,7 @@ export default function UpdateSchoolModal({
     setErrors({});
 
     try {
-      // Create FormData object for file upload - SAME PATTERN AS ADD
+      // Create FormData object for file upload
       const submitData = new FormData();
 
       // Append all text fields
@@ -190,9 +199,8 @@ export default function UpdateSchoolModal({
         setErrors({ submit: result.error || "Failed to update school" });
       }
     } catch (error) {
-      console.error("Error updating school:", error);
       setErrors({
-        submit: error.message || "Network error. Please try again.",
+        submit: "Network error. Please try again.",
       });
     } finally {
       setLoading(false);
@@ -320,7 +328,7 @@ export default function UpdateSchoolModal({
               </select>
             </div>
 
-            {/* Image Upload - CHANGED TO FILE UPLOAD */}
+            {/* Image Upload */}
             <div className="md:col-span-2">
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 School Image
@@ -564,91 +572,99 @@ export default function UpdateSchoolModal({
               </h3>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div className="space-y-6">
+              {/* Overview Section */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Overview (English)
-                </label>
-                <textarea
-                  name="overview_en"
-                  value={formData.overview_en}
-                  onChange={handleChange}
-                  rows="3"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Brief overview in English"
-                />
+                <h4 className="text-md font-semibold mb-3 text-gray-700">
+                  Overview
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Overview (English)
+                    </label>
+                    <RichTextEditor
+                      value={formData.overview_en}
+                      onChange={(value) =>
+                        handleRichTextChange("overview_en", value)
+                      }
+                      placeholder="Brief overview in English"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Overview (Pashto)
+                    </label>
+                    <RichTextEditor
+                      value={formData.overview_ps}
+                      onChange={(value) =>
+                        handleRichTextChange("overview_ps", value)
+                      }
+                      placeholder="Brief overview in Pashto"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Overview (Dari)
+                    </label>
+                    <RichTextEditor
+                      value={formData.overview_pa}
+                      onChange={(value) =>
+                        handleRichTextChange("overview_pa", value)
+                      }
+                      placeholder="Brief overview in Dari"
+                    />
+                  </div>
+                </div>
               </div>
 
+              {/* Detailed Info Section */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Overview (Pashto)
-                </label>
-                <textarea
-                  name="overview_ps"
-                  value={formData.overview_ps}
-                  onChange={handleChange}
-                  rows="3"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Brief overview in Pashto"
-                />
-              </div>
+                <h4 className="text-md font-semibold mb-3 text-gray-700">
+                  Detailed Information
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Detailed Info (English)
+                    </label>
+                    <RichTextEditor
+                      value={formData.detailed_info_en}
+                      onChange={(value) =>
+                        handleRichTextChange("detailed_info_en", value)
+                      }
+                      placeholder="Detailed information in English"
+                    />
+                  </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Overview (Dari)
-                </label>
-                <textarea
-                  name="overview_pa"
-                  value={formData.overview_pa}
-                  onChange={handleChange}
-                  rows="3"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Brief overview in Dari"
-                />
-              </div>
-            </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Detailed Info (Pashto)
+                    </label>
+                    <RichTextEditor
+                      value={formData.detailed_info_ps}
+                      onChange={(value) =>
+                        handleRichTextChange("detailed_info_ps", value)
+                      }
+                      placeholder="Detailed information in Pashto"
+                    />
+                  </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Detailed Info (English)
-                </label>
-                <textarea
-                  name="detailed_info_en"
-                  value={formData.detailed_info_en}
-                  onChange={handleChange}
-                  rows="4"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Detailed information in English"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Detailed Info (Pashto)
-                </label>
-                <textarea
-                  name="detailed_info_ps"
-                  value={formData.detailed_info_ps}
-                  onChange={handleChange}
-                  rows="4"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Detailed information in Pashto"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Detailed Info (Dari)
-                </label>
-                <textarea
-                  name="detailed_info_pa"
-                  value={formData.detailed_info_pa}
-                  onChange={handleChange}
-                  rows="4"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="Detailed information in Dari"
-                />
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Detailed Info (Dari)
+                    </label>
+                    <RichTextEditor
+                      value={formData.detailed_info_pa}
+                      onChange={(value) =>
+                        handleRichTextChange("detailed_info_pa", value)
+                      }
+                      placeholder="Detailed information in Dari"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

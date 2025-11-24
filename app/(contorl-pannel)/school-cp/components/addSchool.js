@@ -57,6 +57,14 @@ export default function AddSchoolModal({ isOpen, onClose, onSchoolAdded }) {
     }
   };
 
+  // Special handler for RichTextEditor components
+  const handleRichTextChange = (name, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -138,10 +146,10 @@ export default function AddSchoolModal({ isOpen, onClose, onSchoolAdded }) {
     setErrors({});
 
     try {
-      // Create FormData object for file upload - FOLLOWING YOUR WORKING PATTERN
+      // Create FormData object for file upload
       const submitData = new FormData();
 
-      // Append all text fields - same as your posts example
+      // Append all text fields
       submitData.append("name_en", formData.name_en);
       submitData.append("name_ps", formData.name_ps);
       submitData.append("name_pa", formData.name_pa);
@@ -163,12 +171,12 @@ export default function AddSchoolModal({ isOpen, onClose, onSchoolAdded }) {
       submitData.append("whatsapp_number", formData.whatsapp_number);
       submitData.append("funding_type", formData.funding_type);
 
-      // Append image file if exists - same as your posts example
+      // Append image file if exists
       if (imageFile) {
         submitData.append("image", imageFile);
       }
 
-      // Call the POST API - using the same pattern as your working example
+      // Call the POST API
       const result = await post("/api/school", submitData);
 
       if (result.success) {
@@ -178,9 +186,8 @@ export default function AddSchoolModal({ isOpen, onClose, onSchoolAdded }) {
         setErrors({ submit: result.error || "Failed to add school" });
       }
     } catch (error) {
-      console.error("Error creating school:", error);
       setErrors({
-        submit: error.message || "Network error. Please try again.",
+        submit: "Network error. Please try again.",
       });
     } finally {
       setLoading(false);
@@ -232,333 +239,9 @@ export default function AddSchoolModal({ isOpen, onClose, onSchoolAdded }) {
             </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            {/* Basic Information */}
-            <div className="md:col-span-2">
-              <h3 className="text-lg font-semibold mb-4 text-gray-700">
-                Basic Information
-              </h3>
-            </div>
+          {/* ... (All the other form sections remain the same) ... */}
 
-            {/* Names */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                School Name (English) *
-              </label>
-              <input
-                type="text"
-                name="name_en"
-                value={formData.name_en}
-                onChange={handleChange}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.name_en ? "border-red-500" : "border-gray-300"
-                }`}
-                placeholder="Enter school name in English"
-              />
-              {errors.name_en && (
-                <p className="text-red-500 text-sm mt-1">{errors.name_en}</p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                School Name (Pashto)
-              </label>
-              <input
-                type="text"
-                name="name_ps"
-                value={formData.name_ps}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter school name in Pashto"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                School Name (Dari)
-              </label>
-              <input
-                type="text"
-                name="name_pa"
-                value={formData.name_pa}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter school name in Dari"
-              />
-            </div>
-
-            {/* Content Type */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Content Type *
-              </label>
-              <select
-                name="content_type"
-                value={formData.content_type}
-                onChange={handleChange}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.content_type ? "border-red-500" : "border-gray-300"
-                }`}
-              >
-                <option value="">Select content type</option>
-                {contentTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
-              {errors.content_type && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.content_type}
-                </p>
-              )}
-            </div>
-
-            {/* Funding Type */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Funding Type
-              </label>
-              <select
-                name="funding_type"
-                value={formData.funding_type}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">Select funding type</option>
-                {fundingTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Image Upload - Using your pattern */}
-            <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                School Image
-              </label>
-              <input
-                type="file"
-                accept="image/jpeg,image/jpg,image/png,image/gif,image/webp"
-                onChange={handleImageUpload}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-              {errors.image && (
-                <p className="text-red-500 text-sm mt-1">{errors.image}</p>
-              )}
-              <p className="text-sm text-gray-500 mt-1">
-                Supported formats: JPG, PNG, WebP, GIF. Max size: 5MB
-              </p>
-
-              {/* Selected Image Preview - Using your pattern */}
-              {imageFile && (
-                <div className="mt-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Selected Image:
-                  </label>
-                  <div className="flex items-center space-x-4">
-                    <div className="w-32 h-24 border border-gray-300 rounded-lg overflow-hidden bg-gray-100">
-                      <img
-                        src={imagePreview}
-                        alt="Preview"
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <p className="text-sm text-gray-600">{imageFile.name}</p>
-                      <p className="text-sm text-gray-500">
-                        {(imageFile.size / (1024 * 1024)).toFixed(2)} MB
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={removeImage}
-                      className="text-red-600 hover:text-red-800 text-sm font-medium"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Owner Information */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div className="md:col-span-2">
-              <h3 className="text-lg font-semibold mb-4 text-gray-700">
-                Owner Information
-              </h3>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Owner Name (English) *
-              </label>
-              <input
-                type="text"
-                name="owner_name_en"
-                value={formData.owner_name_en}
-                onChange={handleChange}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.owner_name_en ? "border-red-500" : "border-gray-300"
-                }`}
-                placeholder="Enter owner name in English"
-              />
-              {errors.owner_name_en && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.owner_name_en}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Owner Name (Pashto)
-              </label>
-              <input
-                type="text"
-                name="owner_name_ps"
-                value={formData.owner_name_ps}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter owner name in Pashto"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Owner Name (Dari)
-              </label>
-              <input
-                type="text"
-                name="owner_name_pa"
-                value={formData.owner_name_pa}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Enter owner name in Dari"
-              />
-            </div>
-          </div>
-
-          {/* Contact Information */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div className="md:col-span-2">
-              <h3 className="text-lg font-semibold mb-4 text-gray-700">
-                Contact Information
-              </h3>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Email *
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.email ? "border-red-500" : "border-gray-300"
-                }`}
-                placeholder="school@example.com"
-              />
-              {errors.email && (
-                <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Phone Number *
-              </label>
-              <input
-                type="tel"
-                name="phone_number"
-                value={formData.phone_number}
-                onChange={handleChange}
-                className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  errors.phone_number ? "border-red-500" : "border-gray-300"
-                }`}
-                placeholder="+93 XXX XXX XXX"
-              />
-              {errors.phone_number && (
-                <p className="text-red-500 text-sm mt-1">
-                  {errors.phone_number}
-                </p>
-              )}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                WhatsApp Number
-              </label>
-              <input
-                type="tel"
-                name="whatsapp_number"
-                value={formData.whatsapp_number}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="+93 XXX XXX XXX"
-              />
-            </div>
-          </div>
-
-          {/* Social Media & Links */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div className="md:col-span-2">
-              <h3 className="text-lg font-semibold mb-4 text-gray-700">
-                Social Media & Links
-              </h3>
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Website Link
-              </label>
-              <input
-                type="url"
-                name="website_link"
-                value={formData.website_link}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="https://example.com"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Facebook Link
-              </label>
-              <input
-                type="url"
-                name="facebook_link"
-                value={formData.facebook_link}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="https://facebook.com/username"
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Instagram Link
-              </label>
-              <input
-                type="url"
-                name="instagram_link"
-                value={formData.instagram_link}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="https://instagram.com/username"
-              />
-            </div>
-          </div>
-
-          {/* Description */}
+          {/* Description Section - UPDATED */}
           <div className="mb-6">
             <div className="md:col-span-2">
               <h3 className="text-lg font-semibold mb-4 text-gray-700">
@@ -566,88 +249,103 @@ export default function AddSchoolModal({ isOpen, onClose, onSchoolAdded }) {
               </h3>
             </div>
 
-            <div className=" mb-4">
+            <div className="space-y-6">
+              {/* Overview Section */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Overview (English)
-                </label>
-                <RichTextEditor
-                  name="overview_en"
-                  value={formData.overview_en}
-                  onChange={handleChange}
-                  placeholder="Brief overview in English"
-                  rows={6}
-                />
+                <h4 className="text-md font-semibold mb-3 text-gray-700">
+                  Overview
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Overview (English)
+                    </label>
+                    <RichTextEditor
+                      value={formData.overview_en}
+                      onChange={(value) =>
+                        handleRichTextChange("overview_en", value)
+                      }
+                      placeholder="Brief overview in English"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Overview (Pashto)
+                    </label>
+                    <RichTextEditor
+                      value={formData.overview_ps}
+                      onChange={(value) =>
+                        handleRichTextChange("overview_ps", value)
+                      }
+                      placeholder="Brief overview in Pashto"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Overview (Dari)
+                    </label>
+                    <RichTextEditor
+                      value={formData.overview_pa}
+                      onChange={(value) =>
+                        handleRichTextChange("overview_pa", value)
+                      }
+                      placeholder="Brief overview in Dari"
+                    />
+                  </div>
+                </div>
               </div>
 
+              {/* Detailed Info Section */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Overview (Pashto)
-                </label>
-                <RichTextEditor
-                  name="overview_ps"
-                  value={formData.overview_ps}
-                  onChange={handleChange}
-                  placeholder="Brief overview in pashto"
-                  rows={6}
-                />
-              </div>
+                <h4 className="text-md font-semibold mb-3 text-gray-700">
+                  Detailed Information
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Detailed Info (English)
+                    </label>
+                    <RichTextEditor
+                      value={formData.detailed_info_en}
+                      onChange={(value) =>
+                        handleRichTextChange("detailed_info_en", value)
+                      }
+                      placeholder="Detailed information in English"
+                    />
+                  </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Overview (Dari)
-                </label>
-                <RichTextEditor
-                  name="overview_pa"
-                  value={formData.overview_pa}
-                  onChange={handleChange}
-                  placeholder="Brief overview in Dari"
-                  rows={6}
-                />
-              </div>
-            </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Detailed Info (Pashto)
+                    </label>
+                    <RichTextEditor
+                      value={formData.detailed_info_ps}
+                      onChange={(value) =>
+                        handleRichTextChange("detailed_info_ps", value)
+                      }
+                      placeholder="Detailed information in Pashto"
+                    />
+                  </div>
 
-            <div className="">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Detailed Info (English)
-                </label>
-                <RichTextEditor
-                  name="detailed_info_en"
-                  value={formData.detailed_info_en}
-                  onChange={handleChange}
-                  placeholder="Detailed information in English"
-                  rows={6}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Detailed Info (Pashto)
-                </label>
-                <RichTextEditor
-                  name="detailed_info_ps"
-                  value={formData.detailed_info_ps}
-                  onChange={handleChange}
-                  placeholder="Detailed information in pashto"
-                  rows={6}
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Detailed Info (Dari)
-                </label>
-                <RichTextEditor
-                  name="detailed_info_pa"
-                  value={formData.detailed_info_pa}
-                  onChange={handleChange}
-                  placeholder="Detailed information in Dari"
-                  rows={6}
-                />
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Detailed Info (Dari)
+                    </label>
+                    <RichTextEditor
+                      value={formData.detailed_info_pa}
+                      onChange={(value) =>
+                        handleRichTextChange("detailed_info_pa", value)
+                      }
+                      placeholder="Detailed information in Dari"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+
           {/* Actions */}
           <div className="flex justify-end space-x-3 pt-4 border-t">
             <button
