@@ -121,7 +121,7 @@ export default function FeaturedVideos() {
           {videos.length > 0 && (
             <Link
               href={`/${locale}/featured-videos`}
-              className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-lg transition-colors duration-200"
+              className="inline-flex items-center text-custom-half  font-semibold text-lg transition-colors duration-200"
             >
               {t("HomePage.see all")}
               <svg
@@ -187,7 +187,7 @@ export default function FeaturedVideos() {
                     {/* Story Details Button - Full width at the bottom */}
                     <button
                       onClick={() => handleStoryDetails(video.id)}
-                      className="custom-my-btn"
+                      className="cursor-pointer mt-2 bg-custom-half text-white px-8 py-2 w-full rounded-3xl font-semibold text-md shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                     >
                       {t("HomePage.video details")}
                     </button>

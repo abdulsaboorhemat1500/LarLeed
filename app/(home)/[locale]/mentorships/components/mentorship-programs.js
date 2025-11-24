@@ -111,14 +111,10 @@ export default function MentorshipProgramsSection() {
                 <div className="text-center pt-6">
                   <button
                     onClick={() => setIsMentorModalOpen(true)}
-                    className="cursor-pointer py-4 px-12 border-2 border-custom-half text-custom-half font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center text-lg"
+                    className="cursor-pointer bg-custom-half text-white px-8 py-4 rounded-3xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                   >
                     Open Scholarship Form
                   </button>
-
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-4">
-                    Get started in just a few minutes
-                  </p>
                 </div>
 
                 {/* Modal Component */}

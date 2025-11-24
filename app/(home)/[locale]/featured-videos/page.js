@@ -223,7 +223,7 @@ export default function FeaturedVideosList() {
                       {/* Story Details Button - Full width at the bottom */}
                       <button
                         onClick={() => handleStoryDetails(video.id)}
-                        className="custom-my-btn"
+                        className="cursor-pointer mt-2 bg-custom-half text-white px-8 py-2 w-full rounded-3xl font-semibold text-md shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                       >
                         {t("HomePage.video details")}
                       </button>

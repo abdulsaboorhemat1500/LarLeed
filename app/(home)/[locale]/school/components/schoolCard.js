@@ -57,7 +57,9 @@ export default function SchoolCard({ school, getLocalizedField }) {
 
         {/* Read More Button */}
         <Link href={`/${locale}/school/${school.id}`}>
-          <button className="custom-my-btn">View Details</button>
+          <button className="cursor-pointer mt-2 bg-custom-half text-white px-8 py-2 w-full rounded-3xl font-semibold text-md shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+            View Details
+          </button>
         </Link>
       </div>
     </div>

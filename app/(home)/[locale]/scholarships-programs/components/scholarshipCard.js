@@ -67,7 +67,7 @@ export default function ScholarshipCard({ scholarship, getLocalizedField }) {
 
         {/* Read More Button */}
         <Link href={`/${locale}/scholarships-programs/${scholarship.id}`}>
-          <button className="custom-my-btn">
+          <button className="cursor-pointer mt-2 bg-custom-half text-white px-8 py-2 w-full rounded-3xl font-semibold text-md shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
             {t("ScholarshipsPage.read more")}
           </button>
         </Link>

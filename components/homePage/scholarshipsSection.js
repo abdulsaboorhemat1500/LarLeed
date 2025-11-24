@@ -129,7 +129,7 @@ export default function ScholarshipSliderSection() {
           </h2>
           <Link
             href={`/${locale}/scholarships-programs`}
-            className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold text-lg transition-colors duration-200"
+            className="inline-flex items-center text-custom-half font-semibold text-lg transition-colors duration-200"
           >
             {t("HomePage.see all")}
             <svg
