@@ -28,7 +28,7 @@ export default function SchoolsPage() {
       eng: "en",
       ps: "ps",
       pash: "ps",
-      fa: "pa", // Dari uses 'pa' in your database
+      fa: "pa",
       dari: "pa",
     };
     return localeMap[locale] || "en";
@@ -41,13 +41,11 @@ export default function SchoolsPage() {
       const resultedData = await get("/api/school");
       if (resultedData.success) {
         setSchools(resultedData.data || []);
-        console.log("📦 Schools loaded:", resultedData.data?.length || 0);
       } else {
-        console.log("❌ API returned error:", resultedData.error);
+        setError("Failed to load schools");
       }
     } catch (error) {
-      setError(error.message);
-      console.log("🚨 Fetch error:", error);
+      setError("Network error. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -60,17 +58,7 @@ export default function SchoolsPage() {
   // Fixed helper function that matches your database fields
   const getLocalizedField = (school, fieldBase) => {
     const fieldName = `${fieldBase}_${normalizedLocale}`;
-    const value = school[fieldName] || school[`${fieldBase}_en`] || "";
-
-    // Debug logging for first school
-    if (schools.length > 0 && school.id === schools[0].id) {
-      console.log(
-        `🔍 [SchoolsPage] ${fieldBase}_${normalizedLocale}:`,
-        value ? `"${value.substring(0, 30)}..."` : "EMPTY"
-      );
-    }
-
-    return value;
+    return school[fieldName] || school[`${fieldBase}_en`] || "";
   };
 
   // Filter schools based on search query

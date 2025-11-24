@@ -28,40 +28,21 @@ export default function SchoolDetailsPage() {
       eng: "en",
       ps: "ps",
       pash: "ps",
-      fa: "pa", // Dari uses 'pa' in your database
+      fa: "pa",
       dari: "pa",
     };
     return localeMap[locale] || "en";
   };
 
-  // Fixed helper function that matches your database fields
+  // Fixed helper function that matches your exact database fields
   const getLocalizedField = (school, fieldBase) => {
     if (!school) return "";
 
     const normalizedLocale = normalizeLocale(locale);
     const fieldName = `${fieldBase}_${normalizedLocale}`;
 
-    console.log(`🔍 Looking for field: ${fieldName}`);
-    console.log(`📊 Available fields:`, {
-      name_en: school.name_en,
-      name_ps: school.name_ps,
-      name_pa: school.name_pa,
-      overview_en: school.overview_en,
-      overview_ps: school.overview_ps,
-      overview_pa: school.overview_pa,
-      owner_name_en: school.owner_name_en,
-      owner_name_ps: school.owner_name_ps,
-      owner_name_pa: school.owner_name_pa,
-      detailed_info_en: school.detailed_info_en,
-      detailed_info_ps: school.detailed_info_ps,
-      detailed_info_pa: school.detailed_info_pa,
-    });
-
     // Return the localized field or fallback to English
-    const value = school[fieldName] || school[`${fieldBase}_en`] || "";
-    console.log(`✅ Selected value for ${fieldBase}:`, value);
-
-    return value;
+    return school[fieldName] || school[`${fieldBase}_en`] || "";
   };
 
   // Update views function
@@ -84,12 +65,10 @@ export default function SchoolDetailsPage() {
 
         if (result.success) {
           setSchool(result.data);
-          console.log("📋 School data loaded:", result.data);
         } else {
           setError(result.error || "Failed to fetch school data");
         }
       } catch (error) {
-        console.error("Fetch error:", error);
         setError("Network error. Please try again.");
       } finally {
         setLoading(false);
@@ -102,30 +81,10 @@ export default function SchoolDetailsPage() {
   // Separate useEffect to update views when school data is loaded
   useEffect(() => {
     if (school && !viewsUpdatedRef.current) {
-      console.log("🎯 School loaded, updating views...");
       viewsUpdatedRef.current = true;
       updateViews(school.id);
     }
   }, [school]);
-
-  // Debug: Log the current locale and school data
-  useEffect(() => {
-    if (school) {
-      console.log("🌐 Current locale:", locale);
-      console.log("🔧 Normalized locale:", normalizeLocale(locale));
-
-      // Test all fields
-      console.log("🧪 Testing all localized fields:");
-      const testFields = ["name", "overview", "owner_name", "detailed_info"];
-      testFields.forEach((field) => {
-        const value = getLocalizedField(school, field);
-        console.log(
-          `   ${field}:`,
-          value ? `"${value.substring(0, 50)}..."` : "EMPTY"
-        );
-      });
-    }
-  }, [school, locale]);
 
   // Handle website button click
   const handleWebsiteClick = () => {
@@ -188,6 +147,15 @@ export default function SchoolDetailsPage() {
     );
   }
 
+  // Get the actual field values for debugging display
+  const currentLocale = normalizeLocale(locale);
+  const overviewField = `overview_${currentLocale}`;
+  const detailedInfoField = `detailed_info_${currentLocale}`;
+
+  const overviewValue = school[overviewField] || school.overview_en || "";
+  const detailedInfoValue =
+    school[detailedInfoField] || school.detailed_info_en || "";
+
   return (
     <>
       <div className="min-h-screen bg-gray-50 ">
@@ -225,14 +193,19 @@ export default function SchoolDetailsPage() {
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">
                   School Overview
                 </h2>
-                <div
-                  className="text-gray-700 dark:text-gray-300 leading-relaxed rich-text-content"
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      getLocalizedField(school, "overview") ||
-                      "No overview available.",
-                  }}
-                />
+                {overviewValue ? (
+                  <div
+                    className="text-gray-700 dark:text-gray-300 leading-relaxed rich-text-content"
+                    dangerouslySetInnerHTML={{
+                      __html: overviewValue,
+                    }}
+                  />
+                ) : (
+                  <div className="text-gray-500 italic">
+                    No overview available in {currentLocale.toUpperCase()}.
+                    {school.overview_en && " Showing English version."}
+                  </div>
+                )}
               </div>
 
               {/* Detailed Information */}
@@ -240,14 +213,20 @@ export default function SchoolDetailsPage() {
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">
                   Detailed Information
                 </h2>
-                <div
-                  className="text-gray-700 dark:text-gray-300 leading-relaxed rich-text-content"
-                  dangerouslySetInnerHTML={{
-                    __html:
-                      getLocalizedField(school, "detailed_info") ||
-                      "No detailed information available.",
-                  }}
-                />
+                {detailedInfoValue ? (
+                  <div
+                    className="text-gray-700 dark:text-gray-300 leading-relaxed rich-text-content"
+                    dangerouslySetInnerHTML={{
+                      __html: detailedInfoValue,
+                    }}
+                  />
+                ) : (
+                  <div className="text-gray-500 italic">
+                    No detailed information available in{" "}
+                    {currentLocale.toUpperCase()}.
+                    {school.detailed_info_en && " Showing English version."}
+                  </div>
+                )}
               </div>
             </div>
 

@@ -30,9 +30,7 @@ export default function DonateAfghanistanModal({ isOpen, onClose }) {
     {
       id: "cash",
       name: "Cash Donation",
-      providers: [
-        "Office Visit:Kabul, shahr-e-now, Yaqub Squer, d Tower, 12N s",
-      ],
+      providers: ["ADD:Kabul, shahr-e-now, Yaqub Square, d Tower, 12N Shop"],
       description: "In-person donation at our offices",
     },
   ];

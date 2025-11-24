@@ -4,7 +4,6 @@ import { useState } from "react";
 export default function DonateInternationalModal({ isOpen, onClose }) {
   const [donationAmount, setDonationAmount] = useState("");
   const [selectedMethod, setSelectedMethod] = useState("");
-  const [currency, setCurrency] = useState("USD");
 
   const paymentMethods = [
     {
@@ -31,13 +30,6 @@ export default function DonateInternationalModal({ isOpen, onClose }) {
       icon: "🏦",
       description: "International bank transfer",
     },
-  ];
-
-  const currencies = [
-    { code: "USD", symbol: "$", name: "US Dollar" },
-    { code: "EUR", symbol: "€", name: "Euro" },
-    { code: "GBP", symbol: "£", name: "British Pound" },
-    { code: "CAD", symbol: "C$", name: "Canadian Dollar" },
   ];
 
   const handleSubmit = (e) => {
@@ -82,24 +74,6 @@ export default function DonateInternationalModal({ isOpen, onClose }) {
 
         {/* Content */}
         <form onSubmit={handleSubmit} className="p-6">
-          {/* Currency Selection */}
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Select Currency
-            </label>
-            <select
-              value={currency}
-              onChange={(e) => setCurrency(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            >
-              {currencies.map((curr) => (
-                <option key={curr.code} value={curr.code}>
-                  {curr.symbol} {curr.name} ({curr.code})
-                </option>
-              ))}
-            </select>
-          </div>
-
           {/* Payment Methods */}
           <div className="mb-6">
             <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -149,13 +123,6 @@ export default function DonateInternationalModal({ isOpen, onClose }) {
               className="flex-1 px-4 py-3 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
             >
               Cancel
-            </button>
-            <button
-              type="submit"
-              disabled={!donationAmount || !selectedMethod}
-              className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:from-blue-600 hover:to-indigo-700 transition-colors"
-            >
-              Donate Now
             </button>
           </div>
         </form>

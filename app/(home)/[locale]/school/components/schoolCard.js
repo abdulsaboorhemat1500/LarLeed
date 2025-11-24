@@ -8,6 +8,9 @@ export default function SchoolCard({ school, getLocalizedField }) {
   const { t } = useTranslations();
   const { locale } = useParams();
 
+  // Get the overview content directly to ensure it's working
+  const overviewContent = getLocalizedField(school, "overview");
+
   return (
     <div className="bg-blue-100 rounded-lg shadow-md overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300">
       {/* School Image with Views Overlay */}
@@ -41,9 +44,7 @@ export default function SchoolCard({ school, getLocalizedField }) {
         <div
           className="text-gray-500 text-sm mb-4 line-clamp-3 leading-relaxed rich-text-content"
           dangerouslySetInnerHTML={{
-            __html:
-              getLocalizedField(school, "overview") ||
-              "No description available.",
+            __html: overviewContent || "No description available.",
           }}
         />
 
@@ -55,7 +56,7 @@ export default function SchoolCard({ school, getLocalizedField }) {
         </div>
 
         {/* Read More Button */}
-        <Link href={`/${locale}/schools/${school.id}`}>
+        <Link href={`/${locale}/school/${school.id}`}>
           <button className="custom-my-btn">View Details</button>
         </Link>
       </div>
