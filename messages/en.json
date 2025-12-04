@@ -1,7 +1,7 @@
 {
   "Header": {
     "scholarshipsPrograms": "Scholarships",
-    "school": "School",
+    "school": "Free Online Schools",
     "mentorships": "Mentorships",
     "roshangari": "Roshangari",
     "donate": "Donate",
@@ -101,16 +101,15 @@
     "university": "Universities"
   },
   "MentorshipsPage": {
-    "enter your full Name":"Enter Your Full Name",
-    "enter your email address":"Enter Your Email Address",
-    "enter your current address":"Enter Your Current Address",
-    "enter your phone number":"Enter Your Phone Number",
-    "year of graduation":"Year of graduation",
-    "enter year of graduation":"Enter Year of graduation",
-    "your major":"Enter Your Major",
+    "enter your full Name": "Enter Your Full Name",
+    "enter your email address": "Enter Your Email Address",
+    "enter your current address": "Enter Your Current Address",
+    "enter your phone number": "Enter Your Phone Number",
+    "year of graduation": "Year of graduation",
+    "enter year of graduation": "Enter Year of graduation",
+    "your major": "Enter Your Major",
 
-
-    "failed to fetch mentors":"Failed to Fetch Mentors",
+    "failed to fetch mentors": "Failed to Fetch Mentors",
     "meet our mentors": "Meet Our Mentors",
     "no mentors found": "No mentors found",
     "scholarship submission form": "Scholarship Submission Form",
@@ -149,8 +148,8 @@
     "enter your GPA/score": "Enter Your GPA/Score"
   },
   "RoshangariPage": {
-    "clear search":"Clear Search",
-    "no stories found":"No stories found.",
+    "clear search": "Clear Search",
+    "no stories found": "No stories found.",
     "back to previous": "Back to Previous Page",
     "search roshangari stories": "Search Roshangari Stories",
     "searching": "Searching...",
@@ -187,22 +186,22 @@
     "share story": "Share Story"
   },
   "videoDetailsPage": {
-  "watch on youtube":"Watch on youtube",
-  "watch video": "Watch Video",
-  "share video": "Share Video",
-  "published": "Published",
-  "category": "Category",
-  "creator": "Creator",
-  "loading video...": "Loading video...",
-  "failed to fetch video": "Failed to fetch video",
-  "network error. Please try again.": "Network error. Please try again.",
-  "try again": "Try Again",
-  "video not found.": "Video not found.",
-  "video information": "Video Information",
-  "created": "Created",
-  "video creator": "Video Creator",
-  "no video link": "No Video Link Available"
-},
+    "watch on youtube": "Watch on youtube",
+    "watch video": "Watch Video",
+    "share video": "Share Video",
+    "published": "Published",
+    "category": "Category",
+    "creator": "Creator",
+    "loading video...": "Loading video...",
+    "failed to fetch video": "Failed to fetch video",
+    "network error. Please try again.": "Network error. Please try again.",
+    "try again": "Try Again",
+    "video not found.": "Video not found.",
+    "video information": "Video Information",
+    "created": "Created",
+    "video creator": "Video Creator",
+    "no video link": "No Video Link Available"
+  },
   "teamPage": {
     "team member details": "Team Member Details",
     "no team member details found.": "No team member details found.",
@@ -220,7 +219,7 @@
     "detailed information": "Detailed Information",
     "eligibility criteria": "Eligibility Criteria",
     "application process": "Application Process",
-    "scholarship benefits": "scholarship Benefits",
+    "scholarship benefits": "Scholarship Benefits",
     "scholarship summary": "Scholarship Summary",
     "name": "Name",
     "country": "Country",
@@ -232,20 +231,20 @@
     "funding type": "Funding Type",
     "genders": "Genders",
     "apply now": "Apply Now",
-    "loading scholarship details":"Loading Scholarship Details",
-    "error loading scholarship":"Error Loading Scholarship",
-    "try again":"Try Again",
-    "fields of study":"Fields of Study",
-    "language required":"Languages Required",
-    "eligible countries":"Eligible Countries"
+    "loading scholarship details": "Loading Scholarship Details",
+    "error loading scholarship": "Error Loading Scholarship",
+    "try again": "Try Again",
+    "fields of study": "Fields of Study",
+    "language required": "Languages Required",
+    "eligible countries": "Eligible Countries"
   },
-  "MentorDetailsPage":{
-    "mentor not found":"Mentor not found",
-    "experience":"Experience",
-    "address":"Address",
-    "country":"Country",
-    "email":"Email",
-    "phone":"Phone",
-    "contact":"Contact"
+  "MentorDetailsPage": {
+    "mentor not found": "Mentor not found",
+    "experience": "Experience",
+    "address": "Address",
+    "country": "Country",
+    "email": "Email",
+    "phone": "Phone",
+    "contact": "Contact"
   }
 }

@@ -335,7 +335,7 @@ export default function ScholarshipDetailsPage() {
                   </div>
 
                   {/* Gender */}
-                  <div className="flex items-start space-x-3">
+                  {/* <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-pink-100 dark:bg-pink-900 rounded-lg flex items-center justify-center flex-shrink-0">
                       <span className="text-pink-600 dark:text-pink-400">
                         👥
@@ -350,7 +350,7 @@ export default function ScholarshipDetailsPage() {
                           "Both Male & Female"}
                       </p>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Level */}
                   <div className="flex items-start space-x-3">
@@ -370,7 +370,7 @@ export default function ScholarshipDetailsPage() {
                   </div>
 
                   {/* Deadline */}
-                  <div className="flex items-start space-x-3">
+                  {/* <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center flex-shrink-0">
                       <span className="text-red-600 dark:text-red-400">⏰</span>
                     </div>
@@ -382,7 +382,7 @@ export default function ScholarshipDetailsPage() {
                         {formatDate(scholarship.s_app_deadline)}
                       </p>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Duration */}
                   <div className="flex items-start space-x-3">

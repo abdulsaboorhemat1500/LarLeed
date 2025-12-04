@@ -8,89 +8,89 @@ export default function AddScholarshipPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     // Scholarship Name - Multi-language
-    s_name_eng: '',
-    s_name_pash: '',
-    s_name_dari: '',
-    
+    s_name_eng: "",
+    s_name_pash: "",
+    s_name_dari: "",
+
     // University - Multi-language
-    s_university_eng: '',
-    s_university_pash: '',
-    s_university_dari: '',
-    
+    s_university_eng: "",
+    s_university_pash: "",
+    s_university_dari: "",
+
     // Country - Multi-language
-    s_country_eng: '',
-    s_country_pash: '',
-    s_country_dari: '',
-    
+    s_country_eng: "",
+    s_country_pash: "",
+    s_country_dari: "",
+
     // Language - Multi-language
-    s_language_eng: '',
-    s_language_pash: '',
-    s_language_dari: '',
-    
+    s_language_eng: "",
+    s_language_pash: "",
+    s_language_dari: "",
+
     // Gender - Multi-language
-    s_gender_eng: '',
-    s_gender_pash: '',
-    s_gender_dari: '',
-    
+    s_gender_eng: "None",
+    s_gender_pash: "هیڅ",
+    s_gender_dari: "هیچ",
+
     // Study Level - Multi-language
-    s_study_level_eng: '',
-    s_study_level_pash: '',
-    s_study_level_dari: '',
-    
+    s_study_level_eng: "",
+    s_study_level_pash: "",
+    s_study_level_dari: "",
+
     // Duration - Multi-language
-    s_duration_eng: '',
-    s_duration_pash: '',
-    s_duration_dari: '',
-    
+    s_duration_eng: "None",
+    s_duration_pash: "هیڅ",
+    s_duration_dari: "هیچ",
+
     // Funding Type - Multi-language
-    s_funding_type_eng: '',
-    s_funding_type_pash: '',
-    s_funding_type_dari: '',
-    
+    s_funding_type_eng: "",
+    s_funding_type_pash: "",
+    s_funding_type_dari: "",
+
     // New Fields: Fields of Study - Multi-language
-    s_fields_of_study_eng: '',
-    s_fields_of_study_pash: '',
-    s_fields_of_study_dari: '',
-    
+    s_fields_of_study_eng: "",
+    s_fields_of_study_pash: "",
+    s_fields_of_study_dari: "",
+
     // New Fields: Language Required - Multi-language
-    s_language_required_eng: '',
-    s_language_required_pash: '',
-    s_language_required_dari: '',
-    
+    s_language_required_eng: "",
+    s_language_required_pash: "",
+    s_language_required_dari: "",
+
     // New Fields: Eligible Countries - Multi-language
-    s_eligible_countries_eng: '',
-    s_eligible_countries_pash: '',
-    s_eligible_countries_dari: '',
-    
+    s_eligible_countries_eng: "",
+    s_eligible_countries_pash: "",
+    s_eligible_countries_dari: "",
+
     // Overview - Multi-language
-    s_overview_eng: '',
-    s_overview_pash: '',
-    s_overview_dari: '',
-    
+    s_overview_eng: "",
+    s_overview_pash: "",
+    s_overview_dari: "",
+
     // Detailed Information - Multi-language
-    s_detailed_info_eng: '',
-    s_detailed_info_pash: '',
-    s_detailed_info_dari: '',
-    
+    s_detailed_info_eng: "",
+    s_detailed_info_pash: "",
+    s_detailed_info_dari: "",
+
     // Eligibility Criteria - Multi-language
-    s_eligibility_eng: '',
-    s_eligibility_pash: '',
-    s_eligibility_dari: '',
-    
+    s_eligibility_eng: "",
+    s_eligibility_pash: "",
+    s_eligibility_dari: "",
+
     // Application Process - Multi-language
-    s_app_procces_eng: '',
-    s_app_procces_pash: '',
-    s_app_procces_dari: '',
-    
+    s_app_procces_eng: "",
+    s_app_procces_pash: "",
+    s_app_procces_dari: "",
+
     // Benefits - Multi-language
-    s_benefits_eng: '',
-    s_benefits_pash: '',
-    s_benefits_dari: '',
-    
+    s_benefits_eng: "",
+    s_benefits_pash: "",
+    s_benefits_dari: "",
+
     // Single language fields
     s_image: null,
-    s_app_deadline: '',
-    s_applying_link: ''
+    s_app_deadline: "",
+    s_applying_link: "",
   });
 
   const [imagePreview, setImagePreview] = useState('');

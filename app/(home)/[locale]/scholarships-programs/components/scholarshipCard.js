@@ -60,9 +60,13 @@ export default function ScholarshipCard({ scholarship, getLocalizedField }) {
 
         {/* Deadline and Language */}
         <div className="flex justify-between items-center text-sm text-gray-700 border-t border-gray-100 pt-3">
-          <span className="font-medium text-red-600">
-            Deadline: {formatDate(scholarship.s_app_deadline)}
-          </span>
+          {new Date(scholarship.s_app_deadline) < new Date() ? (
+            <span className="font-medium text-gray-600">Closed</span>
+          ) : (
+            <span className="font-medium text-red-600">
+              Deadline: {formatDate(scholarship.s_app_deadline)}
+            </span>
+          )}
         </div>
 
         {/* Read More Button */}

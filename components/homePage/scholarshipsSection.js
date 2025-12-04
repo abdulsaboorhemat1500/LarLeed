@@ -123,7 +123,7 @@ export default function ScholarshipSliderSection() {
     <section className="py-12 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header with Title and See All Button */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 mt-4">
           <h2 className="text-3xl font-bold text-gray-900 ">
             {getSectionTitle()}
           </h2>
@@ -177,7 +177,7 @@ export default function ScholarshipSliderSection() {
 
         {/* Scholarship Slider */}
         {!loading && !error && filteredScholarships.length > 0 && (
-          <div className="relative">
+          <div className="relative pt-4 pb-4">
             <div className="flex overflow-x-auto pb-6 gap-6 scrollbar-hide snap-x snap-mandatory">
               {filteredScholarships.map((scholarship) => (
                 <div

@@ -1,7 +1,7 @@
 {
   "Header": {
     "scholarshipsPrograms": "تحصیلات عالی",
-    "school": "دوره مکتب",
+    "school": "مکتب های رایګان",
     "mentorships": "منتورها",
     "roshangari": "روشنگری",
     "donate": "حمایت",
@@ -215,8 +215,8 @@
   },
   "scholarshipDetailsPage": {
     "scholarship overview": "جزئیات بورسیه",
-    "detailed information": "جزئیات بورسیه",
-    "eligibility criteria": "معیارهای صلاحیت",
+    "detailed information": "اطلاعات دقیق",
+    "eligibility criteria": "واجد شرایط بودن",
     "application process": "فرایند ارسال",
     "scholarship benefits": "مزایای بورسیه",
     "scholarship summary": "خلاصه بورسیه",

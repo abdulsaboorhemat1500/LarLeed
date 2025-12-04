@@ -40,7 +40,7 @@ export default function LocalizedHomePage({ params }) {
   return (
     <>
       <HomePage />
-      <WhyChoseUse />
+      {/* <WhyChoseUse /> */}
       <ScholarshipSliderSection />
       <LarleedMission />
       <FeaturedVieos />

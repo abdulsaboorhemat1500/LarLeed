@@ -38,7 +38,7 @@ export default function HeroSection() {
                   className="w-full h-auto object-cover"
                   priority
                 /> */}
-                <Lottie animationData={Study} />
+                {/* <Lottie animationData={Study} /> */}
               </div>
             </div>
           </div>
