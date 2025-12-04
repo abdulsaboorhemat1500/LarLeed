@@ -179,7 +179,7 @@ export default function ControlPanelLayout({ children }) {
       >
         <div className="flex flex-col h-full">
           {/* Sidebar Header */}
-          <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-center p-4 border-b border-gray-200 dark:border-gray-700">
             <Link href="/dashboard" className="flex items-center">
               <img src="/logo.png" alt="LarLeed Logo" className="h-12 w-auto" />
             </Link>
@@ -198,11 +198,11 @@ export default function ControlPanelLayout({ children }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-x-3 p-3 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 cursor-pointer mb-2"
+                className="flex items-center gap-x-3 p-2 rounded-lg text-blue-700 hover:bg-blue-400 hover:text-white transition-colors duration-200 cursor-pointer mb-2"
                 onClick={closeSidebar}
               >
                 <item.icon className="size-5" />
-                <span className="font-medium">{item.label}</span>
+                <span className="font-bold">{item.label}</span>
               </Link>
             ))}
           </nav>
@@ -295,8 +295,8 @@ export default function ControlPanelLayout({ children }) {
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-h-screen w-full lg:ml-0">
         {/* Header */}
-        <header className="bg-white dark:bg-gray-800 sticky top-0 h-16 z-20 shadow-sm border-b border-gray-200 dark:border-gray-700">
-          <div className="flex items-center justify-between p-4 lg:px-8">
+        <header className="bg-white dark:bg-gray-800 sticky  h-20 z-20 shadow-sm border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between p-6 lg:px-8">
             {/* Left side - Menu button and Logo for mobile */}
             <div className="flex items-center gap-x-4">
               <button

@@ -5,15 +5,12 @@ import { useApi } from "@/app/hooks/useApi";
 
 export default function ScholarshipStudentVideosPage() {
   const [searchTerm, setSearchTerm] = useState("");
-  const [openDropdown, setOpenDropdown] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { get, delete: del } = useApi();
-  const dropdownButtonRef = useRef(null);
-  const dropdownMenuRef = useRef(null);
 
   // Fetch videos from database
   const getVideos = async () => {
@@ -62,23 +59,6 @@ export default function ScholarshipStudentVideosPage() {
 
   useEffect(() => {
     getVideos();
-    const handleClickOutside = (event) => {
-      const isOutsideButton =
-        dropdownButtonRef.current &&
-        !dropdownButtonRef.current.contains(event.target);
-      const isOutsideMenu =
-        dropdownMenuRef.current &&
-        !dropdownMenuRef.current.contains(event.target);
-
-      if (isOutsideButton && isOutsideMenu) {
-        setOpenDropdown(null);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
   }, []);
 
   // Filter videos based on search
@@ -98,10 +78,6 @@ export default function ScholarshipStudentVideosPage() {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentVideos = filteredVideos.slice(indexOfFirstItem, indexOfLastItem);
   const totalPages = Math.ceil(filteredVideos.length / itemsPerPage);
-
-  const handleDropdownToggle = (id) => {
-    setOpenDropdown(openDropdown === id ? null : id);
-  };
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -207,7 +183,7 @@ export default function ScholarshipStudentVideosPage() {
         {!loading && !error && (
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 ">
             {/* Table */}
-            <table className="min-w-full divide-y divide-gray-200">
+            <table className="min-w-full divide-y divide-gray-200 overflow-hidden">
               {/* Table Header */}
               <thead className="bg-gray-50">
                 <tr>
@@ -341,53 +317,22 @@ export default function ScholarshipStudentVideosPage() {
                     </td>
 
                     {/* Actions */}
-                    <td className="px-6 py-4 whitespace-nowrap text-center">
-                      <div className="relative" ref={dropdownButtonRef}>
-                        <button
-                          onClick={() => handleDropdownToggle(video.id)}
-                          className="cursor-pointer p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
-                        >
-                          <svg
-                            className="w-5 h-5 text-gray-600"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"
-                            />
-                          </svg>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                      <Link
+                        href={`/scholarship-stu-video-cp/update/${video.id}`}
+                      >
+                        <button className="text-blue-600 hover:text-blue-900 cursor-pointer transition-colors duration-200">
+                          Update
                         </button>
-
-                        {/* Dropdown Menu */}
-                        {openDropdown === video.id && (
-                          <div
-                            ref={dropdownMenuRef}
-                            className="absolute right-0 mt-2 w-32 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-10"
-                          >
-                            <Link
-                              href={`/scholarship-stu-video-cp/update/${video.id}`}
-                              onClick={() => setOpenDropdown(null)}
-                            >
-                              <button className="cursor-pointer block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200">
-                                Update
-                              </button>
-                            </Link>
-                            <button
-                              onClick={() => {
-                                setOpenDropdown(null);
-                                handleDelete(video.id);
-                              }}
-                              className="cursor-pointer block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition-colors duration-200"
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        )}
-                      </div>
+                      </Link>
+                      <button
+                        onClick={() => {
+                          handleDelete(video.id);
+                        }}
+                        className="text-red-600 hover:text-red-900 cursor- transition-colors duration-200"
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 ))}

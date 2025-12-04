@@ -215,15 +215,13 @@ export default function ScholarshipSliderSection() {
                   <div className="p-6">
                     {/* Country and Deadline in one line */}
                     <div className="mb-4">
-                      <div className="flex justify-between text-sm text-gray-500 dark:text-gray-400 mt-1">
-                        <span>Country</span>
-                        <span>Deadline</span>
-                      </div>
                       <div className="flex justify-between items-center">
                         <div className="text-lg font-bold text-blue-600 dark:text-blue-400 line-clamp-1">
+                          <span>Country:</span>
                           {scholarship.s_country_eng || "International"}
                         </div>
                         <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                          <span>Deadline:</span>
                           {formatDate(scholarship.s_app_deadline)}
                         </div>
                       </div>
