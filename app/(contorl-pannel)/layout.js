@@ -198,7 +198,7 @@ export default function ControlPanelLayout({ children }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className="flex items-center gap-x-3 p-2 rounded-lg text-blue-700 hover:bg-blue-400 hover:text-white transition-colors duration-200 cursor-pointer mb-2"
+                className="flex items-center gap-x-3 p-2 rounded-lg text-blue-700 hover:bg-blue-600 hover:text-white transition-colors duration-200 cursor-pointer mb-2"
                 onClick={closeSidebar}
               >
                 <item.icon className="size-5" />

@@ -81,6 +81,22 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
       setFilteredVideos(studentStoryVideos);
     }
   }, [scholarshipName, videos]);
+  // Function to extract YouTube video ID from URL
+  const getYouTubeThumbnail = (url) => {
+    if (!url) return null;
+
+    // Extract YouTube video ID
+    const regExp =
+      /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+    const match = url.match(regExp);
+    const videoId = match && match[7].length === 11 ? match[7] : null;
+
+    if (videoId) {
+      return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    }
+
+    return null;
+  };
 
   const openVideoModal = (video) => {
     setSelectedVideo(video);
@@ -281,81 +297,85 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
               className="flex overflow-x-auto scrollbar-hide space-x-6 pb-8 pt-2 px-2"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
-              {filteredVideos.map((video) => (
-                <div
-                  key={video.id}
-                  className="flex-shrink-0 w-80 bg-blue-100 rounded-2xl shadow-sm transition-all duration-300 transform hover:-translate-y-2"
-                >
-                  {/* Video Card */}
-                  <div className="relative overflow-hidden rounded-t-2xl">
-                    {/* Video Thumbnail */}
-                    <div
-                      className="relative group cursor-pointer"
-                      onClick={() => openVideoModal(video)}
-                    >
-                      <div className="w-full h-50 bg-gray-200 overflow-hidden">
-                        {video.video_image ? (
-                          <img
-                            src={video.video_image}
-                            alt={video.video_title}
-                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center">
-                            <svg
-                              className="w-16 h-16 text-white opacity-80"
-                              fill="none"
-                              stroke="currentColor"
-                              viewBox="0 0 24 24"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={1.5}
-                                d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
-                              />
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={1.5}
-                                d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                              />
-                            </svg>
-                          </div>
-                        )}
-                      </div>
-                      {/* Play Button (Always visible but smaller) */}
-                      <div className="absolute bottom-4 right-4 bg-black bg-opacity-60 rounded-full p-2">
-                        <svg
-                          className="w-6 h-6 text-white"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M8 5v14l11-7z" />
-                        </svg>
+              {filteredVideos.map((video) => {
+                const youtubeThumbnail = getYouTubeThumbnail(video.video_link);
+                const displayImage = youtubeThumbnail;
+                return (
+                  <div
+                    key={video.id}
+                    className="flex-shrink-0 w-80 bg-blue-100 rounded-2xl shadow-sm transition-all duration-300 transform hover:-translate-y-2"
+                  >
+                    {/* Video Card */}
+                    <div className="relative overflow-hidden rounded-t-2xl">
+                      {/* Video Thumbnail */}
+                      <div
+                        className="relative group cursor-pointer"
+                        onClick={() => openVideoModal(video)}
+                      >
+                        <div className="w-full h-50 bg-gray-200 overflow-hidden">
+                          {video.video_image ? (
+                            <img
+                              src={displayImage}
+                              alt={video.video_title}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-blue-400 to-purple-600 flex items-center justify-center">
+                              <svg
+                                className="w-16 h-16 text-white opacity-80"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={1.5}
+                                  d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                                />
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={1.5}
+                                  d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                />
+                              </svg>
+                            </div>
+                          )}
+                        </div>
+                        {/* Play Button (Always visible but smaller) */}
+                        <div className="absolute bottom-4 right-4 bg-black bg-opacity-60 rounded-full p-2">
+                          <svg
+                            className="w-6 h-6 text-white"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path d="M8 5v14l11-7z" />
+                          </svg>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Card Content */}
-                  <div className="p-3">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
-                      {video.video_title}
-                    </h3>
-                    {!scholarshipName && (
-                      <p className="text-sm text-gray-600 mb-3">
-                        {video.rt_scholarship_name}
-                      </p>
-                    )}
-                    <button
-                      onClick={() => openVideoModal(video)}
-                      className="custom-my-btn"
-                    >
-                      📺 Watch Story
-                    </button>
+                    {/* Card Content */}
+                    <div className="p-3">
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">
+                        {video.video_title}
+                      </h3>
+                      {!scholarshipName && (
+                        <p className="text-sm text-gray-600 mb-3">
+                          {video.rt_scholarship_name}
+                        </p>
+                      )}
+                      <button
+                        onClick={() => openVideoModal(video)}
+                        className="custom-my-btn"
+                      >
+                        📺 Watch Story
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
