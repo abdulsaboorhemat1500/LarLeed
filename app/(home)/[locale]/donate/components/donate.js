@@ -2,7 +2,6 @@
 import { useState } from "react";
 import Lottie from "lottie-react";
 import Donate from "@/components/lottie-files/Donate.json";
-import DonateInternationalModal from "./DonateInternationalModal";
 
 export default function DonateSection() {
 
