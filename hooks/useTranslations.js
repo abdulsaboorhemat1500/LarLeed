@@ -16,19 +16,19 @@ const translations = {
 
 export function useTranslations() {
   const pathname = usePathname();
-  const [currentLocale, setCurrentLocale] = useState('ps');
+  const [currentLocale, setCurrentLocale] = useState("en");
 
   useEffect(() => {
     if (!pathname) return;
-    
+
     // Extract locale from pathname more efficiently
-    const locale = pathname.split('/')[1];
-    
+    const locale = pathname.split("/")[1];
+
     // Check if locale is valid
     if (locale && translations[locale]) {
       setCurrentLocale(locale);
     } else {
-      setCurrentLocale('ps'); // Default fallback
+      setCurrentLocale("en"); // Default fallback
     }
   }, [pathname]);
 

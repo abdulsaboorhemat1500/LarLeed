@@ -200,16 +200,11 @@ export default function ScholarshipSliderSection() {
                             getLocalizedField(scholarship, "s_name").charAt(0)
                           )}
                         </div>
-                        {/* Views Counter Overlay */}
-                        <div className="absolute mt-1 ml-2 bg-black/70 text-white px-2 py-1 rounded-full flex items-center gap-1 text-xs backdrop-blur-sm">
-                          <span>👁️</span>
-                          <span>{scholarship.views}</span>
-                        </div>
                       </div>
 
                       {/* Scholarship Name */}
                       <div className="flex-1 min-w-0">
-                        <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white line-clamp-2">
                           {getLocalizedField(scholarship, "s_name")}
                         </h3>
                       </div>
@@ -225,7 +220,7 @@ export default function ScholarshipSliderSection() {
                         <span>Deadline</span>
                       </div>
                       <div className="flex justify-between items-center">
-                        <div className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                        <div className="text-lg font-bold text-blue-600 dark:text-blue-400 line-clamp-1">
                           {scholarship.s_country_eng || "International"}
                         </div>
                         <div className="text-lg font-semibold text-gray-900 dark:text-white">

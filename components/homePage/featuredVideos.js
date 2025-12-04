@@ -162,11 +162,6 @@ export default function FeaturedVideos() {
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    {/* Views Counter Overlay */}
-                    <div className="absolute top-3 right-3 bg-black/70 text-white px-2 py-1 rounded-full flex items-center gap-1 text-xs backdrop-blur-sm">
-                      <span>👁️</span>
-                      <span>{video.views}</span>
-                    </div>
                   </div>
 
                   <div className="p-5 flex flex-col flex-1">

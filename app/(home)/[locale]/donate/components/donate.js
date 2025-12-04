@@ -5,9 +5,7 @@ import Donate from "@/components/lottie-files/Donate.json";
 import DonateInternationalModal from "./DonateInternationalModal";
 
 export default function DonateSection() {
-  const [isAfghanistanModalOpen, setIsAfghanistanModalOpen] = useState(false);
-  const [isInternationalModalOpen, setIsInternationalModalOpen] =
-    useState(false);
+
 
   return (
     <section
@@ -37,11 +35,8 @@ export default function DonateSection() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button
-                onClick={() => setIsInternationalModalOpen(true)}
-                className="cursor-pointer bg-custom-half text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-              >
-                🌍 Donate Internationally
+              <button className="cursor-pointer bg-custom-half text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                🌍 Donate Now
               </button>
             </div>
 
@@ -72,11 +67,6 @@ export default function DonateSection() {
           </div>
         </div>
       </div>
-
-      <DonateInternationalModal
-        isOpen={isInternationalModalOpen}
-        onClose={() => setIsInternationalModalOpen(false)}
-      />
     </section>
   );
 }
