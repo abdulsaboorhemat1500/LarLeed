@@ -1,15 +1,13 @@
 'use client';
 import Image from "next/image";
-import Link from "next/link";
 import { useState, useEffect } from "react";
-import { useApi } from '@/app/hooks/useApi';
-import { useTranslations } from '@/hooks/useTranslations';  
-import { useParams } from 'next/navigation';
+import { useApi } from "@/app/hooks/useApi";
+import { useTranslations } from "@/hooks/useTranslations";
+import { useParams } from "next/navigation";
 export default function MentorSection() {
-  const { locale } = useParams();
   const [mentors, setMentors] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const { get } = useApi();
   const { t } = useTranslations();
   // Fetch mentors from API
@@ -17,20 +15,20 @@ export default function MentorSection() {
     const fetchMentors = async () => {
       try {
         setLoading(true);
-        const result = await get('/api/mentor-team');
+        const result = await get("/api/mentor-team");
 
         if (result.success) {
           // Filter members where category is 'mentor'
-          const filteredMentors = result.data.filter(member => 
-            member.category === 'mentor'
+          const filteredMentors = result.data.filter(
+            (member) => member.category === "mentor"
           );
           setMentors(filteredMentors);
         } else {
-          setError(result.error || t('HomePage.failed to fetch mentors'));
+          setError(result.error || t("HomePage.failed to fetch mentors"));
         }
       } catch (error) {
-        console.error('Fetch error:', error);
-        setError(t('HomePage.network error please try again'));
+        console.error("Fetch error:", error);
+        setError(t("HomePage.network error please try again"));
       } finally {
         setLoading(false);
       }
@@ -45,7 +43,7 @@ export default function MentorSection() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              {t('MentorshipsPage.meet our mentors')}
+              {t("MentorshipsPage.meet our mentors")}
             </h2>
           </div>
           <div className="flex justify-center">
@@ -62,11 +60,13 @@ export default function MentorSection() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              {t('MentorshipsPage.meet our mentors')}
+              {t("MentorshipsPage.meet our mentors")}
             </h2>
           </div>
           <div className="text-center text-red-600">
-            <p>{t('RoshangariPage.error')}: {error}</p>
+            <p>
+              {t("RoshangariPage.error")}: {error}
+            </p>
           </div>
         </div>
       </section>
@@ -111,11 +111,14 @@ export default function MentorSection() {
               </div>
 
               <div>
-                <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">
+                <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2 line-clamp-1">
                   {mentor.full_name}
                 </h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">
-                  {mentor.job_title || mentor.position}
+                  {mentor.job_title}
+                </p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">
+                  {mentor.experience}
                 </p>
               </div>
             </div>

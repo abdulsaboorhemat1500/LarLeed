@@ -14,6 +14,7 @@
     "description": "Connecting Afghan Youth through Education, Dialogue, and Vision"
   },
   "HomePage": {
+    "loading": "Loading...",
     "lets join": "Let's join Larleed's Social Networks",
     "contactform": "Contact Form",
     "donate now": "Donate Now",
@@ -65,7 +66,7 @@
     "enter message subject": "Enter Message Subject...",
     "enter your message": "Enter Your Message...",
     "thank you! your message has been sent successfully.": "Thank you! Your message has been sent successfully.",
-    "failed to send message. please try again.": "Failed to send message. Please try again.",
+    "failed to send message please try again": "Failed to send message. Please try again.",
     "full name *": "Full Name *",
     "email *": "Email *",
     "phone number": "Phone Number",
@@ -85,7 +86,7 @@
     "phd": "PhD",
     "school": "School",
     "search for scholarships": "Search for Scholarships",
-    "no scholarships found.": "No scholarships found.",
+    "no scholarships found": "No scholarships found.",
     "reset": "Reset",
     "next": "Next",
     "previous": "Previous",
@@ -178,8 +179,8 @@
   },
   "storyDetailsPage": {
     "story details": "Story Details",
-    "no story details found.": "No story details found.",
-    "loading story details...": "Loading Story Details...",
+    "no story details found": "No story details found.",
+    "loading story details": "Loading Story Details...",
     "back to previous page": "Back to Previous Page",
     "story author details": "Story Author Details",
     "published": "Published",
@@ -194,11 +195,11 @@
     "published": "Published",
     "category": "Category",
     "creator": "Creator",
-    "loading video...": "Loading video...",
+    "loading video": "Loading video...",
     "failed to fetch video": "Failed to fetch video",
-    "network error. Please try again.": "Network error. Please try again.",
+    "network error Please try again": "Network error. Please try again.",
     "try again": "Try Again",
-    "video not found.": "Video not found.",
+    "video not found": "Video not found.",
     "video information": "Video Information",
     "created": "Created",
     "video creator": "Video Creator",
@@ -206,8 +207,8 @@
   },
   "teamPage": {
     "team member details": "Team Member Details",
-    "no team member details found.": "No team member details found.",
-    "loading team member details...": "Loading Team Member Details...",
+    "no team member details found": "No team member details found.",
+    "loading team member details": "Loading Team Member Details...",
     "back to previous page": "Back to Previous Page",
     "experience": "Experience",
     "address": "Address",
@@ -249,5 +250,4 @@
     "phone": "Phone",
     "contact": "Contact"
   }
-
 }

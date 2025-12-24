@@ -167,7 +167,7 @@ export default function Footer() {
                   href="mailto:info@larleed.org"
                   className="flex items-center text-gray-300 hover:text-white transition-colors duration-200"
                 >
-                  <div className="w-4 h-4 mr-2">📧</div>
+                  <div className="w-4 h-4 mr-2 ml-2">📧</div>
                   info@larleed.org
                 </a>
               </li>

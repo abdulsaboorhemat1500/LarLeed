@@ -69,31 +69,11 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading templates...</p>
+            <p className="mt-4 text-gray-600">{t("HomePage.loading")}</p>
           </div>
         </div>
       </section>
     );
-  }
-
-  if (filteredTemplates.length === 0) {
-    if (scholarshipName) {
-      return (
-        <section className="py-8 bg-white border-t border-gray-200 ">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                Scholarship Templates
-              </h3>
-              <p className="text-gray-500">
-                No templates available for {scholarshipName} yet.
-              </p>
-            </div>
-          </div>
-        </section>
-      );
-    }
-    return null;
   }
 
   return (
@@ -103,11 +83,6 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
             Scholarship Resources Templates
-            {scholarshipName && (
-              <span className="block text-lg text-blue-600 mt-1">
-                for {scholarshipName}
-              </span>
-            )}
           </h1>
         </div>
 
@@ -180,27 +155,8 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
                   ? "Click to download"
                   : "File not available"}
               </p>
-
-              {/* Scholarship Name (only show if not filtered) */}
-              {!scholarshipName && (
-                <p
-                  className="text-xs text-gray-500 mt-2 truncate"
-                  title={template.rt_scholarship_name}
-                >
-                  {template.rt_scholarship_name}
-                </p>
-              )}
             </div>
           ))}
-        </div>
-
-        {/* Template Count */}
-        <div className="text-center mt-6">
-          <p className="text-sm text-gray-500">
-            Showing {filteredTemplates.length} template
-            {filteredTemplates.length !== 1 ? "s" : ""}
-            {scholarshipName && ` for ${scholarshipName}`}
-          </p>
         </div>
       </div>
 
