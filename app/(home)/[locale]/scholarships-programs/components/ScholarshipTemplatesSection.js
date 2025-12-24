@@ -1,9 +1,13 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { useApi } from '@/app/hooks/useApi';
+import { useTranslations } from "@/hooks/useTranslations";
+import { useState, useEffect } from "react";
+import { useApi } from "@/app/hooks/useApi";
 
-export default function ScholarshipTemplatesSection({ scholarshipName = null }) {
+export default function ScholarshipTemplatesSection({
+  scholarshipName = null,
+}) {
   const { get } = useApi();
+  const { t } = useTranslations();
   const [templates, setTemplates] = useState([]);
   const [filteredTemplates, setFilteredTemplates] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,15 +16,17 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
   const fetchTemplates = async () => {
     try {
       setLoading(true);
-      const result = await get('/api/scholarship-resources-templates');
+      const result = await get("/api/scholarship-resources-templates");
       if (result.success) {
         const allTemplates = result.data || [];
         setTemplates(allTemplates);
-        
+
         // Filter templates if scholarshipName is provided
         if (scholarshipName) {
-          const filtered = allTemplates.filter(template => 
-            template.rt_scholarship_name?.toLowerCase() === scholarshipName.toLowerCase()
+          const filtered = allTemplates.filter(
+            (template) =>
+              template.rt_scholarship_name?.toLowerCase() ===
+              scholarshipName.toLowerCase()
           );
           setFilteredTemplates(filtered);
         } else {
@@ -28,7 +34,7 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
         }
       }
     } catch (error) {
-      console.error('Error fetching templates:', error);
+      console.error("Error fetching templates:", error);
     } finally {
       setLoading(false);
     }
@@ -41,8 +47,10 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
   // Update filtered templates when scholarshipName or templates change
   useEffect(() => {
     if (scholarshipName && templates.length > 0) {
-      const filtered = templates.filter(template => 
-        template.rt_scholarship_name?.toLowerCase() === scholarshipName.toLowerCase()
+      const filtered = templates.filter(
+        (template) =>
+          template.rt_scholarship_name?.toLowerCase() ===
+          scholarshipName.toLowerCase()
       );
       setFilteredTemplates(filtered);
     } else {
@@ -54,7 +62,7 @@ export default function ScholarshipTemplatesSection({ scholarshipName = null }) 
   const handleDownload = (template) => {
     if (template.word_file) {
       // Create a temporary anchor element to trigger download
-      const link = document.createElement('a');
+      const link = document.createElement("a");
       link.href = template.word_file;
       link.download = `${template.template_name}.docx`; // You can make this dynamic based on file extension
       document.body.appendChild(link);
