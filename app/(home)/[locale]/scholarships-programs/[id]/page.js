@@ -370,7 +370,7 @@ export default function ScholarshipDetailsPage() {
                   </div>
 
                   {/* Deadline */}
-                  {/* <div className="flex items-start space-x-3">
+                  <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-red-100 dark:bg-red-900 rounded-lg flex items-center justify-center flex-shrink-0">
                       <span className="text-red-600 dark:text-red-400">⏰</span>
                     </div>
@@ -382,10 +382,10 @@ export default function ScholarshipDetailsPage() {
                         {formatDate(scholarship.s_app_deadline)}
                       </p>
                     </div>
-                  </div> */}
+                  </div>
 
                   {/* Duration */}
-                  <div className="flex items-start space-x-3">
+                  {/* <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-teal-100 dark:bg-teal-900 rounded-lg flex items-center justify-center flex-shrink-0">
                       <span className="text-teal-600 dark:text-teal-400">
                         📅
@@ -399,7 +399,7 @@ export default function ScholarshipDetailsPage() {
                         {getLocalizedField(scholarship, "s_duration")}
                       </p>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Funding */}
                   <div className="flex items-start space-x-3">

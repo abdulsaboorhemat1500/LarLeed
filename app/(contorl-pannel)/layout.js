@@ -158,7 +158,7 @@ export default function ControlPanelLayout({ children }) {
     // { href: "/posts-cp", icon: MessageSquare, label: "Posts/Roshangari" },
     { href: "/featured-videos-cp", icon: PlaySquare, label: "Featured Videos" },
     { href: "/school-cp", icon: School, label: "School Content" },
-    // { href: "/certifications-cp", icon: Paperclip, label: "Free Courses" },
+    { href: "/certifications-cp", icon: Paperclip, label: "Free Courses" },
     { href: "/contact-us-cp", icon: Contact, label: "Contact Us" },
     { href: "/hero-section-text", icon: Type, label: "About Us" },
   ];

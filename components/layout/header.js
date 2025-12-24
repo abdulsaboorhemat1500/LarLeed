@@ -32,6 +32,7 @@ export default function HeaderSection() {
   const navItems = [
     { href: "/school", key: "school" },
     { href: "/scholarships-programs", key: "scholarshipsPrograms" },
+    { href: "/certifications", key: "certifications" },
     { href: "/mentorships", key: "mentorships" },
     // { href: "/roshangari", key: "roshangari" },
     { href: "/donate", key: "donate" },

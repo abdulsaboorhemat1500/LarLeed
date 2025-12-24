@@ -49,11 +49,11 @@ export default function SchoolCard({ school, getLocalizedField }) {
         />
 
         {/* Owner Name */}
-        <div className="flex justify-between items-center text-sm text-gray-700 border-t border-gray-100 pt-3">
+        {/* <div className="flex justify-between items-center text-sm text-gray-700 border-t border-gray-100 pt-3">
           <span className="font-medium text-green-600">
             Owner: {getLocalizedField(school, "owner_name")}
           </span>
-        </div>
+        </div> */}
 
         {/* Read More Button */}
         <Link href={`/${locale}/school/${school.id}`}>

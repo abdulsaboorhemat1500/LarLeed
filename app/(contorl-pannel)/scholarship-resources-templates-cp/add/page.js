@@ -99,19 +99,37 @@ export default function AddTemplatePage() {
 
           {/* Message Display */}
           {message.text && (
-            <div className={`mb-6 p-4 rounded-lg ${
-              message.type === 'success' 
-                ? 'bg-green-50 border border-green-200 text-green-700' 
-                : 'bg-red-50 border border-red-200 text-red-700'
-            }`}>
+            <div
+              className={`mb-6 p-4 rounded-lg ${
+                message.type === "success"
+                  ? "bg-green-50 border border-green-200 text-green-700"
+                  : "bg-red-50 border border-red-200 text-red-700"
+              }`}
+            >
               <div className="flex items-center">
-                {message.type === 'success' ? (
-                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                {message.type === "success" ? (
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 ) : (
-                  <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  <svg
+                    className="w-5 h-5 mr-2"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 )}
                 <span className="font-medium">{message.text}</span>
@@ -122,7 +140,10 @@ export default function AddTemplatePage() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Template Name */}
             <div>
-              <label htmlFor="template_name" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="template_name"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Template Name *
               </label>
               <input
@@ -139,7 +160,10 @@ export default function AddTemplatePage() {
 
             {/* Scholarship Name Dropdown */}
             <div>
-              <label htmlFor="rt_scholarship_name" className="block text-sm font-medium text-gray-700 mb-2">
+              <label
+                htmlFor="rt_scholarship_name"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
                 Scholarship Name *
               </label>
               <select
@@ -161,19 +185,22 @@ export default function AddTemplatePage() {
 
             {/* Word File */}
             <div>
-              <label htmlFor="word_file" className="block text-sm font-medium text-gray-700 mb-2">
-                Word File
+              <label
+                htmlFor="word_file"
+                className="block text-sm font-medium text-gray-700 mb-2"
+              >
+                File
               </label>
               <input
                 type="file"
                 id="word_file"
                 name="word_file"
-                accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                accept=".doc,.docx,.pdf"
                 onChange={handleFileChange}
                 className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
               />
               <p className="text-xs text-gray-500 mt-1">
-                Accepted formats: .doc, .docx (Max 10MB)
+                Accepted formats: .doc, .docx, .pdf (Max 10MB)
               </p>
             </div>
 
@@ -181,7 +208,9 @@ export default function AddTemplatePage() {
             <div className="flex justify-end space-x-4 pt-6">
               <button
                 type="button"
-                onClick={() => router.push('/scholarship-resources-templates-cp')}
+                onClick={() =>
+                  router.push("/scholarship-resources-templates-cp")
+                }
                 className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors duration-200"
                 disabled={loading}
               >
@@ -194,14 +223,29 @@ export default function AddTemplatePage() {
               >
                 {loading ? (
                   <>
-                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    <svg
+                      className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
                     </svg>
                     Adding...
                   </>
                 ) : (
-                  'Add Template'
+                  "Add Template"
                 )}
               </button>
             </div>
