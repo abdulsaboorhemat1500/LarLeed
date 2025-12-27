@@ -10,7 +10,10 @@ export default function TopBanner() {
           {t("Banner.title")}
         </h1>
         <p className="pt-5 text-xl font-bold text-gray-600 ">
-          {t("Banner.description")}
+          {t("Banner.description1")}
+          <span className="pt-5 text-xl font-semibold text-gray-500 ">
+            {t("Banner.description2")}
+          </span>
         </p>
       </div>
     </div>

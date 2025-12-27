@@ -44,8 +44,9 @@ export default function Footer() {
             <div className="flex items-center mb-8">
               <img src="/logo.png" alt="logo image" className="h-12" />
             </div>
-            <p className="text-gray-300 mb-6 max-w-md">
-              {t("Banner.description")}
+            <p className="text-gray-300 mb-6 max-w-md font-bold">
+              {t("Banner.description1")}
+              <span className="font-semibold">{t("Banner.description2")}</span>
             </p>
 
             {/* Social Media Links */}

@@ -1,21 +1,35 @@
 {
   "Header": {
-    "scholarshipsPrograms": "Scholarships",
-    "school": "Free Online Schools",
+    "scholarshipsPrograms": "Higher Education Programs and Scholarships",
+    "school": "School Level (Grades 1-12)",
     "mentorships": "Mentorships",
     "roshangari": "Roshangari",
     "donate": "Donate",
     "contactUs": "Contact Us",
     "aboutUs": "About Us",
-    "certifications": "Free Courses"
+    "certifications": "English and Digital Skills Courses"
   },
   "Banner": {
-    "title": "LarLeed",
-    "description": "Connecting Afghan Youth through Education, Dialogue, and Vision"
+    "title": "Larleed",
+    "description1": "Connecting Afghan Youth",
+    "description2": "through Education, Dialogue, and Vision."
+  },
+  "SchoolPage": {
+    "page title": "Read about the programs for grades 1–12 below, then select and apply to the one that best suits your needs."
   },
   "HomePage": {
+    "on this website": "On this website, you can:",
+    "explore education programs": "Explore Education Programs",
+    "for grades": "For Grades 1–12, both online and in person",
+    "find information on": "Find information on",
+    "higher education opportunities and scholarships": "Higher education opportunities and scholarships",
+    "access curated resources": "Access Curated Resources",
+    "and guidance to support": "And guidance to support educational decision-making",
+    "this platform is designed": "This platform is designed to help you find information easily—not to sell services.",
+    "learn about larleed": "To learn more about our mission, values, and why Larleed exists, Visit About Us",
+    "larleed is a free": "Larleed is a free, public education resource created to help Afghan youth and families navigate learning opportunities.",
     "loading": "Loading...",
-    "lets join": "Let's join Larleed's Social Networks",
+    "lets join": "Join us on social media!",
     "contactform": "Contact Form",
     "donate now": "Donate Now",
     "Our platform connect": "Our platform connect students with expert instructors and comprehensive curriculum, We focus on making education accessible and affordable",
@@ -78,6 +92,7 @@
     "all rights reserved": "All Rights Reserved"
   },
   "ScholarshipsPage": {
+    "page title": "Read about higher education programs and scholarships below, then select and apply to the one that best suits your needs.",
     "allScholarships": "All Scholarships",
     "deadline in two weeks": "Scholarships Ending Soon - Apply Now!",
     "all": "All",

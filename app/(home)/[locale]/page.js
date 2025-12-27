@@ -44,7 +44,7 @@ export default function LocalizedHomePage({ params }) {
       <ScholarshipSliderSection />
       <LarleedMission />
       <FeaturedVieos />
-      <ContactUsSection />
+      {/* <ContactUsSection /> */}
     </>
   );
 }

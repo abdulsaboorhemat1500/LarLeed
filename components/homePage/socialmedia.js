@@ -38,13 +38,9 @@ export default function SocialMediaSection() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           {/* Header */}
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-8">
             {t("HomePage.lets join")}
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            Stay updated with our latest news, updates, and educational content
-            by following us on our social media platforms.
-          </p>
 
           {/* Social Media Links */}
           <div className="flex justify-center space-x-4 md:space-x-6">
