@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { useTheme } from "next-themes";
 import SimpleLanguageDropdown from "../homePage/languageDropDown";
 import { useTranslations } from "../../hooks/useTranslations";
 
@@ -64,7 +63,7 @@ export default function HeaderSection() {
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex lg:gap-x-2">
+        <div className="hidden lg:flex lg:gap-x-1">
           {navItems.map((item) => {
             const isActive = isActiveLink(item.href);
             return (
@@ -72,21 +71,26 @@ export default function HeaderSection() {
                 key={item.key}
                 href={`/${locale}${item.href}`}
                 className={`
-                                    ${textSizeClass} 
-                                    font-bold 
-                                    px-4 
-                                    py-2 
-                                    rounded-lg 
-                                    transition-all 
-                                    duration-200 
-                                    transform 
-                                    hover:scale-105
-                                    ${
-                                      isActive
-                                        ? "bg-blue-600 text-white shadow-md"
-                                        : "text-gray-900 hover:bg-blue-200 hover:text-blue-900"
-                                    }
-                                `}
+                  ${textSizeClass} 
+                  font-bold 
+                  px-3 
+                  py-1.5 
+                  rounded-lg 
+                  transition-all 
+                  duration-200 
+                  hover:text-lg
+                  whitespace-normal
+                  text-center
+                  min-w-[100px]
+                  max-w-[140px]
+                  break-words
+                  ${
+                    isActive
+                      ? "bg-blue-600 text-white shadow-md"
+                      : "text-gray-900 hover:text-blue-700"
+                  }
+                  hover:underline hover:underline-offset-4 hover:decoration-2
+                `}
               >
                 {t(`Header.${item.key}`)}
               </Link>
@@ -131,21 +135,25 @@ export default function HeaderSection() {
                         href={`/${locale}${item.href}`}
                         onClick={() => setMobileMenuOpen(false)}
                         className={`
-                                                    -mx-3 
-                                                    block 
-                                                    rounded-lg 
-                                                    px-3 
-                                                    py-2 
-                                                    ${mobileTextSizeClass} 
-                                                    font-bold 
-                                                    transition-colors 
-                                                    duration-200
-                                                    ${
-                                                      isActive
-                                                        ? "bg-blue-600 text-white"
-                                                        : "text-gray-900 hover:bg-blue-200"
-                                                    }
-                                                `}
+                          -mx-3 
+                          block 
+                          rounded-lg 
+                          px-3 
+                          py-2 
+                          ${mobileTextSizeClass} 
+                          font-bold 
+                          transition-all 
+                          duration-200
+                          hover:text-lg
+                          whitespace-normal
+                          break-words
+                          ${
+                            isActive
+                              ? "bg-blue-600 text-white"
+                              : "text-gray-900 hover:text-blue-700"
+                          }
+                          hover:underline hover:underline-offset-4 hover:decoration-2
+                        `}
                       >
                         {t(`Header.${item.key}`)}
                       </Link>

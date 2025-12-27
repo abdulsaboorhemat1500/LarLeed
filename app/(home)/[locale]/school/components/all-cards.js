@@ -101,30 +101,24 @@ export default function SchoolsPage() {
     <>
       <div className="h-80 w-full text-center flex items-center justify-center relative overflow-hidden">
         {/* Simple gradient background with subtle animation */}
-        <div className="absolute inset-0 bg-blue-50"></div>
+        <div className="absolute inset-0 bg-blue-100"></div>
 
         {/* Subtle pattern overlay */}
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute -top-24 -left-24 w-96 h-96 bg-white rounded-full"></div>
-          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-white rounded-full"></div>
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-custom-half rounded-full"></div>
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-custom-half rounded-full"></div>
         </div>
 
         {/* Simple shine effect */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+          <div className="absolute top-0 left-0 w-full h-1 bg-blue-200"></div>
         </div>
 
         {/* Text content */}
         <div className="relative z-10">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight">
+          <h1 className="text-4xl md:text-4xl lg:text-4xl font-bold text-custom-half max-w-4xl mb-6 tracking-tight">
             {t("SchoolPage.page title")}
           </h1>
-
-          {/* Simple static underline */}
-          <div className="relative inline-block">
-            <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white to-transparent"></div>
-            <div className="absolute -bottom-2 left-1/2 w-24 h-1 bg-white -translate-x-1/2"></div>
-          </div>
         </div>
       </div>
       <section className="py-4 bg-gray-200 dark:bg-gray-800 transition-colors duration-300">
