@@ -27,6 +27,24 @@ export default function HeaderSection() {
     return pathname === `/${locale}${href}` || pathname === href;
   };
 
+  // Function to split text after 3 words
+  const splitTextAfterThreeWords = (text) => {
+    if (!text) return "";
+    const words = text.split(" ");
+    if (words.length <= 3) return text;
+
+    // Insert line break after 3rd word
+    const firstLine = words.slice(0, 3).join(" ");
+    const secondLine = words.slice(3).join(" ");
+    return (
+      <>
+        {firstLine}
+        <br />
+        {secondLine}
+      </>
+    );
+  };
+
   // Navigation items data
   const navItems = [
     { href: "/school", key: "school" },
@@ -66,6 +84,8 @@ export default function HeaderSection() {
         <div className="hidden lg:flex lg:gap-x-1">
           {navItems.map((item) => {
             const isActive = isActiveLink(item.href);
+            const text = t(`Header.${item.key}`);
+
             return (
               <Link
                 key={item.key}
@@ -78,21 +98,22 @@ export default function HeaderSection() {
                   rounded-lg 
                   transition-all 
                   duration-200 
-                  hover:text-lg
+                  transform
+                  hover:-translate-y-[1%]
                   whitespace-normal
                   text-center
                   min-w-[100px]
                   max-w-[140px]
-                  break-words
+                  leading-tight
+                  flex items-center justify-center
                   ${
                     isActive
                       ? "bg-blue-600 text-white shadow-md"
-                      : "text-gray-900 hover:text-blue-700"
+                      : "text-gray-900 hover:text-custom-half"
                   }
-                  hover:underline hover:underline-offset-4 hover:decoration-2
                 `}
               >
-                {t(`Header.${item.key}`)}
+                {splitTextAfterThreeWords(text)}
               </Link>
             );
           })}
@@ -129,6 +150,8 @@ export default function HeaderSection() {
                 <div className="space-y-2 py-6">
                   {navItems.map((item) => {
                     const isActive = isActiveLink(item.href);
+                    const text = t(`Header.${item.key}`);
+
                     return (
                       <Link
                         key={item.key}
@@ -144,18 +167,20 @@ export default function HeaderSection() {
                           font-bold 
                           transition-all 
                           duration-200
-                          hover:text-lg
+                          transform
+                          hover:-translate-y-[1%]
                           whitespace-normal
-                          break-words
+                          leading-tight
+                          min-h-[48px]
+                          flex items-center
                           ${
                             isActive
                               ? "bg-blue-600 text-white"
-                              : "text-gray-900 hover:text-blue-700"
+                              : "text-gray-900 hover:text-custom-half"
                           }
-                          hover:underline hover:underline-offset-4 hover:decoration-2
                         `}
                       >
-                        {t(`Header.${item.key}`)}
+                        {splitTextAfterThreeWords(text)}
                       </Link>
                     );
                   })}

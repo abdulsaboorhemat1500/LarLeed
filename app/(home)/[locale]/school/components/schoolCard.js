@@ -37,7 +37,8 @@ export default function SchoolCard({ school, getLocalizedField }) {
 
         {/* Funding Type */}
         <p className="text-blue-700 text-sm mb-3 font-medium line-clamp-1">
-          Funding Type: {school.funding_type || "Not specified"}
+          {t("scholarshipDetailsPage.funding tupe")}:
+          {school.funding_type || "Not specified"}
         </p>
 
         {/* Description */}
@@ -58,7 +59,7 @@ export default function SchoolCard({ school, getLocalizedField }) {
         {/* Read More Button */}
         <Link href={`/${locale}/school/${school.id}`}>
           <button className="cursor-pointer mt-2 bg-custom-half text-white px-8 py-2 w-full rounded-3xl font-semibold text-md shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-            View Details
+            {t("HomePage.view details")}
           </button>
         </Link>
       </div>

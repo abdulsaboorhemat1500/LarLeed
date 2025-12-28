@@ -116,7 +116,7 @@ export default function SchoolsPage() {
 
         {/* Text content */}
         <div className="relative z-10">
-          <h1 className="text-4xl md:text-4xl lg:text-4xl font-bold text-custom-half max-w-4xl mb-6 tracking-tight">
+          <h1 className="text-2xl md:text-4xl lg:text-4xl font-bold text-custom-half max-w-4xl mb-6 tracking-tight">
             {t("SchoolPage.page title")}
           </h1>
         </div>
