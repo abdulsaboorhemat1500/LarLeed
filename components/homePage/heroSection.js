@@ -37,74 +37,80 @@ export default function HeroSection() {
           </p>
         </div>
 
-        {/* Features Section - Single Line Cards */}
-        <div className="max-w-4xl mx-auto mb-16">
+        {/* Features Section - All in One Line */}
+        <div className="max-w-7xl mx-auto mb-16">
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-10">
             {t("HomePage.on this website")}
           </h2>
 
-          <div className="space-y-4">
+          <div className="flex flex-col md:flex-row gap-4 justify-center items-stretch">
             {/* Feature 1 */}
             <div
-              className={`bg-blue-50 p-6 rounded-xl border border-blue-100 hover:shadow-md transition-all duration-300 ${
-                isRTL ? "pr-16" : "pl-16"
-              } relative`}
+              className={`bg-blue-50 flex items-center rounded-full border border-blue-100 hover:shadow-md transition-all duration-300 flex-1 max-w-md ${
+                isRTL ? "pr-4" : "pl-4"
+              }`}
             >
-              <div className="absolute top-1/2 transform -translate-y-1/2 left-6 bg-blue-100 p-3 rounded-lg">
+              <div className="p-3">
                 <BookOpen className="w-6 h-6 text-blue-600" />
               </div>
-              <div className="flex items-center justify-between">
-                <div className={`flex-1 ${isRTL ? "text-right" : "text-left"}`}>
-                  <span className="text-lg font-bold text-gray-800">
-                    {t("HomePage.explore education programs")}
-                  </span>
-                  <span className="text-gray-600 font-semibold ml-2">
-                    {t("HomePage.for grades")}
-                  </span>
+              <div
+                className={`flex-1 py-3 ${
+                  isRTL ? "pr-3 text-right" : "pl-3 text-left"
+                }`}
+              >
+                <div className="font-bold text-gray-800">
+                  {t("HomePage.explore education programs")}
+                </div>
+                <div className="text-gray-600 font-semibold text-sm">
+                  {t("HomePage.for grades")}
                 </div>
               </div>
             </div>
 
             {/* Feature 2 */}
             <div
-              className={`bg-purple-50 p-6 rounded-xl border border-purple-100 hover:shadow-md transition-all duration-300 ${
-                isRTL ? "pr-16" : "pl-16"
-              } relative`}
+              className={`bg-purple-50 flex items-center rounded-full border border-purple-100 hover:shadow-md transition-all duration-300 flex-1 max-w-md ${
+                isRTL ? "pr-4" : "pl-4"
+              }`}
             >
-              <div className="absolute top-1/2 transform -translate-y-1/2 left-6 bg-purple-100 p-3 rounded-lg">
+              <div className="p-3">
                 <GraduationCap className="w-6 h-6 text-purple-600" />
               </div>
-              <div className="flex items-center justify-between">
-                <div className={`flex-1 ${isRTL ? "text-right" : "text-left"}`}>
-                  <span className="text-lg font-bold text-gray-800">
-                    {t("HomePage.find information on")}
-                  </span>
-                  <span className="text-gray-600 font-semibold ml-2">
-                    {t(
-                      "HomePage.higher education opportunities and scholarships"
-                    )}
-                  </span>
+              <div
+                className={`flex-1 py-3 ${
+                  isRTL ? "pr-3 text-right" : "pl-3 text-left"
+                }`}
+              >
+                <div className="font-bold text-gray-800">
+                  {t("HomePage.find information on")}
+                </div>
+                <div className="text-gray-600 font-semibold text-sm">
+                  {t(
+                    "HomePage.higher education opportunities and scholarships"
+                  )}
                 </div>
               </div>
             </div>
 
             {/* Feature 3 */}
             <div
-              className={`bg-green-50 p-6 rounded-xl border border-green-100 hover:shadow-md transition-all duration-300 ${
-                isRTL ? "pr-16" : "pl-16"
-              } relative`}
+              className={`bg-green-50 flex items-center rounded-full border border-green-100 hover:shadow-md transition-all duration-300 flex-1 max-w-md ${
+                isRTL ? "pr-4" : "pl-4"
+              }`}
             >
-              <div className="absolute top-1/2 transform -translate-y-1/2 left-6 bg-green-100 p-3 rounded-lg">
+              <div className="p-3">
                 <Search className="w-6 h-6 text-green-600" />
               </div>
-              <div className="flex items-center justify-between">
-                <div className={`flex-1 ${isRTL ? "text-right" : "text-left"}`}>
-                  <span className="text-lg font-bold text-gray-800">
-                    {t("HomePage.access curated resources")}
-                  </span>
-                  <span className="text-gray-600 font-semibold ml-2">
-                    {t("HomePage.and guidance to support")}
-                  </span>
+              <div
+                className={`flex-1 py-3 ${
+                  isRTL ? "pr-3 text-right" : "pl-3 text-left"
+                }`}
+              >
+                <div className="font-bold text-gray-800">
+                  {t("HomePage.access curated resources")}
+                </div>
+                <div className="text-gray-600 font-semibold text-sm">
+                  {t("HomePage.and guidance to support")}
                 </div>
               </div>
             </div>
@@ -113,23 +119,18 @@ export default function HeroSection() {
 
         {/* Platform Info */}
         <div className="max-w-3xl mx-auto">
-          <div className="bg-gray-100 p-8 rounded-2xl border border-gray-200">
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                <p className="text-gray-700 font-semibold">
-                  {t("HomePage.this platform is designed")}
-                </p>
-              </div>
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
+              <p className="text-gray-700 font-semibold">
+                {t("HomePage.this platform is designed")}
+              </p>
+            </div>
 
-              <div className="flex items-center gap-3">
-                <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
-                <div className="text-gray-600 font-semibold">
-                  <span>{t("HomePage.learn about larleed")}</span>
-                  <span className="ml-2 text-blue-600 hover:text-blue-800 cursor-pointer font-bold">
-                    {t("HomePage.about us section")}
-                  </span>
-                </div>
+            <div className="flex items-center gap-3">
+              <Check className="w-5 h-5 text-green-600 flex-shrink-0" />
+              <div className="text-gray-600 font-semibold">
+                <span>{t("HomePage.learn about larleed")}</span>
               </div>
             </div>
           </div>

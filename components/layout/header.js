@@ -103,7 +103,7 @@ export default function HeaderSection() {
                   whitespace-normal
                   text-center
                   min-w-[100px]
-                  max-w-[140px]
+                  max-w-[160px]
                   leading-tight
                   flex items-center justify-center
                   ${
