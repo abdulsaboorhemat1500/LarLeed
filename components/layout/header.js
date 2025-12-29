@@ -31,16 +31,18 @@ export default function HeaderSection() {
   const splitTextAfterThreeWords = (text) => {
     if (!text) return "";
     const words = text.split(" ");
-    if (words.length <= 3) return text;
+    if (words.length <= 3) {
+      return <span className="whitespace-nowrap">{text}</span>;
+    }
 
     // Insert line break after 3rd word
     const firstLine = words.slice(0, 3).join(" ");
     const secondLine = words.slice(3).join(" ");
     return (
       <>
-        {firstLine}
+        <span className="whitespace-nowrap">{firstLine}</span>
         <br />
-        {secondLine}
+        <span className="whitespace-nowrap">{secondLine}</span>
       </>
     );
   };
@@ -81,7 +83,7 @@ export default function HeaderSection() {
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex lg:gap-x-1">
+        <div className="hidden lg:flex lg:gap-x-0.5">
           {navItems.map((item) => {
             const isActive = isActiveLink(item.href);
             const text = t(`Header.${item.key}`);
@@ -93,19 +95,17 @@ export default function HeaderSection() {
                 className={`
                   ${textSizeClass} 
                   font-bold 
-                  px-3 
-                  py-1.5 
+                  px-2.5 
+                  py-1 
                   rounded-lg 
                   transition-all 
                   duration-200 
                   transform
                   hover:-translate-y-[1%]
-                  whitespace-normal
                   text-center
-                  min-w-[100px]
-                  max-w-[170px]
                   leading-tight
                   flex items-center justify-center
+                  min-w-[85px]
                   ${
                     isActive
                       ? "bg-blue-600 text-white shadow-md"
@@ -118,7 +118,7 @@ export default function HeaderSection() {
             );
           })}
         </div>
-        <div className="lg:flex lg:flex-1 lg:justify-end lg:gap-4 md:gap-2 sm:gap-4">
+        <div className="lg:flex lg:flex-1 lg:justify-end lg:gap-3 md:gap-2 sm:gap-3">
           <SimpleLanguageDropdown />
         </div>
       </nav>
@@ -147,7 +147,7 @@ export default function HeaderSection() {
             </div>
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
-                <div className="space-y-2 py-6">
+                <div className="space-y-1.5 py-6">
                   {navItems.map((item) => {
                     const isActive = isActiveLink(item.href);
                     const text = t(`Header.${item.key}`);
@@ -162,16 +162,15 @@ export default function HeaderSection() {
                           block 
                           rounded-lg 
                           px-3 
-                          py-2 
+                          py-1.5 
                           ${mobileTextSizeClass} 
                           font-bold 
                           transition-all 
                           duration-200
                           transform
                           hover:-translate-y-[1%]
-                          whitespace-normal
                           leading-tight
-                          min-h-[48px]
+                          min-h-[40px]
                           flex items-center
                           ${
                             isActive

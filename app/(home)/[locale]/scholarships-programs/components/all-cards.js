@@ -176,7 +176,7 @@ export default function AllVideos() {
         {/* Text content */}
         <div className="relative z-10">
           <h1 className="text-2xl md:text-4xl lg:text-4xl font-bold text-custom-half max-w-4xl mb-6 tracking-tight">
-            {t("ScholarshipPage.page title")}
+            {t("ScholarshipsPage.page title")}
           </h1>
         </div>
       </div>

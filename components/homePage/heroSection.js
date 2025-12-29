@@ -24,7 +24,7 @@ export default function HeroSection() {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Main Title Section */}
-        <div className="text-center max-w-7xl mx-auto mb-12">
+        <div className="text-center max-w-7xl mx-auto mb-6">
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             <span className="text-custom-half block">{t("Banner.title")}</span>
             <span className="text-gradient-custom text-4xl sm:text-5xl lg:text-5xl">
@@ -39,7 +39,7 @@ export default function HeroSection() {
 
         {/* Features Section - All in One Line */}
         <div className="max-w-7xl mx-auto mb-16">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-10">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-4">
             {t("HomePage.on this website")}
           </h2>
 
