@@ -14,6 +14,7 @@ export default function MentorshipPage() {
   const { get } = useApi();
   const { locale } = useParams();
   const { t } = useTranslations();
+  const { isMentorModalOpen, setIsMentorModalOpen } = useState(false);
 
   // Normalize locale to match database field suffixes
   const normalizedLocale = useMemo(() => {
