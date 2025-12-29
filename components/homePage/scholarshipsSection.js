@@ -150,12 +150,9 @@ export default function ScholarshipSliderSection() {
 
         {/* Loading State */}
         {loading && (
-          <div className="text-center py-12">
-            <div className="flex justify-center items-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-              <span className="ml-3 text-gray-600 dark:text-gray-400">
-                {t("ScholarshipsPage.loading scholarships")}
-              </span>
+          <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+            <div className="container mx-auto flex items-center justify-center h-64">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
             </div>
           </div>
         )}

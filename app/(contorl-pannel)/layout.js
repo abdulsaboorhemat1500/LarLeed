@@ -160,7 +160,7 @@ export default function ControlPanelLayout({ children }) {
     { href: "/school-cp", icon: School, label: "School Content" },
     { href: "/certifications-cp", icon: Paperclip, label: "Free Courses" },
     // { href: "/contact-us-cp", icon: Contact, label: "Contact Us" },
-    { href: "/hero-section-text", icon: Type, label: "About Us" },
+    { href: "/three-section-texts", icon: Type, label: "3 Section Texts" },
   ];
 
   return (

@@ -9,6 +9,27 @@ import { X, Menu } from "lucide-react";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 
+// Component to render text with break after 3 words
+const ThreeWordText = ({ text }) => {
+  if (!text) return "";
+
+  const words = text.split(" ");
+
+  if (words.length <= 3) {
+    return <div className="flex items-center justify-center">{text}</div>;
+  }
+
+  const firstLine = words.slice(0, 3).join(" ");
+  const secondLine = words.slice(3).join(" ");
+
+  return (
+    <div className="flex flex-col items-center justify-center">
+      <div>{firstLine}</div>
+      <div>{secondLine}</div>
+    </div>
+  );
+};
+
 export default function HeaderSection() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t } = useTranslations();
@@ -25,26 +46,6 @@ export default function HeaderSection() {
   // Function to check if a link is active
   const isActiveLink = (href) => {
     return pathname === `/${locale}${href}` || pathname === href;
-  };
-
-  // Function to split text after 3 words
-  const splitTextAfterThreeWords = (text) => {
-    if (!text) return "";
-    const words = text.split(" ");
-    if (words.length <= 3) {
-      return <span className="whitespace-nowrap">{text}</span>;
-    }
-
-    // Insert line break after 3rd word
-    const firstLine = words.slice(0, 3).join(" ");
-    const secondLine = words.slice(3).join(" ");
-    return (
-      <>
-        <span className="whitespace-nowrap">{firstLine}</span>
-        <br />
-        <span className="whitespace-nowrap">{secondLine}</span>
-      </>
-    );
   };
 
   // Navigation items data
@@ -106,6 +107,7 @@ export default function HeaderSection() {
                   leading-tight
                   flex items-center justify-center
                   min-w-[85px]
+                  h-[44px]
                   ${
                     isActive
                       ? "bg-blue-600 text-white shadow-md"
@@ -113,7 +115,7 @@ export default function HeaderSection() {
                   }
                 `}
               >
-                {splitTextAfterThreeWords(text)}
+                <ThreeWordText text={text} />
               </Link>
             );
           })}
@@ -171,7 +173,6 @@ export default function HeaderSection() {
                           hover:-translate-y-[1%]
                           leading-tight
                           min-h-[40px]
-                          flex items-center
                           ${
                             isActive
                               ? "bg-blue-600 text-white"
@@ -179,7 +180,7 @@ export default function HeaderSection() {
                           }
                         `}
                       >
-                        {splitTextAfterThreeWords(text)}
+                        <ThreeWordText text={text} />
                       </Link>
                     );
                   })}

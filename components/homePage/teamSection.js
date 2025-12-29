@@ -42,18 +42,11 @@ export default function TeamSection() {
 
   if (loading) {
     return (
-      <section className="py-20 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-sm border-b">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              {t('HomePage.team')}
-            </h2>
-          </div>
-          <div className="flex justify-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-          </div>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
         </div>
-      </section>
+      </div>
     );
   }
 

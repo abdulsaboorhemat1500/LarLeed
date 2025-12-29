@@ -84,8 +84,8 @@ export default function MentorSection() {
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 xl:grid-cols-5 gap-8 justify-items-center">
           {mentors.map((mentor) => (
-            <div key={mentor.id} className="text-center w-full max-w-[180px]">
-              <div className="mb-5 mx-auto w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40">
+            <div key={mentor.id} className="text-center w-full max-w-[200px]">
+              <div className="mb-5 mx-auto w-36 h-32 md:w-40 md:h-36 lg:w-42 lg:h-40">
                 <div className="cursor-pointer hover:shadow-xl w-full h-full rounded-full transform hover:scale-105 transition-transform duration-300 flex items-center justify-center overflow-hidden shadow-md">
                   {mentor.profile_image ? (
                     <Image
