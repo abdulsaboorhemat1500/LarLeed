@@ -18,6 +18,7 @@
     "page title": "برنامه‌های سال تحصیلی زیر را بخوانید، برنامه‌ای را که به بهترین وجه نیازهای شما را برآورده می‌کند انتخاب کنید و شروع کنید."
   },
   "HomePage": {
+    "about larleed": "در باره لرلید",
     "view details": "مشاهده جزئیات",
     "on this website": "در این وبسایت می‌توانید اطلاعاتی در مورد موارد زیر پیدا کنید:",
     "explore education programs": "برنامه‌های آموزشی",
@@ -120,6 +121,9 @@
     "university": "پوهنتون‌ها"
   },
   "MentorshipsPage": {
+    "mentorship request form": "فورم درخواستی منتورشیپ",
+    "No Mentorship Content Available": "هیچ دیتا منتورها پیدا نشود",
+    "Mentorship Details": "معلومات در باره منتورشیپ",
     "enter your full Name": "نام کامل خود را بنوسید",
     "enter your email address": "ایمیل خود را بنوسید",
     "enter your current address": "آدرس خود را بنوسید",

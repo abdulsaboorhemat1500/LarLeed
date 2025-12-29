@@ -408,7 +408,8 @@ export default function AddSchoolModal({ isOpen, onClose, onSchoolAdded }) {
               <input
                 type="text"
                 name="owner_name_en"
-                value={formData.owner_name_en}
+                value={formData.owner_name_en || "name"}
+                disabled
                 onChange={handleChange}
                 className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                   errors.owner_name_en ? "border-red-500" : "border-gray-300"
@@ -429,7 +430,8 @@ export default function AddSchoolModal({ isOpen, onClose, onSchoolAdded }) {
               <input
                 type="text"
                 name="owner_name_ps"
-                value={formData.owner_name_ps}
+                value={formData.owner_name_ps || "name"}
+                disabled
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter owner name in Pashto"
@@ -443,7 +445,8 @@ export default function AddSchoolModal({ isOpen, onClose, onSchoolAdded }) {
               <input
                 type="text"
                 name="owner_name_pa"
-                value={formData.owner_name_pa}
+                value={formData.owner_name_pa || "name"}
+                disabled
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="Enter owner name in Dari"
@@ -466,7 +469,8 @@ export default function AddSchoolModal({ isOpen, onClose, onSchoolAdded }) {
               <input
                 type="email"
                 name="email"
-                value={formData.email}
+                value={formData.email || "email@gmail.com"}
+                disabled
                 onChange={handleChange}
                 className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                   errors.email ? "border-red-500" : "border-gray-300"
@@ -485,7 +489,8 @@ export default function AddSchoolModal({ isOpen, onClose, onSchoolAdded }) {
               <input
                 type="tel"
                 name="phone_number"
-                value={formData.phone_number}
+                value={formData.phone_number || "000000000000"}
+                disabled
                 onChange={handleChange}
                 className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                   errors.phone_number ? "border-red-500" : "border-gray-300"
@@ -506,7 +511,8 @@ export default function AddSchoolModal({ isOpen, onClose, onSchoolAdded }) {
               <input
                 type="tel"
                 name="whatsapp_number"
-                value={formData.whatsapp_number}
+                value={formData.whatsapp_number || "00000000000"}
+                disabled
                 onChange={handleChange}
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 placeholder="+93 XXX XXX XXX"

@@ -4,6 +4,7 @@ import { useApi } from "@/app/hooks/useApi";
 import TeamSection from "@/components/homePage/teamSection";
 import SocialMediaSection from "@/components/homePage/socialmedia";
 import { useParams } from "next/navigation";
+import { useTranslations } from "@/hooks/useTranslations";
 
 export const runtime = "edge";
 
@@ -12,6 +13,7 @@ export default function AboutPage() {
   const [loading, setLoading] = useState(true);
   const { get } = useApi();
   const { locale } = useParams();
+  const { t } = useTranslations();
 
   // Normalize locale to match database field suffixes
   const normalizedLocale = useMemo(() => {
@@ -70,27 +72,25 @@ export default function AboutPage() {
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
-        {/* Background Design */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute -top-24 -left-24 w-96 h-96 bg-custom-half rounded-full"></div>
-          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-custom-half rounded-full"></div>
-          <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-blue-400 rounded-full opacity-20"></div>
-          <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-indigo-400 rounded-full opacity-20"></div>
-        </div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          {/* Background Design */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute -top-24 -left-24 w-96 h-96 bg-custom-half rounded-full"></div>
+            <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-custom-half rounded-full"></div>
+            <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-blue-400 rounded-full opacity-20"></div>
+            <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-indigo-400 rounded-full opacity-20"></div>
+          </div>
 
-        {/* Geometric Pattern */}
-        <div className="absolute inset-0">
-          <div className="absolute top-10 right-10 w-32 h-32 border-2 border-blue-200 rounded-full opacity-20"></div>
-          <div className="absolute bottom-10 left-10 w-40 h-40 border-2 border-indigo-200 rounded-full opacity-20"></div>
-        </div>
-
-        <div className="container mx-auto relative z-10">
+          {/* Geometric Pattern */}
+          <div className="absolute inset-0">
+            <div className="absolute top-10 right-10 w-32 h-32 border-2 border-blue-200 rounded-full opacity-20"></div>
+            <div className="absolute bottom-10 left-10 w-40 h-40 border-2 border-indigo-200 rounded-full opacity-20"></div>
+          </div>
           {/* Header Section */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              About Us
+              {t("HomePage.about larleed")}
             </h1>
-            <div className="w-24 h-1 bg-blue-500 mx-auto rounded-full"></div>
           </div>
 
           {/* About Content */}

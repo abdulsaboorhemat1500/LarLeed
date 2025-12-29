@@ -18,6 +18,7 @@
     "page title": "Read about the programs for grades 1–12 below, then select and apply to the one that best suits your needs."
   },
   "HomePage": {
+    "about larleed": "About Larleed",
     "view details": "View Details",
     "on this website": "On this website, you can:",
     "explore education programs": "Explore Education Programs",
@@ -120,6 +121,9 @@
     "university": "Universities"
   },
   "MentorshipsPage": {
+    "mentorship request form": "Mentorship Request Form",
+    "No Mentorship Content Available": "No Mentorship Content Available",
+    "Mentorship Details": "Mentorship Details",
     "enter your full Name": "Enter Your Full Name",
     "enter your email address": "Enter Your Email Address",
     "enter your current address": "Enter Your Current Address",
