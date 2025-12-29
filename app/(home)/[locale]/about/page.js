@@ -72,7 +72,7 @@ export default function AboutPage() {
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto relative">
+        <div className="flex flex-col items-center justify-center min-h-screen py-12">
           {/* Header Section */}
           <div className="text-center mb-12 relative z-10">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
@@ -83,7 +83,7 @@ export default function AboutPage() {
 
           {/* About Content Card */}
           <div className="w-full max-w-7xl">
-            <div className="bg-gradient-to-br from-white/90 to-blue-50/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-8 lg:p-12">
+            <div className="rounded-2xl shadow-xl border border-blue/50 p-8 lg:p-12">
               {aboutText ? (
                 <div
                   className="text-gray-700 leading-relaxed text-lg prose prose-lg max-w-none

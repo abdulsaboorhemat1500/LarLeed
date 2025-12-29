@@ -96,7 +96,7 @@ export default function DonateSection() {
 
           {/* Content Card - max-w-7xl */}
           <div className="w-full max-w-7xl">
-            <div className="bg-gradient-to-br from-white/90 to-blue-50/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-8 lg:p-12">
+            <div className="bg-blue-50 rounded-2xl shadow-xl border border-white/50 p-8 lg:p-12">
               {donateText ? (
                 <div
                   className="text-gray-700 leading-relaxed text-lg prose prose-lg max-w-none
