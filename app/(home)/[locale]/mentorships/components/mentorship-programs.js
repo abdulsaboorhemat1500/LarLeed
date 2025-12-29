@@ -4,6 +4,7 @@ import { useApi } from "@/app/hooks/useApi";
 import { useParams } from "next/navigation";
 import { useTranslations } from "@/hooks/useTranslations";
 import SocialMediaSection from "@/components/homePage/socialmedia";
+import ScholarshipFormModal from "./scholarship-form";
 
 export const runtime = "edge";
 
@@ -71,11 +72,10 @@ export default function MentorshipPage() {
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className="container mx-auto relative z-10">
           {/* Background Design */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute -top-24 -left-24 w-96 h-96 bg-custom-half rounded-full"></div>
-            <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-custom-half rounded-full"></div>
             <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-blue-400 rounded-full opacity-20"></div>
             <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-indigo-400 rounded-full opacity-20"></div>
           </div>
