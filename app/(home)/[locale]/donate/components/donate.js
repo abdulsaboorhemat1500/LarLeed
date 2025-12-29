@@ -11,6 +11,19 @@ export default function DonateSection() {
       id="donate"
       className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50"
     >
+      {/* Background Design */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-custom-half rounded-full"></div>
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-custom-half rounded-full"></div>
+        <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-blue-400 rounded-full opacity-20"></div>
+        <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-indigo-400 rounded-full opacity-20"></div>
+      </div>
+
+      {/* Geometric Pattern */}
+      <div className="absolute inset-0">
+        <div className="absolute top-10 right-10 w-32 h-32 border-2 border-blue-200 rounded-full opacity-20"></div>
+        <div className="absolute bottom-10 left-10 w-40 h-40 border-2 border-indigo-200 rounded-full opacity-20"></div>
+      </div>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center justify-between min-h-screen py-12 lg:py-0">
           {/* Content Section */}

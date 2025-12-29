@@ -1,21 +1,33 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useApi } from "@/app/hooks/useApi";
 import TeamSection from "@/components/homePage/teamSection";
 import SocialMediaSection from "@/components/homePage/socialmedia";
+import { useParams } from "next/navigation";
 
 export const runtime = "edge";
 
 export default function AboutPage() {
-  const [heroSectionText, setHeroSectionText] = useState(null);
+  const [threeSectionTexts, setThreeSectionTexts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { get } = useApi();
+  const { locale } = useParams();
 
-  const getText = async () => {
+  // Normalize locale to match database field suffixes
+  const normalizedLocale = useMemo(() => {
+    const localeMap = {
+      en: "english",
+      ps: "pashto", // Note: your schema has 'pashto' not 'pash'
+      fa: "dari",
+    };
+    return localeMap[locale] || "english";
+  }, [locale]);
+
+  const getTexts = async () => {
     try {
-      const resultedData = await get("/api/heroSectionText");
-      if (resultedData.success) {
-        setHeroSectionText(resultedData.data[0]);
+      const result = await get("/api/threesectiontexts");
+      if (result.success) {
+        setThreeSectionTexts(result.data || []);
       }
     } catch (error) {
       console.log("Fetch error:", error);
@@ -25,8 +37,25 @@ export default function AboutPage() {
   };
 
   useEffect(() => {
-    getText();
+    getTexts();
   }, []);
+
+  // Get the first text entry (or handle multiple entries if needed)
+  const currentText =
+    threeSectionTexts.length > 0 ? threeSectionTexts[0] : null;
+
+  // Helper function to get the appropriate language field
+  const getLocalizedAboutText = () => {
+    if (!currentText) return "";
+
+    const fieldName = `about_${normalizedLocale}`;
+    const englishField = "about_english";
+
+    // Try the localized field first, then fallback to English
+    return currentText[fieldName] || currentText[englishField] || "";
+  };
+
+  const aboutText = getLocalizedAboutText();
 
   if (loading) {
     return (
@@ -41,7 +70,21 @@ export default function AboutPage() {
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
-        <div className="container mx-auto">
+        {/* Background Design */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute -top-24 -left-24 w-96 h-96 bg-custom-half rounded-full"></div>
+          <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-custom-half rounded-full"></div>
+          <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-blue-400 rounded-full opacity-20"></div>
+          <div className="absolute bottom-1/3 right-1/4 w-48 h-48 bg-indigo-400 rounded-full opacity-20"></div>
+        </div>
+
+        {/* Geometric Pattern */}
+        <div className="absolute inset-0">
+          <div className="absolute top-10 right-10 w-32 h-32 border-2 border-blue-200 rounded-full opacity-20"></div>
+          <div className="absolute bottom-10 left-10 w-40 h-40 border-2 border-indigo-200 rounded-full opacity-20"></div>
+        </div>
+
+        <div className="container mx-auto relative z-10">
           {/* Header Section */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
@@ -50,23 +93,42 @@ export default function AboutPage() {
             <div className="w-24 h-1 bg-blue-500 mx-auto rounded-full"></div>
           </div>
 
-          {/* Hero Section Content */}
-          <div className="max-w-4xl mx-auto">
-            {heroSectionText?.full_text ? (
-              <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl p-8 md:p-12 border border-white/20">
-                <div
-                  className="text-gray-700 leading-relaxed text-lg prose prose-lg max-w-none
+          {/* About Content */}
+          <div className="">
+            {aboutText ? (
+              <div
+                className="text-gray-700 leading-relaxed text-lg prose prose-lg max-w-none
                     prose-headings:text-gray-900 prose-p:text-gray-700 
                     prose-strong:text-gray-900 prose-a:text-blue-600 hover:prose-a:text-blue-700
-                    prose-ul:text-gray-700 prose-ol:text-gray-700"
-                  dangerouslySetInnerHTML={{
-                    __html: heroSectionText.full_text,
-                  }}
-                />
-              </div>
+                    prose-ul:text-gray-700 prose-ol:text-gray-700
+                    prose-h2:text-2xl prose-h2:font-bold prose-h2:mt-8 prose-h2:mb-4
+                    prose-h3:text-xl prose-h3:font-semibold prose-h3:mt-6 prose-h3:mb-3
+                    prose-p:mb-4"
+                dangerouslySetInnerHTML={{
+                  __html: aboutText,
+                }}
+              />
             ) : (
               <div className="text-center py-12 bg-white rounded-2xl shadow-lg">
-                <p className="text-gray-500 text-lg">Content coming soon...</p>
+                <div className="mb-4">
+                  <svg
+                    className="w-16 h-16 text-gray-400 mx-auto"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-700 mb-2">
+                  No About Content Available
+                </h3>
               </div>
             )}
           </div>

@@ -81,9 +81,6 @@ export default function ThreeSectionTextsPage() {
             <h1 className="text-2xl font-bold text-gray-800">
               Three Section Texts
             </h1>
-            <p className="text-gray-600 mt-1">
-              View and manage all section texts
-            </p>
           </div>
           <div className="flex gap-3">
             <Link
@@ -105,9 +102,7 @@ export default function ThreeSectionTextsPage() {
             <h3 className="text-xl font-semibold text-gray-700 mb-2">
               No Texts Found
             </h3>
-            <p className="text-gray-500 mb-6">
-              Click "Add Texts" to start adding content to all sections.
-            </p>
+
             <Link
               href="/three-section-texts/add"
               className="inline-flex items-center px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
@@ -125,14 +120,6 @@ export default function ThreeSectionTextsPage() {
               >
                 {/* Header with actions */}
                 <div className="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
-                  <div>
-                    <h2 className="text-lg font-bold text-gray-800">
-                      Text Entry #{index + 1}
-                    </h2>
-                    <p className="text-sm text-gray-500">
-                      Created: {new Date(item.created_at).toLocaleDateString()}
-                    </p>
-                  </div>
                   <div className="flex gap-2">
                     <Link
                       href={`/three-section-texts/update/${item.id}`}
@@ -187,11 +174,6 @@ export default function ThreeSectionTextsPage() {
                                   </p>
                                 </div>
                               </div>
-                              {hasFieldData && (
-                                <span className="text-xs font-medium px-2 py-1 rounded-full bg-green-100 text-green-800">
-                                  ✓ Filled
-                                </span>
-                              )}
                             </div>
                           );
                         })}
@@ -201,43 +183,6 @@ export default function ThreeSectionTextsPage() {
                 </div>
               </div>
             ))}
-          </div>
-        )}
-
-        {/* Summary Stats */}
-        {textData.length > 0 && (
-          <div className="mt-8 p-6 bg-blue-50 rounded-xl border border-blue-200">
-            <h3 className="text-lg font-semibold text-blue-800 mb-4">
-              Summary
-            </h3>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="bg-white p-4 rounded-lg border border-gray-200">
-                <div className="text-2xl font-bold text-gray-800 mb-1">
-                  {textData.length}
-                </div>
-                <div className="text-sm text-gray-600">Total Text Entries</div>
-              </div>
-              <div className="bg-white p-4 rounded-lg border border-gray-200">
-                <div className="text-2xl font-bold text-gray-800 mb-1">
-                  {textData.reduce((total, item) => {
-                    const fields = getFieldGroups().flatMap((g) =>
-                      g.fields.map((f) => f.key)
-                    );
-                    return (
-                      total + fields.filter((f) => hasData(item[f])).length
-                    );
-                  }, 0)}
-                </div>
-                <div className="text-sm text-gray-600">Filled Fields</div>
-              </div>
-              <div className="bg-white p-4 rounded-lg border border-gray-200">
-                <div className="text-2xl font-bold text-gray-800 mb-1">
-                  {getFieldGroups().flatMap((g) => g.fields).length *
-                    textData.length}
-                </div>
-                <div className="text-sm text-gray-600">Total Fields</div>
-              </div>
-            </div>
           </div>
         )}
       </div>
