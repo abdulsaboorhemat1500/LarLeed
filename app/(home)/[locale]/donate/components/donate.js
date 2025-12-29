@@ -85,49 +85,62 @@ export default function DonateSection() {
           <div className="absolute bottom-10 left-10 w-40 h-40 border-2 border-indigo-200 rounded-full opacity-20"></div>
         </div>
 
-        <div className=" items-center justify-center text-center min-h-screen py-12">
-          {/* Content Section */}
-          <div className="flex-1 max-w-2xl text-center lg:text-left lg:pe-12">
-            {/* Language indicator */}
-            <div className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                Donate About Mission
-              </h1>
-            </div>
+        <div className="flex flex-col items-center justify-center min-h-screen py-12">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Support Our Mission
+            </h1>
+            <div className="w-24 h-1.5 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full"></div>
+          </div>
 
-            {/* Donate Content */}
-            {donateText ? (
-              <div className="mb-8">
+          {/* Content Card - max-w-7xl */}
+          <div className="w-full max-w-7xl">
+            <div className="bg-gradient-to-br from-white/90 to-blue-50/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/50 p-8 lg:p-12">
+              {donateText ? (
                 <div
                   className="text-gray-700 leading-relaxed text-lg prose prose-lg max-w-none
                     prose-headings:text-gray-900 prose-p:text-gray-700 
                     prose-strong:text-gray-900 prose-a:text-blue-600 hover:prose-a:text-blue-700
                     prose-ul:text-gray-700 prose-ol:text-gray-700
-                    prose-h1:text-4xl prose-h1:font-bold prose-h1:mb-6 prose-h1:text-custom-half
-                    prose-h2:text-2xl prose-h2:font-bold prose-h2:mt-8 prose-h2:mb-4
-                    prose-h3:text-xl prose-h3:font-semibold prose-h3:mt-6 prose-h3:mb-3
-                    prose-p:mb-4"
+                    prose-h2:text-2xl prose-h2:font-bold prose-h2:mt-8 prose-h2:mb-4 prose-h2:text-blue-800
+                    prose-h3:text-xl prose-h3:font-semibold prose-h3:mt-6 prose-h3:mb-3 prose-h3:text-blue-700
+                    prose-p:mb-4 prose-p:text-gray-600"
                   dangerouslySetInnerHTML={{
                     __html: donateText,
                   }}
                 />
-              </div>
-            ) : (
-              <div className="mb-8">
-                <div className="text-center py-8">
-                  <h1 className="text-4xl font-bold text-custom-half mb-4">
-                    No Data found
-                  </h1>
+              ) : (
+                <div className="text-center py-12">
+                  <div className="mb-6">
+                    <svg
+                      className="w-20 h-20 text-gray-300 mx-auto"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-700 mb-3">
+                    Donation Information Coming Soon
+                  </h3>
                 </div>
-              </div>
-            )}
-
-            {/* Donate Now Button */}
-            <div className="mt-8 text-center ">
-              <button className="cursor-pointer bg-custom-half text-white px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 w-full sm:w-auto">
-                Donate Now
-              </button>
+              )}
             </div>
+          </div>
+
+          {/* Donate Now Button */}
+          <div className="mt-12">
+            <button className="cursor-pointer bg-custom-half text-white px-10 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+              Donate Now
+            </button>
           </div>
         </div>
       </div>
