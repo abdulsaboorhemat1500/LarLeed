@@ -19,8 +19,8 @@ const scholarships = [
 
 export default function ScholarshipsSlider() {
   const { t } = useTranslations();
-  const sliderRef = useRef < HTMLDivElement > null;
-  const animationRef = (useRef < number) | (null > null);
+  const sliderRef = useRef(null);
+  const animationRef = useRef(null);
   const [sliderPosition, setSliderPosition] = useState(0);
   const [isClient, setIsClient] = useState(false);
 
@@ -70,7 +70,7 @@ export default function ScholarshipsSlider() {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [isClient, scholarships.length]);
+  }, [isClient]);
 
   // Don't render the slider on server-side
   if (!isClient) {
