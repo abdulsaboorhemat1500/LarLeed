@@ -186,7 +186,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="text-gray-400 text-sm mb-4 pl-3  py-6 border-t border-gray-200">
+        <div className="text-gray-400 text-sm mb-4 pl-3 pr-3  py-6 border-t border-gray-200">
           © {t("Header.2025 Larleed")} {t("Header.All rights reserved")}
         </div>
       </div>

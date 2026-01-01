@@ -5,7 +5,6 @@ import ScholarshipSliderSection from "@/components/homePage/scholarshipsSection"
 import ContactUsSection from "@/components/contact-us";
 import WhyChoseUse from "@/components/homePage/whychoseus";
 import LarleedMentorship from "@/components/homePage/larleedMentorship";
-import ScholarshipsSlider from "@/components/homePage/scholarshipSlider";
 
 export async function generateStaticParams() {
   return [{ locale: "en" }, { locale: "ps" }, { locale: "fa" }];
@@ -43,9 +42,8 @@ export default function LocalizedHomePage({ params }) {
       <HomePage />
       {/* <WhyChoseUse /> */}
       <ScholarshipSliderSection />
-      <ScholarshipsSlider />
-      <FeaturedVieos />
       <LarleedMentorship />
+      <FeaturedVieos />
       {/* <ContactUsSection /> */}
     </>
   );
