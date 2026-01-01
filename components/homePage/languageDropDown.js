@@ -110,15 +110,19 @@ export default function LanguageDropdown() {
     <div className="relative inline-block text-left" ref={dropdownRef}>
       <button
         type="button"
-        className={`flex items-center justify-center w-10 h-10 rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-          isNonLocalizedRoute 
-            ? 'bg-gray-300 cursor-not-allowed opacity-50' 
-            : 'bg-gray-100 hover:bg-gray-200'
+        className={`flex items-center justify-center w-10 h-10 rounded-full   ${
+          isNonLocalizedRoute
+            ? "bg-gray-300 cursor-not-allowed opacity-50"
+            : "bg-gray-100 hover:bg-gray-200"
         }`}
         onClick={() => !isNonLocalizedRoute && setIsOpen(!isOpen)}
         aria-label="Select language"
         disabled={isNonLocalizedRoute}
-        title={isNonLocalizedRoute ? "Language switching not available in control panel" : "Select language"}
+        title={
+          isNonLocalizedRoute
+            ? "Language switching not available in control panel"
+            : "Select language"
+        }
       >
         <SelectedFlag className="w-5 h-5" />
         {isNonLocalizedRoute && (
@@ -127,7 +131,9 @@ export default function LanguageDropdown() {
       </button>
 
       {isOpen && !isNonLocalizedRoute && (
-        <div className={`absolute ${dropdownPosition} mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50`}>
+        <div
+          className={`absolute ${dropdownPosition} mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50`}
+        >
           <div className="py-1">
             {languages.map((language) => {
               const FlagComponent = language.flag;
@@ -135,14 +141,18 @@ export default function LanguageDropdown() {
                 <button
                   key={language.code}
                   className={`flex items-center w-full px-4 py-2 text-sm hover:bg-gray-100 transition-colors duration-150 ${
-                    selectedLanguage.code === language.code ? 'bg-blue-50 text-blue-600' : 'text-gray-700'
+                    selectedLanguage.code === language.code
+                      ? "bg-blue-50 text-blue-600"
+                      : "text-gray-700"
                   }`}
                   onClick={() => handleLanguageSelect(language)}
                 >
                   <FlagComponent className="w-5 h-5 me-3" />
                   <div className="flex flex-col items-start flex-1">
                     <span className="font-medium">{language.name}</span>
-                    <span className="text-xs text-gray-500">{language.nativeName}</span>
+                    <span className="text-xs text-gray-500">
+                      {language.nativeName}
+                    </span>
                   </div>
                   {selectedLanguage.code === language.code && <CheckIcon />}
                 </button>

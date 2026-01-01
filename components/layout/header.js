@@ -10,24 +10,31 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 
 // Component to render text with break after 3 words
-const ThreeWordText = ({ text }) => {
+const ThreeWordText = ({ text, isMobile = false }) => {
   if (!text) return "";
 
   const words = text.split(" ");
 
   if (words.length <= 3) {
-    return (
+    return isMobile ? (
       <div className="flex items-center justify-center bg-blue-100 hover:bg-blue-300 hover:text-white transition-all duration-200 transform rounded-lg">
         {text}
       </div>
+    ) : (
+      <div>{text}</div>
     );
   }
 
   const firstLine = words.slice(0, 3).join(" ");
   const secondLine = words.slice(3).join(" ");
 
-  return (
+  return isMobile ? (
     <div className="flex flex-col items-center justify-center bg-blue-100 hover:bg-blue-300 hover:text-white transition-all duration-200 transform rounded-lg">
+      <div>{firstLine}</div>
+      <div>{secondLine}</div>
+    </div>
+  ) : (
+    <div>
       <div>{firstLine}</div>
       <div>{secondLine}</div>
     </div>
@@ -103,17 +110,24 @@ export default function HeaderSection() {
                   ${
                     isActive
                       ? "bg-blue-600 text-white shadow-md"
-                      : "text-gray-900 hover:text-custom-half"
+                      : "text-gray-900 hover:text-custom-half hover:bg-blue-50"
                   }
                 `}
               >
-                <ThreeWordText text={text} />
+                {text.split(" ").length <= 3 ? (
+                  text
+                ) : (
+                  <>
+                    <div>{text.split(" ").slice(0, 3).join(" ")}</div>
+                    <div>{text.split(" ").slice(3).join(" ")}</div>
+                  </>
+                )}
               </Link>
             );
           })}
         </div>
 
-        <div className="lg:flex lg:flex-1 lg:justify-end lg:gap-3 md:gap-2 sm:gap-3">
+        <div className="lg:flex lg:flex-1 flex lg:justify-end lg:gap-3 md:gap-2 sm:gap-3">
           <SimpleLanguageDropdown />
           {/* Mobile Menu Button */}
           <div className="flex lg:hidden">
@@ -170,21 +184,18 @@ export default function HeaderSection() {
                           py-1.5 
                           ${mobileTextSizeClass} 
                           font-bold 
-                          bg-blue-100
-                          hover:bg-blue-300
-                         hover:text-white 
-                           transition-all 
-                           duration-200 
-                           transform 
-                           rounded-lg
+                          transition-all 
+                          duration-200 
+                          transform 
+                          rounded-lg
                           ${
                             isActive
                               ? "bg-blue-600 text-white"
-                              : "text-gray-900 hover:text-custom-half"
+                              : "text-gray-900 hover:bg-blue-300 hover:text-white"
                           }
                         `}
                       >
-                        <ThreeWordText text={text} />
+                        <ThreeWordText text={text} isMobile={true} />
                       </Link>
                     );
                   })}

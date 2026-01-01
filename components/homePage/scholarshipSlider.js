@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "@/hooks/useTranslations";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -22,82 +21,13 @@ const scholarships = [
 export default function ScholarshipsSlider() {
   const { locale } = useParams();
   const { t } = useTranslations();
-  const sliderRef = useRef(null);
-  const animationRef = useRef(null);
-  const [sliderPosition, setSliderPosition] = useState(0);
-  const [isClient, setIsClient] = useState(false);
-
-  // Duplicate scholarships for seamless infinite scrolling
-  const duplicatedScholarships = [
-    ...scholarships,
-    ...scholarships,
-    ...scholarships,
-  ];
-
-  // Set client-side flag
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  // Continuous auto-scrolling animation (client-side only)
-  useEffect(() => {
-    if (!isClient) return;
-
-    let lastTimestamp = 0;
-    const speed = 50; // pixels per second
-
-    const animate = (timestamp) => {
-      if (!lastTimestamp) lastTimestamp = timestamp;
-
-      const deltaTime = timestamp - lastTimestamp;
-      lastTimestamp = timestamp;
-
-      // Calculate movement based on time passed for smooth animation
-      const movement = (speed * deltaTime) / 1000;
-
-      setSliderPosition((prev) => {
-        // Reset position when we've scrolled through one set of scholarships
-        if (prev <= -scholarships.length * 200) {
-          return 0;
-        }
-        return prev - movement;
-      });
-
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animationRef.current = requestAnimationFrame(animate);
-
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [isClient]);
-
-  // Don't render the slider on server-side
-  if (!isClient) {
-    return (
-      <section className="bg-blue-50 py-12 px-4 md:px-8 overflow-hidden">
-        <div className="container mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
-              {t("ScholarshipsPage.allScholarships")}
-            </h2>
-          </div>
-          <div className="h-36"></div> {/* Placeholder height */}
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className="bg-blue-50 py-12 px-4 md:px-8 overflow-hidden">
       <div className="container mx-auto">
-        {/* Simple Header */}
-
+        {/* Header with See All link */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 mt-4">
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 ">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
             {t("ScholarshipsPage.allScholarships")}
           </h2>
           <Link
@@ -121,30 +51,68 @@ export default function ScholarshipsSlider() {
           </Link>
         </div>
 
-        {/* Auto-moving Slider Container */}
+        {/* CSS Animation Slider Container */}
         <div className="relative overflow-hidden">
-          <div
-            ref={sliderRef}
-            className="flex gap-6"
-            style={{
-              transform: `translateX(${sliderPosition}px)`,
-              willChange: "transform",
-            }}
-          >
-            {duplicatedScholarships.map((scholarship, index) => (
-              <div key={`${scholarship.id}-${index}`} className="flex-shrink-0">
-                <div className="bg-blue-100 h-36 w-36 rounded-full border-2 border-white text-gray-700 hover:text-gray-900 hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center p-4">
-                  <div className="text-center">
-                    <span className="text-base font-semibold break-words line-clamp-3">
-                      {scholarship.name}
-                    </span>
+          <div className="flex">
+            {/* First set - visible */}
+            <div className="flex animate-scroll gap-6">
+              {scholarships.map((scholarship) => (
+                <div
+                  key={`first-${scholarship.id}-${locale}`}
+                  className="flex-shrink-0"
+                >
+                  <div className="bg-blue-100 h-36 w-36 rounded-full border-2 border-white text-gray-700 hover:text-gray-900 hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center p-4">
+                    <div className="text-center">
+                      <span className="text-base font-semibold break-words line-clamp-3">
+                        {scholarship.name}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+
+            {/* Duplicate set for seamless loop - hidden from screen readers */}
+            <div className="flex animate-scroll gap-6" aria-hidden="true">
+              {scholarships.map((scholarship) => (
+                <div
+                  key={`second-${scholarship.id}-${locale}`}
+                  className="flex-shrink-0"
+                >
+                  <div className="bg-blue-100 h-36 w-36 rounded-full border-2 border-white text-gray-700 hover:text-gray-900 hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center p-4">
+                    <div className="text-center">
+                      <span className="text-base font-semibold break-words line-clamp-3">
+                        {scholarship.name}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
+
+      {/* CSS Animation Styles */}
+      <style jsx global>{`
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+        .animate-scroll {
+          animation: scroll 40s linear infinite;
+          min-width: 200%;
+        }
+        @media (min-width: 768px) {
+          .animate-scroll {
+            animation: scroll 30s linear infinite;
+          }
+        }
+      `}</style>
     </section>
   );
 }

@@ -20,9 +20,7 @@ export default function LarleedMentorship() {
         <div className="max-w-7xl mx-auto">
           <div className="space-y-6 mb-10">
             <p className="text-xl md:text-2xl text-gray-700 leading-relaxed font-semibold">
-              Applying for scholarships or higher education programs can be
-              challenging, especially when requirements are unclear or
-              information is spread across many sources.
+              {t("MentorshipsPage.applying for scholarships")}
             </p>
 
             <p className="text-lg text-gray-600 leading-relaxed font-semibold">
