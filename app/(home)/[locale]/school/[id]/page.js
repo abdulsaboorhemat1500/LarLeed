@@ -177,7 +177,7 @@ export default function SchoolDetailsPage() {
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900  mb-4">
               {getLocalizedField(school, "name") || "School Name Not Available"}
             </h1>
-            <div className="flex items-center gap-2 bg-black/20 px-4 py-2 rounded-full backdrop-blur-sm">
+            <div className="flex items-center text-center justify-center gap-2  px-4 py-2 ">
               <span className="text-lg">👁️</span>
               <span className="text-lg font-bold text-white">
                 {school.views}
