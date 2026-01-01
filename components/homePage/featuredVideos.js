@@ -113,7 +113,7 @@ export default function FeaturedVideos() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6">
           <div className="mb-4 sm:mb-0">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900  mb-3">
               {t("HomePage.featured videos")}
             </h2>
           </div>

@@ -16,14 +16,18 @@ const ThreeWordText = ({ text }) => {
   const words = text.split(" ");
 
   if (words.length <= 3) {
-    return <div className="flex items-center justify-center">{text}</div>;
+    return (
+      <div className="flex items-center justify-center bg-blue-100 hover:bg-blue-300 hover:text-white transition-all duration-200 transform rounded-lg">
+        {text}
+      </div>
+    );
   }
 
   const firstLine = words.slice(0, 3).join(" ");
   const secondLine = words.slice(3).join(" ");
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center bg-blue-100 hover:bg-blue-300 hover:text-white transition-all duration-200 transform rounded-lg">
       <div>{firstLine}</div>
       <div>{secondLine}</div>
     </div>
@@ -71,18 +75,6 @@ export default function HeaderSection() {
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="flex lg:hidden">
-          <button
-            type="button"
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 hover:bg-blue-200 transition-colors duration-200"
-            onClick={() => setMobileMenuOpen(true)}
-          >
-            <span className="sr-only">Open main menu</span>
-            <Menu className="size-6" />
-          </button>
-        </div>
-
         {/* Desktop Navigation */}
         <div className="hidden lg:flex lg:gap-x-0.5">
           {navItems.map((item) => {
@@ -120,8 +112,20 @@ export default function HeaderSection() {
             );
           })}
         </div>
+
         <div className="lg:flex lg:flex-1 lg:justify-end lg:gap-3 md:gap-2 sm:gap-3">
           <SimpleLanguageDropdown />
+          {/* Mobile Menu Button */}
+          <div className="flex lg:hidden">
+            <button
+              type="button"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 hover:bg-blue-200 transition-colors duration-200"
+              onClick={() => setMobileMenuOpen(true)}
+            >
+              <span className="sr-only">Open main menu</span>
+              <Menu className="size-6" />
+            </button>
+          </div>
         </div>
       </nav>
 
@@ -136,7 +140,7 @@ export default function HeaderSection() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="-m-1.5 p-1.5"
               >
-                <p className="text-2xl font-bold">LarLeed</p>
+                <p className="text-2xl font-bold">{t("Banner.title")}</p>
               </Link>
               <button
                 type="button"
@@ -162,17 +166,17 @@ export default function HeaderSection() {
                         className={`
                           -mx-3 
                           block 
-                          rounded-lg 
                           px-3 
                           py-1.5 
                           ${mobileTextSizeClass} 
                           font-bold 
-                          transition-all 
-                          duration-200
-                          transform
-                          hover:-translate-y-[1%]
-                          leading-tight
-                          min-h-[40px]
+                          bg-blue-100
+                          hover:bg-blue-300
+                         hover:text-white 
+                           transition-all 
+                           duration-200 
+                           transform 
+                           rounded-lg
                           ${
                             isActive
                               ? "bg-blue-600 text-white"

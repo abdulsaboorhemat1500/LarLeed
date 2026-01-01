@@ -7,7 +7,10 @@
     "donate": "کمک کردن",
     "contactUs": "تماس با ما",
     "aboutUs": "درباره ما",
-    "certifications": "کورس‌های انگلیسی و مهارت‌های دیجیتلی"
+    "certifications": "کورس‌های انگلیسی و مهارت‌های دیجیتلی",
+    "2025 Larleed": "۲۰۲۵ لرلید.",
+    "All rights reserved": "همه حقوق محفوظ می باشد.",
+    "Kabul Afghanistan": "کابل، افغانستان"
   },
   "Banner": {
     "title": "لرلید",
@@ -15,9 +18,26 @@
     "description2": "از طریق آموزش، گفتگو و چشم انداز"
   },
   "SchoolPage": {
+    "Visit Website": "از وب سایت آنها دیدن کنید",
+    "Facebook": "فیسبوک",
+    "Instagram": "اینستاگرام",
+    "Social Media": "رسانه های اجتماعی انها",
+    "Funding Type": "نوع پرداخت پیسه",
+    "Content Type": "نوع درس دادن",
+    "School Name": "اسم مکتب",
+    "School Summary": "خلاصه معلومات",
+    "Detailed Information": "معلومات تفصیلی",
+    "No detailed information available in": "هیچ معلومات تفصیلی یافته نشد",
+    "No overview available in": "هیچ معلومات یافته نشد",
+    "School Overview": "نما کلی مکتب",
+    "Try Again": "دوباره امتحان کنید",
+    "Error loading school": "مشکل در یافتن معلومات مکتب",
     "page title": "برنامه‌های سال تحصیلی زیر را بخوانید، برنامه‌ای را که به بهترین وجه نیازهای شما را برآورده می‌کند انتخاب کنید و شروع کنید."
   },
   "HomePage": {
+    "Support Our Mission": "از ماموریت ما حمایت کنید",
+    "Donation Information Coming Soon": "هیچ اطلاعالی پیدا نشود",
+    "Donate Now": "اکنون اهدا کنید",
     "about larleed": "در باره لرلید",
     "view details": "مشاهده جزئیات",
     "on this website": "در این وبسایت می‌توانید اطلاعاتی در مورد موارد زیر پیدا کنید:",
@@ -121,6 +141,7 @@
     "university": "پوهنتون‌ها"
   },
   "MentorshipsPage": {
+    "larleed mentorship homepage": "طرح مربیگری لارلید، یک برنامه مبتنی بر جامعه و با حمایت داوطلبان است که دانشجویان را با مربیانی که تجربه پیمایش مسیرهای آموزشی مشابه را دارند، مرتبط می‌کند. هدف از این طرح، به اشتراک گذاشتن دانش، تجربه و بینش‌های عملی است، نه ارائه خدمات مشاوره‌ای پولی یا ضمانت.",
     "mentorship request form": "فورم درخواستی منتورشیپ",
     "No Mentorship Content Available": "هیچ دیتا منتورها پیدا نشود",
     "Mentorship Details": "معلومات در باره منتورشیپ",

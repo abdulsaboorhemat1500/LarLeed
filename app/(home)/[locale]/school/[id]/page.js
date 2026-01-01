@@ -6,8 +6,6 @@ import { useApi } from "@/app/hooks/useApi";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useParams } from "next/navigation";
 import SocialMediaSection from "@/components/homePage/socialmedia";
-import Lottie from "lottie-react";
-import Loading from "@/components/lottie-files/Loading.json";
 
 export default function SchoolDetailsPage() {
   const [school, setSchool] = useState(null);
@@ -127,7 +125,7 @@ export default function SchoolDetailsPage() {
                 </svg>
               </div>
               <h3 className="text-xl font-semibold text-gray-900  mb-2">
-                Error loading school
+                {t("SchoolPage.Error loading school")}
               </h3>
               <p className="text-gray-600 dark:text-gray-400 mb-4">
                 {error || "School not found"}
@@ -136,7 +134,7 @@ export default function SchoolDetailsPage() {
                 onClick={() => window.location.reload()}
                 className="cursor-pointer bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200"
               >
-                Try Again
+                {t("SchoolPage.Try Again")}
               </button>
             </div>
           </div>
@@ -158,15 +156,33 @@ export default function SchoolDetailsPage() {
     <>
       <div className="min-h-screen bg-gray-50 ">
         {/* Header */}
-        <div className="mb-8 bg-blue-100 h-40 w-full text-center flex flex-col items-center justify-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900  mb-4">
-            {getLocalizedField(school, "name") || "School Name Not Available"}
-          </h1>
-          <div className="flex items-center gap-2 bg-black/20 px-4 py-2 rounded-full backdrop-blur-sm">
-            <span className="text-lg">👁️</span>
-            <span className="text-lg font-bold text-white">
-              {school.views || 0} views
-            </span>
+
+        <div className="h-60 w-full text-center flex items-center justify-center relative overflow-hidden">
+          {/* Simple gradient background with subtle animation */}
+          <div className="absolute inset-0 bg-blue-100"></div>
+
+          {/* Subtle pattern overlay */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute -top-24 -left-24 w-96 h-96 bg-custom-half rounded-full"></div>
+            <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-custom-half rounded-full"></div>
+          </div>
+
+          {/* Simple shine effect */}
+          <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute top-0 left-0 w-full h-1 bg-blue-200"></div>
+          </div>
+
+          {/* Text content */}
+          <div className="relative z-10">
+            <h1 className="text-4xl md:text-5xl font-bold text-gray-900  mb-4">
+              {getLocalizedField(school, "name") || "School Name Not Available"}
+            </h1>
+            <div className="flex items-center gap-2 bg-black/20 px-4 py-2 rounded-full backdrop-blur-sm">
+              <span className="text-lg">👁️</span>
+              <span className="text-lg font-bold text-white">
+                {school.views}
+              </span>
+            </div>
           </div>
         </div>
         <div className="container mx-auto px-4 py-10">
@@ -189,7 +205,7 @@ export default function SchoolDetailsPage() {
               {/* Overview */}
               <div className="bg-white rounded-2xl p-6 shadow-lg">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                  School Overview
+                  {t("SchoolPage.School Overview")}
                 </h2>
                 {overviewValue ? (
                   <div
@@ -200,7 +216,8 @@ export default function SchoolDetailsPage() {
                   />
                 ) : (
                   <div className="text-gray-500 italic">
-                    No overview available in {currentLocale.toUpperCase()}.
+                    {t("SchoolPage.No overview available in")}{" "}
+                    {currentLocale.toUpperCase()}.
                     {school.overview_en && " Showing English version."}
                   </div>
                 )}
@@ -209,7 +226,7 @@ export default function SchoolDetailsPage() {
               {/* Detailed Information */}
               <div className="bg-white rounded-2xl p-6 shadow-lg">
                 <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                  Detailed Information
+                  {t("SchoolPage.Detailed Information")}
                 </h2>
                 {detailedInfoValue ? (
                   <div
@@ -220,7 +237,7 @@ export default function SchoolDetailsPage() {
                   />
                 ) : (
                   <div className="text-gray-500 italic">
-                    No detailed information available in{" "}
+                    {t("SchoolPage.No detailed information available in")}{" "}
                     {currentLocale.toUpperCase()}.
                     {school.detailed_info_en && " Showing English version."}
                   </div>
@@ -232,7 +249,7 @@ export default function SchoolDetailsPage() {
             <div className="lg:col-span-1">
               <div className="bg-white rounded-2xl p-6 shadow-lg">
                 <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">
-                  School Summary
+                  {t("SchoolPage.School Summary")}
                 </h3>
 
                 <div className="space-y-4">
@@ -242,7 +259,9 @@ export default function SchoolDetailsPage() {
                       <span className="text-blue-600">🏫</span>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">School Name</p>
+                      <p className="text-sm text-gray-500">
+                        {t("SchoolPage.School Name")}
+                      </p>
                       <p className="font-semibold text-gray-900">
                         {getLocalizedField(school, "name") || "Not specified"}
                       </p>
@@ -250,7 +269,7 @@ export default function SchoolDetailsPage() {
                   </div>
 
                   {/* Owner Name */}
-                  <div className="flex items-start space-x-3">
+                  {/* <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
                       <span className="text-green-600">👤</span>
                     </div>
@@ -261,7 +280,7 @@ export default function SchoolDetailsPage() {
                           "Not specified"}
                       </p>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Content Type */}
                   <div className="flex items-start space-x-3">
@@ -269,7 +288,9 @@ export default function SchoolDetailsPage() {
                       <span className="text-purple-600">📚</span>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Content Type</p>
+                      <p className="text-sm text-gray-500">
+                        {t("SchoolPage.Content Type")}
+                      </p>
                       <p className="font-semibold text-gray-900">
                         {school.content_type || "Not specified"}
                       </p>
@@ -282,7 +303,9 @@ export default function SchoolDetailsPage() {
                       <span className="text-emerald-600">💰</span>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Funding Type</p>
+                      <p className="text-sm text-gray-500">
+                        {t("SchoolPage.Funding Type")}
+                      </p>
                       <p className="font-semibold text-gray-900">
                         {school.funding_type || "Not specified"}
                       </p>
@@ -290,7 +313,7 @@ export default function SchoolDetailsPage() {
                   </div>
 
                   {/* Email */}
-                  <div className="flex items-start space-x-3">
+                  {/* <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center flex-shrink-0">
                       <span className="text-red-600">✉️</span>
                     </div>
@@ -300,10 +323,10 @@ export default function SchoolDetailsPage() {
                         {school.email || "Not specified"}
                       </p>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* Phone Number */}
-                  <div className="flex items-start space-x-3">
+                  {/* <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
                       <span className="text-teal-600">📞</span>
                     </div>
@@ -313,10 +336,10 @@ export default function SchoolDetailsPage() {
                         {school.phone_number || "Not specified"}
                       </p>
                     </div>
-                  </div>
+                  </div> */}
 
                   {/* WhatsApp */}
-                  {school.whatsapp_number && (
+                  {/* {school.whatsapp_number && (
                     <div className="flex items-start space-x-3">
                       <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center flex-shrink-0">
                         <span className="text-green-600">💬</span>
@@ -328,7 +351,7 @@ export default function SchoolDetailsPage() {
                         </p>
                       </div>
                     </div>
-                  )}
+                  )} */}
 
                   {/* Social Media Links */}
                   {(school.facebook_link || school.instagram_link) && (
@@ -337,7 +360,9 @@ export default function SchoolDetailsPage() {
                         <span className="text-blue-600">🌐</span>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Social Media</p>
+                        <p className="text-sm text-gray-500">
+                          {t("SchoolPage.Social Media")}
+                        </p>
                         <div className="flex gap-2 mt-1">
                           {school.facebook_link && (
                             <a
@@ -346,7 +371,7 @@ export default function SchoolDetailsPage() {
                               rel="noopener noreferrer"
                               className="text-blue-600 hover:text-blue-800"
                             >
-                              Facebook
+                              {t("SchoolPage.Facebook")}
                             </a>
                           )}
                           {school.instagram_link && (
@@ -356,7 +381,7 @@ export default function SchoolDetailsPage() {
                               rel="noopener noreferrer"
                               className="text-pink-600 hover:text-pink-800"
                             >
-                              Instagram
+                              {t("SchoolPage.Instagram")}
                             </a>
                           )}
                         </div>
@@ -372,7 +397,7 @@ export default function SchoolDetailsPage() {
                     className="custom-my-btn w-full"
                     disabled={!school.website_link}
                   >
-                    🌐 Visit Website
+                    🌐 {t("SchoolPage.Visit Website")}
                   </button>
                 </div>
               </div>

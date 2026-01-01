@@ -2,14 +2,14 @@
 import { useState, useEffect, useMemo } from "react";
 import { useApi } from "@/app/hooks/useApi";
 import { useParams } from "next/navigation";
-import Lottie from "lottie-react";
-import Donate from "@/components/lottie-files/Donate.json";
+import { useTranslations } from "@/hooks/useTranslations";
 
 export default function DonateSection() {
   const [threeSectionTexts, setThreeSectionTexts] = useState([]);
   const [loading, setLoading] = useState(true);
   const { get } = useApi();
   const { locale } = useParams();
+  const { t } = useTranslations();
 
   // Normalize locale to match database field suffixes
   const normalizedLocale = useMemo(() => {
@@ -89,9 +89,9 @@ export default function DonateSection() {
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Support Our Mission
+              {t("HomePage.Support Our Mission")}
             </h1>
-            <div className="w-24 h-1.5 bg-gradient-to-r from-blue-500 to-indigo-500 mx-auto rounded-full"></div>
+            <div className="w-24 h-1.5 bg-custom-half mx-auto rounded-full"></div>
           </div>
 
           {/* Content Card - max-w-7xl */}
@@ -129,7 +129,7 @@ export default function DonateSection() {
                     </svg>
                   </div>
                   <h3 className="text-2xl font-bold text-gray-700 mb-3">
-                    Donation Information Coming Soon
+                    {t("HomePage.Donation Information Coming Soon")}
                   </h3>
                 </div>
               )}
@@ -139,7 +139,7 @@ export default function DonateSection() {
           {/* Donate Now Button */}
           <div className="mt-12">
             <button className="cursor-pointer bg-custom-half text-white px-10 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-              Donate Now
+              {t("HomePage.Donate Now")}
             </button>
           </div>
         </div>

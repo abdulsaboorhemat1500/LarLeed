@@ -198,7 +198,7 @@ export default function ScholarshipDetailsPage() {
       <div className="min-h-screen bg-gray-50 ">
         {/* Header */}
 
-        <div className="h-80 w-full text-center flex items-center justify-center relative overflow-hidden">
+        <div className="h-60 w-full text-center flex items-center justify-center relative overflow-hidden">
           {/* Simple gradient background with subtle animation */}
           <div className="absolute inset-0 bg-blue-100"></div>
 

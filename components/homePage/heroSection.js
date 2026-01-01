@@ -51,7 +51,7 @@ export default function HeroSection() {
               }`}
             >
               <div className="p-3">
-                <BookOpen className="w-6 h-6 text-blue-600" />
+                <Search className="w-6 h-6 text-blue-600" />
               </div>
               <div
                 className={`flex-1 py-3 ${
@@ -74,7 +74,7 @@ export default function HeroSection() {
               }`}
             >
               <div className="p-3">
-                <GraduationCap className="w-6 h-6 text-purple-600" />
+                <BookOpen className="w-6 h-6 text-purple-600" />
               </div>
               <div
                 className={`flex-1 py-3 ${
@@ -99,7 +99,7 @@ export default function HeroSection() {
               }`}
             >
               <div className="p-3">
-                <Search className="w-6 h-6 text-green-600" />
+                <GraduationCap className="w-6 h-6 text-green-600" />
               </div>
               <div
                 className={`flex-1 py-3 ${

@@ -2,12 +2,15 @@
   "Header": {
     "scholarshipsPrograms": "لوړو زده‌کړو پروګرامونه او بورسیې",
     "school": "د ښوونځي دوره (۱-۱۲ ټولګي)",
-    "mentorships": "مینټورشیپ",
+    "mentorships": "لارښوونه",
     "roshangari": "روشنګري",
     "donate": "مرسته وکړئ",
     "contactUs": "موږ سره اړیکه ونیسئ",
     "aboutUs": "زموږ په اړه",
-    "certifications": "د انګلېسي او د ډیجیټلي مهارتونو کورسونه"
+    "certifications": "د انګلېسي او د ډیجیټلي مهارتونو کورسونه",
+    "2025 Larleed": "۲۰۲۵ لرلید.",
+    "All rights reserved": "ټول حقونه خوندي دي.",
+    "Kabul Afghanistan": "کابل، افغانستان"
   },
   "Banner": {
     "title": "لرلید",
@@ -15,9 +18,26 @@
     "description2": "د زده‌کړو، دایلوګ، او لید په وسیله"
   },
   "SchoolPage": {
+    "Visit Website": "له ویب پاڼي څخه کتنه",
+    "Facebook": "فیسبوک",
+    "Instagram": "اینستاګرام",
+    "Social Media": "ټولنیز رسنۍ",
+    "Funding Type": "د تمویل ډول",
+    "Content Type": "د درس ویلو ډول",
+    "School Name": "د ښوونځي نوم",
+    "School Summary": "لنډ معلومات",
+    "Detailed Information": "بشپړ معلومات",
+    "No detailed information available in": "هیڅ بشپړ معلومات ونه موندل شول",
+    "No overview available in": "هیڅ معلومات ونه موندل شول",
+    "School Overview": "د ښوونځي لنډ معلومات",
+    "Try Again": "بیا ځلي کوشش وکړۍ",
+    "Error loading school": "د معلوماتو په موندلو کي ستونزه را منځته شوې",
     "page title": "د ښوونځي دورې لاندې پروګرامونه ولولئ او هغه پروګرام چې ستاسې اړتیاوې په ښه توګه ځوابوي، وټاکئ او پیل یې کړئ"
   },
   "HomePage": {
+    "Support Our Mission": "زموږ د ماموریت ملاتړ وکړئ",
+    "Donation Information Coming Soon": "هیڅ معلومات ونه موندل شول",
+    "Donate Now": "همدا اوس مرسته وکړئ",
     "about larleed": "د لرلید په اړه",
     "view details": "تفصيلات وګورئ",
     "on this website": "په دغه ویبپاڼه باندې د لاندې مواردو په اړه معلومات موندلی شئ: ",
@@ -121,6 +141,7 @@
     "university": "پوهنتون"
   },
   "MentorshipsPage": {
+    "larleed mentorship homepage": "د لرلید مینټورشیپ یوه داسې هڅه ده چې تاسې له هغه کساو سره وصلوي چې همدغه پروګرامونو کې یا خو محصلین دي، او یا ورڅخه فارغ شوي.",
     "mentorship request form": "د مینټورشیپ غوښتني فورمه",
     "No Mentorship Content Available": "مینټورشیپ معلومات ونه موندل شول",
     "Mentorship Details": "د مینټورشیپ په اړه",
@@ -132,7 +153,7 @@
     "enter year of graduation": "د فراغت کال مو ولیکئ",
     "your major": "تحصیلي څانګه",
     "failed to fetch mentors": "مینټور ونه‌موندل شو",
-    "meet our mentors": "زموږ دمینټور سره وګورئ",
+    "meet our mentors": "زموږ لارښوونکي",
     "no mentors found": "مینټور ونه‌موندل شو",
     "scholarship submission form": "د بورس سپارلو فورمه",
     "personal details": "شخصي مالومات",

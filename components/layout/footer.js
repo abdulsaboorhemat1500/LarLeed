@@ -35,171 +35,159 @@ export default function Footer() {
   const { locale } = useParams();
   const { t } = useTranslations();
   return (
-    <footer className="bg-gray-800 text-white">
-      {/* Main Footer Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
-          {/* Brand Column */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center mb-8">
-              <img src="/logo.png" alt="logo image" className="h-12" />
-            </div>
-            <p className="text-gray-300 mb-6 max-w-md font-bold">
-              {t("Banner.description1")}
-              <span className="font-semibold">{t("Banner.description2")}</span>
-            </p>
+    <footer className="bg-white">
+      <div className="bg-blue-50  max-w-7xl mx-auto rounded-lg mb-16 mt-10">
+        {/* Main Footer Content */}
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+            {/* Brand Column */}
+            <div className="lg:col-span-2">
+              <div className="flex items-center mb-8">
+                <img src="/logo.png" alt="logo image" className="h-12" />
+              </div>
+              <p className="text-custom-half mb-6 max-w-md font-bold">
+                {t("Banner.description1")}
+                <span className="font-semibold">
+                  {t("Banner.description2")}
+                </span>
+              </p>
 
-            {/* Social Media Links */}
-            <div className="flex space-x-4">
-              <a
-                href="https://www.facebook.com/ahamid.hatsaandh"
-                target="__blank"
-                className="p-2 bg-gray-800 hover:bg-blue-600 rounded-lg transition-colors duration-200"
-                aria-label="Facebook"
-              >
-                <FacebookIcon className="w-5 h-5" />
-              </a>
-              <a
-                href="https://x.com/HamidHatsaandh"
-                target="__blank"
-                className="p-2 bg-gray-800 hover:bg-blue-400 rounded-lg transition-colors duration-200"
-                aria-label="Twitter"
-              >
-                <TwitterIcon className="w-5 h-5" />
-              </a>
-              <a
-                href="https://www.instagram.com/hatsaandh/"
-                target="__blank"
-                className="p-2 bg-gray-800 hover:bg-pink-600 rounded-lg transition-colors duration-200"
-                aria-label="Instagram"
-              >
-                <InstagramIcon className="w-5 h-5" />
-              </a>
-              <a
-                href="https://www.youtube.com/@lomritob"
-                target="__blank"
-                className="p-2 bg-gray-800 hover:bg-red-600 rounded-lg transition-colors duration-200"
-                aria-label="YouTube"
-              >
-                <YoutubeIcon className="w-5 h-5" />
-              </a>
-              <a
-                href="https://www.linkedin.com/in/hamidhatsaandh"
-                target="__blank"
-                className="p-2 bg-gray-800 hover:bg-blue-700 rounded-lg transition-colors duration-200"
-                aria-label="LinkedIn"
-              >
-                <LinkedinIcon className="w-5 h-5" />
-              </a>
+              {/* Social Media Links */}
+              <div className="flex space-x-4">
+                <a
+                  href="https://www.facebook.com/ahamid.hatsaandh"
+                  target="__blank"
+                  className="p-2 bg-gray-800 text-white hover:bg-blue-600 rounded-lg"
+                  aria-label="Facebook"
+                >
+                  <FacebookIcon className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://x.com/HamidHatsaandh"
+                  target="__blank"
+                  className="p-2 bg-gray-800 text-white hover:bg-blue-400 rounded-lg"
+                  aria-label="Twitter"
+                >
+                  <TwitterIcon className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.instagram.com/hatsaandh/"
+                  target="__blank"
+                  className="p-2 bg-gray-800 text-white hover:bg-pink-600 rounded-lg"
+                  aria-label="Instagram"
+                >
+                  <InstagramIcon className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.youtube.com/@lomritob"
+                  target="__blank"
+                  className="p-2 bg-gray-800 text-white hover:bg-red-600 rounded-lg"
+                  aria-label="YouTube"
+                >
+                  <YoutubeIcon className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/in/hamidhatsaandh"
+                  target="__blank"
+                  className="p-2 bg-gray-800 text-white hover:bg-blue-700 rounded-lg transition-colors duration-200"
+                  aria-label="LinkedIn"
+                >
+                  <LinkedinIcon className="w-5 h-5" />
+                </a>
+              </div>
             </div>
-          </div>
 
-          {/* Programs */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">Programs</h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href={`/${locale}/scholarships-programs`}
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
-                >
-                  {t("Header.scholarshipsPrograms")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={`/${locale}/school`}
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
-                >
-                  {t("Header.school")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={`/${locale}/certifications`}
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
-                >
-                  {t("Header.certifications")}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={`/${locale}/mentorships`}
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
-                >
-                  {t("Header.mentorships")}
-                </Link>
-              </li>
-              {/* <li>
+            {/* Programs */}
+            <div>
+              <h3 className="text-lg font-bold mb-4 text-custom-half">
+                {t("Header.programs")}
+              </h3>
+              <ul className="space-y-3">
+                <li>
+                  <Link
+                    href={`/${locale}/scholarships-programs`}
+                    className="text-custom-half font-semibold "
+                  >
+                    {t("Header.scholarshipsPrograms")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={`/${locale}/school`}
+                    className="text-custom-half font-semibold "
+                  >
+                    {t("Header.school")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={`/${locale}/certifications`}
+                    className="text-custom-half font-semibold "
+                  >
+                    {t("Header.certifications")}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href={`/${locale}/mentorships`}
+                    className="text-custom-half font-semibold "
+                  >
+                    {t("Header.mentorships")}
+                  </Link>
+                </li>
+                {/* <li>
                 <Link
                   href="/featured-videos"
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
+                  className="text-custom-half font-semibold "
                 >
                   Featured Videos
                 </Link>
               </li> */}
-            </ul>
-          </div>
+              </ul>
+            </div>
 
-          {/* Contact */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">
-              {t("Header.contactUs")}
-            </h3>
-            <ul className="space-y-3">
-              {/* <li>
+            {/* Contact */}
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-custom-half">
+                {t("Header.contactUs")}
+              </h3>
+              <ul className="space-y-3">
+                {/* <li>
                 <Link
                   href="/about"
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
+                  className="text-custom-half font-semibold "
                 >
                   {t('Header.aboutUs')}
                 </Link>
               </li> */}
-              <li>
+                {/* <li>
                 <Link
                   href="/#contact-section"
-                  className="text-gray-300 hover:text-white transition-colors duration-200"
+                  className="text-custom-half font-semibold "
                 >
                   {t("HomePage.contactform")}
                 </Link>
-              </li>
-              <li>
-                <a
-                  href="mailto:info@larleed.org"
-                  className="flex items-center text-gray-300 hover:text-white transition-colors duration-200"
-                >
-                  <div className="w-4 h-4 mr-2 ml-2">📧</div>
-                  info@larleed.org
-                </a>
-              </li>
-              <li className="text-gray-300">Kabul, Afghanistan</li>
-            </ul>
+              </li> */}
+                <li>
+                  <a
+                    href="mailto:info@larleed.org"
+                    className="flex items-center text-gray-300 "
+                  >
+                    <div className="w-4 h-4 mr-2 ml-2">📧</div>
+                    info@larleed.org
+                  </a>
+                </li>
+                <li className="text-gray-300">
+                  {t("Header.Kabul Afghanistan")}
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-gray-800">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-gray-400 text-sm mb-4 md:mb-0">
-              © {new Date().getFullYear()} LarLeed. All rights reserved.
-            </div>
-            {/* <div className="flex flex-wrap justify-center gap-6 text-sm">
-              <Link href="/privacy" className="text-gray-400 hover:text-white transition-colors duration-200">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="text-gray-400 hover:text-white transition-colors duration-200">
-                Terms of Service
-              </Link>
-              <Link href="/cookies" className="text-gray-400 hover:text-white transition-colors duration-200">
-                Cookie Policy
-              </Link>
-              <Link href="/sitemap" className="text-gray-400 hover:text-white transition-colors duration-200">
-                Sitemap
-              </Link>
-            </div> */}
-          </div>
+        {/* Bottom Bar */}
+        <div className="text-gray-400 text-sm mb-4  py-6 border-t border-gray-200">
+          © {t("Header.2025 Larleed")} {"Header.All rights reserved"}
         </div>
       </div>
     </footer>

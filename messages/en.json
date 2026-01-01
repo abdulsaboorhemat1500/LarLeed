@@ -7,17 +7,37 @@
     "donate": "Donate",
     "contactUs": "Contact Us",
     "aboutUs": "About Us",
-    "certifications": "English and Digital Skills Courses"
+    "certifications": "English and Digital Skills Courses",
+    "2025 Larleed": "2025 Larleed.",
+    "All rights reserved": "All rights reserved.",
+    "Kabul Afghanistan": "Kabul, Afghanistan"
   },
   "Banner": {
     "title": "Larleed",
     "description1": "Connecting Afghan Youth ",
-    "description2": "through Education, Dialogue, and Vision."
+    "description2": "through Education, Dialogue, and Vision"
   },
   "SchoolPage": {
+    "Visit Website": "Visit Their Website",
+    "Facebook": "Facebook",
+    "Instagram": "Instagram",
+    "Social Media": "Social Media",
+    "Funding Type": "Funding Type",
+    "Content Type": "Content Type",
+    "School Name": "School Name",
+    "School Summary": "Summary",
+    "Detailed Information": "Detailed Information",
+    "No detailed information available in": "No detailed information available in",
+    "No overview available in": "No overview available in",
+    "School Overview": "School Overview",
+    "Try Again": "Try Again",
+    "Error loading school": "Error loading school",
     "page title": "Read about the programs for grades 1–12 below, then select and apply to the one that best suits your needs."
   },
   "HomePage": {
+    "Support Our Mission": "Support Our Mission",
+    "Donation Information Coming Soon": "Donation Information Coming Soon",
+    "Donate Now": "Donate Now",
     "about larleed": "About Larleed",
     "view details": "View Details",
     "on this website": "On this website, you can:",
@@ -28,7 +48,7 @@
     "access curated resources": "Access Curated Resources",
     "and guidance to support": "And guidance to support educational decision-making",
     "this platform is designed": "This platform is designed to help you find information easily—not to sell services.",
-    "learn about larleed": "To learn more about our mission, values, and why Larleed exists, Visit About Us",
+    "learn about larleed": "To learn more about our mission, values, and why Larleed exists, visit About Us",
     "larleed is a free": "Larleed is a free, public education resource created to help Afghan youth and families navigate learning opportunities.",
     "loading": "Loading...",
     "lets join": "Join us on social media!",
@@ -121,6 +141,7 @@
     "university": "Universities"
   },
   "MentorshipsPage": {
+    "larleed mentorship homepage": "Larleed's mentorship initiative is a community-based, volunteer-supported program that connects students with mentors who have experience navigating similar educational pathways. The purpose of this initiative is to share knowledge, experience, and practical insights, not to provide paid consulting services or guarantees.",
     "mentorship request form": "Mentorship Request Form",
     "No Mentorship Content Available": "No Mentorship Content Available",
     "Mentorship Details": "Mentorship Details",
