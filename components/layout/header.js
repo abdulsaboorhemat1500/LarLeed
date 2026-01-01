@@ -7,7 +7,7 @@ import { useTranslations } from "../../hooks/useTranslations";
 import { useState } from "react";
 import { X, Menu } from "lucide-react";
 import Link from "next/link";
-import { useParams, usePathname } from "next/navigation";
+import { useParams } from "next/navigation";
 
 // Component to render text with break after 3 words
 const ThreeWordText = ({ text, isMobile = false }) => {
@@ -50,7 +50,6 @@ export default function HeaderSection() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { t } = useTranslations();
   const { locale } = useParams();
-  const pathname = usePathname();
 
   // Check if current locale is Pashto or Dari
   const isRtlLanguage = locale === "ps" || locale === "fa";
@@ -58,11 +57,6 @@ export default function HeaderSection() {
   // Text size classes based on language
   const textSizeClass = isRtlLanguage ? "text-lg" : "text-md";
   const mobileTextSizeClass = isRtlLanguage ? "text-lg" : "text-base";
-
-  // Function to check if a link is active
-  const isActiveLink = (href) => {
-    return pathname === `/${locale}${href}` || pathname === href;
-  };
 
   // Navigation items data
   const navItems = [
@@ -90,7 +84,6 @@ export default function HeaderSection() {
         {/* Desktop Navigation */}
         <div className="hidden lg:flex lg:gap-x-0.5">
           {navItems.map((item) => {
-            const isActive = isActiveLink(item.href);
             const text = t(`Header.${item.key}`);
 
             return (
@@ -112,11 +105,7 @@ export default function HeaderSection() {
                   flex items-center justify-center
                   min-w-[85px]
                   h-[44px]
-                  ${
-                    isActive
-                      ? "bg-blue-600 text-white shadow-md"
-                      : "text-gray-900 hover:text-custom-half hover:bg-blue-50"
-                  }
+                  
                 `}
               >
                 <ThreeWordText text={text} isMobile={false} />

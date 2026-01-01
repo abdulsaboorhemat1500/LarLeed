@@ -3,7 +3,7 @@
 import { useTranslations } from "@/hooks/useTranslations";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useState, useEffect, useRef } from "react"; // Fixed import
+import { useState, useEffect, useRef } from "react";
 
 // Sample scholarship data
 const scholarships = [
@@ -23,6 +23,7 @@ export default function ScholarshipsSlider() {
   const { locale } = useParams();
   const { t } = useTranslations();
   const sliderRef = useRef(null);
+  const containerRef = useRef(null);
   const [isClient, setIsClient] = useState(false);
   const animationRef = useRef(null);
 
@@ -36,15 +37,19 @@ export default function ScholarshipsSlider() {
   useEffect(() => {
     setIsClient(true);
 
-    if (!sliderRef.current) return;
+    if (!sliderRef.current || !containerRef.current) return;
 
     let position = 0;
-    const speed = 0.5; // Adjust this for speed
-    const itemWidth = 168; // w-36 (144px) + gap-6 (24px) = 168px
-    const totalWidth = itemWidth * scholarships.length;
+    const speed = 1; // Adjust this for speed
 
     const animate = () => {
       position -= speed;
+
+      // Get the actual width of one scholarship item
+      const itemWidth = 144; // w-36 = 144px
+      const gap = 24; // gap-6 = 24px
+      const itemTotalWidth = itemWidth + gap;
+      const totalWidth = itemTotalWidth * scholarships.length;
 
       // Reset position when we've moved one set of scholarships
       if (Math.abs(position) >= totalWidth) {
@@ -131,7 +136,7 @@ export default function ScholarshipsSlider() {
         </div>
 
         {/* JavaScript Animation Slider Container */}
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden" ref={containerRef}>
           <div className="flex">
             <div
               ref={sliderRef}
