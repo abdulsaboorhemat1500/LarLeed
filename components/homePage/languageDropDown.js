@@ -111,9 +111,7 @@ export default function LanguageDropdown() {
       <button
         type="button"
         className={`flex items-center justify-center w-10 h-10 rounded-full   ${
-          isNonLocalizedRoute
-            ? "bg-gray-300 cursor-not-allowed opacity-50"
-            : "bg-gray-100 hover:bg-gray-200"
+          isNonLocalizedRoute ? "bg-gray-300 cursor-not-allowed opacity-50" : ""
         }`}
         onClick={() => !isNonLocalizedRoute && setIsOpen(!isOpen)}
         aria-label="Select language"

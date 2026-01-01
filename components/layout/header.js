@@ -16,25 +16,30 @@ const ThreeWordText = ({ text, isMobile = false }) => {
   const words = text.split(" ");
 
   if (words.length <= 3) {
-    return isMobile ? (
-      <div className="flex items-center justify-center bg-blue-100 hover:bg-blue-300 hover:text-white transition-all duration-200 transform rounded-lg">
+    return (
+      <div
+        className={`flex items-center justify-center ${
+          isMobile
+            ? "bg-blue-100 hover:bg-blue-300 hover:text-white transition-all duration-200 transform rounded-lg"
+            : ""
+        }`}
+      >
         {text}
       </div>
-    ) : (
-      <div>{text}</div>
     );
   }
 
   const firstLine = words.slice(0, 3).join(" ");
   const secondLine = words.slice(3).join(" ");
 
-  return isMobile ? (
-    <div className="flex flex-col items-center justify-center bg-blue-100 hover:bg-blue-300 hover:text-white transition-all duration-200 transform rounded-lg">
-      <div>{firstLine}</div>
-      <div>{secondLine}</div>
-    </div>
-  ) : (
-    <div>
+  return (
+    <div
+      className={`flex flex-col items-center justify-center ${
+        isMobile
+          ? "bg-blue-100 hover:bg-blue-300 hover:text-white transition-all duration-200 transform rounded-lg"
+          : ""
+      }`}
+    >
       <div>{firstLine}</div>
       <div>{secondLine}</div>
     </div>
@@ -114,14 +119,7 @@ export default function HeaderSection() {
                   }
                 `}
               >
-                {text.split(" ").length <= 3 ? (
-                  text
-                ) : (
-                  <>
-                    <div>{text.split(" ").slice(0, 3).join(" ")}</div>
-                    <div>{text.split(" ").slice(3).join(" ")}</div>
-                  </>
-                )}
+                <ThreeWordText text={text} isMobile={false} />
               </Link>
             );
           })}
@@ -191,7 +189,7 @@ export default function HeaderSection() {
                           ${
                             isActive
                               ? "bg-blue-600 text-white"
-                              : "text-gray-900 hover:bg-blue-300 hover:text-white"
+                              : "text-gray-900 hover:text-white"
                           }
                         `}
                       >
