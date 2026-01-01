@@ -59,7 +59,7 @@ export default function DonateSection() {
     return (
       <section
         id="donate"
-        className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex items-center justify-center"
+        className="min-h-screen bg-white flex items-center justify-center"
       >
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
       </section>
@@ -67,10 +67,7 @@ export default function DonateSection() {
   }
 
   return (
-    <section
-      id="donate"
-      className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50"
-    >
+    <section id="donate" className="min-h-screen bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Background Design */}
         <div className="absolute inset-0 opacity-10">

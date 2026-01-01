@@ -141,23 +141,23 @@ export default function MentorshipPage() {
               </div>
             </div>
           </div>
-          {/* Mentorship Request Button */}
-          <div className="text-center">
-            <button
-              onClick={() => setIsMentorModalOpen(true)}
-              className="cursor-pointer bg-custom-half text-white px-10 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-            >
-              {t("MentorshipsPage.mentorship request form") ||
-                "Request Mentorship"}
-            </button>
-          </div>
-
-          {/* Modal Component */}
-          <ScholarshipFormModal
-            isOpen={isMentorModalOpen}
-            onClose={() => setIsMentorModalOpen(false)}
-          />
         </div>
+        {/* Mentorship Request Button */}
+        <div className="text-center py-3">
+          <button
+            onClick={() => setIsMentorModalOpen(true)}
+            className="cursor-pointer bg-custom-half text-white px-10 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+          >
+            {t("MentorshipsPage.mentorship request form") ||
+              "Request Mentorship"}
+          </button>
+        </div>
+
+        {/* Modal Component */}
+        <ScholarshipFormModal
+          isOpen={isMentorModalOpen}
+          onClose={() => setIsMentorModalOpen(false)}
+        />
       </section>
     </>
   );
