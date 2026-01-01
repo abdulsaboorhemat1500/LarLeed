@@ -36,7 +36,7 @@ export default function Footer() {
   const { t } = useTranslations();
   return (
     <footer className="bg-white">
-      <div className="bg-blue-50  max-w-7xl mx-auto rounded-lg mb-16 mt-10">
+      <div className="bg-white shadow-2xl  max-w-7xl mx-auto rounded-lg mb-16 mt-10">
         {/* Main Footer Content */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
@@ -171,13 +171,13 @@ export default function Footer() {
                 <li>
                   <a
                     href="mailto:info@larleed.org"
-                    className="flex items-center text-gray-300 "
+                    className="flex items-center text-custom-half "
                   >
                     <div className="w-4 h-4 mr-2 ml-2">📧</div>
                     info@larleed.org
                   </a>
                 </li>
-                <li className="text-gray-300">
+                <li className="text-custom-half">
                   {t("Header.Kabul Afghanistan")}
                 </li>
               </ul>
@@ -186,7 +186,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="text-gray-400 text-sm mb-4  py-6 border-t border-gray-200">
+        <div className="text-gray-400 text-sm mb-4 pl-3  py-6 border-t border-gray-200">
           © {t("Header.2025 Larleed")} {"Header.All rights reserved"}
         </div>
       </div>

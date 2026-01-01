@@ -82,7 +82,7 @@ export default function ScholarshipsSlider() {
               {t("ScholarshipsPage.allScholarships")}
             </h2>
           </div>
-          <div className="h-24"></div> {/* Placeholder height */}
+          <div className="h-36"></div> {/* Placeholder height */}
         </div>
       </section>
     );
@@ -92,17 +92,37 @@ export default function ScholarshipsSlider() {
     <section className="bg-blue-50 py-12 px-4 md:px-8 overflow-hidden">
       <div className="container mx-auto">
         {/* Simple Header */}
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 mt-4">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 ">
             {t("ScholarshipsPage.allScholarships")}
           </h2>
+          <Link
+            href={`/${locale}/scholarships-programs`}
+            className="inline-flex items-center text-custom-half font-semibold text-lg transition-colors duration-200"
+          >
+            {t("HomePage.see all")}
+            <svg
+              className="w-5 h-5 ms-2 rtl:rotate-180"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </Link>
         </div>
 
         {/* Auto-moving Slider Container */}
         <div className="relative overflow-hidden">
           <div
             ref={sliderRef}
-            className="flex gap-4"
+            className="flex gap-6"
             style={{
               transform: `translateX(${sliderPosition}px)`,
               willChange: "transform",
@@ -110,9 +130,9 @@ export default function ScholarshipsSlider() {
           >
             {duplicatedScholarships.map((scholarship, index) => (
               <div key={`${scholarship.id}-${index}`} className="flex-shrink-0">
-                <div className="bg-gradient-to-r from-blue-500 to-teal-400 rounded-full border-2 border-white px-8 py-4 text-white hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer">
-                  <div className="flex items-center justify-center h-full">
-                    <span className="text-lg font-semibold whitespace-nowrap">
+                <div className="bg-custom-half h-36 w-36 rounded-full border-2 border-white text-white hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center p-4">
+                  <div className="text-center">
+                    <span className="text-base font-semibold break-words line-clamp-3">
                       {scholarship.name}
                     </span>
                   </div>
