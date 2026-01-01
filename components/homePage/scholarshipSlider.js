@@ -133,7 +133,7 @@ export default function ScholarshipsSlider() {
           >
             {duplicatedScholarships.map((scholarship, index) => (
               <div key={`${scholarship.id}-${index}`} className="flex-shrink-0">
-                <div className="bg-custom-half h-36 w-36 rounded-full border-2 border-white text-white hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center p-4">
+                <div className="bg-blue-100 h-36 w-36 rounded-full border-2 border-white text-gray-700 hover:text-gray-900 hover:shadow-xl hover:scale-105 transition-all duration-300 cursor-pointer flex items-center justify-center p-4">
                   <div className="text-center">
                     <span className="text-base font-semibold break-words line-clamp-3">
                       {scholarship.name}
