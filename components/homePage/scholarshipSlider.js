@@ -1,8 +1,7 @@
-// components/ScholarshipsSlider.tsx
 "use client";
-import { useTranslations } from "@/hooks/useTranslations";
 
 import { useState, useEffect, useRef } from "react";
+import { useTranslations } from "@/hooks/useTranslations";
 
 // Sample scholarship data
 const scholarships = [
@@ -16,15 +15,14 @@ const scholarships = [
   { id: 8, name: "Chinese Government Scholarships" },
   { id: 9, name: "NL Scholarship" },
   { id: 10, name: "MEXT – Japanese Scholarship" },
-//   { id: 11, name: "Engineering Innovation Award" },
-//   { id: 12, name: "Mathematics Achievement Grant" },
 ];
 
-export default function ScholarshipsSlider  ()  {
-  const {t} = useTranslations();
+export default function ScholarshipsSlider() {
+  const { t } = useTranslations();
   const sliderRef = useRef < HTMLDivElement > null;
-  const animationRef = useRef < number > 0;
+  const animationRef = (useRef < number) | (null > null);
   const [sliderPosition, setSliderPosition] = useState(0);
+  const [isClient, setIsClient] = useState(false);
 
   // Duplicate scholarships for seamless infinite scrolling
   const duplicatedScholarships = [
@@ -33,8 +31,15 @@ export default function ScholarshipsSlider  ()  {
     ...scholarships,
   ];
 
-  // Continuous auto-scrolling animation
+  // Set client-side flag
   useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  // Continuous auto-scrolling animation (client-side only)
+  useEffect(() => {
+    if (!isClient) return;
+
     let lastTimestamp = 0;
     const speed = 50; // pixels per second
 
@@ -61,9 +66,27 @@ export default function ScholarshipsSlider  ()  {
     animationRef.current = requestAnimationFrame(animate);
 
     return () => {
-      cancelAnimationFrame(animationRef.current);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
     };
-  }, [scholarships.length]);
+  }, [isClient, scholarships.length]);
+
+  // Don't render the slider on server-side
+  if (!isClient) {
+    return (
+      <section className="bg-blue-50 py-12 px-4 md:px-8 overflow-hidden">
+        <div className="container mx-auto">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-800">
+              {t("ScholarshipsPage.allScholarships")}
+            </h2>
+          </div>
+          <div className="h-24"></div> {/* Placeholder height */}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-blue-50 py-12 px-4 md:px-8 overflow-hidden">
@@ -101,5 +124,4 @@ export default function ScholarshipsSlider  ()  {
       </div>
     </section>
   );
-};
-
+}

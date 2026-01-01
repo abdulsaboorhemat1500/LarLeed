@@ -7,7 +7,7 @@ export default function HeroSection() {
   const isRTL = currentLocale === "ps" || currentLocale === "fa";
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 lg:py-20 relative overflow-hidden">
+    <section className=" bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-12 lg:py-20 relative overflow-hidden">
       {/* Background Design */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute -top-24 -left-24 w-96 h-96 bg-custom-half rounded-full"></div>
