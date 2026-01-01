@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "@/hooks/useTranslations";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 // Sample scholarship data
 const scholarships = [
@@ -19,6 +20,7 @@ const scholarships = [
 ];
 
 export default function ScholarshipsSlider() {
+  const { locale } = useParams();
   const { t } = useTranslations();
   const sliderRef = useRef(null);
   const animationRef = useRef(null);
