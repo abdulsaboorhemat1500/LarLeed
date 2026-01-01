@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useTranslations } from "@/hooks/useTranslations";
+import Link from "next/link";
 
 // Sample scholarship data
 const scholarships = [
