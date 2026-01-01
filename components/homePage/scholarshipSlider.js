@@ -2,8 +2,8 @@
 
 import { useTranslations } from "@/hooks/useTranslations";
 import Link from "next/link";
-import { useParams, useEffect, useRef } from "next/navigation";
-import { useState } from "react";
+import { useParams } from "next/navigation";
+import { useState, useEffect, useRef } from "react"; // Fixed import
 
 // Sample scholarship data
 const scholarships = [
@@ -132,7 +132,7 @@ export default function ScholarshipsSlider() {
 
         {/* JavaScript Animation Slider Container */}
         <div className="relative overflow-hidden">
-          <div className="flex gap-6">
+          <div className="flex">
             <div
               ref={sliderRef}
               className="flex gap-6"
