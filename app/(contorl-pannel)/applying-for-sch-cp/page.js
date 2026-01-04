@@ -42,74 +42,59 @@ export default function ApplicationsListPage() {
   }, []);
 
   // Handle mark as reviewed
-  const handleMarkAsReviewed = async (applicationId) => {
-    try {
-      setUpdatingId(applicationId);
+  // const handleMarkAsReviewed = async (applicationId) => {
+  //   try {
+  //     setUpdatingId(applicationId);
 
-      const application = applications.find((app) => app.id === applicationId);
-      if (!application) return;
+  //     const application = applications.find((app) => app.id === applicationId);
+  //     if (!application) return;
 
-      const formData = new FormData();
+  //     const formData = new FormData();
 
-      Object.keys(application).forEach((key) => {
-        if (
-          key !== "id" &&
-          key !== "created_at" &&
-          key !== "updated_at" &&
-          application[key] !== null &&
-          application[key] !== undefined
-        ) {
-          formData.append(key, application[key]);
-        }
-      });
+  //     Object.keys(application).forEach((key) => {
+  //       if (
+  //         key !== "id" &&
+  //         key !== "created_at" &&
+  //         key !== "updated_at" &&
+  //         application[key] !== null &&
+  //         application[key] !== undefined
+  //       ) {
+  //         formData.append(key, application[key]);
+  //       }
+  //     });
 
-      formData.append("form_status", "reviewed");
+  //     formData.append("form_status", "reviewed");
 
-      const result = await put(
-        `/api/applyingScholarships/${applicationId}`,
-        formData
-      );
+  //     const result = await put(
+  //       `/api/applyingScholarships/${applicationId}`,
+  //       formData
+  //     );
 
-      if (result.success) {
-        setApplications((prevApplications) =>
-          prevApplications.map((app) =>
-            app.id === applicationId ? { ...app, form_status: "reviewed" } : app
-          )
-        );
-        console.log("Application marked as reviewed");
-      } else {
-        throw new Error(result.error || "Failed to update application");
-      }
-    } catch (error) {
-      console.error("Error marking as reviewed:", error);
-      alert("Failed to mark as reviewed. Please try again.");
-    } finally {
-      setUpdatingId(null);
-    }
-  };
+  //     if (result.success) {
+  //       setApplications((prevApplications) =>
+  //         prevApplications.map((app) =>
+  //           app.id === applicationId ? { ...app, form_status: "reviewed" } : app
+  //         )
+  //       );
+  //       console.log("Application marked as reviewed");
+  //     } else {
+  //       throw new Error(result.error || "Failed to update application");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error marking as reviewed:", error);
+  //     alert("Failed to mark as reviewed. Please try again.");
+  //   } finally {
+  //     setUpdatingId(null);
+  //   }
+  // };
 
   // Handle status updates (accepted, rejected, etc.)
   const handleStatusUpdate = async (applicationId, newStatus) => {
     try {
       setUpdatingId(applicationId);
 
-      const application = applications.find((app) => app.id === applicationId);
-      if (!application) return;
-
+      // Create simple form data with ONLY the form_status
       const formData = new FormData();
-
-      Object.keys(application).forEach((key) => {
-        if (
-          key !== "id" &&
-          key !== "created_at" &&
-          key !== "updated_at" &&
-          application[key] !== null &&
-          application[key] !== undefined
-        ) {
-          formData.append(key, application[key]);
-        }
-      });
-
       formData.append("form_status", newStatus);
 
       const result = await put(
@@ -130,6 +115,38 @@ export default function ApplicationsListPage() {
     } catch (error) {
       console.error("Error updating status:", error);
       alert(`Failed to mark as ${newStatus}. Please try again.`);
+    } finally {
+      setUpdatingId(null);
+    }
+  };
+
+  // Also update the handleMarkAsReviewed function similarly:
+  const handleMarkAsReviewed = async (applicationId) => {
+    try {
+      setUpdatingId(applicationId);
+
+      // Create simple form data with ONLY the form_status
+      const formData = new FormData();
+      formData.append("form_status", "reviewed");
+
+      const result = await put(
+        `/api/applyingScholarships/${applicationId}`,
+        formData
+      );
+
+      if (result.success) {
+        setApplications((prevApplications) =>
+          prevApplications.map((app) =>
+            app.id === applicationId ? { ...app, form_status: "reviewed" } : app
+          )
+        );
+        console.log("Application marked as reviewed");
+      } else {
+        throw new Error(result.error || "Failed to update application");
+      }
+    } catch (error) {
+      console.error("Error marking as reviewed:", error);
+      alert("Failed to mark as reviewed. Please try again.");
     } finally {
       setUpdatingId(null);
     }
