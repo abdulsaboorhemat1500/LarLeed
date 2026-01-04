@@ -24,12 +24,6 @@ export default function CourseCard({ course, getLocalizedField }) {
           alt={getLocalizedField(course, "name")}
           className="w-full h-full object-cover"
         />
-
-        {/* Views Counter Overlay */}
-        <div className="absolute top-3 right-3 bg-black/70 text-white px-2 py-1 rounded-full flex items-center gap-1 text-xs backdrop-blur-sm">
-          <span>👁️</span>
-          <span>{course.views || 0}</span>
-        </div>
       </div>
 
       {/* Course Content */}
@@ -55,13 +49,13 @@ export default function CourseCard({ course, getLocalizedField }) {
         />
 
         {/* Fee */}
-        <p className="bg-purple-50 text-purple-700 rounded-lg p-2 text-sm font-medium mb-4">
+        <p className=" text-purple-700  p-2 text-sm font-medium mb-4">
           {course.fee || "Free"}
         </p>
 
         {/* Read More Button */}
-        <Link href={`/${locale}/course/${course.id}`}>
-          <button className="cursor-pointer w-full bg-custom-half text-white px-8 py-3 rounded-lg font-semibold text-md shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+        <Link href={`/${locale}/certifications/${course.id}`}>
+          <button className="cursor-pointer w-full bg-custom-half text-white px-8 py-2 rounded-full font-semibold text-md shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
             {t("HomePage.view details")}
           </button>
         </Link>

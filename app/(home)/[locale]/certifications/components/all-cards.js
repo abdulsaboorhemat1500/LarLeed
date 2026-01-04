@@ -141,7 +141,7 @@ export default function CoursesCards() {
                   </div>
                   <input
                     type="text"
-                    placeholder={t("SchoolPage.search")}
+                    placeholder={t("CoursePage.search")}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-12 pr-12 py-4 border border-gray-300 dark:border-gray-600 rounded-2xl bg-white dark:bg-gray-800 text-gray-900  placeholder-gray-500 dark:placeholder-gray-400 focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 text-base w-full transition-all duration-300 shadow-lg hover:shadow-xl"
@@ -246,7 +246,7 @@ export default function CoursesCards() {
                   onClick={() => {
                     setSearchQuery("");
                   }}
-                  className="mt-4 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+                  className="mt-4 px-6 py-3 bg-custom-half text-white rounded-lg transition-colors"
                 >
                   {t("HomePage.clear search")}
                 </button>

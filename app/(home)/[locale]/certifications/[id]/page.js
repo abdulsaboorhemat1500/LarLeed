@@ -167,14 +167,8 @@ export default function CourseDetailsPage() {
           </div>
           <div className="relative z-10">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              {getLocalizedField(course, "name") }
+              {getLocalizedField(course, "name")}
             </h1>
-            <div className="flex items-center text-center justify-center gap-2 px-4 py-2">
-              <span className="text-lg">👁️</span>
-              <span className="text-lg font-bold text-white">
-                {course.views}
-              </span>
-            </div>
           </div>
         </div>
 
@@ -237,11 +231,6 @@ export default function CourseDetailsPage() {
                         alt={getLocalizedField(course, "name") || "Course"}
                         className="w-full h-full object-cover"
                       />
-                      {/* Views Counter Overlay */}
-                      <div className="absolute top-3 right-3 bg-black/70 text-white px-3 py-1 rounded-full flex items-center gap-1 text-sm backdrop-blur-sm">
-                        <span>👁️</span>
-                        <span>{course.views}</span>
-                      </div>
                     </div>
                   </div>
                 )}
@@ -292,7 +281,6 @@ export default function CourseDetailsPage() {
                       </p>
                     </div>
                   </div>
-
                 </div>
 
                 {/* Course Link Button */}
