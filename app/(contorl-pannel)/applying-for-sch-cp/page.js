@@ -40,26 +40,34 @@ export default function ApplicationsListPage() {
   }, []);
 
   // Handle mark as reviewed
+  // Handle mark as reviewed - Use JSON instead
   const handleMarkAsReviewed = async (applicationId) => {
     try {
       setUpdatingId(applicationId);
 
-      // Create FormData
-      const formData = new FormData();
-      formData.append("form_status", "reviewed");
-
       console.log("📤 Sending PUT request for ID:", applicationId);
-      console.log("📦 FormData content:");
-      for (let [key, value] of formData.entries()) {
-        console.log(`  ${key}:`, value);
-      }
 
-      // Send PUT request with FormData
-      const result = await put(
+      // Send as JSON
+      const response = await fetch(
         `/api/applyingScholarships/${applicationId}`,
-        formData
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ form_status: "reviewed" }),
+        }
       );
 
+      console.log("📨 Response status:", response.status);
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("❌ PUT Error response:", errorText);
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
       console.log("📨 PUT Response:", result);
 
       if (result.success) {
@@ -324,19 +332,6 @@ export default function ApplicationsListPage() {
                   Reset All Filters
                 </button>
               </div>
-
-              {/* Results Summary */}
-              <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-gray-600">
-                <span className="font-medium">
-                  {filteredApplications.length}
-                </span>{" "}
-                applications found
-                {statusFilter !== "all" && (
-                  <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
-                    Filtered by: {statusFilter}
-                  </span>
-                )}
-              </div>
             </div>
 
             {/* Applications Table */}
@@ -402,7 +397,7 @@ export default function ApplicationsListPage() {
                           {formatDate(application.created_at)}
                         </td>
                         <td className="px-6 py-4">
-                          <div className="flex flex-col space-y-3">
+                          <div className="flex gap-2 space-y-3">
                             <Link
                               href={`/applying-for-sch-cp/details-cp/${application.id}`}
                             >
@@ -417,10 +412,6 @@ export default function ApplicationsListPage() {
                             </Link>
 
                             <StatusUpdateButton application={application} />
-
-                            <div className="text-xs text-gray-400 text-center">
-                              ID: {application.id}
-                            </div>
                           </div>
                         </td>
                       </tr>
