@@ -1,5 +1,5 @@
 export const runtime = "edge";
-import CoursesPage from "./components/all-cards";
+import CoursesCards from "./components/all-cards";
 export default function CoursesPage() {
-  return <CoursesPage />;
+  return <CoursesCards />;
 }

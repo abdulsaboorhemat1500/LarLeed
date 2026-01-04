@@ -7,7 +7,7 @@ import { useParams } from "next/navigation";
 import SocialMediaSection from "@/components/homePage/socialmedia";
 import SchoolCard from "./schoolCard";
 
-export default function SchoolsPage() {
+export default function SchoolsCards() {
   const [currentPage, setCurrentPage] = useState(1);
   const schoolsPerpage = 12;
   const [searchQuery, setSearchQuery] = useState("");

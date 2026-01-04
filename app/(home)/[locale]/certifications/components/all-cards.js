@@ -7,7 +7,7 @@ import { useParams } from "next/navigation";
 import SocialMediaSection from "@/components/homePage/socialmedia";
 import CourseCard from "./courseCard";
 
-export default function CoursesPage() {
+export default function CoursesCards() {
   const [currentPage, setCurrentPage] = useState(1);
   const coursesPerpage = 14;
   const [searchQuery, setSearchQuery] = useState("");
