@@ -203,12 +203,6 @@ export default function ScholarshipStudentVideosPage() {
                     scope="col"
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
-                    Video Link
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
                     Scholarship Name
                   </th>
                   <th
@@ -279,20 +273,6 @@ export default function ScholarshipStudentVideosPage() {
                         </div>
                       </div>
                     </td>
-
-                    {/* Video Link */}
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <a
-                        href={video.video_link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-sm text-blue-600 hover:text-blue-800 truncate max-w-xs block"
-                        title={video.video_link}
-                      >
-                        {video.video_link}
-                      </a>
-                    </td>
-
                     {/* Scholarship Name */}
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div

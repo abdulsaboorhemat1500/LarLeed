@@ -161,7 +161,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
               <div className="relative">
                 {/* Video title for How to Apply video */}
                 {howToApplyVideo && (
-                  <div className="mb-4 text-center bg-purple-50 rounded-lg p-2 ">
+                  <div className="mb-4 text-center bg-purple-100 rounded-lg p-2 ">
                     <h3 className="text-lg font-semibold text-gray-900 ">
                       {t("ScholarshipsPage.Complete application process")}
                     </h3>
@@ -246,7 +246,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
               {t("ScholarshipsPage.How did I get this scholarship")}
             </h2>
-            <p className="text-gray-300 font-mono text-sm ">
+            <p className="text-gray-500 text-md ">
               {t(
                 "ScholarshipsPage.Hear from successful students of this scholarship"
               )}
@@ -461,7 +461,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
             <div className="relative">
               {/* Video title for How to Apply video */}
               {howToApplyVideo && (
-                <div className="mb-4 text-center bg-purple-50 rounded-lg p-2 ">
+                <div className="mb-4 text-center bg-purple-100 rounded-lg p-2 ">
                   <h3 className="text-lg font-semibold text-gray-900 ">
                     {t("ScholarshipsPage.Complete application process")}
                   </h3>

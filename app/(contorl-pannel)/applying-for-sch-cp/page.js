@@ -14,9 +14,7 @@ export default function ApplicationsListPage() {
   const { get, put } = useApi();
 
   // Filter states
-  const [statusFilter, setStatusFilter] = useState("unreviewed"); // Default to unreviewed
-  const [levelFilter, setLevelFilter] = useState("");
-  const [countryFilter, setCountryFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("unreviewed");
 
   // Fetch applications from database
   const getApplications = async () => {
@@ -46,29 +44,23 @@ export default function ApplicationsListPage() {
     try {
       setUpdatingId(applicationId);
 
-      const application = applications.find((app) => app.id === applicationId);
-      if (!application) return;
-
+      // Create FormData
       const formData = new FormData();
-
-      Object.keys(application).forEach((key) => {
-        if (
-          key !== "id" &&
-          key !== "created_at" &&
-          key !== "updated_at" &&
-          application[key] !== null &&
-          application[key] !== undefined
-        ) {
-          formData.append(key, application[key]);
-        }
-      });
-
       formData.append("form_status", "reviewed");
 
+      console.log("📤 Sending PUT request for ID:", applicationId);
+      console.log("📦 FormData content:");
+      for (let [key, value] of formData.entries()) {
+        console.log(`  ${key}:`, value);
+      }
+
+      // Send PUT request with FormData
       const result = await put(
         `/api/applyingScholarships/${applicationId}`,
         formData
       );
+
+      console.log("📨 PUT Response:", result);
 
       if (result.success) {
         setApplications((prevApplications) =>
@@ -76,90 +68,18 @@ export default function ApplicationsListPage() {
             app.id === applicationId ? { ...app, form_status: "reviewed" } : app
           )
         );
-        console.log("Application marked as reviewed");
+        console.log("✅ Application marked as reviewed");
       } else {
+        console.error("❌ API returned error:", result);
         throw new Error(result.error || "Failed to update application");
       }
     } catch (error) {
-      console.error("Error marking as reviewed:", error);
-      alert("Failed to mark as reviewed. Please try again.");
+      console.error("❌ Error in handleMarkAsReviewed:", error);
+      alert(`Failed to mark as reviewed: ${error.message}`);
     } finally {
       setUpdatingId(null);
     }
   };
-
-  const handleStatusUpdate = async (applicationId, newStatus) => {
-    try {
-      setUpdatingId(applicationId);
-
-      const result = await put(
-        `/api/applyingScholarships/${applicationId}`,
-        { form_status: newStatus },
-        true // Set to true to send as JSON
-      );
-
-      if (result.success) {
-        setApplications((prevApplications) =>
-          prevApplications.map((app) =>
-            app.id === applicationId ? { ...app, form_status: newStatus } : app
-          )
-        );
-        console.log(`Application marked as ${newStatus}`);
-      } else {
-        throw new Error(result.error || "Failed to update application");
-      }
-    } catch (error) {
-      console.error("Error updating status:", error);
-      alert(`Failed to mark as ${newStatus}. Please try again.`);
-    } finally {
-      setUpdatingId(null);
-    }
-  };
-
-  // Also update the handleMarkAsReviewed function similarly:
-  // const handleMarkAsReviewed = async (applicationId) => {
-  //   try {
-  //     setUpdatingId(applicationId);
-
-  //     // Create simple form data with ONLY the form_status
-  //     const formData = new FormData();
-  //     formData.append("form_status", "reviewed");
-
-  //     const result = await put(
-  //       `/api/applyingScholarships/${applicationId}`,
-  //       formData
-  //     );
-
-  //     if (result.success) {
-  //       setApplications((prevApplications) =>
-  //         prevApplications.map((app) =>
-  //           app.id === applicationId ? { ...app, form_status: "reviewed" } : app
-  //         )
-  //       );
-  //       console.log("Application marked as reviewed");
-  //     } else {
-  //       throw new Error(result.error || "Failed to update application");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error marking as reviewed:", error);
-  //     alert("Failed to mark as reviewed. Please try again.");
-  //   } finally {
-  //     setUpdatingId(null);
-  //   }
-  // };
-
-  // Get unique values for filters
-  const uniqueLevels = useMemo(() => {
-    const levels = applications.map((app) => app.sch_level).filter(Boolean);
-    return [...new Set(levels)];
-  }, [applications]);
-
-  const uniqueCountries = useMemo(() => {
-    const countries = applications
-      .map((app) => app.sch_country)
-      .filter(Boolean);
-    return [...new Set(countries)];
-  }, [applications]);
 
   // Filter applications based on search and filters
   const filteredApplications = useMemo(() => {
@@ -180,37 +100,27 @@ export default function ApplicationsListPage() {
       // Status filter
       if (statusFilter !== "all") {
         if (statusFilter === "unreviewed") {
-          // Show applications that are not reviewed (form_status is false, null, empty, or 'pending')
+          // Show applications that are not reviewed
           const isUnreviewed =
             !application.form_status ||
             application.form_status === "" ||
             application.form_status === "false" ||
-            application.form_status.toLowerCase() === "pending" ||
-            application.form_status === false;
+            application.form_status === false ||
+            (application.form_status &&
+              application.form_status.toLowerCase() === "pending");
           if (!isUnreviewed) return false;
-        } else {
-          // For other status filters, match exactly
-          const appStatus = (application.form_status || "")
-            .toString()
-            .toLowerCase();
-          const filterStatus = statusFilter.toLowerCase();
-          if (appStatus !== filterStatus) return false;
+        } else if (statusFilter === "reviewed") {
+          // Show only reviewed applications
+          const isReviewed =
+            application.form_status &&
+            application.form_status.toString().toLowerCase() === "reviewed";
+          if (!isReviewed) return false;
         }
-      }
-
-      // Level filter
-      if (levelFilter && application.sch_level !== levelFilter) {
-        return false;
-      }
-
-      // Country filter
-      if (countryFilter && application.sch_country !== countryFilter) {
-        return false;
       }
 
       return true;
     });
-  }, [applications, searchTerm, statusFilter, levelFilter, countryFilter]);
+  }, [applications, searchTerm, statusFilter]);
 
   // Calculate pagination
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -224,8 +134,6 @@ export default function ApplicationsListPage() {
   const handleReset = () => {
     setSearchTerm("");
     setStatusFilter("unreviewed");
-    setLevelFilter("");
-    setCountryFilter("");
     setCurrentPage(1);
   };
 
@@ -275,94 +183,53 @@ export default function ApplicationsListPage() {
       );
     }
 
-    switch (status.toString().toLowerCase()) {
-      case "reviewed":
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-            Reviewed
-          </span>
-        );
-      case "pending":
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-            Pending
-          </span>
-        );
-      case "rejected":
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-            Rejected
-          </span>
-        );
-      case "accepted":
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-            Accepted
-          </span>
-        );
-      case "unknown":
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-            Unknown
-          </span>
-        );
-      default:
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
-            {status}
-          </span>
-        );
+    const statusStr = status.toString().toLowerCase();
+
+    if (statusStr === "reviewed") {
+      return (
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+          Reviewed
+        </span>
+      );
     }
+
+    return (
+      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+        {status}
+      </span>
+    );
   };
 
-  // Quick status update buttons
-  const StatusUpdateButtons = ({ application }) => {
+  // Quick status update button
+  const StatusUpdateButton = ({ application }) => {
     const isUnreviewed =
       !application.form_status ||
       application.form_status === "" ||
       application.form_status === "false" ||
       application.form_status === false ||
-      application.form_status.toLowerCase() === "pending";
+      (application.form_status &&
+        application.form_status.toLowerCase() === "pending");
 
     if (!isUnreviewed) {
       return (
-        <div className="text-xs text-gray-500 italic">
-          Status: {application.form_status}
+        <div className="text-xs text-green-600 text-center italic">
+          Already Reviewed
         </div>
       );
     }
 
     return (
-      <div className="flex flex-wrap gap-1 mt-2">
-        <button
-          onClick={() => handleStatusUpdate(application.id, "accepted")}
-          disabled={updatingId === application.id}
-          className="px-2 py-1 text-xs bg-green-100 text-green-700 hover:bg-green-200 rounded transition-colors duration-200 cursor-pointer"
-        >
-          Accept
-        </button>
-        <button
-          onClick={() => handleStatusUpdate(application.id, "rejected")}
-          disabled={updatingId === application.id}
-          className="px-2 py-1 text-xs bg-red-100 text-red-700 hover:bg-red-200 rounded transition-colors duration-200 cursor-pointer"
-        >
-          Reject
-        </button>
-        <button
-          onClick={() => handleStatusUpdate(application.id, "reviewed")}
-          disabled={updatingId === application.id}
-          className="px-2 py-1 text-xs bg-blue-100 text-blue-700 hover:bg-blue-200 rounded transition-colors duration-200 cursor-pointer"
-        >
-          Mark Reviewed
-        </button>
-        <button
-          onClick={() => handleStatusUpdate(application.id, "unknown")}
-          disabled={updatingId === application.id}
-          className="px-2 py-1 text-xs bg-gray-100 text-gray-700 hover:bg-gray-200 rounded transition-colors duration-200 cursor-pointer"
-        >
-          Unknown
-        </button>
-      </div>
+      <button
+        onClick={() => handleMarkAsReviewed(application.id)}
+        disabled={updatingId === application.id}
+        className={`w-full px-3 py-2 rounded transition-colors duration-200 cursor-pointer text-center text-sm font-medium ${
+          updatingId === application.id
+            ? "bg-gray-300 text-gray-700 cursor-not-allowed"
+            : "bg-blue-600 text-white hover:bg-blue-700"
+        }`}
+      >
+        {updatingId === application.id ? "Marking..." : "Mark as Reviewed"}
+      </button>
     );
   };
 
@@ -408,7 +275,7 @@ export default function ApplicationsListPage() {
           <>
             {/* Filters Section */}
             <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
                 {/* Search */}
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -443,11 +310,7 @@ export default function ApplicationsListPage() {
                   >
                     <option value="unreviewed">Unreviewed (Default)</option>
                     <option value="all">All Statuses</option>
-                    <option value="pending">Pending</option>
                     <option value="reviewed">Reviewed</option>
-                    <option value="accepted">Accepted</option>
-                    <option value="rejected">Rejected</option>
-                    <option value="unknown">Unknown</option>
                   </select>
                 </div>
               </div>
@@ -473,16 +336,6 @@ export default function ApplicationsListPage() {
                     Filtered by: {statusFilter}
                   </span>
                 )}
-                {levelFilter && (
-                  <span className="px-2 py-1 bg-green-100 text-green-800 rounded text-xs">
-                    Level: {levelFilter}
-                  </span>
-                )}
-                {countryFilter && (
-                  <span className="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-xs">
-                    Country: {countryFilter}
-                  </span>
-                )}
               </div>
             </div>
 
@@ -505,9 +358,6 @@ export default function ApplicationsListPage() {
                         SCHOLARSHIP
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        LEVEL & COUNTRY
-                      </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         APPLIED ON
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -528,9 +378,6 @@ export default function ApplicationsListPage() {
                           <div className="text-sm text-gray-500">
                             {application.email || "No email"}
                           </div>
-                          <div className="text-xs text-gray-400 mt-1">
-                            GPA: {application.gpa || "N/A"}
-                          </div>
                         </td>
                         <td className="px-6 py-4">
                           <div className="text-sm text-gray-900 font-medium">
@@ -548,25 +395,11 @@ export default function ApplicationsListPage() {
                             {application.sch_name || "N/A"}
                           </div>
                           <div className="text-xs text-gray-500 mt-1">
-                            Deadline: {formatDate(application.sch_deadline)}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="flex flex-col gap-1">
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                              {application.sch_level || "N/A"}
-                            </span>
-                            {application.sch_country && (
-                              <span className="text-xs text-gray-600">
-                                {application.sch_country}
-                              </span>
-                            )}
+                            {application.sch_country || "No country"}
                           </div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
-                          {formatDate(
-                            application.created_at || application.submitted_at
-                          )}
+                          {formatDate(application.created_at)}
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex flex-col space-y-3">
@@ -579,11 +412,11 @@ export default function ApplicationsListPage() {
                                 }
                                 className="w-full px-3 py-2 text-sm text-blue-600 hover:text-blue-900 border border-blue-600 hover:bg-blue-50 rounded transition-colors duration-200 cursor-pointer text-center"
                               >
-                                View Full Details
+                                View Details
                               </button>
                             </Link>
 
-                            <StatusUpdateButtons application={application} />
+                            <StatusUpdateButton application={application} />
 
                             <div className="text-xs text-gray-400 text-center">
                               ID: {application.id}
