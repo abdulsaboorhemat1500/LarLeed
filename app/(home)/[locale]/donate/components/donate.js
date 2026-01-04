@@ -85,7 +85,7 @@ export default function DonateSection() {
         <div className="flex flex-col items-center justify-center min-h-screen py-12">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               {t("HomePage.Support Our Mission")}
             </h1>
             <div className="w-24 h-1.5 bg-custom-half mx-auto rounded-full"></div>

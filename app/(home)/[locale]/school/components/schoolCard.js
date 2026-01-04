@@ -37,7 +37,7 @@ export default function SchoolCard({ school, getLocalizedField }) {
 
         {/* Funding Type */}
         <p className="text-blue-700 text-sm mb-3 font-medium line-clamp-1">
-          {t("scholarshipDetailsPage.funding tupe")}:
+          {t("scholarshipDetailsPage.funding type")}:
           {school.funding_type || "Not specified"}
         </p>
 

@@ -2,6 +2,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useApi } from "@/app/hooks/useApi";
 import ScholarshipFormModal from "../../mentorships/components/scholarship-form";
+import { useTranslations } from "@/hooks/useTranslations";
 
 export default function StudentStoriesSection({ scholarshipName = null }) {
   const { get } = useApi();
@@ -13,6 +14,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const sliderRef = useRef(null);
   const [isMentorModalOpen, setIsMentorModalOpen] = useState(false);
+  const { t } = useTranslations();
 
   // Fetch student videos
   const fetchStudentVideos = async () => {
@@ -141,14 +143,11 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
 
   if (loading) {
     return (
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading student stories...</p>
-          </div>
+      <div className=" bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
         </div>
-      </section>
+      </div>
     );
   }
 
@@ -158,41 +157,13 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
         <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              {/* Left Column - Text Content */}
-              <div className="space-y-6">
-                <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
-                  Need Help?
-                </h2>
-
-                <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-                  If you need our help with this scholarship then fill the
-                  following form. Our experts will guide you through the entire
-                  application process and maximize your chances of success.
-                </p>
-
-                <div className="pt-4">
-                  <button
-                    onClick={() => setIsMentorModalOpen(true)}
-                    className="cursor-pointer mt-4  py-3 px-4  border-2 border-custom-half text-custom-half  font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
-                  >
-                    Open Scholarship Form
-                  </button>
-                </div>
-
-                {/* Modal Component */}
-                <ScholarshipFormModal
-                  isOpen={isMentorModalOpen}
-                  onClose={() => setIsMentorModalOpen(false)}
-                />
-              </div>
-
               {/* Right Column - Video */}
               <div className="relative">
                 {/* Video title for How to Apply video */}
                 {howToApplyVideo && (
-                  <div className="mb-4 text-center">
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                      How to Apply For:{scholarshipName}
+                  <div className="mb-4 text-center bg-purple-50 rounded-lg p-2 ">
+                    <h3 className="text-lg font-semibold text-gray-900 ">
+                      {t("ScholarshipsPage.Complete application process")}
                     </h3>
                   </div>
                 )}
@@ -223,6 +194,41 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-blue-200 dark:bg-blue-800 rounded-full opacity-50 -z-10"></div>
                 <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-orange-200 dark:bg-orange-800 rounded-full opacity-50 -z-10"></div>
               </div>
+              {/* Left Column - Text Content */}
+              <div className="space-y-6">
+                <div className="mb-4">
+                  <div className=" rounded-lg p-6 shadow-md">
+                    <p className="text-xl md:text-2xl text-gray-800 font-semibold text-center">
+                      {t("MentorshipsPage.applying for scholarships")}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Second Text Block */}
+                <div className="mb-8">
+                  <div className=" rounded-lg p-6 shadow-md">
+                    <p className="text-lg md:text-xl text-gray-700 font-medium text-center">
+                      {t("MentorshipsPage.larleed mentorship homepage")}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="pt-4 text-center">
+                  <button
+                    onClick={() => setIsMentorModalOpen(true)}
+                    className="cursor-pointer bg-custom-half text-white px-10 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  >
+                    {t("MentorshipsPage.mentorship request form") ||
+                      "Request Mentorship"}
+                  </button>
+                </div>
+
+                {/* Modal Component */}
+                <ScholarshipFormModal
+                  isOpen={isMentorModalOpen}
+                  onClose={() => setIsMentorModalOpen(false)}
+                />
+              </div>
             </div>
           </div>
         </section>
@@ -236,15 +242,15 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
       <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-100">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              Stories of Graduation Students
-              {scholarshipName && (
-                <span className="block text-2xl text-blue-600 mt-2">
-                  for {scholarshipName}
-                </span>
-              )}
+          <div className="mb-12">
+            <h2 className="text-2xl font-bold text-gray-900 mb-4">
+              {t("ScholarshipsPage.How did I get this scholarship")}
             </h2>
+            <p className="text-gray-300 font-mono text-sm ">
+              {t(
+                "ScholarshipsPage.Hear from successful students of this scholarship"
+              )}
+            </p>
           </div>
 
           {/* Slider Container */}
@@ -370,7 +376,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                         onClick={() => openVideoModal(video)}
                         className="custom-my-btn"
                       >
-                        📺 Watch Story
+                        📺 {t("ScholarshipsPage.Watch Story")}
                       </button>
                     </div>
                   </div>
@@ -451,45 +457,16 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
       <section className="py-16 bg-gradient-to-br from-gray-50 to-blue-50 dark:from-gray-900 dark:to-blue-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Left Column - Text Content */}
-            <div className="space-y-6">
-              <h2 className="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
-                Need Help?
-              </h2>
-
-              <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-                If you need our help with this scholarship then fill the
-                following form. Our experts will guide you through the entire
-                application process and maximize your chances of success.
-              </p>
-
-              <div className="pt-4">
-                <button
-                  onClick={() => setIsMentorModalOpen(true)}
-                  className="cursor-pointer mt-4  py-3 px-4  border-2 border-custom-half text-custom-half font-semibold rounded-3xl transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl text-center"
-                >
-                  Open Scholarship Form
-                </button>
-              </div>
-
-              {/* Modal Component */}
-              <ScholarshipFormModal
-                isOpen={isMentorModalOpen}
-                onClose={() => setIsMentorModalOpen(false)}
-              />
-            </div>
-
             {/* Right Column - Video */}
             <div className="relative">
               {/* Video title for How to Apply video */}
               {howToApplyVideo && (
-                <div className="mt-4 text-center">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                    How to Apply For:{scholarshipName}
+                <div className="mb-4 text-center bg-purple-50 rounded-lg p-2 ">
+                  <h3 className="text-lg font-semibold text-gray-900 ">
+                    {t("ScholarshipsPage.Complete application process")}
                   </h3>
                 </div>
               )}
-
               <div className="aspect-w-16 aspect-h-9 rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-300">
                 {/* Show How to Apply video if available, otherwise show default */}
                 {howToApplyVideo ? (
@@ -504,7 +481,7 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
                   <iframe
                     src="https://sdkjfskdjfdjfaskdf"
                     title="Scholarship Guidance Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allow="accelerometer;  clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
                     className="w-full h-80 lg:h-96 rounded-2xl border-4 border-white dark:border-gray-800"
                   />
@@ -514,6 +491,41 @@ export default function StudentStoriesSection({ scholarshipName = null }) {
               {/* Decorative elements */}
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-blue-200 dark:bg-blue-800 rounded-full opacity-50 -z-10"></div>
               <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-orange-200 dark:bg-orange-800 rounded-full opacity-50 -z-10"></div>
+            </div>
+            {/* Left Column - Text Content */}
+            <div className="space-y-6">
+              <div className="mb-4">
+                <div className=" rounded-lg p-6 shadow-md">
+                  <p className="text-xl md:text-2xl text-gray-800 font-semibold text-center">
+                    {t("MentorshipsPage.applying for scholarships")}
+                  </p>
+                </div>
+              </div>
+
+              {/* Second Text Block */}
+              <div className="mb-8">
+                <div className=" rounded-lg p-6 shadow-md">
+                  <p className="text-lg md:text-xl text-gray-700 font-medium text-center">
+                    {t("MentorshipsPage.larleed mentorship homepage")}
+                  </p>
+                </div>
+              </div>
+
+              <div className="pt-4 text-center">
+                <button
+                  onClick={() => setIsMentorModalOpen(true)}
+                  className="cursor-pointer bg-custom-half text-white px-10 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                >
+                  {t("MentorshipsPage.mentorship request form") ||
+                    "Request Mentorship"}
+                </button>
+              </div>
+
+              {/* Modal Component */}
+              <ScholarshipFormModal
+                isOpen={isMentorModalOpen}
+                onClose={() => setIsMentorModalOpen(false)}
+              />
             </div>
           </div>
         </div>

@@ -55,8 +55,8 @@ export default function TeamSection() {
       <section className="py-20 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-sm border-b">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              {t('HomePage.team')}
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900  mb-6">
+              {t("HomePage.team")}
             </h2>
           </div>
           <div className="text-center text-red-600">
@@ -71,8 +71,8 @@ export default function TeamSection() {
     <section className="py-20 bg-gradient-to-r from-blue-50 to-indigo-50 shadow-sm border-b">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold text-gray-900 dark:text-white mb-6">
-            {t('HomePage.team')}
+          <h2 className="text-5xl font-bold text-gray-900  mb-6">
+            {t("HomePage.team")}
           </h2>
         </div>
 
@@ -82,8 +82,8 @@ export default function TeamSection() {
             <div key={member.id} className="text-center w-full max-w-[180px]">
               {/* Circular Image */}
               <div className="mb-5 mx-auto w-32 h-32 md:w-36 md:h-36 lg:w-40 lg:h-40">
-                <Link 
-                  href={`/${locale}/mentorships/${member.id}`} 
+                <Link
+                  href={`/${locale}/mentorships/${member.id}`}
                   className="cursor-pointer hover:shadow-xl w-full h-full rounded-full transform hover:scale-105 transition-transform duration-300 flex items-center justify-center overflow-hidden shadow-md"
                 >
                   {member.profile_image ? (
@@ -94,20 +94,24 @@ export default function TeamSection() {
                       height={160}
                       className="object-cover rounded-full w-full h-full"
                       onError={(e) => {
-                        e.target.style.display = 'none';
-                        e.target.nextSibling.style.display = 'flex';
+                        e.target.style.display = "none";
+                        e.target.nextSibling.style.display = "flex";
                       }}
                     />
                   ) : null}
-                  <div className={`${member.profile_image ? 'hidden' : 'flex'} items-center justify-center bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400 rounded-full w-full h-full`}>
-                    <span className="text-sm">{t('HomePage.no image')}</span>
+                  <div
+                    className={`${
+                      member.profile_image ? "hidden" : "flex"
+                    } items-center justify-center bg-gray-200 dark:bg-gray-600 text-gray-500 dark:text-gray-400 rounded-full w-full h-full`}
+                  >
+                    <span className="text-sm">{t("HomePage.no image")}</span>
                   </div>
                 </Link>
               </div>
 
               {/* Text Content */}
               <div>
-                <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-2">
+                <h3 className="font-bold text-gray-900  text-lg mb-2">
                   {member.full_name}
                 </h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">
@@ -122,7 +126,7 @@ export default function TeamSection() {
         {teamMembers.length === 0 && !loading && (
           <div className="text-center py-12">
             <p className="text-gray-500 dark:text-gray-400 text-lg">
-              {t('HomePage.no team members found')} 
+              {t("HomePage.no team members found")}
             </p>
           </div>
         )}

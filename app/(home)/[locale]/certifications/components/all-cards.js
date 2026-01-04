@@ -5,13 +5,13 @@ import { useApi } from "@/app/hooks/useApi";
 import { useTranslations } from "@/hooks/useTranslations";
 import { useParams } from "next/navigation";
 import SocialMediaSection from "@/components/homePage/socialmedia";
-import SchoolCard from "./schoolCard";
+import CourseCard from "./courseCard";
 
-export default function SchoolsPage() {
+export default function CoursesPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const schoolsPerpage = 12;
+  const coursesPerpage = 14;
   const [searchQuery, setSearchQuery] = useState("");
-  const [schools, setSchools] = useState([]);
+  const [courses, setcourses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const { get } = useApi();
@@ -31,15 +31,15 @@ export default function SchoolsPage() {
     return localeMap[locale] || "en";
   }, [locale]);
 
-  const getSchools = async () => {
+  const getcourses = async () => {
     try {
       setLoading(true);
       setError(null);
-      const resultedData = await get("/api/school");
+      const resultedData = await get("/api/course");
       if (resultedData.success) {
-        setSchools(resultedData.data || []);
+        setcourses(resultedData.data || []);
       } else {
-        setError("Failed to load schools");
+        setError("Failed to load courses");
       }
     } catch (error) {
       setError("Network error. Please try again.");
@@ -49,44 +49,42 @@ export default function SchoolsPage() {
   };
 
   useEffect(() => {
-    getSchools();
+    getcourses();
   }, []);
 
   // Fixed helper function that matches your database fields
-  const getLocalizedField = (school, fieldBase) => {
+  const getLocalizedField = (course, fieldBase) => {
     const fieldName = `${fieldBase}_${normalizedLocale}`;
-    return school[fieldName] || school[`${fieldBase}_en`] || "";
+
+    // Special handling for language mapping
+    let actualField = fieldName;
+
+    if (normalizedLocale === "pa") {
+      actualField = `${fieldBase}_fa`;
+    }
+
+    return course[actualField] || course[`${fieldBase}_en`] || "";
   };
 
-  // Filter schools based on search query
-  const filteredSchools = useMemo(() => {
-    return schools.filter((school) => {
+  // Filter courses based on search query
+  const filteredcourses = useMemo(() => {
+    return courses.filter((course) => {
       const matchesSearch =
         searchQuery === "" ||
-        getLocalizedField(school, "name")
-          ?.toLowerCase()
-          .includes(searchQuery.toLowerCase()) ||
-        getLocalizedField(school, "owner_name")
-          ?.toLowerCase()
-          .includes(searchQuery.toLowerCase()) ||
-        school.email?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        school.content_type
-          ?.toLowerCase()
-          .includes(searchQuery.toLowerCase()) ||
-        getLocalizedField(school, "overview")
+        getLocalizedField(course, "name")
           ?.toLowerCase()
           .includes(searchQuery.toLowerCase());
 
       return matchesSearch;
     });
-  }, [schools, searchQuery, normalizedLocale]);
+  }, [courses, searchQuery, normalizedLocale]);
 
-  // Calculate pagination based on FILTERED schools
-  const totalPages = Math.ceil(filteredSchools.length / schoolsPerpage);
-  const startIndex = (currentPage - 1) * schoolsPerpage;
-  const currentSchools = filteredSchools.slice(
+  // Calculate pagination based on FILTERED courses
+  const totalPages = Math.ceil(filteredcourses.length / coursesPerpage);
+  const startIndex = (currentPage - 1) * coursesPerpage;
+  const currentcourses = filteredcourses.slice(
     startIndex,
-    startIndex + schoolsPerpage
+    startIndex + coursesPerpage
   );
 
   // Reset to page 1 when search changes
@@ -114,7 +112,7 @@ export default function SchoolsPage() {
         {/* Text content */}
         <div className="relative z-10">
           <h1 className="text-2xl md:text-4xl lg:text-4xl font-bold text-custom-half max-w-4xl mb-6 tracking-tight p-2">
-            {t("SchoolPage.page title")}
+            {t("CoursePage.page title")}
           </h1>
         </div>
       </div>
@@ -216,7 +214,7 @@ export default function SchoolsPage() {
                 {t("ScholarshipsPage.error")}
               </div>
               <button
-                onClick={getSchools}
+                onClick={getcourses}
                 className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
               >
                 {t("SchoolPage.Try Again")}
@@ -224,13 +222,13 @@ export default function SchoolsPage() {
             </div>
           )}
 
-          {/* School Grid */}
-          {!loading && !error && currentSchools.length > 0 ? (
+          {/* course Grid */}
+          {!loading && !error && currentcourses.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
-              {currentSchools.map((school) => (
-                <SchoolCard
-                  key={school.id}
-                  school={school}
+              {currentcourses.map((course) => (
+                <CourseCard
+                  key={course.id}
+                  course={course}
                   getLocalizedField={getLocalizedField}
                 />
               ))}
@@ -240,9 +238,9 @@ export default function SchoolsPage() {
             !error && (
               <div className="text-center py-12">
                 <div className="text-gray-500 dark:text-gray-400 text-lg mb-4">
-                  {schools.length === 0
-                    ? "No schools available yet"
-                    : "No schools found matching your criteria"}
+                  {courses.length === 0
+                    ? "No courses available yet"
+                    : "No courses found matching your criteria"}
                 </div>
                 <button
                   onClick={() => {

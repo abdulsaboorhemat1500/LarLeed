@@ -18,7 +18,21 @@
     "description1": "د افغان پېغلو او ځوانانو وصل ",
     "description2": "د زده‌کړو، دایلوګ، او لید په وسیله"
   },
+  "CoursePage": {
+    "Fee": "فیس",
+    "Category": "کټګوري",
+    "Course Name": "د کورس نوم",
+    "Detailed Description": "د کورس اړوند مفصل معلومات",
+    "No detailed description available in": "هیڅ معلومات ونه موندل شول",
+    "Course Overview": "خلاصه",
+    "No overview available in": "هیڅ خلاصه ونه موندل شوه",
+    "Try Again": "بیا کوښښ وکړۍ",
+    "Error loading course": "هیڅ کورسونه ونه موندل شول",
+    "Access Course": "د کورس لینک",
+    "page title": "د مهارت لوړولو ډیجیټل کورسونو او پروګرامونو په اړه ولولئ، بیا هغه یو غوره کړئ او غوښتنه یې وکړئ چې ستاسو اړتیاو سره سم وي"
+  },
   "SchoolPage": {
+    "search": "پلنټه",
     "Visit Website": "له ویب پاڼي څخه کتنه",
     "Facebook": "فیسبوک",
     "Instagram": "اینستاګرام",
@@ -115,6 +129,11 @@
     "all rights reserved": "ټول حقوق خوندي دي"
   },
   "ScholarshipsPage": {
+    "Complete application process": "بورسیې ته د غوښتنلیک بشپړ پروسه",
+    "How did I get this scholarship": "همدا بورسیه مي څنګه ترلاسه کړه؟",
+    "Hear from successful students of this scholarship": "دې بورسیې ته له بریالي زده کونکو څخه یې واورئ",
+    "Watch Story": "د ویډیو وګورۍ",
+    "Scholarship related templates": "د بورسیې اړوند لومړني ضروري اسناد",
     "country1": "هیواد",
     "deadline": "پای نیټه",
     "page title": "د لوړو زده‌کړو اړوند لاندې پروګرامونه او بورسیې ولولئ او هغه پروګرام یا بورسیه چې ستاسې اړتیاوې په ښه توګه ځوابوي، وټاکئ او ورته اپلای وکړئ",

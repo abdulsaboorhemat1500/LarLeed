@@ -92,7 +92,7 @@ export default function HeaderSection() {
                 href={`/${locale}${item.href}`}
                 className={`
                   ${textSizeClass} 
-                  font-bold 
+                  font-semibold 
                   px-2.5 
                   py-1 
                   rounded-lg 

@@ -61,10 +61,9 @@ export default function ScholarshipTemplatesSection({
   // Handle template download
   const handleDownload = (template) => {
     if (template.word_file) {
-      // Create a temporary anchor element to trigger download
       const link = document.createElement("a");
       link.href = template.word_file;
-      link.download = `${template.template_name}.docx`; // You can make this dynamic based on file extension
+      link.download = `${template.template_name}.docx`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
@@ -90,7 +89,7 @@ export default function ScholarshipTemplatesSection({
         {/* Section Header */}
         <div className="text-center mb-8">
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Scholarship Resources Templates
+            {t("ScholarshipsPage.Scholarship related templates")}
           </h1>
         </div>
 

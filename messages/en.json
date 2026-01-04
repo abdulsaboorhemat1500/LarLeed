@@ -18,7 +18,21 @@
     "description1": "Connecting Afghan Youth ",
     "description2": "through Education, Dialogue, and Vision"
   },
+  "CoursePage": {
+    "Fee": "Fee",
+    "Category": "Category",
+    "Course Name": "Course Name",
+    "Detailed Description": "Detailed Description",
+    "No detailed description available in": "No detailed description available in",
+    "Course Overview": "Course Overview",
+    "No overview available in": "No overview available in",
+    "Try Again": "Try Again",
+    "Error loading course": "Error loading course",
+    "Access Course": "Access Course",
+    "page title": "Read about the Skill Up Digital Courses and Programs, then select and apply to the one that best suites your needs"
+  },
   "SchoolPage": {
+    "search": "Search for School",
     "Visit Website": "Visit Their Website",
     "Facebook": "Facebook",
     "Instagram": "Instagram",
@@ -33,7 +47,7 @@
     "School Overview": "School Overview",
     "Try Again": "Try Again",
     "Error loading school": "Error loading school",
-    "page title": "Read about the programs for grades 1–12 below, then select and apply to the one that best suits your needs."
+    "page title": "Read about the programs for grades 1–12 below, then select and apply to the one that best suits your needs"
   },
   "HomePage": {
     "Support Our Mission": "Support Our Mission",
@@ -115,6 +129,11 @@
     "all rights reserved": "All Rights Reserved"
   },
   "ScholarshipsPage": {
+    "Complete application process": "Complete application process",
+    "How did I get this scholarship": "How did I get this scholarship?",
+    "Hear from successful students of this scholarship": "Hear from successful students of this scholarship",
+    "Watch Story": "Watch Story",
+    "Scholarship related templates": "Scholarship related templates",
     "country1": "Country :",
     "deadline": "Deadline :",
     "page title": "Read about higher education programs and scholarships below, then select and apply to the one that best suits your needs.",

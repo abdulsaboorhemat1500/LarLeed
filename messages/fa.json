@@ -18,7 +18,21 @@
     "description1": "وصل نمودن جوانان افغان ",
     "description2": "از طریق آموزش، گفتگو و چشم انداز"
   },
+  "CoursePage": {
+    "Fee": "فیس",
+    "Category": "کتګوری",
+    "Course Name": "اسم کورس",
+    "Detailed Description": "معلومات مفصل",
+    "No detailed description available in": "هیچ معلومات مفصل پیدا نشد در",
+    "Course Overview": "معلومات خلص",
+    "No overview available in": "هیچ معلومات یافته نشد در",
+    "Try Again": "دوباره امتحان کنید",
+    "Error loading course": "مشکل در یافتن کورس ها",
+    "Access Course": "لینک کورس",
+    "page title": "درباره دوره‌ها و برنامه‌های دیجیتال Skill Up مطالعه کنید، سپس یکی را که به بهترین وجه با نیازهای شما مطابقت دارد انتخاب و برای آن درخواست دهید"
+  },
   "SchoolPage": {
+    "search": "جستجو",
     "Visit Website": "از وب سایت آنها دیدن کنید",
     "Facebook": "فیسبوک",
     "Instagram": "اینستاگرام",
@@ -115,6 +129,11 @@
     "all rights reserved": "تمامی حقوق محفوظ است"
   },
   "ScholarshipsPage": {
+    "Complete application process": "فرآیند کامل درخواست به بورسیه",
+    "How did I get this scholarship": "چطور این بورسیه را گرفتم؟",
+    "Hear from successful students of this scholarship": "از دانشجویان موفق این بورسیه بشنوید",
+    "Watch Story": "دیدن ویدیو",
+    "Scholarship related templates": "مواد ضروری اولیه مربوط به بورسیه",
     "country1": "کشور :",
     "deadline": "اخرین مهلت",
     "page title": "برنامه‌ها و بورسیه‌های تحصیلی زیر مربوط به آموزش عالی را مطالعه کنید، برنامه یا بورسیه‌ای را که به بهترین وجه نیازهای شما را برآورده می‌کند انتخاب کنید و برای آن درخواست دهید.",

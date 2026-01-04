@@ -1,9 +1,9 @@
-'use client';
-export const runtime = 'edge';
-export const dynamic = 'force-dynamic';
-import { useRouter, useParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import { useApi } from '@/app/hooks/useApi';
+"use client";
+export const runtime = "edge";
+export const dynamic = "force-dynamic";
+import { useRouter, useParams } from "next/navigation";
+import { useState, useEffect, useRef } from "react";
+import { useApi } from "@/app/hooks/useApi";
 
 export default function ApplicationDetailsPage() {
   const router = useRouter();
@@ -13,6 +13,7 @@ export default function ApplicationDetailsPage() {
   const [application, setApplication] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [downloading, setDownloading] = useState(false);
   const { get } = useApi();
 
   useEffect(() => {
@@ -26,29 +27,29 @@ export default function ApplicationDetailsPage() {
       setLoading(true);
       setError(null);
       const result = await get(`/api/applyingScholarships/${id}`);
-      
-      console.log('📦 API Response:', result);
+
+      console.log("📦 API Response:", result);
 
       if (result.success) {
         setApplication(result.data);
       } else {
-        setError(result.error || 'Failed to fetch application');
+        setError(result.error || "Failed to fetch application");
       }
     } catch (err) {
-      console.error('🚨 Fetch error:', err);
-      setError('Network error. Please try again.');
+      console.error("🚨 Fetch error:", err);
+      setError("Network error. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
   const formatDate = (dateString) => {
-    if (!dateString) return 'N/A';
+    if (!dateString) return "N/A";
     try {
-      return new Date(dateString).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
+      return new Date(dateString).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
       });
     } catch {
       return dateString;
@@ -64,12 +65,90 @@ export default function ApplicationDetailsPage() {
     }
   };
 
+  // Function to generate and download PDF
+  const downloadPDF = () => {
+    if (!application) return;
+
+    setDownloading(true);
+
+    try {
+      // Create PDF content
+      const pdfContent = `
+        Scholarship Application Details
+        =================================
+        
+        Personal Information:
+        ---------------------
+        Full Name: ${application.full_name || "N/A"}
+        Email: ${application.email || "N/A"}
+        Phone: ${application.phone || "N/A"}
+        Address: ${application.address || "N/A"}
+        Date of Birth: ${formatDate(application.date_of_birth)}
+        
+        Academic Information:
+        ---------------------
+        University: ${application.uni_name || "N/A"}
+        Level of Study: ${application.level_of_study || "N/A"}
+        Graduation Year: ${application.graduation_year || "N/A"}
+        Major: ${application.major || "N/A"}
+        GPA: ${application.gpa || "N/A"}
+        
+        Scholarship Information:
+        ------------------------
+        Scholarship Name: ${application.sch_name || "N/A"}
+        Country: ${application.sch_country || "N/A"}
+        University: ${application.sch_university || "N/A"}
+        Study Level: ${application.sch_level || "N/A"}
+        Application Deadline: ${formatDate(application.sch_deadline)}
+        Status: ${
+          isDeadlineActive(application.sch_deadline) ? "Active" : "Expired"
+        }
+        
+        Application Details:
+        --------------------
+        Application ID: ${application.id}
+        Created At: ${formatDate(application.created_at)}
+        Last Updated: ${formatDate(application.updated_at)}
+        
+        Generated on: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}
+      `;
+
+      // Create blob
+      const blob = new Blob([pdfContent], { type: "application/pdf" });
+
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      // Generate filename
+      const fileName = `Scholarship_Application_${
+        application.full_name || "Application"
+      }_${application.id}_${new Date().getTime()}.pdf`;
+
+      link.href = url;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+
+      // Cleanup
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      alert("Failed to generate PDF. Please try again.");
+    } finally {
+      setDownloading(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Application Details</h1>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Application Details
+            </h1>
             <button
               onClick={() => router.back()}
               className="cursor-pointer bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
@@ -94,7 +173,9 @@ export default function ApplicationDetailsPage() {
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Application Details</h1>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Application Details
+            </h1>
             <button
               onClick={() => router.back()}
               className="cursor-pointer bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
@@ -104,11 +185,23 @@ export default function ApplicationDetailsPage() {
           </div>
           <div className="bg-white rounded-lg shadow-md p-8 text-center">
             <div className="text-red-600 mb-4">
-              <svg className="w-16 h-16 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <svg
+                className="w-16 h-16 mx-auto"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">Error Loading Application</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              Error Loading Application
+            </h3>
             <p className="text-gray-600 mb-4">{error}</p>
             <button
               onClick={fetchApplication}
@@ -127,7 +220,9 @@ export default function ApplicationDetailsPage() {
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">Application Details</h1>
+            <h1 className="text-3xl font-bold text-gray-900">
+              Application Details
+            </h1>
             <button
               onClick={() => router.back()}
               className="cursor-pointer bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
@@ -150,15 +245,74 @@ export default function ApplicationDetailsPage() {
         <div className="mb-8">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Application Details</h1>
-              <p className="text-gray-600 mt-1">Name: {application.full_name}</p>
+              <h1 className="text-3xl font-bold text-gray-900">
+                Application Details
+              </h1>
+              <p className="text-gray-600 mt-1">
+                Name: {application.full_name}
+              </p>
             </div>
-            <button
-              onClick={() => router.back()}
-              className="cursor-pointer bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
-            >
-              Back to List
-            </button>
+            <div className="flex gap-3">
+              {/* PDF Download Button */}
+              <button
+                onClick={downloadPDF}
+                disabled={downloading}
+                className={`cursor-pointer flex items-center gap-2 px-4 py-3 rounded-lg font-medium transition-colors duration-200 ${
+                  downloading
+                    ? "bg-gray-400 text-white cursor-not-allowed"
+                    : "bg-green-500 hover:bg-green-600 text-white"
+                }`}
+              >
+                {downloading ? (
+                  <>
+                    <svg
+                      className="animate-spin h-5 w-5 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Generating PDF...
+                  </>
+                ) : (
+                  <>
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
+                    </svg>
+                    Download PDF
+                  </>
+                )}
+              </button>
+
+              <button
+                onClick={() => router.back()}
+                className="cursor-pointer bg-purple-500 hover:bg-purple-600 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200"
+              >
+                Back to List
+              </button>
+            </div>
           </div>
         </div>
 
@@ -166,36 +320,48 @@ export default function ApplicationDetailsPage() {
           {/* Personal Information Section */}
           <div className="border-b border-gray-200">
             <div className="px-6 py-4 bg-gray-50">
-              <h2 className="text-lg font-semibold text-gray-900">Personal Information</h2>
+              <h2 className="text-lg font-semibold text-gray-900">
+                Personal Information
+              </h2>
             </div>
             <div className="px-6 py-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Full Name
+                  </label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
-                    {application.full_name || 'N/A'}
+                    {application.full_name || "N/A"}
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Email Address
+                  </label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
-                    {application.email || 'N/A'}
+                    {application.email || "N/A"}
                   </div>
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Address</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Address
+                  </label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
-                    {application.address || 'N/A'}
+                    {application.address || "N/A"}
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Phone Number
+                  </label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
-                    {application.phone || 'N/A'}
+                    {application.phone || "N/A"}
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Date of Birth</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Date of Birth
+                  </label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
                     {formatDate(application.date_of_birth)}
                   </div>
@@ -207,43 +373,55 @@ export default function ApplicationDetailsPage() {
           {/* Academic Information Section */}
           <div className="border-b border-gray-200">
             <div className="px-6 py-4 bg-gray-50">
-              <h2 className="text-lg font-semibold text-gray-900">Academic Information</h2>
+              <h2 className="text-lg font-semibold text-gray-900">
+                Academic Information
+              </h2>
             </div>
             <div className="px-6 py-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">University Name</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    University Name
+                  </label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
-                    {application.uni_name || 'N/A'}
+                    {application.uni_name || "N/A"}
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Level of Study</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Level of Study
+                  </label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
-                    {application.level_of_study || 'N/A'}
+                    {application.level_of_study || "N/A"}
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Graduation Year</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Graduation Year
+                  </label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
-                    {application.graduation_year || 'N/A'}
+                    {application.graduation_year || "N/A"}
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Major/Field of Study</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Major/Field of Study
+                  </label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
-                    {application.major || 'N/A'}
+                    {application.major || "N/A"}
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">GPA</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    GPA
+                  </label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
                     {application.gpa ? (
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
                         {application.gpa}
                       </span>
                     ) : (
-                      'N/A'
+                      "N/A"
                     )}
                   </div>
                 </div>
@@ -254,54 +432,70 @@ export default function ApplicationDetailsPage() {
           {/* Scholarship Information Section */}
           <div>
             <div className="px-6 py-4 bg-gray-50">
-              <h2 className="text-lg font-semibold text-gray-900">Scholarship Information</h2>
+              <h2 className="text-lg font-semibold text-gray-900">
+                Scholarship Information
+              </h2>
             </div>
             <div className="px-6 py-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Scholarship Name</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Scholarship Name
+                  </label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
-                    {application.sch_name || 'N/A'}
+                    {application.sch_name || "N/A"}
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Country</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Country
+                  </label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
-                    {application.sch_country || 'N/A'}
+                    {application.sch_country || "N/A"}
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">University</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    University
+                  </label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
-                    {application.sch_university || 'N/A'}
+                    {application.sch_university || "N/A"}
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Study Level</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Study Level
+                  </label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
                     {application.sch_level ? (
                       <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                         {application.sch_level}
                       </span>
                     ) : (
-                      'N/A'
+                      "N/A"
                     )}
                   </div>
                 </div>
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Application Deadline</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Application Deadline
+                  </label>
                   <div className="text-sm text-gray-900 bg-gray-50 px-3 py-2 rounded border">
                     {application.sch_deadline ? (
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        isDeadlineActive(application.sch_deadline) 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-red-100 text-red-800'
-                      }`}>
+                      <span
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          isDeadlineActive(application.sch_deadline)
+                            ? "bg-green-100 text-green-800"
+                            : "bg-red-100 text-red-800"
+                        }`}
+                      >
                         {formatDate(application.sch_deadline)}
-                        {isDeadlineActive(application.sch_deadline) ? ' (Active)' : ' (Expired)'}
+                        {isDeadlineActive(application.sch_deadline)
+                          ? " (Active)"
+                          : " (Expired)"}
                       </span>
                     ) : (
-                      'N/A'
+                      "N/A"
                     )}
                   </div>
                 </div>
