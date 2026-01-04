@@ -42,91 +42,27 @@ export default function ApplicationsListPage() {
   }, []);
 
   // Handle mark as reviewed
-  // const handleMarkAsReviewed = async (applicationId) => {
-  //   try {
-  //     setUpdatingId(applicationId);
-
-  //     const application = applications.find((app) => app.id === applicationId);
-  //     if (!application) return;
-
-  //     const formData = new FormData();
-
-  //     Object.keys(application).forEach((key) => {
-  //       if (
-  //         key !== "id" &&
-  //         key !== "created_at" &&
-  //         key !== "updated_at" &&
-  //         application[key] !== null &&
-  //         application[key] !== undefined
-  //       ) {
-  //         formData.append(key, application[key]);
-  //       }
-  //     });
-
-  //     formData.append("form_status", "reviewed");
-
-  //     const result = await put(
-  //       `/api/applyingScholarships/${applicationId}`,
-  //       formData
-  //     );
-
-  //     if (result.success) {
-  //       setApplications((prevApplications) =>
-  //         prevApplications.map((app) =>
-  //           app.id === applicationId ? { ...app, form_status: "reviewed" } : app
-  //         )
-  //       );
-  //       console.log("Application marked as reviewed");
-  //     } else {
-  //       throw new Error(result.error || "Failed to update application");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error marking as reviewed:", error);
-  //     alert("Failed to mark as reviewed. Please try again.");
-  //   } finally {
-  //     setUpdatingId(null);
-  //   }
-  // };
-
-  // Handle status updates (accepted, rejected, etc.)
-  const handleStatusUpdate = async (applicationId, newStatus) => {
-    try {
-      setUpdatingId(applicationId);
-
-      // Create simple form data with ONLY the form_status
-      const formData = new FormData();
-      formData.append("form_status", newStatus);
-
-      const result = await put(
-        `/api/applyingScholarships/${applicationId}`,
-        formData
-      );
-
-      if (result.success) {
-        setApplications((prevApplications) =>
-          prevApplications.map((app) =>
-            app.id === applicationId ? { ...app, form_status: newStatus } : app
-          )
-        );
-        console.log(`Application marked as ${newStatus}`);
-      } else {
-        throw new Error(result.error || "Failed to update application");
-      }
-    } catch (error) {
-      console.error("Error updating status:", error);
-      alert(`Failed to mark as ${newStatus}. Please try again.`);
-    } finally {
-      setUpdatingId(null);
-    }
-  };
-
-  // Also update the handleMarkAsReviewed function similarly:
   const handleMarkAsReviewed = async (applicationId) => {
     try {
       setUpdatingId(applicationId);
 
-      // Create simple form data with ONLY the form_status
+      const application = applications.find((app) => app.id === applicationId);
+      if (!application) return;
+
       const formData = new FormData();
+
+      Object.keys(application).forEach((key) => {
+        if (
+          key !== "id" &&
+          key !== "created_at" &&
+          key !== "updated_at" &&
+          application[key] !== null &&
+          application[key] !== undefined
+        ) {
+          formData.append(key, application[key]);
+        }
+      });
+
       formData.append("form_status", "reviewed");
 
       const result = await put(
@@ -151,6 +87,66 @@ export default function ApplicationsListPage() {
       setUpdatingId(null);
     }
   };
+
+  const handleStatusUpdate = async (applicationId, newStatus) => {
+    try {
+      setUpdatingId(applicationId);
+
+      const result = await put(
+        `/api/applyingScholarships/${applicationId}`,
+        { form_status: newStatus },
+        true // Set to true to send as JSON
+      );
+
+      if (result.success) {
+        setApplications((prevApplications) =>
+          prevApplications.map((app) =>
+            app.id === applicationId ? { ...app, form_status: newStatus } : app
+          )
+        );
+        console.log(`Application marked as ${newStatus}`);
+      } else {
+        throw new Error(result.error || "Failed to update application");
+      }
+    } catch (error) {
+      console.error("Error updating status:", error);
+      alert(`Failed to mark as ${newStatus}. Please try again.`);
+    } finally {
+      setUpdatingId(null);
+    }
+  };
+
+  // Also update the handleMarkAsReviewed function similarly:
+  // const handleMarkAsReviewed = async (applicationId) => {
+  //   try {
+  //     setUpdatingId(applicationId);
+
+  //     // Create simple form data with ONLY the form_status
+  //     const formData = new FormData();
+  //     formData.append("form_status", "reviewed");
+
+  //     const result = await put(
+  //       `/api/applyingScholarships/${applicationId}`,
+  //       formData
+  //     );
+
+  //     if (result.success) {
+  //       setApplications((prevApplications) =>
+  //         prevApplications.map((app) =>
+  //           app.id === applicationId ? { ...app, form_status: "reviewed" } : app
+  //         )
+  //       );
+  //       console.log("Application marked as reviewed");
+  //     } else {
+  //       throw new Error(result.error || "Failed to update application");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error marking as reviewed:", error);
+  //     alert("Failed to mark as reviewed. Please try again.");
+  //   } finally {
+  //     setUpdatingId(null);
+  //   }
+  // };
 
   // Get unique values for filters
   const uniqueLevels = useMemo(() => {
@@ -452,50 +448,6 @@ export default function ApplicationsListPage() {
                     <option value="accepted">Accepted</option>
                     <option value="rejected">Rejected</option>
                     <option value="unknown">Unknown</option>
-                  </select>
-                </div>
-
-                {/* Level Filter */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Scholarship Level
-                  </label>
-                  <select
-                    value={levelFilter}
-                    onChange={(e) => {
-                      setLevelFilter(e.target.value);
-                      setCurrentPage(1);
-                    }}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  >
-                    <option value="">All Levels</option>
-                    {uniqueLevels.map((level) => (
-                      <option key={level} value={level}>
-                        {level}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Country Filter */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Country
-                  </label>
-                  <select
-                    value={countryFilter}
-                    onChange={(e) => {
-                      setCountryFilter(e.target.value);
-                      setCurrentPage(1);
-                    }}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  >
-                    <option value="">All Countries</option>
-                    {uniqueCountries.map((country) => (
-                      <option key={country} value={country}>
-                        {country}
-                      </option>
-                    ))}
                   </select>
                 </div>
               </div>
