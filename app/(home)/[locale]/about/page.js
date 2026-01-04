@@ -8,6 +8,169 @@ import { useTranslations } from "@/hooks/useTranslations";
 
 export const runtime = "edge";
 
+// Generate metadata for SEO
+export async function generateMetadata({ params }) {
+  const { locale = "en" } = await params;
+
+  // Locale-specific metadata
+  const metadataByLocale = {
+    en: {
+      title: "About Larleed - Empowering Education in Afghanistan",
+      description:
+        "Learn about Larleed's mission to provide educational resources, scholarships, and mentorship for Afghan students. Discover our story, values, and impact.",
+      keywords:
+        "Afghanistan education, scholarships, student resources, educational support, mentorship, Larleed foundation",
+      openGraph: {
+        title: "About Larleed - Transforming Education in Afghanistan",
+        description:
+          "Empowering Afghan students through scholarships, mentorship, and educational resources. Join our mission to create educational opportunities.",
+        url: `https://larleed.org/${locale}about`,
+        siteName: "Larleed",
+        images: [
+          {
+            url: "https://www.mile.ie/wp-content/uploads/2022/04/icons_about.png",
+            width: 1200,
+            height: 630,
+            alt: "Larleed - Empowering Afghan Education",
+          },
+        ],
+        locale: "en_US",
+        type: "website",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: "About Larleed - Empowering Education in Afghanistan",
+        description:
+          "Learn about Larleed's mission to provide educational resources for Afghan students",
+        images: [
+          "https://www.mile.ie/wp-content/uploads/2022/04/icons_about.png",
+        ],
+      },
+    },
+    ps: {
+      title: "لرلید - دافغان پیغلو او ځوانانو وصلول",
+      description:
+        "د لرلید ماموریت، ارزښتونه او اغیزې وپېژنئ. د افغان زده کړیالانو لپاره د زده کړې سرچینې، بورسونه او لارښوونې چمتو کول.",
+      keywords:
+        "افغانستان زده کړه, بورسونه, بورسیه، مکاتب، درسونه، لرلید څوک ده، د لرلید په اړه، لرلید کور، لرلید افغانستان، د افغانستان لرلید، زموږ لرلید، زموږ په اړه، د افغان پیغلو هیله، زده کوونکي، زموږ کور، سکالرشیپونه، انلاین سکالرشیپونه، زده کوونکي،زده کړیالان, زده کړې مرستې, لارښوونې, لارلیډ بنسټ",
+      openGraph: {
+        title: "د لرلید په اړه - په افغانستان کې د زده کړې بدلون",
+        description:
+          "د بورسونو، لارښوونو او زده کړې سرچینو له لارې د افغان زده کړیالانو پیاوړتیا. زموږ په ماموریت کې ګډون وکړئ.",
+        url: "https://larleed.org/ps/about",
+        siteName: "لرلید",
+        images: [
+          {
+            url: "https://www.mile.ie/wp-content/uploads/2022/04/icons_about.png",
+            width: 1200,
+            height: 630,
+            alt: "لرلید - دافغان پیغلو او ځوانانو وصلول",
+          },
+        ],
+        locale: "ps_AF",
+        type: "website",
+      },
+    },
+    fa: {
+      title: "درباره لرلید - وصل نمودن جوانان افغان",
+      description:
+        "ماموریت، ارزش‌ها و تأثیرات لرلید را بشناسید. ارائه منابع آموزشی، بورسیه‌ها و راهنمایی برای دانش‌آموزان افغان.",
+      keywords:
+        "آموزش افغانستان, بورسیه‌ها, دانش‌آموزان, حمایت آموزشی, راهنمایی, سکالرشیپ ها، سکالرشیپ، بورس، افغانستان بورسیه ها، بورسیه های ازاد، بورسیه های انلاین، کورس ها، کورس های رایګان، کوډ، ویب، ډیزاین، مکاتب، دروس ها، درس انلاین، درس دادن، بنیاد لارلید",
+      openGraph: {
+        title: "درباره لرلید - تحول آموزش در افغانستان",
+        description:
+          "توانمندسازی دانش‌آموزان افغان از طریق بورسیه‌ها، راهنمایی و منابع آموزشی. به مأموریت ما بپیوندید.",
+        url: "https://larleed.org/fa/about",
+        siteName: "لارلید",
+        images: [
+          {
+            url: "https://www.mile.ie/wp-content/uploads/2022/04/icons_about.png",
+            width: 1200,
+            height: 630,
+            alt: "لرلید - وصل نمودن جوانان افغان",
+          },
+        ],
+        locale: "fa_AF",
+        type: "website",
+      },
+    },
+  };
+
+  const localeMetadata = metadataByLocale[locale] || metadataByLocale.en;
+
+  return {
+    title: localeMetadata.title,
+    description: localeMetadata.description,
+    keywords: localeMetadata.keywords,
+
+    // Open Graph (Facebook, LinkedIn, etc.)
+    openGraph: {
+      ...localeMetadata.openGraph,
+    },
+
+    // Twitter
+    twitter: locale === "en" ? localeMetadata.twitter : undefined,
+
+    // Additional metadata
+    alternates: {
+      canonical: `https://larleed.org/${locale}/about`,
+      languages: {
+        en: "https://larleed.org/en/about",
+        ps: "https://larleed.org/ps/about",
+        fa: "https://larleed.org/fa/about",
+      },
+    },
+
+    // Robots
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
+    },
+
+    
+
+    // Structured data for rich snippets
+    other: {
+      // JSON-LD structured data
+      "application/ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "Larleed",
+        url: "https://larleed.org",
+        logo: "https://larleed.org/logo.png",
+        description: localeMetadata.description,
+        founder: {
+          "@type": "Abdul Hamid",
+          name: "Organization Founder",
+        },
+        address: {
+          "@type": "PostalAddress",
+          addressCountry: "Afghanistan",
+        },
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "customer service",
+          email: "info@larleed.org",
+        },
+        sameAs: [
+          "https://facebook.com/larleed",
+          "https://twitter.com/larleed",
+          "https://linkedin.com/company/larleed",
+          "https://instagram.com/larleed",
+        ],
+      }),
+    },
+  };
+}
+
 export default function AboutPage() {
   const [threeSectionTexts, setThreeSectionTexts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -59,6 +222,55 @@ export default function AboutPage() {
 
   const aboutText = getLocalizedAboutText();
 
+  // Structured data for rich snippets (Breadcrumb and AboutPage)
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: locale === "en" ? "Home" : locale === "ps" ? "کور" : "خانه",
+          item: `https://larleed.org/${locale}`,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name:
+            locale === "en" ? "About" : locale === "ps" ? "په اړه" : "درباره",
+          item: `https://larleed.org/${locale}/about`,
+        },
+      ],
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      name:
+        locale === "en"
+          ? "About Larleed"
+          : locale === "ps"
+          ? "د لارلیډ په اړه"
+          : "درباره لارلید",
+      description:
+        locale === "en"
+          ? "Learn about Larleed's mission to provide educational resources, scholarships, and mentorship for Afghan students."
+          : locale === "ps"
+          ? "د لارلیډ ماموریت، ارزښتونه او اغیزې وپېژنئ. د افغان زده کړیالانو لپاره د زده کړې سرچینې، بورسونه او لارښوونې."
+          : "ماموریت، ارزش‌ها و تأثیرات لارلید را بشناسید. ارائه منابع آموزشی، بورسیه‌ها و راهنمایی برای دانش‌آموزان افغان.",
+      publisher: {
+        "@type": "Organization",
+        name: "Larleed",
+        logo: {
+          "@type": "ImageObject",
+          url: "https://larleed.org/logo.png",
+        },
+      },
+      datePublished: "2023-01-01",
+      dateModified: new Date().toISOString().split("T")[0],
+    },
+  ];
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4 sm:px-6 lg:px-8">
@@ -71,6 +283,12 @@ export default function AboutPage() {
 
   return (
     <>
+      {/* Structured data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
       <section
         id="donate"
         className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50"
@@ -90,17 +308,42 @@ export default function AboutPage() {
           </div>
 
           <div className="flex flex-col items-center justify-center min-h-screen py-12">
-            {/* Header */}
-            <div className="text-center mb-12">
+            {/* Breadcrumb Navigation for SEO */}
+            <nav className="w-full max-w-7xl mb-8" aria-label="Breadcrumb">
+              <ol className="flex items-center space-x-2 text-sm text-gray-600">
+                <li>
+                  <a href={`/${locale}`} className="hover:text-blue-600">
+                    {locale === "en"
+                      ? "Home"
+                      : locale === "ps"
+                      ? "کور"
+                      : "خانه"}
+                  </a>
+                </li>
+                <li>
+                  <span className="mx-2">/</span>
+                </li>
+                <li className="text-gray-900 font-medium" aria-current="page">
+                  {locale === "en"
+                    ? "About"
+                    : locale === "ps"
+                    ? "په اړه"
+                    : "درباره"}
+                </li>
+              </ol>
+            </nav>
+
+            {/* Header with semantic HTML for SEO */}
+            <header className="text-center mb-12">
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                 {t("HomePage.about larleed")}
               </h1>
               <div className="w-24 h-1.5 bg-cutom-half mx-auto rounded-full"></div>
-            </div>
+            </header>
 
-            {/* About Content Card */}
-            <div className="w-full max-w-7xl">
-              <div className="rounded-2xl shadow-xl border border-blue/50 p-8 lg:p-12">
+            {/* About Content Card with semantic HTML */}
+            <main className="w-full max-w-7xl">
+              <article className="rounded-2xl shadow-xl border border-blue/50 p-8 lg:p-12">
                 {aboutText ? (
                   <div
                     className="text-gray-700 leading-relaxed text-lg prose prose-lg max-w-none
@@ -144,13 +387,15 @@ export default function AboutPage() {
                         />
                       </svg>
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-700 mb-3">
+                    <h2 className="text-2xl font-bold text-gray-700 mb-3">
                       About Content Coming Soon
-                    </h3>
+                    </h2>
                   </div>
                 )}
-              </div>
-            </div>
+              </article>
+            </main>
+
+          
           </div>
         </div>
       </section>

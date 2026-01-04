@@ -230,10 +230,10 @@ export default function ApplicationsListPage() {
       <button
         onClick={() => handleMarkAsReviewed(application.id)}
         disabled={updatingId === application.id}
-        className={`w-full px-3 py-2 rounded transition-colors duration-200 cursor-pointer text-center text-sm font-medium ${
+        className={`   cursor-pointer text-center text-sm font-medium ${
           updatingId === application.id
             ? "bg-gray-300 text-gray-700 cursor-not-allowed"
-            : "bg-blue-600 text-white hover:bg-blue-700"
+            : "bg-blue-600 text-white "
         }`}
       >
         {updatingId === application.id ? "Marking..." : "Mark as Reviewed"}
