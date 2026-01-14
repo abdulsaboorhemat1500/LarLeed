@@ -9,7 +9,7 @@ import {
   Menu,
   BookOpen,
   GraduationCap,
-  FileCertificate,
+  NotebookText,
   Users,
   Heart,
   Info,
@@ -59,7 +59,7 @@ const ThreeWordText = ({ text, isMobile = false }) => {
 const iconMap = {
   school: BookOpen,
   scholarshipsPrograms: GraduationCap,
-  certifications: FileCertificate,
+  certifications: NotebookText,
   mentorships: Users,
   donate: Heart,
   aboutUs: Info,
@@ -219,14 +219,6 @@ export default function HeaderSection() {
                   </Link>
                 );
               })}
-            </div>
-
-            {/* Language Selector in Mobile Menu */}
-            <div className="mt-8 pt-6 border-t border-gray-200">
-              <div className="text-sm font-medium text-gray-500 mb-3 px-1">
-                {t("Header.selectLanguage")}
-              </div>
-              <SimpleLanguageDropdown />
             </div>
           </div>
         </div>
